@@ -1,282 +1,261 @@
-import express, { type Request, Response, NextFunction } from "express";
-import { registerRoutes } from "./routes";
-import { setupVite, serveStatic, log } from "./vite";
-import { registerAiAdminRoutes } from "./lib/aiAdminRoutes";
-import session from 'express-session';
-import connectPgSimple from 'connect-pg-simple';
-import { pool } from './db';
-import authRoutes from './routes/auth';
-import configRoutes from './routes/config';
-import itinerariesRoutes from './routes/itineraries';
-import { attachCurrentUser } from './middleware/requireAuth';
+// server/index.ts - Simplified Version from User Prompt
 
-// Import config module
-import './config';
+// STEP 1: Load environment variables FIRST
+console.log('🔧 Loading environment variables...');
 
-// Set up session store
-const PgSession = connectPgSimple(session);
+import dotenv from 'dotenv';
+import path from 'path';
+import fs from 'fs';
 
-// Check for session secret
-if (!process.env.SESSION_SECRET) {
-  console.warn('Warning: SESSION_SECRET not set in environment. Using a default secret. This is not secure for production.');
+const envPath = path.resolve(process.cwd(), '.env');
+console.log('📄 .env file path:', envPath);
+console.log('📄 .env file exists:', fs.existsSync(envPath));
+
+const result = dotenv.config({ path: envPath });
+if (result.error) {
+  console.error('❌ Error loading .env:', result.error);
+} else {
+  console.log('✅ Environment variables loaded by dotenv (keys found):', Object.keys(result.parsed || {}));
 }
 
-const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// Verify critical environment variables on process.env
+console.log('🔍 Environment check (process.env):');
+console.log('   DATABASE_URL present:', !!process.env.DATABASE_URL);
+console.log('   GOOGLE_PLACES_API_KEY present:', !!process.env.GOOGLE_PLACES_API_KEY);
+console.log('   GOOGLE_PLACES_API_KEY length:', process.env.GOOGLE_PLACES_API_KEY?.length || 0);
+console.log('   GEMINI_API_KEY present:', !!process.env.GEMINI_API_KEY);
 
-// Configure session middleware
-app.use(session({
-  store: new PgSession({
-    pool,
-    tableName: 'sessions' // Must match the table name in your schema
-  }),
-  secret: process.env.SESSION_SECRET || 'nyc-day-planner-dev-secret',
+// STEP 2: Now import everything else
+import express from 'express';
+import session from 'express-session';
+import { createServer } from 'http';
+import { z } from 'zod'; // For error handling if needed
+
+// Import database and storage (db.ts now defers initialization)
+import { db, getDb } from './db'; // getDb ensures initialization
+import { storage } from './storage';
+
+// Import services and validation
+import { ItineraryPlanningService, type PlanRequestOptions } from './services/ItineraryPlanningService';
+
+// Import routes
+import { registerRoutes } from './routes'; // This will need planningService
+import authRoutes from './routes/auth'; // This should use the new error-resistant handler
+// import configRoutes from './routes/config'; // Config routes might not be needed if config is simplified or bypassed
+// import itinerariesRoutes from './routes/itineraries'; // These are likely part of registerRoutes
+
+// Import middleware
+import { attachCurrentUser } from './middleware/requireAuth'; // Uses the updated error-resistant version
+import { setupVite, serveStatic } from './vite';
+import { AppError, ValidationError } from "./lib/errors"; // For global error handler
+
+
+const app = express();
+
+// Test database connection
+async function testDatabaseConnection() {
+  try {
+    console.log('🗄️  Testing database connection...');
+    const currentDb = getDb(); // This will trigger initialization if not already done
+    // @ts-ignore - Assuming execute is a valid method on your db instance from Drizzle/Neon
+    await currentDb.execute('SELECT 1 as test');
+    console.log('✅ Database connection successful');
+  } catch (error) {
+    console.error('❌ Database connection failed during testDatabaseConnection:', error);
+    // Allow server to continue starting to see other logs, but this is a critical failure.
+    // process.exit(1); // Optionally exit if DB is absolutely required to start
+  }
+}
+
+// Session configuration
+const sessionConfig = {
+  secret: process.env.SESSION_SECRET || 'dev-fallback-secret-CHANGE-IN-PRODUCTION',
   resave: false,
   saveUninitialized: false,
-  cookie: { 
+  cookie: {
     secure: process.env.NODE_ENV === 'production',
-    maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
-  }
-}));
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+  },
+};
 
-// Attach current user to all requests for easy access
-app.use(attachCurrentUser);
+if (!process.env.SESSION_SECRET) {
+  console.warn('⚠️  SESSION_SECRET not set, using fallback. SET THIS FOR PRODUCTION!');
+}
 
-// Register authentication routes
-app.use('/api/auth', authRoutes);
+app.use(session(sessionConfig));
 
-// Register configuration routes
-app.use('/api/config', configRoutes);
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(attachCurrentUser); // Use the updated error-resistant version
 
-// Register itineraries routes
-app.use('/api/itineraries', itinerariesRoutes);
-
-// Serve static files for NYC route
-app.use('/NYC', express.static('dist/public'));
-// Also serve at root for custom domain access
-app.use('/', express.static('dist/public'));
-
+// Request logging
 app.use((req, res, next) => {
   const start = Date.now();
-  const path = req.path;
-  let capturedJsonResponse: Record<string, any> | undefined = undefined;
-
-  const originalResJson = res.json;
-  res.json = function (bodyJson, ...args) {
-    capturedJsonResponse = bodyJson;
-    return originalResJson.apply(res, [bodyJson, ...args]);
-  };
-
-  res.on("finish", () => {
+  res.on('finish', () => {
     const duration = Date.now() - start;
-    if (path.startsWith("/api")) {
-      let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
-      if (capturedJsonResponse) {
-        logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
-      }
-
-      if (logLine.length > 80) {
-        logLine = logLine.slice(0, 79) + "…";
-      }
-
-      log(logLine);
-    }
+    console.log(`${req.method} ${req.originalUrl} ${res.statusCode} ${duration}ms`); // Using req.originalUrl
   });
-
   next();
 });
 
-(async () => {
-  // Add database migration check
-  console.log("Running database migrations...");
+// Routes
+app.use('/api/auth', authRoutes); // Uses the updated error-resistant version
+// app.use('/api/config', configRoutes); // Assuming configRoutes are not primary focus now
+// app.use('/api/itineraries', itinerariesRoutes); // Assuming these are part of main registerRoutes
 
-  // Add this function to ensure database tables exist
-  async function ensureDatabaseTables() {
-    try {
-      // Check if the places table exists
-      const tableCheck = await pool.query(`
-        SELECT EXISTS (
-          SELECT FROM information_schema.tables 
-          WHERE table_schema = 'public' 
-          AND table_name = 'places'
-        );
-      `);
-      
-      const placesTableExists = tableCheck.rows[0].exists;
-      
-      if (!placesTableExists) {
-        console.log("Places table does not exist, creating it now...");
-        
-        // Create the places table
-        await pool.query(`
-          CREATE TABLE IF NOT EXISTS places (
-            id SERIAL PRIMARY KEY,
-            place_id TEXT NOT NULL UNIQUE,
-            name TEXT NOT NULL,
-            address TEXT NOT NULL,
-            location JSONB NOT NULL,
-            details JSONB NOT NULL,
-            alternatives JSONB,
-            scheduled_time TEXT
-          );
-        `);
-        
-        console.log("Places table created successfully.");
-      }
-      
-      // Similarly check for itineraries table
-      const itinerariesCheck = await pool.query(`
-        SELECT EXISTS (
-          SELECT FROM information_schema.tables 
-          WHERE table_schema = 'public' 
-          AND table_name = 'itineraries'
-        );
-      `);
-      
-      const itinerariesTableExists = itinerariesCheck.rows[0].exists;
-      
-      if (!itinerariesTableExists) {
-        console.log("Itineraries table does not exist, creating it now...");
-        
-        // Create the itineraries table
-        await pool.query(`
-          CREATE TABLE IF NOT EXISTS itineraries (
-            id SERIAL PRIMARY KEY,
-            query TEXT NOT NULL,
-            places JSONB NOT NULL,
-            travel_times JSONB NOT NULL,
-            created TIMESTAMP NOT NULL DEFAULT NOW()
-          );
-        `);
-        
-        console.log("Itineraries table created successfully.");
-      }
-      
-      // Check if the users table exists
-      const usersCheck = await pool.query(`
-        SELECT EXISTS (
-          SELECT FROM information_schema.tables 
-          WHERE table_schema = 'public' 
-          AND table_name = 'users'
-        );
-      `);
-      
-      const usersTableExists = usersCheck.rows[0].exists;
-      
-      if (!usersTableExists) {
-        console.log("Users table does not exist, creating it now...");
-        
-        // Create the users table
-        await pool.query(`
-          CREATE TABLE IF NOT EXISTS users (
-            id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-            email VARCHAR(255) NOT NULL UNIQUE,
-            password_hash TEXT,
-            name TEXT,
-            created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-            avatar_url TEXT,
-            google_id TEXT UNIQUE,
-            auth_provider TEXT DEFAULT 'local'
-          );
-        `);
-        
-        console.log("Users table created successfully.");
-      }
-      
-      // Check if the user_itineraries table exists
-      const userItinerariesCheck = await pool.query(`
-        SELECT EXISTS (
-          SELECT FROM information_schema.tables 
-          WHERE table_schema = 'public' 
-          AND table_name = 'user_itineraries'
-        );
-      `);
-      
-      const userItinerariesTableExists = userItinerariesCheck.rows[0].exists;
-      
-      if (!userItinerariesTableExists) {
-        console.log("User itineraries table does not exist, creating it now...");
-        
-        // Create the user_itineraries table
-        await pool.query(`
-          CREATE TABLE IF NOT EXISTS user_itineraries (
-            id SERIAL PRIMARY KEY,
-            user_id UUID NOT NULL REFERENCES users(id),
-            itinerary_id INTEGER NOT NULL REFERENCES itineraries(id),
-            created_at TIMESTAMP NOT NULL DEFAULT NOW()
-          );
-        `);
-        
-        console.log("User itineraries table created successfully.");
-      }
-      
-      // Check if the sessions table exists
-      const sessionsCheck = await pool.query(`
-        SELECT EXISTS (
-          SELECT FROM information_schema.tables 
-          WHERE table_schema = 'public' 
-          AND table_name = 'sessions'
-        );
-      `);
-      
-      const sessionsTableExists = sessionsCheck.rows[0].exists;
-      
-      if (!sessionsTableExists) {
-        console.log("Sessions table does not exist, creating it now...");
-        
-        // Create the sessions table
-        await pool.query(`
-          CREATE TABLE IF NOT EXISTS sessions (
-            sid VARCHAR(255) NOT NULL PRIMARY KEY,
-            sess JSONB NOT NULL,
-            expire TIMESTAMP NOT NULL
-          );
-        `);
-        
-        console.log("Sessions table created successfully.");
-      }
-      
-      console.log("Database tables verified successfully.");
-    } catch (error) {
-      console.error("Error ensuring database tables:", error);
-      throw error;
+// Register main routes with planning service
+const httpServer = createServer(app);
+const planningService = new ItineraryPlanningService(storage); // storage uses getDb() which initializes db
+
+// Main /api/plan route with direct error handling and logging
+app.post("/api/plan", async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  try {
+    console.log('📝 [/api/plan] Request received:', {
+      query: req.body.query,
+      date: req.body.date,
+      startTime: req.body.startTime
+    });
+    
+    const requestSchema = z.object({
+      query: z.string().min(1, { message: "Query cannot be empty" }), // Added min length
+      date: z.string().optional(),
+      startTime: z.string().optional()
+    });
+
+    const validationResult = requestSchema.safeParse(req.body);
+    if (!validationResult.success) {
+      // console.log('❌ [/api/plan] Validation error:', validationResult.error.flatten());
+      // Use ZodError instance for the global error handler to format it
+      return next(validationResult.error); 
     }
+
+    const { query, date, startTime } = validationResult.data;
+
+    let userId = req.session?.userId;
+    if (!userId && process.env.NODE_ENV === 'development') {
+      console.log('🔓 [/api/plan] Development mode: using mock user id dev-user-123');
+      userId = 'dev-user-123';
+      if (req.session) {
+        req.session.userId = userId;
+      }
+    }
+
+    if (!userId) {
+      // This should ideally be an AuthenticationError for the global handler
+      return res.status(401).json({ message: 'Authentication required' }); 
+    }
+
+    const planOptions: PlanRequestOptions = {
+      query,
+      date,
+      startTime,
+      userId,
+      enableGapFilling: false 
+    };
+
+    console.log('🚀 [/api/plan] Calling ItineraryPlanningService.createPlan with options:', planOptions);
+    const itinerary = await planningService.createPlan(planOptions);
+    
+    console.log('✅ [/api/plan] Plan created successfully by service:', { id: itinerary.id, title: itinerary.title });
+    res.json(itinerary);
+
+  } catch (error: any) {
+    console.error('❌ [/api/plan] Unhandled error in route handler:', error.name, error.message);
+    next(error); // Pass to global error handler
+  }
+});
+
+// Other main application routes (like those for specific itineraries, etc.)
+// registerRoutes(app, planningService); // Pass planningService if routes need it
+// For now, we'll assume /api/plan is the primary one. 
+// If other routes from the old registerRoutes are needed, they'd be added here or via registerRoutes.
+
+// Static file serving
+app.use('/NYC', express.static('dist/public'));
+app.use('/', express.static('dist/public'));
+
+// Enhanced error handling (should be the LAST app.use call)
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error('🚨 Global Error Handler Caught:', { 
+    name: err.name, 
+    message: err.message, 
+    statusCode: err.statusCode, 
+    status: err.status, 
+    isOperational: err.isOperational, 
+    url: req.originalUrl, 
+    method: req.method,
+    // stack: err.stack?.split('\n').slice(0,3).join('\n') // Limit stack for brevity
+  });
+  
+  if (err instanceof AppError) {
+    const message = (process.env.NODE_ENV === 'production' && !err.isOperational) 
+                    ? 'An unexpected internal server error occurred.'
+                    : err.message;
+    return res.status(err.statusCode).json({
+      error: err.name,
+      message: message,
+      ...(err instanceof ValidationError && err.field && { field: err.field }),
+    });
   }
 
-  // Call this function before starting the server
-  await ensureDatabaseTables();
-
-  const server = await registerRoutes(app);
-
-  // Register AI admin routes
-  registerAiAdminRoutes(app);
-
-  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-    const status = err.status || err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
-
-    res.status(status).json({ message });
-    throw err;
-  });
-
-  // importantly only setup vite in development and after
-  // setting up all the other routes so the catch-all route
-  // doesn't interfere with the other routes
-  if (app.get("env") === "development") {
-    await setupVite(app, server);
-  } else {
-    serveStatic(app);
+  if (err instanceof z.ZodError) {
+    return res.status(400).json({
+      error: 'ValidationError',
+      message: 'Invalid request data. Please check your input.',
+      details: err.errors.map(e => ({ 
+        path: e.path.join('.'), 
+        message: e.message, 
+        code: e.code 
+      })),
+    });
   }
+  
+  const status = err.status || err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
 
-  // ALWAYS serve the app on port 5000
-  // this serves both the API and the client
-  const port = 5000;
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true,
-  }, () => {
-    log(`serving on port ${port}`);
+  res.status(status).json({ 
+    error: err.name || 'InternalServerError', // Use err.name if available
+    message,
+    ...(process.env.NODE_ENV === 'development' && { 
+      cause: err.cause?.message, 
+      // stack: err.stack?.split('\n').slice(0, 5) 
+    })
   });
-})();
+});
+
+// Start server
+async function startServer() {
+  try {
+    await testDatabaseConnection();
+    
+    // If registerRoutes from ./routes.ts sets up more than just /api/plan, call it.
+    // Ensure it's adapted to potentially receive planningService or that planningService is accessible.
+    // For now, /api/plan is directly defined above. We might not need the old registerRoutes call.
+    // await import('./routes').then(routesModule => {
+    //     routesModule.registerRoutes(app, planningService);
+    // });
+
+    if (process.env.NODE_ENV === 'development') {
+      await setupVite(app, httpServer);
+    } else {
+      serveStatic(app);
+    }
+
+    const port = process.env.PORT || 5001; // Keeping 5001 for now
+    httpServer.listen({port, host: '0.0.0.0'}, () => {
+      console.log(`🚀 Server running on http://localhost:${port}`);
+      console.log(`🔧 Environment: ${process.env.NODE_ENV || 'development'}`);
+      console.log(`🗄️  Database: ${process.env.DATABASE_URL ? 'Connected' : 'Not configured (check .env or platform secrets)'}`);
+      console.log(`🔑 Google Places API Key: ${process.env.GOOGLE_PLACES_API_KEY ? 'Configured' : 'MISSING (check .env)'}`);
+      console.log(`🔑 Gemini API Key: ${process.env.GEMINI_API_KEY ? 'Configured' : 'MISSING (check .env)'}`);
+
+    });
+
+  } catch (error) {
+    console.error('❌ Failed to start server:', error);
+    process.exit(1);
+  }
+}
+
+startServer();

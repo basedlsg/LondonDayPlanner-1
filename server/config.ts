@@ -124,9 +124,9 @@ export const API_CONFIG: Record<string, ApiConfig> = {
   }
 } as const;
 
-// Configuration singleton
-class Config {
-  private static instance: Config;
+// Updated Config class with debug logging and recheckEnvironment
+export class Config {
+  private static instance: Config | null = null;
   private apiKeys: Record<string, string | undefined> = {};
   private features: Record<string, boolean> = {};
   private env: z.infer<typeof envSchema>;
@@ -135,73 +135,105 @@ class Config {
   private initialized = false;
 
   private constructor() {
-    // Initialize environment
+    console.log('🔧 [config.ts] Config constructor starting...');
+    console.log('🔧 [config.ts] process.env.GOOGLE_PLACES_API_KEY at constructor start:', 
+                process.env.GOOGLE_PLACES_API_KEY ? `SET (len: ${process.env.GOOGLE_PLACES_API_KEY.length})` : 'NOT SET');
+    console.log('🔧 [config.ts] process.env.GEMINI_API_KEY at constructor start:', 
+                process.env.GEMINI_API_KEY ? `SET (len: ${process.env.GEMINI_API_KEY.length})` : 'NOT SET');
+    
     try {
       this.env = envSchema.parse(process.env);
     } catch (error) {
-      console.error('Environment validation failed:', error);
-      this.env = envSchema.parse({});
+      console.error('Environment validation failed during Config construction:', error);
+      this.env = envSchema.parse({}); // Initialize with defaults if parsing fails
     }
     
-    // Initialize legacy structures
-    this.legacyFeatures = FEATURE_CONFIG;
-    this.legacyApis = API_CONFIG;
+    this.legacyFeatures = JSON.parse(JSON.stringify(FEATURE_CONFIG)); // Deep copy
+    this.legacyApis = JSON.parse(JSON.stringify(API_CONFIG));     // Deep copy
     
-    // Load API keys first - CRITICAL: Must be done before initializing feature flags
     this.loadApiKeys();
-    
-    // Update legacy API configurations
-    this.updateLegacyApiConfig();
-    
-    // Now initialize feature flags with loaded API keys
-    this.initializeFeatureFlags();
-    
-    // Initialize legacy feature flags based on API key availability
-    this.updateLegacyFeatureConfig();
+    this.updateLegacyApiConfig(); // Call this after loadApiKeys
+    this.initializeFeatureFlags(); // This was loadFeatureFlags in user prompt, renamed to match existing
+    this.updateLegacyFeatureConfig(); // Call this after initializeFeatureFlags
+    // this.logConfigStatus(); // logConfigStatus is called in initialize()
+    console.log('🔧 [config.ts] Config constructor finished.');
   }
 
   public static getInstance(): Config {
     if (!Config.instance) {
+      console.log('🔧 [config.ts] Creating new Config instance.');
       Config.instance = new Config();
+    } else {
+      console.log('🔧 [config.ts] Returning existing Config instance.');
     }
     return Config.instance;
   }
 
   public initialize(): void {
-    if (this.initialized) return;
-    
-    // Log configuration status
-    this.logConfigStatus();
-    
+    if (this.initialized) {
+      console.log('🔧 [config.ts] Config already initialized.');
+      return;
+    }
+    console.log('🔧 [config.ts] Config initialize() called.');
+    this.logConfigStatus(); 
     this.initialized = true;
   }
 
   private loadApiKeys(): void {
-    // Load and validate API keys - directly from process.env
-    for (const key of Object.keys(apiKeySchemas)) {
+    console.log('🔧 [config.ts] loadApiKeys() starting...');
+    const keysToLoad = Object.keys(apiKeySchemas);
+
+    keysToLoad.forEach(key => {
       const envValue = process.env[key];
-      console.log(`Direct environment check - ${key}: ${!!envValue} (length: ${envValue ? envValue.length : 0})`);
-      
-      this.apiKeys[key] = envValue;
-      
-      // Also update legacy API configuration
+      console.log(`🔧 [config.ts] Loading ${key} from process.env:`, 
+                  envValue ? `SET (length: ${envValue.length})` : 'NOT SET');
+      this.apiKeys[key] = envValue || ''; // Store empty string if not set, to avoid undefined issues later
+      console.log(`🔧 [config.ts] Stored ${key} in this.apiKeys:`, 
+                  this.apiKeys[key] ? `SET (length: ${this.apiKeys[key]?.length})` : 'NOT SET (stored as empty string)');
+      // Update legacy directly here as well, as per original logic
       if (this.legacyApis[key as keyof typeof API_CONFIG]) {
         this.legacyApis[key as keyof typeof API_CONFIG].key = this.apiKeys[key] || '';
       }
-    }
-    
-    // Force set the keys to ensure they are properly assigned
-    this.apiKeys["GEMINI_API_KEY"] = process.env.GEMINI_API_KEY;
-    this.apiKeys["GOOGLE_PLACES_API_KEY"] = process.env.GOOGLE_PLACES_API_KEY;
-    this.apiKeys["WEATHER_API_KEY"] = process.env.WEATHER_API_KEY;
-    this.apiKeys["GOOGLE_CLIENT_ID"] = process.env.GOOGLE_CLIENT_ID;
-    
-    // Debug log the API keys without revealing their values
-    for (const [key, value] of Object.entries(this.apiKeys)) {
-      console.log(`API Key loaded: ${key} = ${!!value} (length: ${value ? value.length : 0})`);
-    }
+    });
+    console.log('🔧 [config.ts] loadApiKeys() finished.');
   }
 
+  // Renamed from loadFeatureFlags in user prompt to match existing method name for consistency
+  private initializeFeatureFlags(): void {
+    console.log('🔧 [config.ts] initializeFeatureFlags() starting...');
+    for (const [feature, config] of Object.entries(featureFlags)) {
+      const hasRequiredKeys = config.required.every(key => this.isApiKeyValid(key));
+      this.features[feature] = config.enabled && hasRequiredKeys;
+      if (this.features[feature]) {
+        console.log(`✨ [config.ts] ${feature} feature flag ENABLED.`);
+      } else {
+        console.log(`🚫 [config.ts] ${feature} feature flag DISABLED (enabled: ${config.enabled}, keysMet: ${hasRequiredKeys}).`);
+      }
+    }
+    console.log('🔧 [config.ts] initializeFeatureFlags() finished.');
+  }
+  
+  // Added method from user prompt
+  public recheckEnvironment(): void {
+    console.log('🔄 [config.ts] Config.recheckEnvironment() called. Forcing reload of API keys and features...');
+    this.apiKeys = {}; // Clear current keys
+    this.features = {}; // Clear current features
+    this.loadApiKeys();
+    this.updateLegacyApiConfig(); // Ensure legacy is also updated after reload
+    this.initializeFeatureFlags(); // Re-initialize features based on potentially new env vars
+    this.updateLegacyFeatureConfig(); // And update legacy features too
+    console.log('🔄 [config.ts] Environment recheck complete. Logging new status:');
+    this.logConfigStatus(); // Log the new status
+  }
+
+  private isApiKeyValid(key: string): boolean {
+    const value = this.apiKeys[key];
+    // console.log(`[config.ts isApiKeyValid] Checking key: ${key}, Value in this.apiKeys: ${value ? 'SET' : 'NOT SET'}`);
+    const isValid = value !== undefined && value.length > 0;
+    console.log(`[config.ts isApiKeyValid] Key: ${key}, Present in this.apiKeys: ${!!value}, Valid (has length): ${isValid}`);
+    return isValid;
+  }
+  
   private updateLegacyApiConfig(): void {
     // Update legacy API configurations
     Object.keys(this.legacyApis).forEach(key => {
@@ -227,43 +259,6 @@ class Config {
     });
   }
 
-  private initializeFeatureFlags(): void {
-    // Set default feature flags
-    for (const [feature, config] of Object.entries(featureFlags)) {
-      // Check if all required API keys are available
-      const hasRequiredKeys = config.required.every(key => 
-        this.isApiKeyValid(key)
-      );
-      
-      // Enable feature if all requirements are met
-      this.features[feature] = config.enabled && hasRequiredKeys;
-      
-      // Log initialization
-      if (this.features[feature]) {
-        console.log(`${feature} feature flag status: true`);
-      } else {
-        console.log(`${feature} feature flag status: false (missing requirements or disabled)`);
-      }
-    }
-  }
-
-  private isApiKeyValid(key: string): boolean {
-    const value = this.apiKeys[key];
-    
-    // Log the key existence (without revealing the actual key)
-    console.log(`${key} present: ${!!value} (length: ${value ? value.length : 0})`);
-    
-    // Always return true if the key exists (simpler validation)
-    if (value && value.length > 0) {
-      console.log(`${key} validation: true`);
-      return true;
-    }
-    
-    console.log(`${key} validation: false`);
-    return false;
-  }
-
-  // Environment access
   public get environment(): Environment {
     return this.env.NODE_ENV;
   }
@@ -272,12 +267,10 @@ class Config {
     return this.env.LOG_LEVEL;
   }
 
-  // API key access
   public getApiKey(key: string): string | undefined {
-    return this.apiKeys[key];
+    return this.apiKeys[key] === '' ? undefined : this.apiKeys[key];
   }
 
-  // Feature flag access
   public isFeatureEnabled(feature: string): boolean {
     // First check new feature flags
     if (this.features[feature] !== undefined) {
@@ -301,23 +294,20 @@ class Config {
   }
 
   public validateApiKey(key: string): boolean {
-    // Simplified validation - just check if key exists and has length
     const value = this.apiKeys[key];
     return value !== undefined && value.length > 0;
   }
 
   private logConfigStatus(): void {
-    // Log configuration status (without revealing sensitive values)
     const redactedConfig = {
       features: this.features,
       apiKeysPresent: Object.entries(this.apiKeys).reduce((acc, [key, value]) => {
-        acc[key] = !!value;
+        acc[key] = !!value && value.length > 0;
         return acc;
       }, {} as Record<string, boolean>),
       environment: this.environment
     };
-    
-    console.log('Application configuration:', redactedConfig);
+    console.log('🔧 [config.ts] Current Application configuration:', redactedConfig);
   }
 
   public getRedactedConfig(): Record<string, unknown> {
@@ -337,11 +327,9 @@ class Config {
   }
 }
 
-// Initialize configuration
 const config = Config.getInstance();
-config.initialize();
+// config.initialize(); // Initialization (including first logConfigStatus) is now deferred to index.ts after recheckEnvironment
 
-// Helper functions for easier access
 export function getApiKey(key: string): string | undefined {
   return config.getApiKey(key);
 }

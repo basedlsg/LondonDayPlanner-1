@@ -34,6 +34,9 @@ export const places = pgTable("places", {
 
 export const itineraries = pgTable("itineraries", {
   id: serial("id").primaryKey(),
+  title: text("title"),
+  description: text("description"),
+  planDate: timestamp("plan_date"),
   query: text("query").notNull(),
   places: jsonb("places").notNull(),
   travelTimes: jsonb("travel_times").notNull(),
@@ -49,7 +52,13 @@ export const userItineraries = pgTable("user_itineraries", {
 });
 
 export const insertPlaceSchema = createInsertSchema(places).omit({ id: true });
-export const insertItinerarySchema = createInsertSchema(itineraries).omit({ id: true, created: true });
+export const insertItinerarySchema = createInsertSchema(itineraries, {
+  title: z.string().optional(),
+  description: z.string().optional(),
+  planDate: z.string().datetime().optional(),
+  places: z.array(z.any()),
+  travelTimes: z.array(z.any()),
+}).omit({ id: true, created: true });
 // Schema for local registration
 export const insertLocalUserSchema = createInsertSchema(users).omit({ 
   id: true, 

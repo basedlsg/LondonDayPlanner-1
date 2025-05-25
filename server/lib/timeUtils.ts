@@ -371,3 +371,87 @@ export function formatISOToNYCTime(isoTimestamp: string, format: string = 'h:mm 
     return isoTimestamp;
   }
 }
+
+/**
+ * Parse a time string to a Date object
+ * Provides consistent time parsing throughout the application
+ * Uses America/New_York timezone for consistent local time representation
+ *
+ * @param timeStr Time string to parse (e.g., "3pm", "15:00", "evening", "at 6", "around noon", "around 3 PM")
+ * @param baseDate Base date to use (defaults to current date)
+ * @returns Date object with the specified time in America/New_York timezone
+ */
+export function parseTimeString(timeStr: string, baseDate?: Date): Date {
+  try {
+    // Using the imported constants and functions from timeUtils that are already imported at the top of the file
+
+    // Use provided base date or current date
+    const currentDate = baseDate || new Date();
+
+    // Check if we already have an ISO timestamp (contains 'T' and 'Z')
+    if (timeStr.includes('T') && timeStr.includes('Z')) {
+      try {
+        // Parse the ISO timestamp and return a Date object
+        const date = new Date(timeStr);
+
+        // Log for debugging
+        console.log(`Parsed ISO timestamp "${timeStr}" to NYC time: ${formatInTimeZone(date, NYC_TIMEZONE, 'yyyy-MM-dd HH:mm:ss zzz')}`);
+
+        return date;
+      } catch (err) {
+        console.warn(`Failed to parse ISO timestamp: ${timeStr}, falling back to manual parsing`);
+        // Fall through to manual parsing
+      }
+    }
+
+    // Get the normalized time string in 24-hour format (HH:MM)
+    // Now handles "around X" phrases properly with our improved timeUtils
+    const normalizedTime = parseAndNormalizeTime(timeStr);
+
+    // Extract hours and minutes
+    const [hoursStr, minutesStr] = normalizedTime.split(':');
+    const hours = parseInt(hoursStr, 10);
+    const minutes = parseInt(minutesStr, 10);
+
+    // Create a new date with the specified time based on the provided base date
+    const date = new Date(currentDate);
+    date.setHours(hours, minutes, 0, 0);
+
+    // Convert to NYC timezone
+    const nycDate = toZonedTime(date, NYC_TIMEZONE);
+
+    // Format time for logging
+    const displayTime = formatInTimeZone(nycDate, NYC_TIMEZONE, 'h:mm a');
+    const formattedTime = formatInTimeZone(nycDate, NYC_TIMEZONE, 'yyyy-MM-dd HH:mm:ss zzz');
+
+    console.log(`Parsed time "${timeStr}" to normalized time "${normalizedTime}" and NYC time: ${displayTime} (${formattedTime})`);
+
+    return nycDate;
+  } catch (error) {
+    console.error(`Error parsing time:`, error);
+    // Return a default time if parsing fails
+    const defaultDate = baseDate || new Date();
+    // Default to 10:00 AM NYC time if parsing fails
+    defaultDate.setHours(10, 0, 0, 0);
+
+    // Convert to NYC timezone
+    const nycDate = toZonedTime(defaultDate, 'America/New_York');
+
+    return nycDate;
+  }
+}
+
+// Helper function to determine the part of the day (for recommendations)
+export function getDayPart(date: Date): 'morning' | 'afternoon' | 'evening' | 'night' {
+  const hour = date.getHours();
+
+  if (hour >= 5 && hour < 12) {
+    return 'morning';
+  } else if (hour >= 12 && hour < 17) {
+    return 'afternoon';
+  } else if (hour >= 17 && hour < 22) {
+    return 'evening';
+  } else {
+    return 'night';
+  }
+}

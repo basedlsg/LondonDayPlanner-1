@@ -1,10 +1,10 @@
-import { Request, Response, Router } from 'express';
+import { Request, Response, Router, NextFunction } from 'express';
 import { db } from '../db';
 import { users } from '@shared/schema';
 import { eq } from 'drizzle-orm';
 import bcrypt from 'bcrypt';
 import { insertLocalUserSchema, loginSchema, googleAuthSchema, insertGoogleUserSchema } from '@shared/schema';
-import { attachCurrentUser } from '../middleware/requireAuth';
+import { attachCurrentUser, createAuthStatusHandler } from '../middleware/requireAuth';
 import { SessionData } from 'express-session';
 import { storage } from '../storage';
 
@@ -15,8 +15,9 @@ const router = Router();
  * Register a new user
  * POST /api/auth/register
  */
-router.post('/register', async (req: Request, res: Response) => {
+router.post('/register', async (req: Request, res: Response, next: NextFunction) => {
   try {
+    console.log('🔐 [register] Registration attempt with body:', req.body);
     // Validate request body against the schema
     const validation = insertLocalUserSchema.safeParse(req.body);
     
@@ -61,12 +62,9 @@ router.post('/register', async (req: Request, res: Response) => {
         name: user.name
       }
     });
-  } catch (error) {
-    console.error('Error registering user:', error);
-    return res.status(500).json({ 
-      error: 'Server error',
-      message: 'An error occurred while registering user'
-    });
+  } catch (error: any) {
+    console.error('🔐 [register] Error:', error);
+    next(error);
   }
 });
 
@@ -74,8 +72,9 @@ router.post('/register', async (req: Request, res: Response) => {
  * Login a user
  * POST /api/auth/login
  */
-router.post('/login', async (req: Request, res: Response) => {
+router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
   try {
+    console.log('🔐 [login] Login attempt with body:', req.body);
     // Validate request body
     const validation = loginSchema.safeParse(req.body);
     
@@ -128,12 +127,10 @@ router.post('/login', async (req: Request, res: Response) => {
         name: user.name
       }
     });
-  } catch (error) {
-    console.error('Error logging in:', error);
-    return res.status(500).json({ 
-      error: 'Server error',
-      message: 'An error occurred while processing login'
-    });
+  } catch (error: any) {
+    console.error('🔐 [login] Error:', error);
+    // Pass to global error handler
+    next(error);
   }
 });
 
@@ -141,91 +138,35 @@ router.post('/login', async (req: Request, res: Response) => {
  * Logout a user
  * POST /api/auth/logout
  */
-router.post('/logout', (req: Request, res: Response) => {
-  // Check for Accept header to ensure proper response
-  const acceptHeader = req.get('Accept');
-  const wantsJSON = acceptHeader && acceptHeader.includes('application/json');
-  
-  // Check if user is already logged out
-  if (!req.session || !req.session.userId) {
-    if (wantsJSON) {
-      return res.json({
-        message: 'Already logged out'
+router.post('/logout', (req: Request, res: Response, next: NextFunction) => {
+  try {
+    console.log('🔐 [logout] Logout attempt for session:', req.session?.id);
+    
+    if (req.session) {
+      req.session.destroy((err) => {
+        if (err) {
+          console.error('🔐 [logout] Session destroy error:', err);
+          // Instead of directly sending 500, pass to global error handler
+          return next(err); 
+        }
+        // Clear cookie on client side might be needed too depending on session library
+        res.clearCookie('connect.sid'); // Default cookie name for express-session
+        res.json({ message: 'Logged out successfully' });
       });
     } else {
-      return res.redirect('/login');
+      res.json({ message: 'No active session to logout' });
     }
+  } catch (error: any) {
+    console.error('🔐 [logout] Error:', error);
+    next(error);
   }
-  
-  // Destroy session
-  req.session.destroy((err: Error | null) => {
-    if (err) {
-      console.error('Error destroying session:', err);
-      return res.status(500).json({ 
-        error: 'Server error',
-        message: 'An error occurred while logging out'
-      });
-    }
-    
-    // Clear cookie
-    res.clearCookie('connect.sid');
-    
-    if (wantsJSON) {
-      return res.json({
-        message: 'Logout successful'
-      });
-    } else {
-      // Default behavior for browser requests
-      return res.redirect('/login');
-    }
-  });
 });
 
 /**
  * Get current user status
  * GET /api/auth/status
  */
-router.get('/status', attachCurrentUser, async (req: Request, res: Response) => {
-  try {
-    // If no user is logged in
-    if (!req.session.userId) {
-      return res.json({
-        loggedIn: false
-      });
-    }
-    
-    // Find user details
-    const user = await storage.getUserById(req.session.userId);
-    
-    if (!user) {
-      // Session exists but user doesn't - clear session
-      req.session.destroy((err: Error | null) => {
-        if (err) {
-          console.error('Error destroying session:', err);
-        }
-      });
-      return res.json({
-        loggedIn: false
-      });
-    }
-    
-    // Return user status and data
-    return res.json({
-      loggedIn: true,
-      user: {
-        id: user.id,
-        email: user.email,
-        name: user.name
-      }
-    });
-  } catch (error) {
-    console.error('Error fetching user status:', error);
-    return res.status(500).json({ 
-      error: 'Server error',
-      message: 'An error occurred while fetching authentication status'
-    });
-  }
-});
+router.get('/status', createAuthStatusHandler());
 
 /**
  * Get current user
