@@ -6,11 +6,13 @@ import { exportToCalendar } from '../lib/calendar';
 import { useAuth } from '../hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { useLocation } from 'wouter';
+import { useCity } from '../hooks/useCity';
 
 interface PlanFormData {
   date: string;
   time: string;
   plans: string;
+  tripDuration?: number;
 }
 
 interface Venue {
@@ -29,6 +31,13 @@ interface TravelInfo {
 interface ItineraryData {
   venues: Venue[];
   travelInfo: TravelInfo[];
+  shareableUrl?: string;
+  title?: string;
+  planDate?: string;
+  // Multi-day trip support
+  isMultiDay?: boolean;
+  tripId?: number;
+  tripDuration?: number;
 }
 
 export default function HomePage() {
@@ -36,6 +45,7 @@ export default function HomePage() {
   const planMutation = usePlanMutation();
   const { user, logout } = useAuth();
   const [, setLocation] = useLocation();
+  const { currentCity } = useCity();
 
   // Log state changes to debug
   useEffect(() => {
@@ -45,8 +55,37 @@ export default function HomePage() {
   const handlePlanSubmit = async (formData: PlanFormData) => {
     try {
       console.log("Submitting plan:", formData);
-      const result = await planMutation.mutateAsync(formData);
+      
+      // Simple approach: include time in the query if not already mentioned
+      let enhancedQuery = formData.plans;
+      const hasTimeInQuery = /\b\d{1,2}(:\d{2})?\s*(am|pm|AM|PM)\b|\b(morning|afternoon|evening|night|noon)\b/.test(formData.plans);
+      
+      if (!hasTimeInQuery && formData.time) {
+        // Convert 24h to 12h format for natural language
+        const [hours, minutes] = formData.time.split(':');
+        const hour24 = parseInt(hours);
+        const hour12 = hour24 === 0 ? 12 : hour24 > 12 ? hour24 - 12 : hour24;
+        const ampm = hour24 >= 12 ? 'PM' : 'AM';
+        const timeStr = `${hour12}:${minutes} ${ampm}`;
+        
+        enhancedQuery = `${formData.plans} at ${timeStr}`;
+      }
+      
+      console.log("Enhanced query:", enhancedQuery);
+      
+      // Transform the formData to match what usePlanMutation expects
+      const result = await planMutation.mutateAsync({
+        query: enhancedQuery,  // Use enhanced query with time
+        date: formData.date,
+        startTime: formData.time,
+        city: currentCity?.slug || 'nyc',  // Use current city from context
+        tripDuration: formData.tripDuration || 1
+      });
       console.log("Plan creation result:", result);
+      console.log("Result venues:", result?.venues);
+      console.log("Result travelInfo:", result?.travelInfo);
+      console.log("Result places (if any):", result?.places);
+      console.log("Result travelTimes (if any):", result?.travelTimes);
       setItineraryData(result);
 
       // Smooth scroll to itinerary section after a brief delay
@@ -97,6 +136,17 @@ export default function HomePage() {
               onExport={() => {
                 exportToCalendar(itineraryData?.venues || []);
               }}
+              isLoading={planMutation.isPending}
+              title={itineraryData?.title}
+              cityName={currentCity?.name || 'NYC'}
+              timezone={currentCity?.timezone || 'America/New_York'}
+              planDate={itineraryData?.planDate}
+              shareableUrl={itineraryData?.shareableUrl}
+              // Multi-day trip support
+              isMultiDay={itineraryData?.isMultiDay}
+              tripId={itineraryData?.tripId}
+              tripDuration={itineraryData?.tripDuration}
+              currentDay={1}
             />
           </section>
         </div>

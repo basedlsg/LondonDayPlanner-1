@@ -1,0 +1,3185 @@
+
+> rest-express@1.0.0 dev
+> NODE_ENV=development tsx server/index.ts
+
+🔧 [config.ts] Creating new Config instance.
+🔧 [config.ts] Config constructor starting...
+🔧 [config.ts] process.env.GOOGLE_PLACES_API_KEY at constructor start: NOT SET
+🔧 [config.ts] process.env.GEMINI_API_KEY at constructor start: NOT SET
+🔧 [config.ts] loadApiKeys() starting...
+🔧 [config.ts] Loading GEMINI_API_KEY from process.env: NOT SET
+🔧 [config.ts] Stored GEMINI_API_KEY in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] Loading GOOGLE_PLACES_API_KEY from process.env: NOT SET
+🔧 [config.ts] Stored GOOGLE_PLACES_API_KEY in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] Loading WEATHER_API_KEY from process.env: NOT SET
+🔧 [config.ts] Stored WEATHER_API_KEY in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] Loading GOOGLE_CLIENT_ID from process.env: NOT SET
+🔧 [config.ts] Stored GOOGLE_CLIENT_ID in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] loadApiKeys() finished.
+🔧 [config.ts] initializeFeatureFlags() starting...
+[config.ts isApiKeyValid] Key: GEMINI_API_KEY, Present in this.apiKeys: false, Valid (has length): false
+🚫 [config.ts] AI_PROCESSING feature flag DISABLED (enabled: true, keysMet: false).
+[config.ts isApiKeyValid] Key: GEMINI_API_KEY, Present in this.apiKeys: false, Valid (has length): false
+🚫 [config.ts] USE_GEMINI feature flag DISABLED (enabled: true, keysMet: false).
+[config.ts isApiKeyValid] Key: WEATHER_API_KEY, Present in this.apiKeys: false, Valid (has length): false
+🚫 [config.ts] WEATHER_AWARE feature flag DISABLED (enabled: true, keysMet: false).
+[config.ts isApiKeyValid] Key: GOOGLE_PLACES_API_KEY, Present in this.apiKeys: false, Valid (has length): false
+🚫 [config.ts] PLACES_API feature flag DISABLED (enabled: true, keysMet: false).
+🔧 [config.ts] initializeFeatureFlags() finished.
+🔧 [config.ts] Config constructor finished.
+[CityRegistry] Registered city: London (slug: london)
+[CityRegistry] Registered city: New York City (slug: nyc)
+[CityRegistry] Registered city: Boston (slug: boston)
+[CityRegistry] Registered city: Austin (slug: austin)
+[CityRegistry] City configurations loading process completed. Registry size: 4
+[CityRegistry] Registered slugs: london, nyc, boston, austin
+AI_PROCESSING feature flag status: false
+🔧 Loading environment variables...
+📄 .env file path: /Users/carlos/LondonDayPlanner-1/.env
+📄 .env file exists: true
+✅ Environment variables loaded by dotenv (keys found): [
+  'DATABASE_URL',
+  'GOOGLE_PLACES_API_KEY',
+  'GEMINI_API_KEY',
+  'WEATHER_API_KEY'
+]
+🔍 Environment check (process.env):
+   DATABASE_URL present: true
+   GOOGLE_PLACES_API_KEY present: true
+   GOOGLE_PLACES_API_KEY length: 39
+   GEMINI_API_KEY present: true
+🔧 Initializing application configuration...
+🔄 [config.ts] Config.recheckEnvironment() called. Forcing reload of API keys and features...
+🔧 [config.ts] loadApiKeys() starting...
+🔧 [config.ts] Loading GEMINI_API_KEY from process.env: SET (length: 39)
+🔧 [config.ts] Stored GEMINI_API_KEY in this.apiKeys: SET (length: 39)
+🔧 [config.ts] Loading GOOGLE_PLACES_API_KEY from process.env: SET (length: 39)
+🔧 [config.ts] Stored GOOGLE_PLACES_API_KEY in this.apiKeys: SET (length: 39)
+🔧 [config.ts] Loading WEATHER_API_KEY from process.env: SET (length: 32)
+🔧 [config.ts] Stored WEATHER_API_KEY in this.apiKeys: SET (length: 32)
+🔧 [config.ts] Loading GOOGLE_CLIENT_ID from process.env: NOT SET
+🔧 [config.ts] Stored GOOGLE_CLIENT_ID in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] loadApiKeys() finished.
+🔧 [config.ts] initializeFeatureFlags() starting...
+[config.ts isApiKeyValid] Key: GEMINI_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] AI_PROCESSING feature flag ENABLED.
+[config.ts isApiKeyValid] Key: GEMINI_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] USE_GEMINI feature flag ENABLED.
+[config.ts isApiKeyValid] Key: WEATHER_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] WEATHER_AWARE feature flag ENABLED.
+[config.ts isApiKeyValid] Key: GOOGLE_PLACES_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] PLACES_API feature flag ENABLED.
+🔧 [config.ts] initializeFeatureFlags() finished.
+🔄 [config.ts] Environment recheck complete. Logging new status:
+🔧 [config.ts] Current Application configuration: {
+  features: {
+    AI_PROCESSING: true,
+    USE_GEMINI: true,
+    WEATHER_AWARE: true,
+    PLACES_API: true
+  },
+  apiKeysPresent: {
+    GEMINI_API_KEY: true,
+    GOOGLE_PLACES_API_KEY: true,
+    WEATHER_API_KEY: true,
+    GOOGLE_CLIENT_ID: false
+  },
+  environment: 'development'
+}
+🔧 [config.ts] Config initialize() called.
+🔧 [config.ts] Current Application configuration: {
+  features: {
+    AI_PROCESSING: true,
+    USE_GEMINI: true,
+    WEATHER_AWARE: true,
+    PLACES_API: true
+  },
+  apiKeysPresent: {
+    GEMINI_API_KEY: true,
+    GOOGLE_PLACES_API_KEY: true,
+    WEATHER_API_KEY: true,
+    GOOGLE_CLIENT_ID: false
+  },
+  environment: 'development'
+}
+⚠️  SESSION_SECRET not set, using fallback. SET THIS FOR PRODUCTION!
+🗄️  Testing database connection...
+🗄️  Initializing database instance with Neon driver...
+✅ Database instance initialized successfully with Neon.
+✅ Database connection successful
+🔌 WebSocket service initialized
+🚀 Server running on http://localhost:5001
+🔧 Environment: development
+🗄️  Database: Connected
+🔑 Google Places API Key: Configured
+🔑 Gemini API Key: Configured
+🔌 WebSocket: Available at ws://localhost:5001/ws
+📝 [/:city/plan] City-specific plan request for: London
+Query: FINAL TEST: lunch in Mayfair, coffee, drinks in Chelsea
+🚀 [/:city/plan] Creating city-aware plan for London
+🏙️ Creating plan for city: london
+🚀 Creating plan for query: FINAL TEST: lunch in Mayfair, coffee, drinks in Chelsea
+[NLP] Processing query with context for city: London
+🔄 [nlp-fixed] Attempting lazy AI initialization for new Gemini processor...
+🤖 [nlp-fixed] Checking AI_PROCESSING feature flag status: true
+🔑 [nlp-fixed] GEMINI_API_KEY validation: true
+✅ [nlp-fixed] Initializing Gemini API with valid API key
+✅ [nlp-fixed] Gemini API successfully initialized
+🚀 [nlp-fixed] Attempting to process query with new Gemini processor
+🚀 [nlp-fixed] Query: FINAL TEST: lunch in Mayfair, coffee, drinks in Chelsea
+🚀 [nlp-fixed] CityContext: { name: 'London', slug: 'london', timezone: 'Europe/London' }
+Raw Gemini structured data: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "lunch",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "14:00",
+      "activity": "coffee",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "16:00",
+      "activity": "drinks",
+      "location": "Chelsea",
+      "venueRequirements": [],
+      "searchParameters": {
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 0,
+    "children": 0
+  },
+  "specialRequests": []
+}
+[32minfo[39m: AI Interaction {"modelName":"gemini-1.5-pro","parsedResponse":{"fixedAppointments":[],"fixedTimeEntries":[{"activity":"lunch","location":"Mayfair","searchParameters":{"specificRequirements":[]},"time":"12:00","venueRequirements":[]},{"activity":"coffee","location":"Central London","searchParameters":{"specificRequirements":[]},"time":"14:00","venueRequirements":[]},{"activity":"drinks","location":"Chelsea","searchParameters":{"specificRequirements":[]},"time":"16:00","venueRequirements":[]}],"flexibleTimeEntries":[],"preferences":{"budget":"moderate","interests":[]},"specialRequests":[],"timeBlocks":[],"travelGroup":{"adults":0,"children":0}},"processingTimeMs":4645,"rawRequest":{"prompt":"\n    You are an expert travel planning assistant for London. Extract structured information from this itinerary request with extreme attention to detail.\n    \n    CRITICAL PARSING RULES:\n    \n    1. JSON FORMAT: Return ONLY valid JSON matching the schema - no markdown, no extra text\n    \n    2. TIME EXTRACTION:\n       - Use 24-hour format (e.g., \"09:00\", \"15:30\")\n       - \"at 6\" without context = \"18:00\" (assume evening for dinner/drinks)\n       - \"at 6\" with morning context = \"06:00\"\n       - Default meal times: breakfast=\"09:00\", lunch=\"12:00\", dinner=\"19:00\"\n       - \"morning\"=\"09:00\", \"afternoon\"=\"14:00\", \"evening\"=\"18:00\", \"night\"=\"21:00\"\n       - \"early morning\"=\"07:00\", \"late morning\"=\"11:00\", \"late afternoon\"=\"16:00\"\n       - \"sunset\" = \"18:30\", \"sunrise\" = \"06:30\"\n       - RELATIVE TIME HANDLING (CRITICAL):\n         * \"in X hours\" = add X hours to the start time or previous activity time\n         * \"X hours later\" = add X hours to the previous activity time\n         * Example: If start is 10:00, \"in 1 hour\" = \"11:00\", \"in 3 hours\" = \"13:00\"\n         * Example: If last activity is 12:00, \"2 hours later\" = \"14:00\"\n    \n    3. TIME BLOCKS & APPOINTMENTS - NEW CRITICAL PARSING:\n       - TIME BLOCKS: \"work from X to Y\", \"spend X hours at\", \"need X hours for\"\n         * Example: \"work from 10 AM to 3 PM\" → timeBlocks entry with startTime: \"10:00\", endTime: \"15:00\"\n         * Example: \"need a quiet place to work for 5 hours\" → timeBlocks entry with duration reflected in end time\n         * Extract venue requirements: \"quiet\", \"good wifi\", \"suitable for calls\"\n       - FIXED APPOINTMENTS: \"meeting at X\", \"appointment at Y\", \"reservation at Z\"\n         * Example: \"meeting in Mayfair at 5\" → fixedAppointments entry with time: \"17:00\", location: \"Mayfair\"\n         * Add buffers: meeting = 30 min before, dinner = 15 min before\n       - REGULAR ACTIVITIES: Everything else goes in fixedTimeEntries\n    \n    4. ACTIVITY SEQUENCE - CRITICAL:\n       - Preserve the EXACT order mentioned by the user\n       - \"then\", \"after that\", \"after\", \"followed by\", \"next\", \"afterwards\" indicate sequence\n       - Count ALL activities mentioned (coffee, lunch, drinks, etc.)\n       - If no times given, space activities 1.5-2 hours apart\n       - Parse compound sentences carefully: \"I have a meeting... and would like to go to a restaurant\" = 2 activities\n    \n    5. VENUE PREFERENCES - CRITICAL:\n       - ALWAYS extract venue descriptors to venuePreference field\n       - Examples that MUST be captured:\n         * \"hipster cafe\" → venuePreference: \"hipster cafe\"\n         * \"authentic Jewish deli\" → venuePreference: \"authentic Jewish deli\"\n         * \"trendy brunch spot\" → venuePreference: \"trendy brunch spot\"\n         * \"hole-in-the-wall\" → venuePreference: \"hole-in-the-wall\"\n         * \"michelin star\" → venuePreference: \"michelin star restaurant\"\n         * \"rooftop bar\" → venuePreference: \"rooftop bar\"\n         * \"sports bar\" → venuePreference: \"sports bar\"\n         * \"family-friendly\" → venuePreference: \"family-friendly restaurant\"\n         * \"outdoor seating\" → specificRequirements: [\"outdoor seating\"]\n         * \"with a view\" → specificRequirements: [\"with a view\"]\n         * \"good wifi\" → specificRequirements: [\"wifi\"]\n    \n    6. LOCATION INTELLIGENCE - CRITICAL:\n       - PRESERVE ALL LOCATION MENTIONS from the user's query!\n       - Common London locations: \"Shoreditch\", \"Notting Hill\", \"Covent Garden\", \"Camden\"\n       - If user mentions a specific place (e.g., \"Barton Springs\", \"4th st\"), USE IT EXACTLY\n       - Keep landmark names as-is\n       - \"that famous museum\" → Try to infer (British Museum, Tower of London, Hyde Park)\n       - \"nearby\" → Use previous activity's location\n       - \"somewhere nice\" or generic location → \"Central London\"\n       - No location → \"Central London\"\n       - NEVER replace specific location mentions with generic ones\n    \n    6. SPECIAL REQUIREMENTS:\n       - Budget mentions: \"cheap\"/\"budget\" → budget: \"budget\", \"upscale\"/\"fancy\" → budget: \"expensive\"\n       - Group size: \"family\", \"group of X\" → travelGroup numbers\n       - Dietary: \"kosher\", \"vegan\", \"halal\" → specificRequirements\n       - Accessibility: \"wheelchair\", \"accessible\" → accessibility requirements\n       - Weather: \"if nice weather\" → note in specialRequests\n    \n    7. ACTIVITY TYPES:\n       - Meals: breakfast/brunch/lunch/dinner → restaurant\n       - Coffee/work at cafe → cafe\n       - Drinks/cocktails/lounge → bar (NOT attraction)\n       - Shopping → shopping\n       - Museums/galleries → museum\n       - Parks/outdoor/walk → park\n       - Shows/entertainment → entertainment\n       - Meeting/appointment → Skip venue search BUT preserve time/location for context\n    \n    8. EDGE CASES:\n       - Conflicting requirements: Choose most logical interpretation\n       - Vague queries: Make reasonable London-appropriate suggestions\n       - Multi-day: Note day changes in flexibleTimeEntries\n    \n    SCHEMA STRUCTURE:\n    {\n      \"timeBlocks\": [\n        {\n          \"startTime\": \"10:00\",\n          \"endTime\": \"15:00\",\n          \"activity\": \"work session\",\n          \"location\": \"Canary Wharf\",\n          \"venueRequirements\": [\"quiet\", \"good wifi\", \"suitable for calls\"],\n          \"searchParameters\": {\n            \"venueType\": \"cafe\",\n            \"specificRequirements\": [\"quiet\", \"wifi\", \"power outlets\"],\n            \"ambience\": \"quiet\"\n          }\n        }\n      ],\n      \"fixedAppointments\": [\n        {\n          \"time\": \"17:00\",\n          \"duration\": 60,\n          \"activity\": \"meeting\",\n          \"location\": \"Mayfair\",\n          \"bufferBefore\": 30,\n          \"bufferAfter\": 15,\n          \"isFixed\": true\n        }\n      ],\n      \"fixedTimeEntries\": [\n        {\n          \"time\": \"HH:MM\",\n          \"activity\": \"Brief description\",\n          \"location\": \"London location\",\n          \"venuePreference\": \"specific venue type if mentioned\",\n          \"venueRequirements\": [\"quiet\", \"non-crowded\"],\n          \"searchParameters\": {\n            \"venuePreference\": \"DUPLICATE venue preference here\",\n            \"specificRequirements\": [\"array of requirements\"],\n            \"cuisine\": \"if food related\",\n            \"priceLevel\": \"budget/moderate/expensive\"\n          }\n        }\n      ],\n      \"flexibleTimeEntries\": [...same structure...],\n      \"preferences\": {\n        \"budget\": \"overall budget level\",\n        \"pace\": \"relaxed/moderate/busy\",\n        \"interests\": [\"user interests\"]\n      },\n      \"travelGroup\": {\n        \"adults\": number,\n        \"children\": number\n      },\n      \"specialRequests\": [\"any special notes\"]\n    }\n\n    \n    \n    \n    IMPORTANT: Count ALL activities in this request and ensure each one appears in the output.\n    \n    Here's the request to analyze:\n    FINAL TEST: lunch in Mayfair, coffee, drinks in Chelsea\n    ","temperature":0.2},"rawResponse":"```json\n{\n  \"timeBlocks\": [],\n  \"fixedAppointments\": [],\n  \"fixedTimeEntries\": [\n    {\n      \"time\": \"12:00\",\n      \"activity\": \"lunch\",\n      \"location\": \"Mayfair\",\n      \"venuePreference\": null,\n      \"venueRequirements\": [],\n      \"searchParameters\": {\n        \"venuePreference\": null,\n        \"specificRequirements\": [],\n        \"cuisine\": null,\n        \"priceLevel\": null\n      }\n    },\n    {\n      \"time\": \"14:00\",\n      \"activity\": \"coffee\",\n      \"location\": \"Central London\",\n      \"venuePreference\": null,\n      \"venueRequirements\": [],\n      \"searchParameters\": {\n        \"venuePreference\": null,\n        \"specificRequirements\": [],\n        \"cuisine\": null,\n        \"priceLevel\": null\n      }\n    },\n    {\n      \"time\": \"16:00\",\n      \"activity\": \"drinks\",\n      \"location\": \"Chelsea\",\n      \"venuePreference\": null,\n      \"venueRequirements\": [],\n      \"searchParameters\": {\n        \"venuePreference\": null,\n        \"specificRequirements\": [],\n        \"cuisine\": null,\n        \"priceLevel\": null\n      }\n    }\n  ],\n  \"flexibleTimeEntries\": [],\n  \"preferences\": {\n    \"budget\": null,\n    \"pace\": null,\n    \"interests\": []\n  },\n  \"travelGroup\": {\n    \"adults\": 0,\n    \"children\": 0\n  },\n  \"specialRequests\": []\n}\n```\n","service":"ai-interaction-logger","sessionId":"cd4487af-be22-4719-a90e-655ff8ac6d20","status":"success","timestamp":"2025-06-03T00:27:49.659Z","userQuery":"FINAL TEST: lunch in Mayfair, coffee, drinks in Chelsea"}
+Processing Gemini response with raw data: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "lunch",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "14:00",
+      "activity": "coffee",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "16:00",
+      "activity": "drinks",
+      "location": "Chelsea",
+      "venueRequirements": [],
+      "searchParameters": {
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 0,
+    "children": 0
+  },
+  "specialRequests": []
+}
+Processing 3 fixed time entries with duplicate detection
+Added fixed time entry: lunch at Mayfair, 12:00
+Added fixed time entry: coffee at Central London, 14:00
+Added fixed time entry: drinks at Chelsea, 16:00
+Final processed result: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "lunch",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "14:00",
+      "activity": "coffee",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "16:00",
+      "activity": "drinks",
+      "location": "Chelsea",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 0,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Central London"
+}
+✅ [nlp-fixed] processWithGemini completed successfully, result: VALID
+Successfully processed query with new Gemini processor
+Raw Gemini API response: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "lunch",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "14:00",
+      "activity": "coffee",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "16:00",
+      "activity": "drinks",
+      "location": "Chelsea",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 0,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Central London"
+}
+Converting Gemini result to app format: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "lunch",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "14:00",
+      "activity": "coffee",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "16:00",
+      "activity": "drinks",
+      "location": "Chelsea",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 0,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Central London"
+}
+Raw time blocks from Gemini: []
+Raw fixed appointments from Gemini: []
+Raw fixed time entries from Gemini: [
+  {
+    "time": "12:00",
+    "activity": "lunch",
+    "location": "Mayfair",
+    "venueRequirements": [],
+    "searchParameters": {
+      "priceLevel": "moderate",
+      "specificRequirements": []
+    }
+  },
+  {
+    "time": "14:00",
+    "activity": "coffee",
+    "location": "Central London",
+    "venueRequirements": [],
+    "searchParameters": {
+      "priceLevel": "moderate",
+      "specificRequirements": []
+    }
+  },
+  {
+    "time": "16:00",
+    "activity": "drinks",
+    "location": "Chelsea",
+    "venueRequirements": [],
+    "searchParameters": {
+      "priceLevel": "moderate",
+      "specificRequirements": []
+    }
+  }
+]
+Fixed time entry: Normalized time from "12:00" to "12:00"
+Correctly interpreted time "12:00" as London time: 12:00 PM (2025-06-02T11:00:00.000Z)
+Processed fixed time entry: lunch at Mayfair, time: 2025-06-02T11:00:00.000Z, type: restaurant
+Fixed time entry: Normalized time from "14:00" to "14:00"
+Correctly interpreted time "14:00" as London time: 2:00 PM (2025-06-02T13:00:00.000Z)
+Processed fixed time entry: coffee at Central London, time: 2025-06-02T13:00:00.000Z, type: cafe
+Fixed time entry: Normalized time from "16:00" to "16:00"
+Correctly interpreted time "16:00" as London time: 4:00 PM (2025-06-02T15:00:00.000Z)
+Processed fixed time entry: drinks at Chelsea, time: 2025-06-02T15:00:00.000Z, type: bar
+Raw flexible time entries from Gemini: []
+Final de-duplicated activities count: 3
+Converted app format request: {
+  "startLocation": "Central London",
+  "destinations": [
+    "Mayfair",
+    "Central London",
+    "Chelsea"
+  ],
+  "fixedTimes": [
+    {
+      "location": "Mayfair",
+      "time": "2025-06-02T11:00:00.000Z",
+      "type": "restaurant",
+      "searchTerm": "lunch",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "12:00 PM"
+    },
+    {
+      "location": "Central London",
+      "time": "2025-06-02T13:00:00.000Z",
+      "type": "cafe",
+      "searchTerm": "coffee",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "2:00 PM"
+    },
+    {
+      "location": "Chelsea",
+      "time": "2025-06-02T15:00:00.000Z",
+      "type": "bar",
+      "searchTerm": "drinks",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "4:00 PM"
+    }
+  ],
+  "preferences": {
+    "type": "moderate",
+    "requirements": []
+  }
+}
+Using optimized Gemini result that was converted by convertGeminiToAppFormat function
+Gemini result contains 3 de-duplicated activities
+Validating location: "Mayfair" with Google Maps Geocoding API
+Geocoding search query: "Mayfair, London, UK, UK"
+Validated "Mayfair" as neighborhood: "Mayfair"
+Validated "Mayfair" as neighborhood: "Mayfair"
+Validating location: "Central London" with Google Maps Geocoding API
+Geocoding search query: "Central London, London, UK, UK"
+Validated "Central London" as admin area: "Greater London"
+Validated "Central London" as neighborhood: "Greater London"
+Validating location: "Chelsea" with Google Maps Geocoding API
+Geocoding search query: "Chelsea, London, UK, UK"
+Validated "Chelsea" as neighborhood: "Chelsea"
+Validated "Chelsea" as neighborhood: "Chelsea"
+Validating location: "Mayfair" with Google Maps Geocoding API
+Geocoding search query: "Mayfair, London, UK, UK"
+Validated "Mayfair" as neighborhood: "Mayfair"
+Validating location: "Central London" with Google Maps Geocoding API
+Geocoding search query: "Central London, London, UK, UK"
+Validated "Central London" as admin area: "Greater London"
+Validating location: "Chelsea" with Google Maps Geocoding API
+Geocoding search query: "Chelsea, London, UK, UK"
+Validated "Chelsea" as neighborhood: "Chelsea"
+Final processed Gemini result: {
+  "startLocation": "Central London",
+  "destinations": [
+    "Mayfair",
+    "Greater London",
+    "Chelsea"
+  ],
+  "fixedTimes": [
+    {
+      "location": "Mayfair",
+      "time": "2025-06-02T11:00:00.000Z",
+      "type": "restaurant",
+      "searchTerm": "lunch",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "12:00 PM"
+    },
+    {
+      "location": "Greater London",
+      "time": "2025-06-02T13:00:00.000Z",
+      "type": "cafe",
+      "searchTerm": "coffee",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "2:00 PM"
+    },
+    {
+      "location": "Chelsea",
+      "time": "2025-06-02T15:00:00.000Z",
+      "type": "bar",
+      "searchTerm": "drinks",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "4:00 PM"
+    }
+  ],
+  "preferences": {
+    "type": "moderate",
+    "requirements": []
+  }
+}
+📝 Parsed request from cache/fetch: {
+  startLocation: 'Central London',
+  destinations: [ 'Mayfair', 'Greater London', 'Chelsea' ],
+  fixedTimes: [
+    {
+      location: 'Mayfair',
+      time: '2025-06-02T11:00:00.000Z',
+      type: 'restaurant',
+      searchTerm: 'lunch',
+      keywords: [],
+      minRating: 4,
+      displayTime: '12:00 PM',
+      searchPreference: undefined
+    },
+    {
+      location: 'Greater London',
+      time: '2025-06-02T13:00:00.000Z',
+      type: 'cafe',
+      searchTerm: 'coffee',
+      keywords: [],
+      minRating: 4,
+      displayTime: '2:00 PM',
+      searchPreference: undefined
+    },
+    {
+      location: 'Chelsea',
+      time: '2025-06-02T15:00:00.000Z',
+      type: 'bar',
+      searchTerm: 'drinks',
+      keywords: [],
+      minRating: 4,
+      displayTime: '4:00 PM',
+      searchPreference: undefined
+    }
+  ],
+  preferences: { type: 'moderate', requirements: [] }
+}
+📍 Using explicit start location from NLP: Central London
+📍 Determined initial search/start location: Central London
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Mayfair","time":"2025-06-02T11:00:00.000Z","type":"restaurant","searchTerm":"lunch","keywords":[],"minRating":4,"displayTime":"12:00 PM"}
+Parsed ISO timestamp "2025-06-02T11:00:00.000Z" to Europe/London time: 2025-06-02 12:00:00 GMT+1
+🔍 [enhancedPlaceSearch] Starting enhanced search with options: {
+  query: 'lunch',
+  location: 'Mayfair',
+  keywords: [],
+  type: 'restaurant',
+  preferences: undefined,
+  cityContext: { name: 'London', slug: 'london', timezone: 'Europe/London' }
+}
+🤖 [Gemini] Enhanced query: best rated restaurants in Mayfair London
+📍 [enhancedPlaceSearch] Found specific area coordinates for "Mayfair": { lat: 51.5096, lng: -0.1498 }
+🎯 [enhancedPlaceSearch] Using location bias: 51.5096,-0.1498 with radius 5000m
+🌐 [enhancedPlaceSearch] Searching with query: best rated restaurants in Mayfair London
+🏙️ [enhancedPlaceSearch] After city filtering: 4 venues remain for London
+✅ [enhancedPlaceSearch] Found 4 places with ratings
+🎲 [enhancedPlaceSearch] Selected venue (with variety): {
+  name: 'Goodman',
+  rating: 4.7,
+  address: '24-26 Maddox St, London W1S 1QH, United Kingdom'
+}
+🔄 [enhancedPlaceSearch] Alternatives: [
+  { name: 'HIDE', rating: 4.5 },
+  { name: '34 Mayfair', rating: 4.3 },
+  { name: 'Isabel', rating: 4.3 }
+]
+Added fixed appointment to itinerary: Goodman at 2025-06-02T11:00:00.000Z
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Greater London","time":"2025-06-02T13:00:00.000Z","type":"cafe","searchTerm":"coffee","keywords":[],"minRating":4,"displayTime":"2:00 PM"}
+Parsed ISO timestamp "2025-06-02T13:00:00.000Z" to Europe/London time: 2025-06-02 14:00:00 GMT+1
+🔍 [enhancedPlaceSearch] Starting enhanced search with options: {
+  query: 'coffee',
+  location: 'Greater London',
+  keywords: [],
+  type: 'cafe',
+  preferences: undefined,
+  cityContext: { name: 'London', slug: 'london', timezone: 'Europe/London' }
+}
+🤖 [Gemini] Enhanced query: best coffee shops in Greater London
+📍 [enhancedPlaceSearch] Using city center for "london"
+🎯 [enhancedPlaceSearch] Using location bias: 51.5074,-0.1278 with radius 25000m
+🌐 [enhancedPlaceSearch] Searching with query: best coffee shops in Greater London
+🏙️ [enhancedPlaceSearch] After city filtering: 4 venues remain for London
+✅ [enhancedPlaceSearch] Found 4 places with ratings
+🎲 [enhancedPlaceSearch] Selected venue (with variety): {
+  name: 'WatchHouse Seven Dials',
+  rating: 4.5,
+  address: "7 Upper St Martin's Ln, London WC2H 9DL, United Kingdom"
+}
+🔄 [enhancedPlaceSearch] Alternatives: [
+  { name: "Colonna & Small's", rating: 4.9 },
+  { name: 'SO Café London', rating: 4.9 },
+  { name: 'Prufrock Coffee', rating: 4.6 }
+]
+Added fixed appointment to itinerary: WatchHouse Seven Dials at 2025-06-02T13:00:00.000Z
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Chelsea","time":"2025-06-02T15:00:00.000Z","type":"bar","searchTerm":"drinks","keywords":[],"minRating":4,"displayTime":"4:00 PM"}
+Parsed ISO timestamp "2025-06-02T15:00:00.000Z" to Europe/London time: 2025-06-02 16:00:00 GMT+1
+🔍 [enhancedPlaceSearch] Starting enhanced search with options: {
+  query: 'drinks',
+  location: 'Chelsea',
+  keywords: [],
+  type: 'bar',
+  preferences: undefined,
+  cityContext: { name: 'London', slug: 'london', timezone: 'Europe/London' }
+}
+🤖 [Gemini] Enhanced query: best bars in Chelsea London
+📍 [enhancedPlaceSearch] Found specific area coordinates for "Chelsea": { lat: 51.4875, lng: -0.1687 }
+🎯 [enhancedPlaceSearch] Using location bias: 51.4875,-0.1687 with radius 5000m
+🌐 [enhancedPlaceSearch] Searching with query: best bars in Chelsea London
+🏙️ [enhancedPlaceSearch] After city filtering: 4 venues remain for London
+✅ [enhancedPlaceSearch] Found 4 places with ratings
+🎲 [enhancedPlaceSearch] Selected venue (with variety): {
+  name: 'Callooh Callay Chelsea',
+  rating: 4.3,
+  address: "316-318 King's Rd, London SW3 5UH, United Kingdom"
+}
+🔄 [enhancedPlaceSearch] Alternatives: [
+  { name: 'The Chelsea Speakeasy', rating: 5 },
+  { name: 'Barts', rating: 4.4 },
+  { name: 'Beaufort House Chelsea', rating: 4.2 }
+]
+Added fixed appointment to itinerary: Callooh Callay Chelsea at 2025-06-02T15:00:00.000Z
+🗺️ Optimizing route for 3 places in London
+Calculating travel times for 3 places in London
+Travel time from Goodman to WatchHouse Seven Dials: 5 minutes
+Travel time from WatchHouse Seven Dials to Callooh Callay Chelsea: 13 minutes
+DbStorage (with logging): Creating itinerary (anonymous)
+DbStorage (with logging): Error creating itinerary: NeonDbError: column "title" of relation "itineraries" does not exist
+    at execute (file:///Users/carlos/LondonDayPlanner-1/node_modules/@neondatabase/serverless/index.mjs:1556:55)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at NeonHttpPreparedQuery.execute (/Users/carlos/LondonDayPlanner-1/node_modules/src/neon-http/session.ts:68:18)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:100:27)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:512:22)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:300:32)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:299:25) {
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '34',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_target.c',
+  line: '1066',
+  routine: 'checkInsertTargets',
+  sourceError: undefined
+}
+Using in-memory fallback for createItinerary due to database error
+Successfully created itinerary "lunch, coffee, drinks in London" for London with ID: 1
+[Weather] Fetching weather for 51.51,-0.14
+[Weather] Success with OpenWeatherMap
+🌤️ [/:city/plan] Retrieved weather data for itinerary
+🕒 [/:city/plan] Place scheduledTime: 2025-06-02T11:00:00.000Z
+🌍 [/:city/plan] Using timezone: Europe/London
+🕒 [/:city/plan] Formatted time: 12:00 PM
+🕒 [/:city/plan] Place scheduledTime: 2025-06-02T13:00:00.000Z
+🌍 [/:city/plan] Using timezone: Europe/London
+🕒 [/:city/plan] Formatted time: 2:00 PM
+🕒 [/:city/plan] Place scheduledTime: 2025-06-02T15:00:00.000Z
+🌍 [/:city/plan] Using timezone: Europe/London
+🕒 [/:city/plan] Formatted time: 4:00 PM
+📤 [/:city/plan] Sending response with 3 venues
+POST /api/london/plan 200 10822ms
+📝 [/:city/plan] City-specific plan request for: London
+Query: Quick test: lunch and coffee
+🚀 [/:city/plan] Creating city-aware plan for London
+🏙️ Creating plan for city: london
+🚀 Creating plan for query: Quick test: lunch and coffee
+[NLP] Processing query with context for city: London
+🚀 [nlp-fixed] Attempting to process query with new Gemini processor
+🚀 [nlp-fixed] Query: Quick test: lunch and coffee
+🚀 [nlp-fixed] CityContext: { name: 'London', slug: 'london', timezone: 'Europe/London' }
+Raw Gemini structured data: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "lunch",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "14:00",
+      "activity": "coffee",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": []
+}
+[32minfo[39m: AI Interaction {"modelName":"gemini-1.5-pro","parsedResponse":{"fixedAppointments":[],"fixedTimeEntries":[{"activity":"lunch","location":"Central London","searchParameters":{"specificRequirements":[]},"time":"12:00","venueRequirements":[]},{"activity":"coffee","location":"Central London","searchParameters":{"specificRequirements":[]},"time":"14:00","venueRequirements":[]}],"flexibleTimeEntries":[],"preferences":{"budget":"moderate","interests":[]},"specialRequests":[],"timeBlocks":[],"travelGroup":{"adults":1,"children":0}},"processingTimeMs":3482,"rawRequest":{"prompt":"\n    You are an expert travel planning assistant for London. Extract structured information from this itinerary request with extreme attention to detail.\n    \n    CRITICAL PARSING RULES:\n    \n    1. JSON FORMAT: Return ONLY valid JSON matching the schema - no markdown, no extra text\n    \n    2. TIME EXTRACTION:\n       - Use 24-hour format (e.g., \"09:00\", \"15:30\")\n       - \"at 6\" without context = \"18:00\" (assume evening for dinner/drinks)\n       - \"at 6\" with morning context = \"06:00\"\n       - Default meal times: breakfast=\"09:00\", lunch=\"12:00\", dinner=\"19:00\"\n       - \"morning\"=\"09:00\", \"afternoon\"=\"14:00\", \"evening\"=\"18:00\", \"night\"=\"21:00\"\n       - \"early morning\"=\"07:00\", \"late morning\"=\"11:00\", \"late afternoon\"=\"16:00\"\n       - \"sunset\" = \"18:30\", \"sunrise\" = \"06:30\"\n       - RELATIVE TIME HANDLING (CRITICAL):\n         * \"in X hours\" = add X hours to the start time or previous activity time\n         * \"X hours later\" = add X hours to the previous activity time\n         * Example: If start is 10:00, \"in 1 hour\" = \"11:00\", \"in 3 hours\" = \"13:00\"\n         * Example: If last activity is 12:00, \"2 hours later\" = \"14:00\"\n    \n    3. TIME BLOCKS & APPOINTMENTS - NEW CRITICAL PARSING:\n       - TIME BLOCKS: \"work from X to Y\", \"spend X hours at\", \"need X hours for\"\n         * Example: \"work from 10 AM to 3 PM\" → timeBlocks entry with startTime: \"10:00\", endTime: \"15:00\"\n         * Example: \"need a quiet place to work for 5 hours\" → timeBlocks entry with duration reflected in end time\n         * Extract venue requirements: \"quiet\", \"good wifi\", \"suitable for calls\"\n       - FIXED APPOINTMENTS: \"meeting at X\", \"appointment at Y\", \"reservation at Z\"\n         * Example: \"meeting in Mayfair at 5\" → fixedAppointments entry with time: \"17:00\", location: \"Mayfair\"\n         * Add buffers: meeting = 30 min before, dinner = 15 min before\n       - REGULAR ACTIVITIES: Everything else goes in fixedTimeEntries\n    \n    4. ACTIVITY SEQUENCE - CRITICAL:\n       - Preserve the EXACT order mentioned by the user\n       - \"then\", \"after that\", \"after\", \"followed by\", \"next\", \"afterwards\" indicate sequence\n       - Count ALL activities mentioned (coffee, lunch, drinks, etc.)\n       - If no times given, space activities 1.5-2 hours apart\n       - Parse compound sentences carefully: \"I have a meeting... and would like to go to a restaurant\" = 2 activities\n    \n    5. VENUE PREFERENCES - CRITICAL:\n       - ALWAYS extract venue descriptors to venuePreference field\n       - Examples that MUST be captured:\n         * \"hipster cafe\" → venuePreference: \"hipster cafe\"\n         * \"authentic Jewish deli\" → venuePreference: \"authentic Jewish deli\"\n         * \"trendy brunch spot\" → venuePreference: \"trendy brunch spot\"\n         * \"hole-in-the-wall\" → venuePreference: \"hole-in-the-wall\"\n         * \"michelin star\" → venuePreference: \"michelin star restaurant\"\n         * \"rooftop bar\" → venuePreference: \"rooftop bar\"\n         * \"sports bar\" → venuePreference: \"sports bar\"\n         * \"family-friendly\" → venuePreference: \"family-friendly restaurant\"\n         * \"outdoor seating\" → specificRequirements: [\"outdoor seating\"]\n         * \"with a view\" → specificRequirements: [\"with a view\"]\n         * \"good wifi\" → specificRequirements: [\"wifi\"]\n    \n    6. LOCATION INTELLIGENCE - CRITICAL:\n       - PRESERVE ALL LOCATION MENTIONS from the user's query!\n       - Common London locations: \"Shoreditch\", \"Notting Hill\", \"Covent Garden\", \"Camden\"\n       - If user mentions a specific place (e.g., \"Barton Springs\", \"4th st\"), USE IT EXACTLY\n       - Keep landmark names as-is\n       - \"that famous museum\" → Try to infer (British Museum, Tower of London, Hyde Park)\n       - \"nearby\" → Use previous activity's location\n       - \"somewhere nice\" or generic location → \"Central London\"\n       - No location → \"Central London\"\n       - NEVER replace specific location mentions with generic ones\n    \n    6. SPECIAL REQUIREMENTS:\n       - Budget mentions: \"cheap\"/\"budget\" → budget: \"budget\", \"upscale\"/\"fancy\" → budget: \"expensive\"\n       - Group size: \"family\", \"group of X\" → travelGroup numbers\n       - Dietary: \"kosher\", \"vegan\", \"halal\" → specificRequirements\n       - Accessibility: \"wheelchair\", \"accessible\" → accessibility requirements\n       - Weather: \"if nice weather\" → note in specialRequests\n    \n    7. ACTIVITY TYPES:\n       - Meals: breakfast/brunch/lunch/dinner → restaurant\n       - Coffee/work at cafe → cafe\n       - Drinks/cocktails/lounge → bar (NOT attraction)\n       - Shopping → shopping\n       - Museums/galleries → museum\n       - Parks/outdoor/walk → park\n       - Shows/entertainment → entertainment\n       - Meeting/appointment → Skip venue search BUT preserve time/location for context\n    \n    8. EDGE CASES:\n       - Conflicting requirements: Choose most logical interpretation\n       - Vague queries: Make reasonable London-appropriate suggestions\n       - Multi-day: Note day changes in flexibleTimeEntries\n    \n    SCHEMA STRUCTURE:\n    {\n      \"timeBlocks\": [\n        {\n          \"startTime\": \"10:00\",\n          \"endTime\": \"15:00\",\n          \"activity\": \"work session\",\n          \"location\": \"Canary Wharf\",\n          \"venueRequirements\": [\"quiet\", \"good wifi\", \"suitable for calls\"],\n          \"searchParameters\": {\n            \"venueType\": \"cafe\",\n            \"specificRequirements\": [\"quiet\", \"wifi\", \"power outlets\"],\n            \"ambience\": \"quiet\"\n          }\n        }\n      ],\n      \"fixedAppointments\": [\n        {\n          \"time\": \"17:00\",\n          \"duration\": 60,\n          \"activity\": \"meeting\",\n          \"location\": \"Mayfair\",\n          \"bufferBefore\": 30,\n          \"bufferAfter\": 15,\n          \"isFixed\": true\n        }\n      ],\n      \"fixedTimeEntries\": [\n        {\n          \"time\": \"HH:MM\",\n          \"activity\": \"Brief description\",\n          \"location\": \"London location\",\n          \"venuePreference\": \"specific venue type if mentioned\",\n          \"venueRequirements\": [\"quiet\", \"non-crowded\"],\n          \"searchParameters\": {\n            \"venuePreference\": \"DUPLICATE venue preference here\",\n            \"specificRequirements\": [\"array of requirements\"],\n            \"cuisine\": \"if food related\",\n            \"priceLevel\": \"budget/moderate/expensive\"\n          }\n        }\n      ],\n      \"flexibleTimeEntries\": [...same structure...],\n      \"preferences\": {\n        \"budget\": \"overall budget level\",\n        \"pace\": \"relaxed/moderate/busy\",\n        \"interests\": [\"user interests\"]\n      },\n      \"travelGroup\": {\n        \"adults\": number,\n        \"children\": number\n      },\n      \"specialRequests\": [\"any special notes\"]\n    }\n\n    \n    \n    \n    IMPORTANT: Count ALL activities in this request and ensure each one appears in the output.\n    \n    Here's the request to analyze:\n    Quick test: lunch and coffee\n    ","temperature":0.2},"rawResponse":"```json\n{\n  \"timeBlocks\": [],\n  \"fixedAppointments\": [],\n  \"fixedTimeEntries\": [\n    {\n      \"time\": \"12:00\",\n      \"activity\": \"lunch\",\n      \"location\": \"Central London\",\n      \"venuePreference\": null,\n      \"venueRequirements\": [],\n      \"searchParameters\": {\n        \"venuePreference\": null,\n        \"specificRequirements\": [],\n        \"cuisine\": null,\n        \"priceLevel\": null\n      }\n    },\n    {\n      \"time\": \"14:00\",\n      \"activity\": \"coffee\",\n      \"location\": \"Central London\",\n      \"venuePreference\": null,\n      \"venueRequirements\": [],\n      \"searchParameters\": {\n        \"venuePreference\": null,\n        \"specificRequirements\": [],\n        \"cuisine\": null,\n        \"priceLevel\": null\n      }\n    }\n  ],\n  \"flexibleTimeEntries\": [],\n  \"preferences\": {\n    \"budget\": null,\n    \"pace\": null,\n    \"interests\": []\n  },\n  \"travelGroup\": {\n    \"adults\": null,\n    \"children\": null\n  },\n  \"specialRequests\": []\n}\n```\n","service":"ai-interaction-logger","sessionId":"11aa8f80-363b-4c88-bde2-740ce779afc8","status":"success","timestamp":"2025-06-03T00:41:35.751Z","userQuery":"Quick test: lunch and coffee"}
+Processing Gemini response with raw data: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "lunch",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "14:00",
+      "activity": "coffee",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": []
+}
+Processing 2 fixed time entries with duplicate detection
+Added fixed time entry: lunch at Central London, 12:00
+Added fixed time entry: coffee at Central London, 14:00
+Final processed result: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "lunch",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "14:00",
+      "activity": "coffee",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Central London"
+}
+✅ [nlp-fixed] processWithGemini completed successfully, result: VALID
+Successfully processed query with new Gemini processor
+Raw Gemini API response: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "lunch",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "14:00",
+      "activity": "coffee",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Central London"
+}
+Converting Gemini result to app format: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "lunch",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "14:00",
+      "activity": "coffee",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Central London"
+}
+Raw time blocks from Gemini: []
+Raw fixed appointments from Gemini: []
+Raw fixed time entries from Gemini: [
+  {
+    "time": "12:00",
+    "activity": "lunch",
+    "location": "Central London",
+    "venueRequirements": [],
+    "searchParameters": {
+      "priceLevel": "moderate",
+      "specificRequirements": []
+    }
+  },
+  {
+    "time": "14:00",
+    "activity": "coffee",
+    "location": "Central London",
+    "venueRequirements": [],
+    "searchParameters": {
+      "priceLevel": "moderate",
+      "specificRequirements": []
+    }
+  }
+]
+Fixed time entry: Normalized time from "12:00" to "12:00"
+Correctly interpreted time "12:00" as London time: 12:00 PM (2025-06-02T11:00:00.000Z)
+Processed fixed time entry: lunch at Central London, time: 2025-06-02T11:00:00.000Z, type: restaurant
+Fixed time entry: Normalized time from "14:00" to "14:00"
+Correctly interpreted time "14:00" as London time: 2:00 PM (2025-06-02T13:00:00.000Z)
+Processed fixed time entry: coffee at Central London, time: 2025-06-02T13:00:00.000Z, type: cafe
+Raw flexible time entries from Gemini: []
+Final de-duplicated activities count: 2
+Converted app format request: {
+  "startLocation": "Central London",
+  "destinations": [
+    "Central London"
+  ],
+  "fixedTimes": [
+    {
+      "location": "Central London",
+      "time": "2025-06-02T11:00:00.000Z",
+      "type": "restaurant",
+      "searchTerm": "lunch",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "12:00 PM"
+    },
+    {
+      "location": "Central London",
+      "time": "2025-06-02T13:00:00.000Z",
+      "type": "cafe",
+      "searchTerm": "coffee",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "2:00 PM"
+    }
+  ],
+  "preferences": {
+    "type": "moderate",
+    "requirements": []
+  }
+}
+Using optimized Gemini result that was converted by convertGeminiToAppFormat function
+Gemini result contains 2 de-duplicated activities
+Validating location: "Central London" with Google Maps Geocoding API
+Geocoding search query: "Central London, London, UK, UK"
+Validated "Central London" as admin area: "Greater London"
+Validated "Central London" as neighborhood: "Greater London"
+Validating location: "Central London" with Google Maps Geocoding API
+Geocoding search query: "Central London, London, UK, UK"
+Validated "Central London" as admin area: "Greater London"
+Validating location: "Central London" with Google Maps Geocoding API
+Geocoding search query: "Central London, London, UK, UK"
+Validated "Central London" as admin area: "Greater London"
+Final processed Gemini result: {
+  "startLocation": "Central London",
+  "destinations": [
+    "Greater London"
+  ],
+  "fixedTimes": [
+    {
+      "location": "Greater London",
+      "time": "2025-06-02T11:00:00.000Z",
+      "type": "restaurant",
+      "searchTerm": "lunch",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "12:00 PM"
+    },
+    {
+      "location": "Greater London",
+      "time": "2025-06-02T13:00:00.000Z",
+      "type": "cafe",
+      "searchTerm": "coffee",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "2:00 PM"
+    }
+  ],
+  "preferences": {
+    "type": "moderate",
+    "requirements": []
+  }
+}
+📝 Parsed request from cache/fetch: {
+  startLocation: 'Central London',
+  destinations: [ 'Greater London' ],
+  fixedTimes: [
+    {
+      location: 'Greater London',
+      time: '2025-06-02T11:00:00.000Z',
+      type: 'restaurant',
+      searchTerm: 'lunch',
+      keywords: [],
+      minRating: 4,
+      displayTime: '12:00 PM',
+      searchPreference: undefined
+    },
+    {
+      location: 'Greater London',
+      time: '2025-06-02T13:00:00.000Z',
+      type: 'cafe',
+      searchTerm: 'coffee',
+      keywords: [],
+      minRating: 4,
+      displayTime: '2:00 PM',
+      searchPreference: undefined
+    }
+  ],
+  preferences: { type: 'moderate', requirements: [] }
+}
+📍 Using explicit start location from NLP: Central London
+📍 Determined initial search/start location: Central London
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Greater London","time":"2025-06-02T11:00:00.000Z","type":"restaurant","searchTerm":"lunch","keywords":[],"minRating":4,"displayTime":"12:00 PM"}
+Parsed ISO timestamp "2025-06-02T11:00:00.000Z" to Europe/London time: 2025-06-02 12:00:00 GMT+1
+🔍 [enhancedPlaceSearch] Starting enhanced search with options: {
+  query: 'lunch',
+  location: 'Greater London',
+  keywords: [],
+  type: 'restaurant',
+  preferences: undefined,
+  cityContext: { name: 'London', slug: 'london', timezone: 'Europe/London' }
+}
+🤖 [Gemini] Enhanced query: best rated restaurants in Greater London
+📍 [enhancedPlaceSearch] Using city center for "london"
+🎯 [enhancedPlaceSearch] Using location bias: 51.5074,-0.1278 with radius 25000m
+🌐 [enhancedPlaceSearch] Searching with query: best rated restaurants in Greater London
+🏙️ [enhancedPlaceSearch] After city filtering: 4 venues remain for London
+✅ [enhancedPlaceSearch] Found 4 places with ratings
+🎲 [enhancedPlaceSearch] Selected venue (with variety): {
+  name: 'Colonel Saab, High Holborn',
+  rating: 4.8,
+  address: '193-197 High Holborn, London WC1V 7BD, United Kingdom'
+}
+🔄 [enhancedPlaceSearch] Alternatives: [
+  { name: 'Osteria Napoletana', rating: 4.8 },
+  { name: 'Tattu London', rating: 4.7 },
+  { name: 'The Ledbury', rating: 4.7 }
+]
+Added fixed appointment to itinerary: Colonel Saab, High Holborn at 2025-06-02T11:00:00.000Z
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Greater London","time":"2025-06-02T13:00:00.000Z","type":"cafe","searchTerm":"coffee","keywords":[],"minRating":4,"displayTime":"2:00 PM"}
+Parsed ISO timestamp "2025-06-02T13:00:00.000Z" to Europe/London time: 2025-06-02 14:00:00 GMT+1
+🔍 [enhancedPlaceSearch] Starting enhanced search with options: {
+  query: 'coffee',
+  location: 'Greater London',
+  keywords: [],
+  type: 'cafe',
+  preferences: undefined,
+  cityContext: { name: 'London', slug: 'london', timezone: 'Europe/London' }
+}
+🤖 [Gemini] Enhanced query: best coffee shops in Greater London
+📍 [enhancedPlaceSearch] Using city center for "london"
+🎯 [enhancedPlaceSearch] Using location bias: 51.5074,-0.1278 with radius 25000m
+🌐 [enhancedPlaceSearch] Searching with query: best coffee shops in Greater London
+🏙️ [enhancedPlaceSearch] After city filtering: 4 venues remain for London
+✅ [enhancedPlaceSearch] Found 4 places with ratings
+🎲 [enhancedPlaceSearch] Selected venue (with variety): {
+  name: 'SO Café London',
+  rating: 4.9,
+  address: 'Forecourt, Maida Vale Station, Randolph Ave., London W9 1JS, United Kingdom'
+}
+🔄 [enhancedPlaceSearch] Alternatives: [
+  { name: "Colonna & Small's", rating: 4.9 },
+  { name: 'Prufrock Coffee', rating: 4.6 },
+  { name: 'WatchHouse Seven Dials', rating: 4.5 }
+]
+Added fixed appointment to itinerary: SO Café London at 2025-06-02T13:00:00.000Z
+Calculating travel times for 2 places in London
+Travel time from Colonel Saab, High Holborn to SO Café London: 14 minutes
+DbStorage (with logging): Creating itinerary (anonymous)
+DbStorage (with logging): Error creating itinerary: NeonDbError: column "title" of relation "itineraries" does not exist
+    at execute (file:///Users/carlos/LondonDayPlanner-1/node_modules/@neondatabase/serverless/index.mjs:1556:55)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at NeonHttpPreparedQuery.execute (/Users/carlos/LondonDayPlanner-1/node_modules/src/neon-http/session.ts:68:18)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:100:27)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:512:22)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:300:32)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:299:25) {
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '34',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_target.c',
+  line: '1066',
+  routine: 'checkInsertTargets',
+  sourceError: undefined
+}
+Using in-memory fallback for createItinerary due to database error
+Successfully created itinerary "lunch, coffee in London" for London with ID: 2
+[Weather] Fetching weather for 51.52,-0.12
+[Weather] Success with OpenWeatherMap
+🌤️ [/:city/plan] Retrieved weather data for itinerary
+🕒 [/:city/plan] Place scheduledTime: 2025-06-02T11:00:00.000Z
+🌍 [/:city/plan] Using timezone: Europe/London
+🕒 [/:city/plan] Formatted time: 12:00 PM
+🕒 [/:city/plan] Place scheduledTime: 2025-06-02T13:00:00.000Z
+🌍 [/:city/plan] Using timezone: Europe/London
+🕒 [/:city/plan] Formatted time: 2:00 PM
+📤 [/:city/plan] Sending response with 2 venues
+POST /api/london/plan 200 8402ms
+[CityRegistry] getAllCities called, registry size: 4
+GET /api/cities 200 0ms
+GET /api/auth/me 401 0ms
+📝 [/:city/plan] City-specific plan request for: London
+Query: I have a lunch in Mayfair 12 -- would like a place with nice fish. Afterwards I would like to work at a nearby coffee shop. Before going to Chelsea at 7PM to meet some friends for drinks at a cocktail bar
+🚀 [/:city/plan] Creating city-aware plan for London
+🏙️ Creating plan for city: london
+🚀 Creating plan for query: I have a lunch in Mayfair 12 -- would like a place with nice fish. Afterwards I would like to work at a nearby coffee shop. Before going to Chelsea at 7PM to meet some friends for drinks at a cocktail bar
+[NLP] Processing query with context for city: London
+🚀 [nlp-fixed] Attempting to process query with new Gemini processor
+🚀 [nlp-fixed] Query: I have a lunch in Mayfair 12 -- would like a place with nice fish. Afterwards I would like to work at a nearby coffee shop. Before going to Chelsea at 7PM to meet some friends for drinks at a cocktail bar
+🚀 [nlp-fixed] CityContext: { name: 'London', slug: 'london', timezone: 'Europe/London' }
+Raw Gemini structured data: {
+  "timeBlocks": [
+    {
+      "startTime": "13:00",
+      "endTime": "18:30",
+      "activity": "Work",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "fixedAppointments": [
+    {
+      "time": "19:00",
+      "duration": 120,
+      "activity": "Drinks with friends",
+      "location": "Chelsea",
+      "bufferBefore": 15,
+      "bufferAfter": 0,
+      "isFixed": true
+    }
+  ],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "Lunch",
+      "location": "Mayfair",
+      "venuePreference": "restaurant with nice fish",
+      "venueRequirements": [],
+      "searchParameters": {
+        "cuisine": "Seafood",
+        "venueType": "restaurant",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": []
+}
+[32minfo[39m: AI Interaction {"modelName":"gemini-1.5-pro","parsedResponse":{"fixedAppointments":[{"activity":"Drinks with friends","bufferAfter":0,"bufferBefore":15,"duration":120,"isFixed":true,"location":"Chelsea","time":"19:00"}],"fixedTimeEntries":[{"activity":"Lunch","location":"Mayfair","searchParameters":{"cuisine":"Seafood","specificRequirements":[],"venueType":"restaurant"},"time":"12:00","venuePreference":"restaurant with nice fish","venueRequirements":[]}],"flexibleTimeEntries":[],"preferences":{"budget":"moderate","interests":[]},"specialRequests":[],"timeBlocks":[{"activity":"Work","endTime":"18:30","location":"Mayfair","searchParameters":{"specificRequirements":[],"venueType":"cafe"},"startTime":"13:00","venueRequirements":[]}],"travelGroup":{"adults":1,"children":0}},"processingTimeMs":4796,"rawRequest":{"prompt":"\n    You are an expert travel planning assistant for London. Extract structured information from this itinerary request with extreme attention to detail.\n    \n    CRITICAL PARSING RULES:\n    \n    1. JSON FORMAT: Return ONLY valid JSON matching the schema - no markdown, no extra text\n    \n    2. TIME EXTRACTION:\n       - Use 24-hour format (e.g., \"09:00\", \"15:30\")\n       - \"at 6\" without context = \"18:00\" (assume evening for dinner/drinks)\n       - \"at 6\" with morning context = \"06:00\"\n       - Default meal times: breakfast=\"09:00\", lunch=\"12:00\", dinner=\"19:00\"\n       - \"morning\"=\"09:00\", \"afternoon\"=\"14:00\", \"evening\"=\"18:00\", \"night\"=\"21:00\"\n       - \"early morning\"=\"07:00\", \"late morning\"=\"11:00\", \"late afternoon\"=\"16:00\"\n       - \"sunset\" = \"18:30\", \"sunrise\" = \"06:30\"\n       - RELATIVE TIME HANDLING (CRITICAL):\n         * \"in X hours\" = add X hours to the start time or previous activity time\n         * \"X hours later\" = add X hours to the previous activity time\n         * Example: If start is 10:00, \"in 1 hour\" = \"11:00\", \"in 3 hours\" = \"13:00\"\n         * Example: If last activity is 12:00, \"2 hours later\" = \"14:00\"\n    \n    3. TIME BLOCKS & APPOINTMENTS - NEW CRITICAL PARSING:\n       - TIME BLOCKS: \"work from X to Y\", \"spend X hours at\", \"need X hours for\"\n         * Example: \"work from 10 AM to 3 PM\" → timeBlocks entry with startTime: \"10:00\", endTime: \"15:00\"\n         * Example: \"need a quiet place to work for 5 hours\" → timeBlocks entry with duration reflected in end time\n         * Extract venue requirements: \"quiet\", \"good wifi\", \"suitable for calls\"\n       - FIXED APPOINTMENTS: \"meeting at X\", \"appointment at Y\", \"reservation at Z\"\n         * Example: \"meeting in Mayfair at 5\" → fixedAppointments entry with time: \"17:00\", location: \"Mayfair\"\n         * Add buffers: meeting = 30 min before, dinner = 15 min before\n       - REGULAR ACTIVITIES: Everything else goes in fixedTimeEntries\n    \n    4. ACTIVITY SEQUENCE - CRITICAL:\n       - Preserve the EXACT order mentioned by the user\n       - \"then\", \"after that\", \"after\", \"followed by\", \"next\", \"afterwards\" indicate sequence\n       - Count ALL activities mentioned (coffee, lunch, drinks, etc.)\n       - If no times given, space activities 1.5-2 hours apart\n       - Parse compound sentences carefully: \"I have a meeting... and would like to go to a restaurant\" = 2 activities\n    \n    5. VENUE PREFERENCES - CRITICAL:\n       - ALWAYS extract venue descriptors to venuePreference field\n       - Examples that MUST be captured:\n         * \"hipster cafe\" → venuePreference: \"hipster cafe\"\n         * \"authentic Jewish deli\" → venuePreference: \"authentic Jewish deli\"\n         * \"trendy brunch spot\" → venuePreference: \"trendy brunch spot\"\n         * \"hole-in-the-wall\" → venuePreference: \"hole-in-the-wall\"\n         * \"michelin star\" → venuePreference: \"michelin star restaurant\"\n         * \"rooftop bar\" → venuePreference: \"rooftop bar\"\n         * \"sports bar\" → venuePreference: \"sports bar\"\n         * \"family-friendly\" → venuePreference: \"family-friendly restaurant\"\n         * \"outdoor seating\" → specificRequirements: [\"outdoor seating\"]\n         * \"with a view\" → specificRequirements: [\"with a view\"]\n         * \"good wifi\" → specificRequirements: [\"wifi\"]\n    \n    6. LOCATION INTELLIGENCE - CRITICAL:\n       - PRESERVE ALL LOCATION MENTIONS from the user's query!\n       - Common London locations: \"Shoreditch\", \"Notting Hill\", \"Covent Garden\", \"Camden\"\n       - If user mentions a specific place (e.g., \"Barton Springs\", \"4th st\"), USE IT EXACTLY\n       - Keep landmark names as-is\n       - \"that famous museum\" → Try to infer (British Museum, Tower of London, Hyde Park)\n       - \"nearby\" → Use previous activity's location\n       - \"somewhere nice\" or generic location → \"Central London\"\n       - No location → \"Central London\"\n       - NEVER replace specific location mentions with generic ones\n    \n    6. SPECIAL REQUIREMENTS:\n       - Budget mentions: \"cheap\"/\"budget\" → budget: \"budget\", \"upscale\"/\"fancy\" → budget: \"expensive\"\n       - Group size: \"family\", \"group of X\" → travelGroup numbers\n       - Dietary: \"kosher\", \"vegan\", \"halal\" → specificRequirements\n       - Accessibility: \"wheelchair\", \"accessible\" → accessibility requirements\n       - Weather: \"if nice weather\" → note in specialRequests\n    \n    7. ACTIVITY TYPES:\n       - Meals: breakfast/brunch/lunch/dinner → restaurant\n       - Coffee/work at cafe → cafe\n       - Drinks/cocktails/lounge → bar (NOT attraction)\n       - Shopping → shopping\n       - Museums/galleries → museum\n       - Parks/outdoor/walk → park\n       - Shows/entertainment → entertainment\n       - Meeting/appointment → Skip venue search BUT preserve time/location for context\n    \n    8. EDGE CASES:\n       - Conflicting requirements: Choose most logical interpretation\n       - Vague queries: Make reasonable London-appropriate suggestions\n       - Multi-day: Note day changes in flexibleTimeEntries\n    \n    SCHEMA STRUCTURE:\n    {\n      \"timeBlocks\": [\n        {\n          \"startTime\": \"10:00\",\n          \"endTime\": \"15:00\",\n          \"activity\": \"work session\",\n          \"location\": \"Canary Wharf\",\n          \"venueRequirements\": [\"quiet\", \"good wifi\", \"suitable for calls\"],\n          \"searchParameters\": {\n            \"venueType\": \"cafe\",\n            \"specificRequirements\": [\"quiet\", \"wifi\", \"power outlets\"],\n            \"ambience\": \"quiet\"\n          }\n        }\n      ],\n      \"fixedAppointments\": [\n        {\n          \"time\": \"17:00\",\n          \"duration\": 60,\n          \"activity\": \"meeting\",\n          \"location\": \"Mayfair\",\n          \"bufferBefore\": 30,\n          \"bufferAfter\": 15,\n          \"isFixed\": true\n        }\n      ],\n      \"fixedTimeEntries\": [\n        {\n          \"time\": \"HH:MM\",\n          \"activity\": \"Brief description\",\n          \"location\": \"London location\",\n          \"venuePreference\": \"specific venue type if mentioned\",\n          \"venueRequirements\": [\"quiet\", \"non-crowded\"],\n          \"searchParameters\": {\n            \"venuePreference\": \"DUPLICATE venue preference here\",\n            \"specificRequirements\": [\"array of requirements\"],\n            \"cuisine\": \"if food related\",\n            \"priceLevel\": \"budget/moderate/expensive\"\n          }\n        }\n      ],\n      \"flexibleTimeEntries\": [...same structure...],\n      \"preferences\": {\n        \"budget\": \"overall budget level\",\n        \"pace\": \"relaxed/moderate/busy\",\n        \"interests\": [\"user interests\"]\n      },\n      \"travelGroup\": {\n        \"adults\": number,\n        \"children\": number\n      },\n      \"specialRequests\": [\"any special notes\"]\n    }\n\n    Start time: 10:00\n    Date: 2025-06-04\n    \n    IMPORTANT: Count ALL activities in this request and ensure each one appears in the output.\n    \n    Here's the request to analyze:\n    I have a lunch in Mayfair 12 -- would like a place with nice fish. Afterwards I would like to work at a nearby coffee shop. Before going to Chelsea at 7PM to meet some friends for drinks at a cocktail bar\n    ","temperature":0.2},"rawResponse":"```json\n{\n  \"timeBlocks\": [\n    {\n      \"startTime\": \"13:00\",\n      \"endTime\": \"18:30\",\n      \"activity\": \"Work\",\n      \"location\": \"Mayfair\",\n      \"venueRequirements\": [],\n      \"searchParameters\": {\n        \"venueType\": \"cafe\",\n        \"specificRequirements\": [],\n        \"ambience\": null\n      }\n    }\n  ],\n  \"fixedAppointments\": [\n    {\n      \"time\": \"19:00\",\n      \"duration\": 120,\n      \"activity\": \"Drinks with friends\",\n      \"location\": \"Chelsea\",\n      \"bufferBefore\": 15,\n      \"bufferAfter\": 0,\n      \"isFixed\": true\n    }\n  ],\n  \"fixedTimeEntries\": [\n    {\n      \"time\": \"12:00\",\n      \"activity\": \"Lunch\",\n      \"location\": \"Mayfair\",\n      \"venuePreference\": \"restaurant with nice fish\",\n      \"venueRequirements\": [],\n      \"searchParameters\": {\n        \"venueType\": \"restaurant\",\n        \"specificRequirements\": [],\n        \"cuisine\": \"Seafood\",\n        \"priceLevel\": null\n      }\n    }\n  ],\n  \"flexibleTimeEntries\": [],\n  \"preferences\": {\n    \"budget\": null,\n    \"pace\": null,\n    \"interests\": []\n  },\n  \"travelGroup\": {\n    \"adults\": 1,\n    \"children\": 0\n  },\n  \"specialRequests\": []\n}\n```","service":"ai-interaction-logger","sessionId":"c117849a-ae4d-4799-ad38-0d0c5548f91b","status":"success","timestamp":"2025-06-03T00:45:47.291Z","userQuery":"I have a lunch in Mayfair 12 -- would like a place with nice fish. Afterwards I would like to work at a nearby coffee shop. Before going to Chelsea at 7PM to meet some friends for drinks at a cocktail bar"}
+Processing Gemini response with raw data: {
+  "timeBlocks": [
+    {
+      "startTime": "13:00",
+      "endTime": "18:30",
+      "activity": "Work",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "fixedAppointments": [
+    {
+      "time": "19:00",
+      "duration": 120,
+      "activity": "Drinks with friends",
+      "location": "Chelsea",
+      "bufferBefore": 15,
+      "bufferAfter": 0,
+      "isFixed": true
+    }
+  ],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "Lunch",
+      "location": "Mayfair",
+      "venuePreference": "restaurant with nice fish",
+      "venueRequirements": [],
+      "searchParameters": {
+        "cuisine": "Seafood",
+        "venueType": "restaurant",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": []
+}
+Processing 1 fixed time entries with duplicate detection
+Added fixed time entry: Lunch at Mayfair, 12:00
+Final processed result: {
+  "timeBlocks": [
+    {
+      "startTime": "13:00",
+      "endTime": "18:30",
+      "activity": "Work",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "fixedAppointments": [
+    {
+      "time": "19:00",
+      "duration": 120,
+      "activity": "Drinks with friends",
+      "location": "Chelsea",
+      "bufferBefore": 15,
+      "bufferAfter": 0,
+      "isFixed": true
+    }
+  ],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "Lunch",
+      "location": "Mayfair",
+      "venuePreference": "restaurant with nice fish",
+      "venueRequirements": [],
+      "searchParameters": {
+        "cuisine": "Seafood",
+        "priceLevel": "moderate",
+        "venueType": "restaurant",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Central London"
+}
+✅ [nlp-fixed] processWithGemini completed successfully, result: VALID
+Successfully processed query with new Gemini processor
+Raw Gemini API response: {
+  "timeBlocks": [
+    {
+      "startTime": "13:00",
+      "endTime": "18:30",
+      "activity": "Work",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "fixedAppointments": [
+    {
+      "time": "19:00",
+      "duration": 120,
+      "activity": "Drinks with friends",
+      "location": "Chelsea",
+      "bufferBefore": 15,
+      "bufferAfter": 0,
+      "isFixed": true
+    }
+  ],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "Lunch",
+      "location": "Mayfair",
+      "venuePreference": "restaurant with nice fish",
+      "venueRequirements": [],
+      "searchParameters": {
+        "cuisine": "Seafood",
+        "priceLevel": "moderate",
+        "venueType": "restaurant",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Central London"
+}
+Converting Gemini result to app format: {
+  "timeBlocks": [
+    {
+      "startTime": "13:00",
+      "endTime": "18:30",
+      "activity": "Work",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "fixedAppointments": [
+    {
+      "time": "19:00",
+      "duration": 120,
+      "activity": "Drinks with friends",
+      "location": "Chelsea",
+      "bufferBefore": 15,
+      "bufferAfter": 0,
+      "isFixed": true
+    }
+  ],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "Lunch",
+      "location": "Mayfair",
+      "venuePreference": "restaurant with nice fish",
+      "venueRequirements": [],
+      "searchParameters": {
+        "cuisine": "Seafood",
+        "priceLevel": "moderate",
+        "venueType": "restaurant",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Central London"
+}
+Raw time blocks from Gemini: [
+  {
+    "startTime": "13:00",
+    "endTime": "18:30",
+    "activity": "Work",
+    "location": "Mayfair",
+    "venueRequirements": [],
+    "searchParameters": {
+      "venueType": "cafe",
+      "specificRequirements": []
+    }
+  }
+]
+Time block: Work from 1:00 PM in Mayfair
+Raw fixed appointments from Gemini: [
+  {
+    "time": "19:00",
+    "duration": 120,
+    "activity": "Drinks with friends",
+    "location": "Chelsea",
+    "bufferBefore": 15,
+    "bufferAfter": 0,
+    "isFixed": true
+  }
+]
+Fixed appointment: Drinks with friends at 7:00 PM in Chelsea
+Raw fixed time entries from Gemini: [
+  {
+    "time": "12:00",
+    "activity": "Lunch",
+    "location": "Mayfair",
+    "venuePreference": "restaurant with nice fish",
+    "venueRequirements": [],
+    "searchParameters": {
+      "cuisine": "Seafood",
+      "priceLevel": "moderate",
+      "venueType": "restaurant",
+      "specificRequirements": []
+    }
+  }
+]
+Fixed time entry: Normalized time from "12:00" to "12:00"
+Correctly interpreted time "12:00" as London time: 12:00 PM (2025-06-04T11:00:00.000Z)
+Found venue preference: "restaurant with nice fish" for activity: Lunch
+Processed fixed time entry: Lunch at Mayfair, time: 2025-06-04T11:00:00.000Z, type: restaurant
+Raw flexible time entries from Gemini: []
+Final de-duplicated activities count: 3
+Converted app format request: {
+  "startLocation": "Central London",
+  "destinations": [
+    "Mayfair",
+    "Chelsea"
+  ],
+  "fixedTimes": [
+    {
+      "location": "Mayfair",
+      "time": "2025-06-04T11:00:00.000Z",
+      "type": "restaurant",
+      "searchTerm": "Lunch",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "12:00 PM",
+      "searchPreference": "restaurant with nice fish"
+    },
+    {
+      "location": "Mayfair",
+      "time": "2025-06-04T12:00:00.000Z",
+      "type": "cafe",
+      "searchTerm": "Work",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "1:00 PM",
+      "searchPreference": "quiet workspace"
+    },
+    {
+      "location": "Chelsea",
+      "time": "2025-06-04T18:00:00.000Z",
+      "type": "skip",
+      "searchTerm": "Drinks with friends",
+      "displayTime": "7:00 PM"
+    }
+  ],
+  "preferences": {
+    "type": "moderate",
+    "requirements": []
+  }
+}
+Using optimized Gemini result that was converted by convertGeminiToAppFormat function
+Gemini result contains 3 de-duplicated activities
+Validating location: "Mayfair" with Google Maps Geocoding API
+Geocoding search query: "Mayfair, London, UK, UK"
+Validated "Mayfair" as neighborhood: "Mayfair"
+Validated "Mayfair" as neighborhood: "Mayfair"
+Validating location: "Chelsea" with Google Maps Geocoding API
+Geocoding search query: "Chelsea, London, UK, UK"
+Validated "Chelsea" as neighborhood: "Chelsea"
+Validated "Chelsea" as neighborhood: "Chelsea"
+Validating location: "Mayfair" with Google Maps Geocoding API
+Geocoding search query: "Mayfair, London, UK, UK"
+Validated "Mayfair" as neighborhood: "Mayfair"
+Validating location: "Mayfair" with Google Maps Geocoding API
+Geocoding search query: "Mayfair, London, UK, UK"
+Validated "Mayfair" as neighborhood: "Mayfair"
+Validating location: "Chelsea" with Google Maps Geocoding API
+Geocoding search query: "Chelsea, London, UK, UK"
+Validated "Chelsea" as neighborhood: "Chelsea"
+Final processed Gemini result: {
+  "startLocation": "Central London",
+  "destinations": [
+    "Mayfair",
+    "Chelsea"
+  ],
+  "fixedTimes": [
+    {
+      "location": "Mayfair",
+      "time": "2025-06-04T11:00:00.000Z",
+      "type": "restaurant",
+      "searchTerm": "Lunch",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "12:00 PM",
+      "searchPreference": "restaurant with nice fish"
+    },
+    {
+      "location": "Mayfair",
+      "time": "2025-06-04T12:00:00.000Z",
+      "type": "cafe",
+      "searchTerm": "Work",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "1:00 PM",
+      "searchPreference": "quiet workspace"
+    },
+    {
+      "location": "Chelsea",
+      "time": "2025-06-04T18:00:00.000Z",
+      "type": "skip",
+      "searchTerm": "Drinks with friends",
+      "displayTime": "7:00 PM"
+    }
+  ],
+  "preferences": {
+    "type": "moderate",
+    "requirements": []
+  }
+}
+📝 Parsed request from cache/fetch: {
+  startLocation: 'Central London',
+  destinations: [ 'Mayfair', 'Chelsea' ],
+  fixedTimes: [
+    {
+      location: 'Mayfair',
+      time: '2025-06-04T11:00:00.000Z',
+      type: 'restaurant',
+      searchTerm: 'Lunch',
+      keywords: [],
+      minRating: 4,
+      displayTime: '12:00 PM',
+      searchPreference: 'restaurant with nice fish'
+    },
+    {
+      location: 'Mayfair',
+      time: '2025-06-04T12:00:00.000Z',
+      type: 'cafe',
+      searchTerm: 'Work',
+      keywords: [],
+      minRating: 4,
+      displayTime: '1:00 PM',
+      searchPreference: 'quiet workspace'
+    },
+    {
+      location: 'Chelsea',
+      time: '2025-06-04T18:00:00.000Z',
+      type: 'skip',
+      searchTerm: 'Drinks with friends',
+      displayTime: '7:00 PM'
+    }
+  ],
+  preferences: { type: 'moderate', requirements: [] }
+}
+📍 Using explicit start location from NLP: Central London
+📍 Determined initial search/start location: Central London
+Parsed time "10:00" to normalized time "10:00" and Europe/London time: 10:00 AM (2025-06-03 10:00:00 GMT+1)
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Mayfair","time":"2025-06-04T11:00:00.000Z","type":"restaurant","searchTerm":"Lunch","keywords":[],"minRating":4,"displayTime":"12:00 PM","searchPreference":"restaurant with nice fish"}
+Parsed ISO timestamp "2025-06-04T11:00:00.000Z" to Europe/London time: 2025-06-04 12:00:00 GMT+1
+🔍 [enhancedPlaceSearch] Starting enhanced search with options: {
+  query: 'Lunch',
+  location: 'Mayfair',
+  keywords: [ 'restaurant with nice fish' ],
+  type: 'restaurant',
+  preferences: undefined,
+  cityContext: { name: 'London', slug: 'london', timezone: 'Europe/London' }
+}
+🤖 [Gemini] Enhanced query: best seafood restaurants in Mayfair London
+📍 [enhancedPlaceSearch] Found specific area coordinates for "Mayfair": { lat: 51.5096, lng: -0.1498 }
+🎯 [enhancedPlaceSearch] Using location bias: 51.5096,-0.1498 with radius 5000m
+🌐 [enhancedPlaceSearch] Searching with query: best seafood restaurants in Mayfair London
+🏙️ [enhancedPlaceSearch] After city filtering: 4 venues remain for London
+✅ [enhancedPlaceSearch] Found 4 places with ratings
+🎲 [enhancedPlaceSearch] Selected venue (with variety): {
+  name: 'The MAINE Mayfair Bar & Restaurant',
+  rating: 4.5,
+  address: '6, Medici Courtyard, London W1S 1JY, United Kingdom'
+}
+🔄 [enhancedPlaceSearch] Alternatives: [
+  { name: 'The Seafood Bar', rating: 4.8 },
+  { name: "Scott's", rating: 4.6 },
+  { name: '34 Mayfair', rating: 4.3 }
+]
+Added fixed appointment to itinerary: The MAINE Mayfair Bar & Restaurant at 2025-06-04T11:00:00.000Z
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Mayfair","time":"2025-06-04T12:00:00.000Z","type":"cafe","searchTerm":"Work","keywords":[],"minRating":4,"displayTime":"1:00 PM","searchPreference":"quiet workspace"}
+Parsed ISO timestamp "2025-06-04T12:00:00.000Z" to Europe/London time: 2025-06-04 13:00:00 GMT+1
+🔍 [enhancedPlaceSearch] Starting enhanced search with options: {
+  query: 'Work',
+  location: 'Mayfair',
+  keywords: [ 'quiet workspace' ],
+  type: 'cafe',
+  preferences: undefined,
+  cityContext: { name: 'London', slug: 'london', timezone: 'Europe/London' }
+}
+🤖 [Gemini] Enhanced query: "quiet workspace cafe in Mayfair"
+📍 [enhancedPlaceSearch] Found specific area coordinates for "Mayfair": { lat: 51.5096, lng: -0.1498 }
+🎯 [enhancedPlaceSearch] Using location bias: 51.5096,-0.1498 with radius 5000m
+🌐 [enhancedPlaceSearch] Searching with query: "quiet workspace cafe in Mayfair"
+🏙️ [enhancedPlaceSearch] After city filtering: 4 venues remain for London
+✅ [enhancedPlaceSearch] Found 4 places with ratings
+🎲 [enhancedPlaceSearch] Selected venue (with variety): {
+  name: 'Attendant Coffee Roasters - Mayfair',
+  rating: 4.1,
+  address: '55 Duke St, London W1K 5NR, United Kingdom'
+}
+🔄 [enhancedPlaceSearch] Alternatives: [
+  { name: 'Kiss The Hippo Coffee Mayfair', rating: 4.8 },
+  { name: 'Varo Coffee', rating: 4.8 },
+  { name: "Everbean x BIBI'S", rating: 4.4 }
+]
+Added fixed appointment to itinerary: Attendant Coffee Roasters - Mayfair at 2025-06-04T12:00:00.000Z
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Chelsea","time":"2025-06-04T18:00:00.000Z","type":"skip","searchTerm":"Drinks with friends","displayTime":"7:00 PM"}
+Parsed ISO timestamp "2025-06-04T18:00:00.000Z" to Europe/London time: 2025-06-04 19:00:00 GMT+1
+Skipping venue search for meeting: Drinks with friends at Chelsea
+Calculating travel times for 2 places in London
+Travel time from The MAINE Mayfair Bar & Restaurant to Attendant Coffee Roasters - Mayfair: 5 minutes
+DbStorage (with logging): Creating itinerary (anonymous)
+DbStorage (with logging): Error creating itinerary: NeonDbError: column "title" of relation "itineraries" does not exist
+    at execute (file:///Users/carlos/LondonDayPlanner-1/node_modules/@neondatabase/serverless/index.mjs:1556:55)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at NeonHttpPreparedQuery.execute (/Users/carlos/LondonDayPlanner-1/node_modules/src/neon-http/session.ts:68:18)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:100:27)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:512:22)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:300:32)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:299:25) {
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '34',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_target.c',
+  line: '1066',
+  routine: 'checkInsertTargets',
+  sourceError: undefined
+}
+Using in-memory fallback for createItinerary due to database error
+Successfully created itinerary "Lunch, Work, Drinks with friends in London" for London with ID: 3
+[Weather] Using cached data for 51.51,-0.14
+🌤️ [/:city/plan] Retrieved weather data for itinerary
+🕒 [/:city/plan] Place scheduledTime: 2025-06-04T11:00:00.000Z
+🌍 [/:city/plan] Using timezone: Europe/London
+🕒 [/:city/plan] Formatted time: 12:00 PM
+🕒 [/:city/plan] Place scheduledTime: 2025-06-04T12:00:00.000Z
+🌍 [/:city/plan] Using timezone: Europe/London
+🕒 [/:city/plan] Formatted time: 1:00 PM
+📤 [/:city/plan] Sending response with 2 venues
+POST /api/london/plan 200 9757ms
+GET /api/auth/me 401 0ms
+[CityRegistry] getAllCities called, registry size: 4
+GET /api/cities 304 0ms
+📝 [/:city/plan] City-specific plan request for: London
+Query: I have a lunch in Mayfair 12 -- would like a place with nice fish. Afterwards I would like to work at a nearby coffee shop. Before going to Chelsea at 7PM to meet some friends for drinks at a cocktail bar
+🚀 [/:city/plan] Creating city-aware plan for London
+🏙️ Creating plan for city: london
+🚀 Creating plan for query: I have a lunch in Mayfair 12 -- would like a place with nice fish. Afterwards I would like to work at a nearby coffee shop. Before going to Chelsea at 7PM to meet some friends for drinks at a cocktail bar
+📝 Parsed request from cache/fetch: {
+  startLocation: 'Central London',
+  destinations: [ 'Mayfair', 'Chelsea' ],
+  fixedTimes: [
+    {
+      location: 'Mayfair',
+      time: '2025-06-04T11:00:00.000Z',
+      type: 'restaurant',
+      searchTerm: 'Lunch',
+      keywords: [],
+      minRating: 4,
+      displayTime: '12:00 PM',
+      searchPreference: 'restaurant with nice fish'
+    },
+    {
+      location: 'Mayfair',
+      time: '2025-06-04T12:00:00.000Z',
+      type: 'cafe',
+      searchTerm: 'Work',
+      keywords: [],
+      minRating: 4,
+      displayTime: '1:00 PM',
+      searchPreference: 'quiet workspace'
+    },
+    {
+      location: 'Chelsea',
+      time: '2025-06-04T18:00:00.000Z',
+      type: 'skip',
+      searchTerm: 'Drinks with friends',
+      displayTime: '7:00 PM'
+    }
+  ],
+  preferences: { type: 'moderate', requirements: [] }
+}
+📍 Using explicit start location from NLP: Central London
+📍 Determined initial search/start location: Central London
+Parsed time "12:00" to normalized time "12:00" and Europe/London time: 12:00 PM (2025-06-03 12:00:00 GMT+1)
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Mayfair","time":"2025-06-04T11:00:00.000Z","type":"restaurant","searchTerm":"Lunch","keywords":[],"minRating":4,"displayTime":"12:00 PM","searchPreference":"restaurant with nice fish"}
+Parsed ISO timestamp "2025-06-04T11:00:00.000Z" to Europe/London time: 2025-06-04 12:00:00 GMT+1
+Place "The MAINE Mayfair Bar & Restaurant" already exists, returning existing record
+Added fixed appointment to itinerary: The MAINE Mayfair Bar & Restaurant at 2025-06-04T11:00:00.000Z
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Mayfair","time":"2025-06-04T12:00:00.000Z","type":"cafe","searchTerm":"Work","keywords":[],"minRating":4,"displayTime":"1:00 PM","searchPreference":"quiet workspace"}
+Parsed ISO timestamp "2025-06-04T12:00:00.000Z" to Europe/London time: 2025-06-04 13:00:00 GMT+1
+Place "Attendant Coffee Roasters - Mayfair" already exists, returning existing record
+Added fixed appointment to itinerary: Attendant Coffee Roasters - Mayfair at 2025-06-04T12:00:00.000Z
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Chelsea","time":"2025-06-04T18:00:00.000Z","type":"skip","searchTerm":"Drinks with friends","displayTime":"7:00 PM"}
+Parsed ISO timestamp "2025-06-04T18:00:00.000Z" to Europe/London time: 2025-06-04 19:00:00 GMT+1
+Skipping venue search for meeting: Drinks with friends at Chelsea
+Calculating travel times for 2 places in London
+Travel time from The MAINE Mayfair Bar & Restaurant to Attendant Coffee Roasters - Mayfair: 5 minutes
+DbStorage (with logging): Creating itinerary (anonymous)
+DbStorage (with logging): Error creating itinerary: NeonDbError: column "title" of relation "itineraries" does not exist
+    at execute (file:///Users/carlos/LondonDayPlanner-1/node_modules/@neondatabase/serverless/index.mjs:1556:55)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at NeonHttpPreparedQuery.execute (/Users/carlos/LondonDayPlanner-1/node_modules/src/neon-http/session.ts:68:18)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:100:27)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:512:22)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:300:32)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:299:25) {
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '34',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_target.c',
+  line: '1066',
+  routine: 'checkInsertTargets',
+  sourceError: undefined
+}
+Using in-memory fallback for createItinerary due to database error
+Successfully created itinerary "Lunch, Work, Drinks with friends in London" for London with ID: 4
+[Weather] Using cached data for 51.51,-0.14
+🌤️ [/:city/plan] Retrieved weather data for itinerary
+🕒 [/:city/plan] Place scheduledTime: 2025-06-04T11:00:00.000Z
+🌍 [/:city/plan] Using timezone: Europe/London
+🕒 [/:city/plan] Formatted time: 12:00 PM
+🕒 [/:city/plan] Place scheduledTime: 2025-06-04T12:00:00.000Z
+🌍 [/:city/plan] Using timezone: Europe/London
+🕒 [/:city/plan] Formatted time: 1:00 PM
+📤 [/:city/plan] Sending response with 2 venues
+POST /api/london/plan 200 640ms
+[CityRegistry] getAllCities called, registry size: 4
+GET /api/cities 200 0ms
+📝 [/:city/plan] City-specific plan request for: London
+Query: dinner in Mayfair at 7pm
+🚀 [/:city/plan] Creating city-aware plan for London
+🏙️ Creating plan for city: london
+🚀 Creating plan for query: dinner in Mayfair at 7pm
+[NLP] Processing query with context for city: London
+🚀 [nlp-fixed] Attempting to process query with new Gemini processor
+🚀 [nlp-fixed] Query: dinner in Mayfair at 7pm
+🚀 [nlp-fixed] CityContext: { name: 'London', slug: 'london', timezone: 'Europe/London' }
+Raw Gemini structured data: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "19:00",
+      "activity": "dinner",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": []
+}
+[32minfo[39m: AI Interaction {"modelName":"gemini-1.5-pro","parsedResponse":{"fixedAppointments":[],"fixedTimeEntries":[{"activity":"dinner","location":"Mayfair","searchParameters":{"specificRequirements":[]},"time":"19:00","venueRequirements":[]}],"flexibleTimeEntries":[],"preferences":{"budget":"moderate","interests":[]},"specialRequests":[],"timeBlocks":[],"travelGroup":{"adults":1,"children":0}},"processingTimeMs":2739,"rawRequest":{"prompt":"\n    You are an expert travel planning assistant for London. Extract structured information from this itinerary request with extreme attention to detail.\n    \n    CRITICAL PARSING RULES:\n    \n    1. JSON FORMAT: Return ONLY valid JSON matching the schema - no markdown, no extra text\n    \n    2. TIME EXTRACTION:\n       - Use 24-hour format (e.g., \"09:00\", \"15:30\")\n       - \"at 6\" without context = \"18:00\" (assume evening for dinner/drinks)\n       - \"at 6\" with morning context = \"06:00\"\n       - Default meal times: breakfast=\"09:00\", lunch=\"12:00\", dinner=\"19:00\"\n       - \"morning\"=\"09:00\", \"afternoon\"=\"14:00\", \"evening\"=\"18:00\", \"night\"=\"21:00\"\n       - \"early morning\"=\"07:00\", \"late morning\"=\"11:00\", \"late afternoon\"=\"16:00\"\n       - \"sunset\" = \"18:30\", \"sunrise\" = \"06:30\"\n       - RELATIVE TIME HANDLING (CRITICAL):\n         * \"in X hours\" = add X hours to the start time or previous activity time\n         * \"X hours later\" = add X hours to the previous activity time\n         * Example: If start is 10:00, \"in 1 hour\" = \"11:00\", \"in 3 hours\" = \"13:00\"\n         * Example: If last activity is 12:00, \"2 hours later\" = \"14:00\"\n    \n    3. TIME BLOCKS & APPOINTMENTS - NEW CRITICAL PARSING:\n       - TIME BLOCKS: \"work from X to Y\", \"spend X hours at\", \"need X hours for\"\n         * Example: \"work from 10 AM to 3 PM\" → timeBlocks entry with startTime: \"10:00\", endTime: \"15:00\"\n         * Example: \"need a quiet place to work for 5 hours\" → timeBlocks entry with duration reflected in end time\n         * Extract venue requirements: \"quiet\", \"good wifi\", \"suitable for calls\"\n       - FIXED APPOINTMENTS: \"meeting at X\", \"appointment at Y\", \"reservation at Z\"\n         * Example: \"meeting in Mayfair at 5\" → fixedAppointments entry with time: \"17:00\", location: \"Mayfair\"\n         * Add buffers: meeting = 30 min before, dinner = 15 min before\n       - REGULAR ACTIVITIES: Everything else goes in fixedTimeEntries\n    \n    4. ACTIVITY SEQUENCE - CRITICAL:\n       - Preserve the EXACT order mentioned by the user\n       - \"then\", \"after that\", \"after\", \"followed by\", \"next\", \"afterwards\" indicate sequence\n       - Count ALL activities mentioned (coffee, lunch, drinks, etc.)\n       - If no times given, space activities 1.5-2 hours apart\n       - Parse compound sentences carefully: \"I have a meeting... and would like to go to a restaurant\" = 2 activities\n    \n    5. VENUE PREFERENCES - CRITICAL:\n       - ALWAYS extract venue descriptors to venuePreference field\n       - Examples that MUST be captured:\n         * \"hipster cafe\" → venuePreference: \"hipster cafe\"\n         * \"authentic Jewish deli\" → venuePreference: \"authentic Jewish deli\"\n         * \"trendy brunch spot\" → venuePreference: \"trendy brunch spot\"\n         * \"hole-in-the-wall\" → venuePreference: \"hole-in-the-wall\"\n         * \"michelin star\" → venuePreference: \"michelin star restaurant\"\n         * \"rooftop bar\" → venuePreference: \"rooftop bar\"\n         * \"sports bar\" → venuePreference: \"sports bar\"\n         * \"family-friendly\" → venuePreference: \"family-friendly restaurant\"\n         * \"outdoor seating\" → specificRequirements: [\"outdoor seating\"]\n         * \"with a view\" → specificRequirements: [\"with a view\"]\n         * \"good wifi\" → specificRequirements: [\"wifi\"]\n    \n    6. LOCATION INTELLIGENCE - CRITICAL:\n       - PRESERVE ALL LOCATION MENTIONS from the user's query!\n       - Common London locations: \"Shoreditch\", \"Notting Hill\", \"Covent Garden\", \"Camden\"\n       - If user mentions a specific place (e.g., \"Barton Springs\", \"4th st\"), USE IT EXACTLY\n       - Keep landmark names as-is\n       - \"that famous museum\" → Try to infer (British Museum, Tower of London, Hyde Park)\n       - \"nearby\" → Use previous activity's location\n       - \"somewhere nice\" or generic location → \"Central London\"\n       - No location → \"Central London\"\n       - NEVER replace specific location mentions with generic ones\n    \n    6. SPECIAL REQUIREMENTS:\n       - Budget mentions: \"cheap\"/\"budget\" → budget: \"budget\", \"upscale\"/\"fancy\" → budget: \"expensive\"\n       - Group size: \"family\", \"group of X\" → travelGroup numbers\n       - Dietary: \"kosher\", \"vegan\", \"halal\" → specificRequirements\n       - Accessibility: \"wheelchair\", \"accessible\" → accessibility requirements\n       - Weather: \"if nice weather\" → note in specialRequests\n    \n    7. ACTIVITY TYPES:\n       - Meals: breakfast/brunch/lunch/dinner → restaurant\n       - Coffee/work at cafe → cafe\n       - Drinks/cocktails/lounge → bar (NOT attraction)\n       - Shopping → shopping\n       - Museums/galleries → museum\n       - Parks/outdoor/walk → park\n       - Shows/entertainment → entertainment\n       - Meeting/appointment → Skip venue search BUT preserve time/location for context\n    \n    8. EDGE CASES:\n       - Conflicting requirements: Choose most logical interpretation\n       - Vague queries: Make reasonable London-appropriate suggestions\n       - Multi-day: Note day changes in flexibleTimeEntries\n    \n    SCHEMA STRUCTURE:\n    {\n      \"timeBlocks\": [\n        {\n          \"startTime\": \"10:00\",\n          \"endTime\": \"15:00\",\n          \"activity\": \"work session\",\n          \"location\": \"Canary Wharf\",\n          \"venueRequirements\": [\"quiet\", \"good wifi\", \"suitable for calls\"],\n          \"searchParameters\": {\n            \"venueType\": \"cafe\",\n            \"specificRequirements\": [\"quiet\", \"wifi\", \"power outlets\"],\n            \"ambience\": \"quiet\"\n          }\n        }\n      ],\n      \"fixedAppointments\": [\n        {\n          \"time\": \"17:00\",\n          \"duration\": 60,\n          \"activity\": \"meeting\",\n          \"location\": \"Mayfair\",\n          \"bufferBefore\": 30,\n          \"bufferAfter\": 15,\n          \"isFixed\": true\n        }\n      ],\n      \"fixedTimeEntries\": [\n        {\n          \"time\": \"HH:MM\",\n          \"activity\": \"Brief description\",\n          \"location\": \"London location\",\n          \"venuePreference\": \"specific venue type if mentioned\",\n          \"venueRequirements\": [\"quiet\", \"non-crowded\"],\n          \"searchParameters\": {\n            \"venuePreference\": \"DUPLICATE venue preference here\",\n            \"specificRequirements\": [\"array of requirements\"],\n            \"cuisine\": \"if food related\",\n            \"priceLevel\": \"budget/moderate/expensive\"\n          }\n        }\n      ],\n      \"flexibleTimeEntries\": [...same structure...],\n      \"preferences\": {\n        \"budget\": \"overall budget level\",\n        \"pace\": \"relaxed/moderate/busy\",\n        \"interests\": [\"user interests\"]\n      },\n      \"travelGroup\": {\n        \"adults\": number,\n        \"children\": number\n      },\n      \"specialRequests\": [\"any special notes\"]\n    }\n\n    Start time: 19:00\n    Date: 2025-06-03\n    \n    IMPORTANT: Count ALL activities in this request and ensure each one appears in the output.\n    \n    Here's the request to analyze:\n    dinner in Mayfair at 7pm\n    ","temperature":0.2},"rawResponse":"```json\n{\n  \"timeBlocks\": [],\n  \"fixedAppointments\": [],\n  \"fixedTimeEntries\": [\n    {\n      \"time\": \"19:00\",\n      \"activity\": \"dinner\",\n      \"location\": \"Mayfair\",\n      \"venuePreference\": null,\n      \"venueRequirements\": [],\n      \"searchParameters\": {\n        \"venuePreference\": null,\n        \"specificRequirements\": [],\n        \"cuisine\": null,\n        \"priceLevel\": null\n      }\n    }\n  ],\n  \"flexibleTimeEntries\": [],\n  \"preferences\": {\n    \"budget\": null,\n    \"pace\": null,\n    \"interests\": []\n  },\n  \"travelGroup\": {\n    \"adults\": null,\n    \"children\": null\n  },\n  \"specialRequests\": []\n}\n```","service":"ai-interaction-logger","sessionId":"33e01f6b-06fa-4a74-8304-fe00770af38d","status":"success","timestamp":"2025-06-03T00:48:36.253Z","userQuery":"dinner in Mayfair at 7pm"}
+Processing Gemini response with raw data: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "19:00",
+      "activity": "dinner",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": []
+}
+Processing 1 fixed time entries with duplicate detection
+Added fixed time entry: dinner at Mayfair, 19:00
+Final processed result: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "19:00",
+      "activity": "dinner",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Central London"
+}
+✅ [nlp-fixed] processWithGemini completed successfully, result: VALID
+Successfully processed query with new Gemini processor
+Raw Gemini API response: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "19:00",
+      "activity": "dinner",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Central London"
+}
+Converting Gemini result to app format: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "19:00",
+      "activity": "dinner",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Central London"
+}
+Raw time blocks from Gemini: []
+Raw fixed appointments from Gemini: []
+Raw fixed time entries from Gemini: [
+  {
+    "time": "19:00",
+    "activity": "dinner",
+    "location": "Mayfair",
+    "venueRequirements": [],
+    "searchParameters": {
+      "priceLevel": "moderate",
+      "specificRequirements": []
+    }
+  }
+]
+Fixed time entry: Normalized time from "19:00" to "19:00"
+Correctly interpreted time "19:00" as London time: 7:00 PM (2025-06-03T18:00:00.000Z)
+Processed fixed time entry: dinner at Mayfair, time: 2025-06-03T18:00:00.000Z, type: restaurant
+Raw flexible time entries from Gemini: []
+Final de-duplicated activities count: 1
+Converted app format request: {
+  "startLocation": "Central London",
+  "destinations": [
+    "Mayfair"
+  ],
+  "fixedTimes": [
+    {
+      "location": "Mayfair",
+      "time": "2025-06-03T18:00:00.000Z",
+      "type": "restaurant",
+      "searchTerm": "dinner",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "7:00 PM"
+    }
+  ],
+  "preferences": {
+    "type": "moderate",
+    "requirements": []
+  }
+}
+Using optimized Gemini result that was converted by convertGeminiToAppFormat function
+Gemini result contains 1 de-duplicated activities
+Validating location: "Mayfair" with Google Maps Geocoding API
+Geocoding search query: "Mayfair, London, UK, UK"
+Validated "Mayfair" as neighborhood: "Mayfair"
+Validated "Mayfair" as neighborhood: "Mayfair"
+Validating location: "Mayfair" with Google Maps Geocoding API
+Geocoding search query: "Mayfair, London, UK, UK"
+Validated "Mayfair" as neighborhood: "Mayfair"
+Final processed Gemini result: {
+  "startLocation": "Central London",
+  "destinations": [
+    "Mayfair"
+  ],
+  "fixedTimes": [
+    {
+      "location": "Mayfair",
+      "time": "2025-06-03T18:00:00.000Z",
+      "type": "restaurant",
+      "searchTerm": "dinner",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "7:00 PM"
+    }
+  ],
+  "preferences": {
+    "type": "moderate",
+    "requirements": []
+  }
+}
+📝 Parsed request from cache/fetch: {
+  startLocation: 'Central London',
+  destinations: [ 'Mayfair' ],
+  fixedTimes: [
+    {
+      location: 'Mayfair',
+      time: '2025-06-03T18:00:00.000Z',
+      type: 'restaurant',
+      searchTerm: 'dinner',
+      keywords: [],
+      minRating: 4,
+      displayTime: '7:00 PM',
+      searchPreference: undefined
+    }
+  ],
+  preferences: { type: 'moderate', requirements: [] }
+}
+📍 Using explicit start location from NLP: Central London
+📍 Determined initial search/start location: Central London
+Parsed time "19:00" to normalized time "19:00" and Europe/London time: 7:00 PM (2025-06-03 19:00:00 GMT+1)
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Mayfair","time":"2025-06-03T18:00:00.000Z","type":"restaurant","searchTerm":"dinner","keywords":[],"minRating":4,"displayTime":"7:00 PM"}
+Parsed ISO timestamp "2025-06-03T18:00:00.000Z" to Europe/London time: 2025-06-03 19:00:00 GMT+1
+🔍 [enhancedPlaceSearch] Starting enhanced search with options: {
+  query: 'dinner',
+  location: 'Mayfair',
+  keywords: [],
+  type: 'restaurant',
+  preferences: undefined,
+  cityContext: { name: 'London', slug: 'london', timezone: 'Europe/London' }
+}
+🤖 [Gemini] Enhanced query: best dinner restaurants in Mayfair London
+📍 [enhancedPlaceSearch] Found specific area coordinates for "Mayfair": { lat: 51.5096, lng: -0.1498 }
+🎯 [enhancedPlaceSearch] Using location bias: 51.5096,-0.1498 with radius 5000m
+🌐 [enhancedPlaceSearch] Searching with query: best dinner restaurants in Mayfair London
+🏙️ [enhancedPlaceSearch] After city filtering: 4 venues remain for London
+✅ [enhancedPlaceSearch] Found 4 places with ratings
+🎲 [enhancedPlaceSearch] Selected venue (with variety): {
+  name: 'Mount St. Restaurant',
+  rating: 4.7,
+  address: 'First Floor, 41-43 Mount St, London W1K 2RX, United Kingdom'
+}
+🔄 [enhancedPlaceSearch] Alternatives: [
+  { name: 'Goodman', rating: 4.7 },
+  { name: '34 Mayfair', rating: 4.3 },
+  { name: 'COYA Mayfair', rating: 4.3 }
+]
+Added fixed appointment to itinerary: Mount St. Restaurant at 2025-06-03T18:00:00.000Z
+DbStorage (with logging): Creating itinerary (anonymous)
+DbStorage (with logging): Error creating itinerary: NeonDbError: column "title" of relation "itineraries" does not exist
+    at execute (file:///Users/carlos/LondonDayPlanner-1/node_modules/@neondatabase/serverless/index.mjs:1556:55)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at NeonHttpPreparedQuery.execute (/Users/carlos/LondonDayPlanner-1/node_modules/src/neon-http/session.ts:68:18)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:100:27)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:512:22)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:300:32)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:299:25) {
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '34',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_target.c',
+  line: '1066',
+  routine: 'checkInsertTargets',
+  sourceError: undefined
+}
+Using in-memory fallback for createItinerary due to database error
+Successfully created itinerary "dinner in London" for London with ID: 5
+[Weather] Fetching weather for 51.51,-0.15
+[Weather] Success with OpenWeatherMap
+🌤️ [/:city/plan] Retrieved weather data for itinerary
+🕒 [/:city/plan] Place scheduledTime: 2025-06-03T18:00:00.000Z
+🌍 [/:city/plan] Using timezone: Europe/London
+🕒 [/:city/plan] Formatted time: 7:00 PM
+📤 [/:city/plan] Sending response with 1 venues
+POST /api/london/plan 200 5416ms
+📝 [/:city/plan] City-specific plan request for: London
+Query: coffee in Mayfair at noon then shopping and dinner
+🚀 [/:city/plan] Creating city-aware plan for London
+🏙️ Creating plan for city: london
+🚀 Creating plan for query: coffee in Mayfair at noon then shopping and dinner
+[NLP] Processing query with context for city: London
+🚀 [nlp-fixed] Attempting to process query with new Gemini processor
+🚀 [nlp-fixed] Query: coffee in Mayfair at noon then shopping and dinner
+🚀 [nlp-fixed] CityContext: { name: 'London', slug: 'london', timezone: 'Europe/London' }
+Raw Gemini structured data: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "Coffee",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "13:30",
+      "activity": "Shopping",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "shopping",
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "17:45",
+      "activity": "Dinner",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "restaurant",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "pace": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": []
+}
+[32minfo[39m: AI Interaction {"modelName":"gemini-1.5-pro","parsedResponse":{"fixedAppointments":[],"fixedTimeEntries":[{"activity":"Coffee","location":"Mayfair","searchParameters":{"priceLevel":"moderate","specificRequirements":[],"venueType":"cafe"},"time":"12:00","venueRequirements":[]},{"activity":"Shopping","location":"Central London","searchParameters":{"specificRequirements":[],"venueType":"shopping"},"time":"13:30","venueRequirements":[]},{"activity":"Dinner","location":"Central London","searchParameters":{"priceLevel":"moderate","specificRequirements":[],"venueType":"restaurant"},"time":"17:45","venueRequirements":[]}],"flexibleTimeEntries":[],"preferences":{"budget":"moderate","interests":[],"pace":"moderate"},"specialRequests":[],"timeBlocks":[],"travelGroup":{"adults":1,"children":0}},"processingTimeMs":4453,"rawRequest":{"prompt":"\n    You are an expert travel planning assistant for London. Extract structured information from this itinerary request with extreme attention to detail.\n    \n    CRITICAL PARSING RULES:\n    \n    1. JSON FORMAT: Return ONLY valid JSON matching the schema - no markdown, no extra text\n    \n    2. TIME EXTRACTION:\n       - Use 24-hour format (e.g., \"09:00\", \"15:30\")\n       - \"at 6\" without context = \"18:00\" (assume evening for dinner/drinks)\n       - \"at 6\" with morning context = \"06:00\"\n       - Default meal times: breakfast=\"09:00\", lunch=\"12:00\", dinner=\"19:00\"\n       - \"morning\"=\"09:00\", \"afternoon\"=\"14:00\", \"evening\"=\"18:00\", \"night\"=\"21:00\"\n       - \"early morning\"=\"07:00\", \"late morning\"=\"11:00\", \"late afternoon\"=\"16:00\"\n       - \"sunset\" = \"18:30\", \"sunrise\" = \"06:30\"\n       - RELATIVE TIME HANDLING (CRITICAL):\n         * \"in X hours\" = add X hours to the start time or previous activity time\n         * \"X hours later\" = add X hours to the previous activity time\n         * Example: If start is 10:00, \"in 1 hour\" = \"11:00\", \"in 3 hours\" = \"13:00\"\n         * Example: If last activity is 12:00, \"2 hours later\" = \"14:00\"\n    \n    3. TIME BLOCKS & APPOINTMENTS - NEW CRITICAL PARSING:\n       - TIME BLOCKS: \"work from X to Y\", \"spend X hours at\", \"need X hours for\"\n         * Example: \"work from 10 AM to 3 PM\" → timeBlocks entry with startTime: \"10:00\", endTime: \"15:00\"\n         * Example: \"need a quiet place to work for 5 hours\" → timeBlocks entry with duration reflected in end time\n         * Extract venue requirements: \"quiet\", \"good wifi\", \"suitable for calls\"\n       - FIXED APPOINTMENTS: \"meeting at X\", \"appointment at Y\", \"reservation at Z\"\n         * Example: \"meeting in Mayfair at 5\" → fixedAppointments entry with time: \"17:00\", location: \"Mayfair\"\n         * Add buffers: meeting = 30 min before, dinner = 15 min before\n       - REGULAR ACTIVITIES: Everything else goes in fixedTimeEntries\n    \n    4. ACTIVITY SEQUENCE - CRITICAL:\n       - Preserve the EXACT order mentioned by the user\n       - \"then\", \"after that\", \"after\", \"followed by\", \"next\", \"afterwards\" indicate sequence\n       - Count ALL activities mentioned (coffee, lunch, drinks, etc.)\n       - If no times given, space activities 1.5-2 hours apart\n       - Parse compound sentences carefully: \"I have a meeting... and would like to go to a restaurant\" = 2 activities\n    \n    5. VENUE PREFERENCES - CRITICAL:\n       - ALWAYS extract venue descriptors to venuePreference field\n       - Examples that MUST be captured:\n         * \"hipster cafe\" → venuePreference: \"hipster cafe\"\n         * \"authentic Jewish deli\" → venuePreference: \"authentic Jewish deli\"\n         * \"trendy brunch spot\" → venuePreference: \"trendy brunch spot\"\n         * \"hole-in-the-wall\" → venuePreference: \"hole-in-the-wall\"\n         * \"michelin star\" → venuePreference: \"michelin star restaurant\"\n         * \"rooftop bar\" → venuePreference: \"rooftop bar\"\n         * \"sports bar\" → venuePreference: \"sports bar\"\n         * \"family-friendly\" → venuePreference: \"family-friendly restaurant\"\n         * \"outdoor seating\" → specificRequirements: [\"outdoor seating\"]\n         * \"with a view\" → specificRequirements: [\"with a view\"]\n         * \"good wifi\" → specificRequirements: [\"wifi\"]\n    \n    6. LOCATION INTELLIGENCE - CRITICAL:\n       - PRESERVE ALL LOCATION MENTIONS from the user's query!\n       - Common London locations: \"Shoreditch\", \"Notting Hill\", \"Covent Garden\", \"Camden\"\n       - If user mentions a specific place (e.g., \"Barton Springs\", \"4th st\"), USE IT EXACTLY\n       - Keep landmark names as-is\n       - \"that famous museum\" → Try to infer (British Museum, Tower of London, Hyde Park)\n       - \"nearby\" → Use previous activity's location\n       - \"somewhere nice\" or generic location → \"Central London\"\n       - No location → \"Central London\"\n       - NEVER replace specific location mentions with generic ones\n    \n    6. SPECIAL REQUIREMENTS:\n       - Budget mentions: \"cheap\"/\"budget\" → budget: \"budget\", \"upscale\"/\"fancy\" → budget: \"expensive\"\n       - Group size: \"family\", \"group of X\" → travelGroup numbers\n       - Dietary: \"kosher\", \"vegan\", \"halal\" → specificRequirements\n       - Accessibility: \"wheelchair\", \"accessible\" → accessibility requirements\n       - Weather: \"if nice weather\" → note in specialRequests\n    \n    7. ACTIVITY TYPES:\n       - Meals: breakfast/brunch/lunch/dinner → restaurant\n       - Coffee/work at cafe → cafe\n       - Drinks/cocktails/lounge → bar (NOT attraction)\n       - Shopping → shopping\n       - Museums/galleries → museum\n       - Parks/outdoor/walk → park\n       - Shows/entertainment → entertainment\n       - Meeting/appointment → Skip venue search BUT preserve time/location for context\n    \n    8. EDGE CASES:\n       - Conflicting requirements: Choose most logical interpretation\n       - Vague queries: Make reasonable London-appropriate suggestions\n       - Multi-day: Note day changes in flexibleTimeEntries\n    \n    SCHEMA STRUCTURE:\n    {\n      \"timeBlocks\": [\n        {\n          \"startTime\": \"10:00\",\n          \"endTime\": \"15:00\",\n          \"activity\": \"work session\",\n          \"location\": \"Canary Wharf\",\n          \"venueRequirements\": [\"quiet\", \"good wifi\", \"suitable for calls\"],\n          \"searchParameters\": {\n            \"venueType\": \"cafe\",\n            \"specificRequirements\": [\"quiet\", \"wifi\", \"power outlets\"],\n            \"ambience\": \"quiet\"\n          }\n        }\n      ],\n      \"fixedAppointments\": [\n        {\n          \"time\": \"17:00\",\n          \"duration\": 60,\n          \"activity\": \"meeting\",\n          \"location\": \"Mayfair\",\n          \"bufferBefore\": 30,\n          \"bufferAfter\": 15,\n          \"isFixed\": true\n        }\n      ],\n      \"fixedTimeEntries\": [\n        {\n          \"time\": \"HH:MM\",\n          \"activity\": \"Brief description\",\n          \"location\": \"London location\",\n          \"venuePreference\": \"specific venue type if mentioned\",\n          \"venueRequirements\": [\"quiet\", \"non-crowded\"],\n          \"searchParameters\": {\n            \"venuePreference\": \"DUPLICATE venue preference here\",\n            \"specificRequirements\": [\"array of requirements\"],\n            \"cuisine\": \"if food related\",\n            \"priceLevel\": \"budget/moderate/expensive\"\n          }\n        }\n      ],\n      \"flexibleTimeEntries\": [...same structure...],\n      \"preferences\": {\n        \"budget\": \"overall budget level\",\n        \"pace\": \"relaxed/moderate/busy\",\n        \"interests\": [\"user interests\"]\n      },\n      \"travelGroup\": {\n        \"adults\": number,\n        \"children\": number\n      },\n      \"specialRequests\": [\"any special notes\"]\n    }\n\n    Start time: 12:00\n    Date: 2025-06-03\n    \n    IMPORTANT: Count ALL activities in this request and ensure each one appears in the output.\n    \n    Here's the request to analyze:\n    coffee in Mayfair at noon then shopping and dinner\n    ","temperature":0.2},"rawResponse":"```json\n{\n  \"timeBlocks\": [],\n  \"fixedAppointments\": [],\n  \"fixedTimeEntries\": [\n    {\n      \"time\": \"12:00\",\n      \"activity\": \"Coffee\",\n      \"location\": \"Mayfair\",\n      \"venuePreference\": null,\n      \"venueRequirements\": [],\n      \"searchParameters\": {\n        \"venueType\": \"cafe\",\n        \"specificRequirements\": [],\n        \"priceLevel\": \"moderate\"\n      }\n    },\n    {\n      \"time\": \"13:30\",\n      \"activity\": \"Shopping\",\n      \"location\": \"Central London\",\n      \"venuePreference\": null,\n      \"venueRequirements\": [],\n      \"searchParameters\": {\n        \"venueType\": \"shopping\",\n        \"specificRequirements\": []\n      }\n    },\n    {\n      \"time\": \"17:45\",\n      \"activity\": \"Dinner\",\n      \"location\": \"Central London\",\n      \"venuePreference\": null,\n      \"venueRequirements\": [],\n      \"searchParameters\": {\n        \"venueType\": \"restaurant\",\n        \"specificRequirements\": [],\n        \"priceLevel\": \"moderate\"\n      }\n    }\n  ],\n  \"flexibleTimeEntries\": [],\n  \"preferences\": {\n    \"budget\": \"moderate\",\n    \"pace\": \"moderate\",\n    \"interests\": []\n  },\n  \"travelGroup\": {\n    \"adults\": 1,\n    \"children\": 0\n  },\n  \"specialRequests\": []\n}\n```","service":"ai-interaction-logger","sessionId":"ff6e6456-62ec-4b1e-a7c0-0f663cf8284c","status":"success","timestamp":"2025-06-03T00:52:14.239Z","userQuery":"coffee in Mayfair at noon then shopping and dinner"}
+Processing Gemini response with raw data: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "Coffee",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "13:30",
+      "activity": "Shopping",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "shopping",
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "17:45",
+      "activity": "Dinner",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "restaurant",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "pace": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": []
+}
+Processing 3 fixed time entries with duplicate detection
+Added fixed time entry: Coffee at Mayfair, 12:00
+Added fixed time entry: Shopping at Central London, 13:30
+Added fixed time entry: Dinner at Central London, 17:45
+Final processed result: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "Coffee",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "13:30",
+      "activity": "Shopping",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "shopping",
+        "specificRequirements": [],
+        "priceLevel": "moderate"
+      }
+    },
+    {
+      "time": "17:45",
+      "activity": "Dinner",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "restaurant",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "pace": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Central London"
+}
+✅ [nlp-fixed] processWithGemini completed successfully, result: VALID
+Successfully processed query with new Gemini processor
+Raw Gemini API response: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "Coffee",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "13:30",
+      "activity": "Shopping",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "shopping",
+        "specificRequirements": [],
+        "priceLevel": "moderate"
+      }
+    },
+    {
+      "time": "17:45",
+      "activity": "Dinner",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "restaurant",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "pace": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Central London"
+}
+Converting Gemini result to app format: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "Coffee",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "13:30",
+      "activity": "Shopping",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "shopping",
+        "specificRequirements": [],
+        "priceLevel": "moderate"
+      }
+    },
+    {
+      "time": "17:45",
+      "activity": "Dinner",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "restaurant",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "pace": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Central London"
+}
+Raw time blocks from Gemini: []
+Raw fixed appointments from Gemini: []
+Raw fixed time entries from Gemini: [
+  {
+    "time": "12:00",
+    "activity": "Coffee",
+    "location": "Mayfair",
+    "venueRequirements": [],
+    "searchParameters": {
+      "priceLevel": "moderate",
+      "venueType": "cafe",
+      "specificRequirements": []
+    }
+  },
+  {
+    "time": "13:30",
+    "activity": "Shopping",
+    "location": "Central London",
+    "venueRequirements": [],
+    "searchParameters": {
+      "venueType": "shopping",
+      "specificRequirements": [],
+      "priceLevel": "moderate"
+    }
+  },
+  {
+    "time": "17:45",
+    "activity": "Dinner",
+    "location": "Central London",
+    "venueRequirements": [],
+    "searchParameters": {
+      "priceLevel": "moderate",
+      "venueType": "restaurant",
+      "specificRequirements": []
+    }
+  }
+]
+Fixed time entry: Normalized time from "12:00" to "12:00"
+Correctly interpreted time "12:00" as London time: 12:00 PM (2025-06-03T11:00:00.000Z)
+Processed fixed time entry: Coffee at Mayfair, time: 2025-06-03T11:00:00.000Z, type: cafe
+Fixed time entry: Normalized time from "13:30" to "13:30"
+Correctly interpreted time "13:30" as London time: 1:30 PM (2025-06-03T12:30:00.000Z)
+Processed fixed time entry: Shopping at Central London, time: 2025-06-03T12:30:00.000Z, type: shopping
+Fixed time entry: Normalized time from "17:45" to "17:45"
+Correctly interpreted time "17:45" as London time: 5:45 PM (2025-06-03T16:45:00.000Z)
+Processed fixed time entry: Dinner at Central London, time: 2025-06-03T16:45:00.000Z, type: restaurant
+Raw flexible time entries from Gemini: []
+Final de-duplicated activities count: 3
+Converted app format request: {
+  "startLocation": "Central London",
+  "destinations": [
+    "Mayfair",
+    "Central London"
+  ],
+  "fixedTimes": [
+    {
+      "location": "Mayfair",
+      "time": "2025-06-03T11:00:00.000Z",
+      "type": "cafe",
+      "searchTerm": "Coffee",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "12:00 PM"
+    },
+    {
+      "location": "Central London",
+      "time": "2025-06-03T12:30:00.000Z",
+      "type": "shopping",
+      "searchTerm": "Shopping",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "1:30 PM"
+    },
+    {
+      "location": "Central London",
+      "time": "2025-06-03T16:45:00.000Z",
+      "type": "restaurant",
+      "searchTerm": "Dinner",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "5:45 PM"
+    }
+  ],
+  "preferences": {
+    "type": "moderate",
+    "requirements": []
+  }
+}
+Using optimized Gemini result that was converted by convertGeminiToAppFormat function
+Gemini result contains 3 de-duplicated activities
+Validating location: "Mayfair" with Google Maps Geocoding API
+Geocoding search query: "Mayfair, London, UK, UK"
+Validated "Mayfair" as neighborhood: "Mayfair"
+Validated "Mayfair" as neighborhood: "Mayfair"
+Validating location: "Central London" with Google Maps Geocoding API
+Geocoding search query: "Central London, London, UK, UK"
+Validated "Central London" as admin area: "Greater London"
+Validated "Central London" as neighborhood: "Greater London"
+Validating location: "Mayfair" with Google Maps Geocoding API
+Geocoding search query: "Mayfair, London, UK, UK"
+Validated "Mayfair" as neighborhood: "Mayfair"
+Validating location: "Central London" with Google Maps Geocoding API
+Geocoding search query: "Central London, London, UK, UK"
+Validated "Central London" as admin area: "Greater London"
+Validating location: "Central London" with Google Maps Geocoding API
+Geocoding search query: "Central London, London, UK, UK"
+Validated "Central London" as admin area: "Greater London"
+Final processed Gemini result: {
+  "startLocation": "Central London",
+  "destinations": [
+    "Mayfair",
+    "Greater London"
+  ],
+  "fixedTimes": [
+    {
+      "location": "Mayfair",
+      "time": "2025-06-03T11:00:00.000Z",
+      "type": "cafe",
+      "searchTerm": "Coffee",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "12:00 PM"
+    },
+    {
+      "location": "Greater London",
+      "time": "2025-06-03T12:30:00.000Z",
+      "type": "shopping",
+      "searchTerm": "Shopping",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "1:30 PM"
+    },
+    {
+      "location": "Greater London",
+      "time": "2025-06-03T16:45:00.000Z",
+      "type": "restaurant",
+      "searchTerm": "Dinner",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "5:45 PM"
+    }
+  ],
+  "preferences": {
+    "type": "moderate",
+    "requirements": []
+  }
+}
+📝 Parsed request from cache/fetch: {
+  startLocation: 'Central London',
+  destinations: [ 'Mayfair', 'Greater London' ],
+  fixedTimes: [
+    {
+      location: 'Mayfair',
+      time: '2025-06-03T11:00:00.000Z',
+      type: 'cafe',
+      searchTerm: 'Coffee',
+      keywords: [],
+      minRating: 4,
+      displayTime: '12:00 PM',
+      searchPreference: undefined
+    },
+    {
+      location: 'Greater London',
+      time: '2025-06-03T12:30:00.000Z',
+      type: 'shopping',
+      searchTerm: 'Shopping',
+      keywords: [],
+      minRating: 4,
+      displayTime: '1:30 PM',
+      searchPreference: undefined
+    },
+    {
+      location: 'Greater London',
+      time: '2025-06-03T16:45:00.000Z',
+      type: 'restaurant',
+      searchTerm: 'Dinner',
+      keywords: [],
+      minRating: 4,
+      displayTime: '5:45 PM',
+      searchPreference: undefined
+    }
+  ],
+  preferences: { type: 'moderate', requirements: [] }
+}
+📍 Using explicit start location from NLP: Central London
+📍 Determined initial search/start location: Central London
+Parsed time "12:00" to normalized time "12:00" and Europe/London time: 12:00 PM (2025-06-02 12:00:00 GMT+1)
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Mayfair","time":"2025-06-03T11:00:00.000Z","type":"cafe","searchTerm":"Coffee","keywords":[],"minRating":4,"displayTime":"12:00 PM"}
+Parsed ISO timestamp "2025-06-03T11:00:00.000Z" to Europe/London time: 2025-06-03 12:00:00 GMT+1
+🔍 [enhancedPlaceSearch] Starting enhanced search with options: {
+  query: 'Coffee',
+  location: 'Mayfair',
+  keywords: [],
+  type: 'cafe',
+  preferences: undefined,
+  cityContext: { name: 'London', slug: 'london', timezone: 'Europe/London' }
+}
+🤖 [Gemini] Enhanced query: best coffee shop in Mayfair London
+📍 [enhancedPlaceSearch] Found specific area coordinates for "Mayfair": { lat: 51.5096, lng: -0.1498 }
+🎯 [enhancedPlaceSearch] Using location bias: 51.5096,-0.1498 with radius 5000m
+🌐 [enhancedPlaceSearch] Searching with query: best coffee shop in Mayfair London
+🏙️ [enhancedPlaceSearch] After city filtering: 4 venues remain for London
+✅ [enhancedPlaceSearch] Found 4 places with ratings
+🎲 [enhancedPlaceSearch] Selected venue (with variety): {
+  name: 'LALÏ',
+  rating: 4.4,
+  address: '33A Bruton Pl, London W1J 6NP, United Kingdom'
+}
+🔄 [enhancedPlaceSearch] Alternatives: [
+  { name: 'Kiss The Hippo Coffee Mayfair', rating: 4.8 },
+  { name: 'Chill House Coffee Shop', rating: 4.8 },
+  { name: 'Queens of Mayfair', rating: 4.6 }
+]
+Database error in createPlace, using in-memory fallback: terminating connection due to administrator command
+Added fixed appointment to itinerary: LALÏ at 2025-06-03T11:00:00.000Z
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Greater London","time":"2025-06-03T12:30:00.000Z","type":"shopping","searchTerm":"Shopping","keywords":[],"minRating":4,"displayTime":"1:30 PM"}
+Parsed ISO timestamp "2025-06-03T12:30:00.000Z" to Europe/London time: 2025-06-03 13:30:00 GMT+1
+🔍 [enhancedPlaceSearch] Starting enhanced search with options: {
+  query: 'Shopping',
+  location: 'Greater London',
+  keywords: [],
+  type: 'shopping',
+  preferences: undefined,
+  cityContext: { name: 'London', slug: 'london', timezone: 'Europe/London' }
+}
+🤖 [Gemini] Enhanced query: best shopping in Greater London
+📍 [enhancedPlaceSearch] Using city center for "london"
+🎯 [enhancedPlaceSearch] Using location bias: 51.5074,-0.1278 with radius 25000m
+🌐 [enhancedPlaceSearch] Searching with query: best shopping in Greater London
+🏙️ [enhancedPlaceSearch] After city filtering: 4 venues remain for London
+✅ [enhancedPlaceSearch] Found 4 places with ratings
+🎲 [enhancedPlaceSearch] Selected venue (with variety): {
+  name: 'Westfield Stratford City',
+  rating: 4.4,
+  address: 'Montfichet Rd, London E20 1EJ, United Kingdom'
+}
+🔄 [enhancedPlaceSearch] Alternatives: [
+  { name: 'Covent Garden', rating: 4.6 },
+  { name: 'Westfield London', rating: 4.5 },
+  { name: 'London Designer Outlet', rating: 4.3 }
+]
+Added fixed appointment to itinerary: Westfield Stratford City at 2025-06-03T12:30:00.000Z
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Greater London","time":"2025-06-03T16:45:00.000Z","type":"restaurant","searchTerm":"Dinner","keywords":[],"minRating":4,"displayTime":"5:45 PM"}
+Parsed ISO timestamp "2025-06-03T16:45:00.000Z" to Europe/London time: 2025-06-03 17:45:00 GMT+1
+🔍 [enhancedPlaceSearch] Starting enhanced search with options: {
+  query: 'Dinner',
+  location: 'Greater London',
+  keywords: [],
+  type: 'restaurant',
+  preferences: undefined,
+  cityContext: { name: 'London', slug: 'london', timezone: 'Europe/London' }
+}
+🤖 [Gemini] Enhanced query: best rated restaurants in Greater London
+📍 [enhancedPlaceSearch] Using city center for "london"
+🎯 [enhancedPlaceSearch] Using location bias: 51.5074,-0.1278 with radius 25000m
+🌐 [enhancedPlaceSearch] Searching with query: best rated restaurants in Greater London
+🏙️ [enhancedPlaceSearch] After city filtering: 4 venues remain for London
+✅ [enhancedPlaceSearch] Found 4 places with ratings
+🎲 [enhancedPlaceSearch] Selected venue (with variety): {
+  name: 'Tattu London',
+  rating: 4.7,
+  address: 'The Now Building Rooftop, Outernet, Denmark St, London WC2H 0LA, United Kingdom'
+}
+🔄 [enhancedPlaceSearch] Alternatives: [
+  { name: 'Osteria Napoletana', rating: 4.8 },
+  { name: 'Colonel Saab, High Holborn', rating: 4.8 },
+  { name: 'Fallow', rating: 4.6 }
+]
+Added fixed appointment to itinerary: Tattu London at 2025-06-03T16:45:00.000Z
+🗺️ Optimizing route for 3 places in London
+Calculating travel times for 3 places in London
+Travel time from LALÏ to Westfield Stratford City: 31 minutes
+Travel time from Westfield Stratford City to Tattu London: 27 minutes
+DbStorage (with logging): Creating itinerary (anonymous)
+DbStorage (with logging): Error creating itinerary: NeonDbError: column "title" of relation "itineraries" does not exist
+    at execute (file:///Users/carlos/LondonDayPlanner-1/node_modules/@neondatabase/serverless/index.mjs:1556:55)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at NeonHttpPreparedQuery.execute (/Users/carlos/LondonDayPlanner-1/node_modules/src/neon-http/session.ts:68:18)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:100:27)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:512:22)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:300:32)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:299:25) {
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '34',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_target.c',
+  line: '1066',
+  routine: 'checkInsertTargets',
+  sourceError: undefined
+}
+Using in-memory fallback for createItinerary due to database error
+Successfully created itinerary "Coffee, Shopping, Dinner in London" for London with ID: 6
+[Weather] Using cached data for 51.51,-0.15
+🌤️ [/:city/plan] Retrieved weather data for itinerary
+🕒 [/:city/plan] Place scheduledTime: 2025-06-03T11:00:00.000Z
+🌍 [/:city/plan] Using timezone: Europe/London
+🕒 [/:city/plan] Formatted time: 12:00 PM
+🕒 [/:city/plan] Place scheduledTime: 2025-06-03T12:30:00.000Z
+🌍 [/:city/plan] Using timezone: Europe/London
+🕒 [/:city/plan] Formatted time: 1:30 PM
+🕒 [/:city/plan] Place scheduledTime: 2025-06-03T16:45:00.000Z
+🌍 [/:city/plan] Using timezone: Europe/London
+🕒 [/:city/plan] Formatted time: 5:45 PM
+📤 [/:city/plan] Sending response with 3 venues
+POST /api/london/plan 200 11750ms
+📝 [/:city/plan] City-specific plan request for: London
+Query: coffee in Mayfair at noon then shopping and dinner
+🚀 [/:city/plan] Creating city-aware plan for London
+🏙️ Creating plan for city: london
+🚀 Creating plan for query: coffee in Mayfair at noon then shopping and dinner
+📝 Parsed request from cache/fetch: {
+  startLocation: 'Central London',
+  destinations: [ 'Mayfair', 'Greater London' ],
+  fixedTimes: [
+    {
+      location: 'Mayfair',
+      time: '2025-06-03T11:00:00.000Z',
+      type: 'cafe',
+      searchTerm: 'Coffee',
+      keywords: [],
+      minRating: 4,
+      displayTime: '12:00 PM',
+      searchPreference: undefined
+    },
+    {
+      location: 'Greater London',
+      time: '2025-06-03T12:30:00.000Z',
+      type: 'shopping',
+      searchTerm: 'Shopping',
+      keywords: [],
+      minRating: 4,
+      displayTime: '1:30 PM',
+      searchPreference: undefined
+    },
+    {
+      location: 'Greater London',
+      time: '2025-06-03T16:45:00.000Z',
+      type: 'restaurant',
+      searchTerm: 'Dinner',
+      keywords: [],
+      minRating: 4,
+      displayTime: '5:45 PM',
+      searchPreference: undefined
+    }
+  ],
+  preferences: { type: 'moderate', requirements: [] }
+}
+📍 Using explicit start location from NLP: Central London
+📍 Determined initial search/start location: Central London
+Parsed time "12:00" to normalized time "12:00" and Europe/London time: 12:00 PM (2025-06-02 12:00:00 GMT+1)
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Mayfair","time":"2025-06-03T11:00:00.000Z","type":"cafe","searchTerm":"Coffee","keywords":[],"minRating":4,"displayTime":"12:00 PM"}
+Parsed ISO timestamp "2025-06-03T11:00:00.000Z" to Europe/London time: 2025-06-03 12:00:00 GMT+1
+Added fixed appointment to itinerary: LALÏ at 2025-06-03T11:00:00.000Z
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Greater London","time":"2025-06-03T12:30:00.000Z","type":"shopping","searchTerm":"Shopping","keywords":[],"minRating":4,"displayTime":"1:30 PM"}
+Parsed ISO timestamp "2025-06-03T12:30:00.000Z" to Europe/London time: 2025-06-03 13:30:00 GMT+1
+Place "Westfield Stratford City" already exists, returning existing record
+Added fixed appointment to itinerary: Westfield Stratford City at 2025-06-03T12:30:00.000Z
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Greater London","time":"2025-06-03T16:45:00.000Z","type":"restaurant","searchTerm":"Dinner","keywords":[],"minRating":4,"displayTime":"5:45 PM"}
+Parsed ISO timestamp "2025-06-03T16:45:00.000Z" to Europe/London time: 2025-06-03 17:45:00 GMT+1
+Place "Tattu London" already exists, returning existing record
+Added fixed appointment to itinerary: Tattu London at 2025-06-03T16:45:00.000Z
+🗺️ Optimizing route for 3 places in London
+Calculating travel times for 3 places in London
+Travel time from LALÏ to Westfield Stratford City: 31 minutes
+Travel time from Westfield Stratford City to Tattu London: 27 minutes
+DbStorage (with logging): Creating itinerary (anonymous)
+DbStorage (with logging): Error creating itinerary: NeonDbError: column "title" of relation "itineraries" does not exist
+    at execute (file:///Users/carlos/LondonDayPlanner-1/node_modules/@neondatabase/serverless/index.mjs:1556:55)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at NeonHttpPreparedQuery.execute (/Users/carlos/LondonDayPlanner-1/node_modules/src/neon-http/session.ts:68:18)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:100:27)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:512:22)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:300:32)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:299:25) {
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '34',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_target.c',
+  line: '1066',
+  routine: 'checkInsertTargets',
+  sourceError: undefined
+}
+Using in-memory fallback for createItinerary due to database error
+Successfully created itinerary "Coffee, Shopping, Dinner in London" for London with ID: 7
+[Weather] Using cached data for 51.51,-0.15
+🌤️ [/:city/plan] Retrieved weather data for itinerary
+🕒 [/:city/plan] Place scheduledTime: 2025-06-03T11:00:00.000Z
+🌍 [/:city/plan] Using timezone: Europe/London
+🕒 [/:city/plan] Formatted time: 12:00 PM
+🕒 [/:city/plan] Place scheduledTime: 2025-06-03T12:30:00.000Z
+🌍 [/:city/plan] Using timezone: Europe/London
+🕒 [/:city/plan] Formatted time: 1:30 PM
+🕒 [/:city/plan] Place scheduledTime: 2025-06-03T16:45:00.000Z
+🌍 [/:city/plan] Using timezone: Europe/London
+🕒 [/:city/plan] Formatted time: 5:45 PM
+📤 [/:city/plan] Sending response with 3 venues
+POST /api/london/plan 200 3518ms
+📝 [/:city/plan] City-specific plan request for: London
+Query: coffee in Mayfair then dinner
+🚀 [/:city/plan] Creating city-aware plan for London
+🏙️ Creating plan for city: london
+🚀 Creating plan for query: coffee in Mayfair then dinner
+[NLP] Processing query with context for city: London
+🚀 [nlp-fixed] Attempting to process query with new Gemini processor
+🚀 [nlp-fixed] Query: coffee in Mayfair then dinner
+🚀 [nlp-fixed] CityContext: { name: 'London', slug: 'london', timezone: 'Europe/London' }
+Raw Gemini structured data: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "coffee",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "19:00",
+      "activity": "dinner",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "restaurant",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": []
+}
+[32minfo[39m: AI Interaction {"modelName":"gemini-1.5-pro","parsedResponse":{"fixedAppointments":[],"fixedTimeEntries":[{"activity":"coffee","location":"Mayfair","searchParameters":{"specificRequirements":[],"venueType":"cafe"},"time":"12:00","venueRequirements":[]},{"activity":"dinner","location":"Central London","searchParameters":{"specificRequirements":[],"venueType":"restaurant"},"time":"19:00","venueRequirements":[]}],"flexibleTimeEntries":[],"preferences":{"budget":"moderate","interests":[]},"specialRequests":[],"timeBlocks":[],"travelGroup":{"adults":1,"children":0}},"processingTimeMs":3678,"rawRequest":{"prompt":"\n    You are an expert travel planning assistant for London. Extract structured information from this itinerary request with extreme attention to detail.\n    \n    CRITICAL PARSING RULES:\n    \n    1. JSON FORMAT: Return ONLY valid JSON matching the schema - no markdown, no extra text\n    \n    2. TIME EXTRACTION:\n       - Use 24-hour format (e.g., \"09:00\", \"15:30\")\n       - \"at 6\" without context = \"18:00\" (assume evening for dinner/drinks)\n       - \"at 6\" with morning context = \"06:00\"\n       - Default meal times: breakfast=\"09:00\", lunch=\"12:00\", dinner=\"19:00\"\n       - \"morning\"=\"09:00\", \"afternoon\"=\"14:00\", \"evening\"=\"18:00\", \"night\"=\"21:00\"\n       - \"early morning\"=\"07:00\", \"late morning\"=\"11:00\", \"late afternoon\"=\"16:00\"\n       - \"sunset\" = \"18:30\", \"sunrise\" = \"06:30\"\n       - RELATIVE TIME HANDLING (CRITICAL):\n         * \"in X hours\" = add X hours to the start time or previous activity time\n         * \"X hours later\" = add X hours to the previous activity time\n         * Example: If start is 10:00, \"in 1 hour\" = \"11:00\", \"in 3 hours\" = \"13:00\"\n         * Example: If last activity is 12:00, \"2 hours later\" = \"14:00\"\n    \n    3. TIME BLOCKS & APPOINTMENTS - NEW CRITICAL PARSING:\n       - TIME BLOCKS: \"work from X to Y\", \"spend X hours at\", \"need X hours for\"\n         * Example: \"work from 10 AM to 3 PM\" → timeBlocks entry with startTime: \"10:00\", endTime: \"15:00\"\n         * Example: \"need a quiet place to work for 5 hours\" → timeBlocks entry with duration reflected in end time\n         * Extract venue requirements: \"quiet\", \"good wifi\", \"suitable for calls\"\n       - FIXED APPOINTMENTS: \"meeting at X\", \"appointment at Y\", \"reservation at Z\"\n         * Example: \"meeting in Mayfair at 5\" → fixedAppointments entry with time: \"17:00\", location: \"Mayfair\"\n         * Add buffers: meeting = 30 min before, dinner = 15 min before\n       - REGULAR ACTIVITIES: Everything else goes in fixedTimeEntries\n    \n    4. ACTIVITY SEQUENCE - CRITICAL:\n       - Preserve the EXACT order mentioned by the user\n       - \"then\", \"after that\", \"after\", \"followed by\", \"next\", \"afterwards\" indicate sequence\n       - Count ALL activities mentioned (coffee, lunch, drinks, etc.)\n       - If no times given, space activities 1.5-2 hours apart\n       - Parse compound sentences carefully: \"I have a meeting... and would like to go to a restaurant\" = 2 activities\n    \n    5. VENUE PREFERENCES - CRITICAL:\n       - ALWAYS extract venue descriptors to venuePreference field\n       - Examples that MUST be captured:\n         * \"hipster cafe\" → venuePreference: \"hipster cafe\"\n         * \"authentic Jewish deli\" → venuePreference: \"authentic Jewish deli\"\n         * \"trendy brunch spot\" → venuePreference: \"trendy brunch spot\"\n         * \"hole-in-the-wall\" → venuePreference: \"hole-in-the-wall\"\n         * \"michelin star\" → venuePreference: \"michelin star restaurant\"\n         * \"rooftop bar\" → venuePreference: \"rooftop bar\"\n         * \"sports bar\" → venuePreference: \"sports bar\"\n         * \"family-friendly\" → venuePreference: \"family-friendly restaurant\"\n         * \"outdoor seating\" → specificRequirements: [\"outdoor seating\"]\n         * \"with a view\" → specificRequirements: [\"with a view\"]\n         * \"good wifi\" → specificRequirements: [\"wifi\"]\n    \n    6. LOCATION INTELLIGENCE - CRITICAL:\n       - PRESERVE ALL LOCATION MENTIONS from the user's query!\n       - Common London locations: \"Shoreditch\", \"Notting Hill\", \"Covent Garden\", \"Camden\"\n       - If user mentions a specific place (e.g., \"Barton Springs\", \"4th st\"), USE IT EXACTLY\n       - Keep landmark names as-is\n       - \"that famous museum\" → Try to infer (British Museum, Tower of London, Hyde Park)\n       - \"nearby\" → Use previous activity's location\n       - \"somewhere nice\" or generic location → \"Central London\"\n       - No location → \"Central London\"\n       - NEVER replace specific location mentions with generic ones\n    \n    6. SPECIAL REQUIREMENTS:\n       - Budget mentions: \"cheap\"/\"budget\" → budget: \"budget\", \"upscale\"/\"fancy\" → budget: \"expensive\"\n       - Group size: \"family\", \"group of X\" → travelGroup numbers\n       - Dietary: \"kosher\", \"vegan\", \"halal\" → specificRequirements\n       - Accessibility: \"wheelchair\", \"accessible\" → accessibility requirements\n       - Weather: \"if nice weather\" → note in specialRequests\n    \n    7. ACTIVITY TYPES:\n       - Meals: breakfast/brunch/lunch/dinner → restaurant\n       - Coffee/work at cafe → cafe\n       - Drinks/cocktails/lounge → bar (NOT attraction)\n       - Shopping → shopping\n       - Museums/galleries → museum\n       - Parks/outdoor/walk → park\n       - Shows/entertainment → entertainment\n       - Meeting/appointment → Skip venue search BUT preserve time/location for context\n    \n    8. EDGE CASES:\n       - Conflicting requirements: Choose most logical interpretation\n       - Vague queries: Make reasonable London-appropriate suggestions\n       - Multi-day: Note day changes in flexibleTimeEntries\n    \n    SCHEMA STRUCTURE:\n    {\n      \"timeBlocks\": [\n        {\n          \"startTime\": \"10:00\",\n          \"endTime\": \"15:00\",\n          \"activity\": \"work session\",\n          \"location\": \"Canary Wharf\",\n          \"venueRequirements\": [\"quiet\", \"good wifi\", \"suitable for calls\"],\n          \"searchParameters\": {\n            \"venueType\": \"cafe\",\n            \"specificRequirements\": [\"quiet\", \"wifi\", \"power outlets\"],\n            \"ambience\": \"quiet\"\n          }\n        }\n      ],\n      \"fixedAppointments\": [\n        {\n          \"time\": \"17:00\",\n          \"duration\": 60,\n          \"activity\": \"meeting\",\n          \"location\": \"Mayfair\",\n          \"bufferBefore\": 30,\n          \"bufferAfter\": 15,\n          \"isFixed\": true\n        }\n      ],\n      \"fixedTimeEntries\": [\n        {\n          \"time\": \"HH:MM\",\n          \"activity\": \"Brief description\",\n          \"location\": \"London location\",\n          \"venuePreference\": \"specific venue type if mentioned\",\n          \"venueRequirements\": [\"quiet\", \"non-crowded\"],\n          \"searchParameters\": {\n            \"venuePreference\": \"DUPLICATE venue preference here\",\n            \"specificRequirements\": [\"array of requirements\"],\n            \"cuisine\": \"if food related\",\n            \"priceLevel\": \"budget/moderate/expensive\"\n          }\n        }\n      ],\n      \"flexibleTimeEntries\": [...same structure...],\n      \"preferences\": {\n        \"budget\": \"overall budget level\",\n        \"pace\": \"relaxed/moderate/busy\",\n        \"interests\": [\"user interests\"]\n      },\n      \"travelGroup\": {\n        \"adults\": number,\n        \"children\": number\n      },\n      \"specialRequests\": [\"any special notes\"]\n    }\n\n    Start time: 12:00\n    Date: 2025-06-03\n    \n    IMPORTANT: Count ALL activities in this request and ensure each one appears in the output.\n    \n    Here's the request to analyze:\n    coffee in Mayfair then dinner\n    ","temperature":0.2},"rawResponse":"```json\n{\n  \"timeBlocks\": [],\n  \"fixedAppointments\": [],\n  \"fixedTimeEntries\": [\n    {\n      \"time\": \"12:00\",\n      \"activity\": \"coffee\",\n      \"location\": \"Mayfair\",\n      \"venuePreference\": null,\n      \"venueRequirements\": [],\n      \"searchParameters\": {\n        \"venueType\": \"cafe\",\n        \"specificRequirements\": [],\n        \"cuisine\": null,\n        \"priceLevel\": null\n      }\n    },\n    {\n      \"time\": \"19:00\",\n      \"activity\": \"dinner\",\n      \"location\": \"Central London\",\n      \"venuePreference\": null,\n      \"venueRequirements\": [],\n      \"searchParameters\": {\n        \"venueType\": \"restaurant\",\n        \"specificRequirements\": [],\n        \"cuisine\": null,\n        \"priceLevel\": null\n      }\n    }\n  ],\n  \"flexibleTimeEntries\": [],\n  \"preferences\": {\n    \"budget\": null,\n    \"pace\": null,\n    \"interests\": []\n  },\n  \"travelGroup\": {\n    \"adults\": 1,\n    \"children\": 0\n  },\n  \"specialRequests\": []\n}\n```","service":"ai-interaction-logger","sessionId":"55bb9c5d-fa70-4c28-b82e-933916c52a06","status":"success","timestamp":"2025-06-03T01:46:53.682Z","userQuery":"coffee in Mayfair then dinner"}
+Processing Gemini response with raw data: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "coffee",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "19:00",
+      "activity": "dinner",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "restaurant",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": []
+}
+Processing 2 fixed time entries with duplicate detection
+Added fixed time entry: coffee at Mayfair, 12:00
+Added fixed time entry: dinner at Central London, 19:00
+Final processed result: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "coffee",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "19:00",
+      "activity": "dinner",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "restaurant",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Central London"
+}
+✅ [nlp-fixed] processWithGemini completed successfully, result: VALID
+Successfully processed query with new Gemini processor
+Raw Gemini API response: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "coffee",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "19:00",
+      "activity": "dinner",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "restaurant",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Central London"
+}
+Converting Gemini result to app format: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "12:00",
+      "activity": "coffee",
+      "location": "Mayfair",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    },
+    {
+      "time": "19:00",
+      "activity": "dinner",
+      "location": "Central London",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "restaurant",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Central London"
+}
+Raw time blocks from Gemini: []
+Raw fixed appointments from Gemini: []
+Raw fixed time entries from Gemini: [
+  {
+    "time": "12:00",
+    "activity": "coffee",
+    "location": "Mayfair",
+    "venueRequirements": [],
+    "searchParameters": {
+      "priceLevel": "moderate",
+      "venueType": "cafe",
+      "specificRequirements": []
+    }
+  },
+  {
+    "time": "19:00",
+    "activity": "dinner",
+    "location": "Central London",
+    "venueRequirements": [],
+    "searchParameters": {
+      "priceLevel": "moderate",
+      "venueType": "restaurant",
+      "specificRequirements": []
+    }
+  }
+]
+Fixed time entry: Normalized time from "12:00" to "12:00"
+Correctly interpreted time "12:00" as London time: 12:00 PM (2025-06-03T11:00:00.000Z)
+Processed fixed time entry: coffee at Mayfair, time: 2025-06-03T11:00:00.000Z, type: cafe
+Fixed time entry: Normalized time from "19:00" to "19:00"
+Correctly interpreted time "19:00" as London time: 7:00 PM (2025-06-03T18:00:00.000Z)
+Processed fixed time entry: dinner at Central London, time: 2025-06-03T18:00:00.000Z, type: restaurant
+Raw flexible time entries from Gemini: []
+Final de-duplicated activities count: 2
+Converted app format request: {
+  "startLocation": "Central London",
+  "destinations": [
+    "Mayfair",
+    "Central London"
+  ],
+  "fixedTimes": [
+    {
+      "location": "Mayfair",
+      "time": "2025-06-03T11:00:00.000Z",
+      "type": "cafe",
+      "searchTerm": "coffee",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "12:00 PM"
+    },
+    {
+      "location": "Central London",
+      "time": "2025-06-03T18:00:00.000Z",
+      "type": "restaurant",
+      "searchTerm": "dinner",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "7:00 PM"
+    }
+  ],
+  "preferences": {
+    "type": "moderate",
+    "requirements": []
+  }
+}
+Using optimized Gemini result that was converted by convertGeminiToAppFormat function
+Gemini result contains 2 de-duplicated activities
+Validating location: "Mayfair" with Google Maps Geocoding API
+Geocoding search query: "Mayfair, London, UK, UK"
+Validated "Mayfair" as neighborhood: "Mayfair"
+Validated "Mayfair" as neighborhood: "Mayfair"
+Validating location: "Central London" with Google Maps Geocoding API
+Geocoding search query: "Central London, London, UK, UK"
+Validated "Central London" as admin area: "Greater London"
+Validated "Central London" as neighborhood: "Greater London"
+Validating location: "Mayfair" with Google Maps Geocoding API
+Geocoding search query: "Mayfair, London, UK, UK"
+Validated "Mayfair" as neighborhood: "Mayfair"
+Validating location: "Central London" with Google Maps Geocoding API
+Geocoding search query: "Central London, London, UK, UK"
+Validated "Central London" as admin area: "Greater London"
+Final processed Gemini result: {
+  "startLocation": "Central London",
+  "destinations": [
+    "Mayfair",
+    "Greater London"
+  ],
+  "fixedTimes": [
+    {
+      "location": "Mayfair",
+      "time": "2025-06-03T11:00:00.000Z",
+      "type": "cafe",
+      "searchTerm": "coffee",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "12:00 PM"
+    },
+    {
+      "location": "Greater London",
+      "time": "2025-06-03T18:00:00.000Z",
+      "type": "restaurant",
+      "searchTerm": "dinner",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "7:00 PM"
+    }
+  ],
+  "preferences": {
+    "type": "moderate",
+    "requirements": []
+  }
+}
+📝 Parsed request from cache/fetch: {
+  startLocation: 'Central London',
+  destinations: [ 'Mayfair', 'Greater London' ],
+  fixedTimes: [
+    {
+      location: 'Mayfair',
+      time: '2025-06-03T11:00:00.000Z',
+      type: 'cafe',
+      searchTerm: 'coffee',
+      keywords: [],
+      minRating: 4,
+      displayTime: '12:00 PM',
+      searchPreference: undefined
+    },
+    {
+      location: 'Greater London',
+      time: '2025-06-03T18:00:00.000Z',
+      type: 'restaurant',
+      searchTerm: 'dinner',
+      keywords: [],
+      minRating: 4,
+      displayTime: '7:00 PM',
+      searchPreference: undefined
+    }
+  ],
+  preferences: { type: 'moderate', requirements: [] }
+}
+📍 Using explicit start location from NLP: Central London
+📍 Determined initial search/start location: Central London
+Parsed time "12:00" to normalized time "12:00" and Europe/London time: 12:00 PM (2025-06-02 12:00:00 GMT+1)
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Mayfair","time":"2025-06-03T11:00:00.000Z","type":"cafe","searchTerm":"coffee","keywords":[],"minRating":4,"displayTime":"12:00 PM"}
+Parsed ISO timestamp "2025-06-03T11:00:00.000Z" to Europe/London time: 2025-06-03 12:00:00 GMT+1
+🔍 [enhancedPlaceSearch] Starting enhanced search with options: {
+  query: 'coffee',
+  location: 'Mayfair',
+  keywords: [],
+  type: 'cafe',
+  preferences: undefined,
+  cityContext: { name: 'London', slug: 'london', timezone: 'Europe/London' }
+}
+🤖 [Gemini] Enhanced query: best coffee shop in Mayfair London
+📍 [enhancedPlaceSearch] Found specific area coordinates for "Mayfair": { lat: 51.5096, lng: -0.1498 }
+🎯 [enhancedPlaceSearch] Using location bias: 51.5096,-0.1498 with radius 5000m
+🌐 [enhancedPlaceSearch] Searching with query: best coffee shop in Mayfair London
+🏙️ [enhancedPlaceSearch] After city filtering: 4 venues remain for London
+✅ [enhancedPlaceSearch] Found 4 places with ratings
+🎲 [enhancedPlaceSearch] Selected venue (with variety): {
+  name: 'Queens of Mayfair',
+  rating: 4.6,
+  address: '17 Queen St, London W1J 5PH, United Kingdom'
+}
+🔄 [enhancedPlaceSearch] Alternatives: [
+  { name: 'Kiss The Hippo Coffee Mayfair', rating: 4.8 },
+  { name: 'Chill House Coffee Shop', rating: 4.8 },
+  { name: 'LALÏ', rating: 4.4 }
+]
+Added fixed appointment to itinerary: Queens of Mayfair at 2025-06-03T11:00:00.000Z
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Greater London","time":"2025-06-03T18:00:00.000Z","type":"restaurant","searchTerm":"dinner","keywords":[],"minRating":4,"displayTime":"7:00 PM"}
+Parsed ISO timestamp "2025-06-03T18:00:00.000Z" to Europe/London time: 2025-06-03 19:00:00 GMT+1
+🔍 [enhancedPlaceSearch] Starting enhanced search with options: {
+  query: 'dinner',
+  location: 'Greater London',
+  keywords: [],
+  type: 'restaurant',
+  preferences: undefined,
+  cityContext: { name: 'London', slug: 'london', timezone: 'Europe/London' }
+}
+🤖 [Gemini] Enhanced query: best rated restaurants in Greater London
+📍 [enhancedPlaceSearch] Using city center for "london"
+🎯 [enhancedPlaceSearch] Using location bias: 51.5074,-0.1278 with radius 25000m
+🌐 [enhancedPlaceSearch] Searching with query: best rated restaurants in Greater London
+🏙️ [enhancedPlaceSearch] After city filtering: 4 venues remain for London
+✅ [enhancedPlaceSearch] Found 4 places with ratings
+🎲 [enhancedPlaceSearch] Selected venue (with variety): {
+  name: 'Colonel Saab, High Holborn',
+  rating: 4.8,
+  address: '193-197 High Holborn, London WC1V 7BD, United Kingdom'
+}
+🔄 [enhancedPlaceSearch] Alternatives: [
+  { name: 'Osteria Napoletana', rating: 4.8 },
+  { name: 'Tattu London', rating: 4.7 },
+  { name: 'Fallow', rating: 4.6 }
+]
+Place "Colonel Saab, High Holborn" already exists, returning existing record
+Added fixed appointment to itinerary: Colonel Saab, High Holborn at 2025-06-03T18:00:00.000Z
+Calculating travel times for 2 places in London
+Travel time from Queens of Mayfair to Colonel Saab, High Holborn: 6 minutes
+DbStorage (with logging): Creating itinerary (anonymous)
+DbStorage (with logging): Error creating itinerary: NeonDbError: column "title" of relation "itineraries" does not exist
+    at execute (file:///Users/carlos/LondonDayPlanner-1/node_modules/@neondatabase/serverless/index.mjs:1556:55)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at NeonHttpPreparedQuery.execute (/Users/carlos/LondonDayPlanner-1/node_modules/src/neon-http/session.ts:68:18)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:100:27)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:512:22)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:300:32)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:299:25) {
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '34',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_target.c',
+  line: '1066',
+  routine: 'checkInsertTargets',
+  sourceError: undefined
+}
+Using in-memory fallback for createItinerary due to database error
+Successfully created itinerary "coffee, dinner in London" for London with ID: 8
+[Weather] Fetching weather for 51.51,-0.15
+[Weather] Success with OpenWeatherMap
+🌤️ [/:city/plan] Retrieved weather data for itinerary
+🕒 [/:city/plan] Place scheduledTime: 2025-06-03T11:00:00.000Z
+🌍 [/:city/plan] Using timezone: Europe/London
+🕒 [/:city/plan] Formatted time: 12:00 PM
+🕒 [/:city/plan] Place scheduledTime: 2025-06-03T18:00:00.000Z
+🌍 [/:city/plan] Using timezone: Europe/London
+🕒 [/:city/plan] Formatted time: 7:00 PM
+📤 [/:city/plan] Sending response with 2 venues
+POST /api/london/plan 200 9762ms
+SIGTERM received, shutting down gracefully...
+Server closed

@@ -1064,3 +1064,203 @@ h1, h2, h3 {
     --color-tag-bg: #A6B8D4;
   }
 }
+
+/* Enhanced Mobile Responsiveness and Animations */
+
+/* Smooth fade-in animation for loading states */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Pulse animation for skeleton loaders */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Skeleton loader gradient effect */
+.animate-pulse {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Enhanced venue card animations */
+.venue-card {
+  animation: fadeIn 0.4s ease-out;
+  animation-fill-mode: both;
+}
+
+.venue-card:nth-child(1) { animation-delay: 0.1s; }
+.venue-card:nth-child(2) { animation-delay: 0.2s; }
+.venue-card:nth-child(3) { animation-delay: 0.3s; }
+.venue-card:nth-child(4) { animation-delay: 0.4s; }
+.venue-card:nth-child(5) { animation-delay: 0.5s; }
+
+/* Travel info smooth transitions */
+.travel-info {
+  animation: fadeIn 0.3s ease-out;
+  animation-delay: 0.15s;
+  animation-fill-mode: both;
+}
+
+/* Export button animation */
+.export-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.export-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.export-button:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Mobile touch target improvements */
+@media (max-width: 640px) {
+  /* Ensure minimum touch target size (44x44px) */
+  button, .button, .export-button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Improve spacing for touch */
+  .venue-tag {
+    min-height: 32px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Better mobile form inputs */
+  input, textarea, select {
+    min-height: 44px;
+    font-size: 16px !important; /* Prevent zoom on iOS */
+  }
+
+  /* Smooth scrolling for mobile */
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Better mobile card spacing */
+  .venue-card {
+    margin-bottom: 1rem;
+  }
+
+  /* Mobile-optimized loading spinner */
+  .loading-spinner {
+    transform: scale(0.8);
+  }
+}
+
+/* Improved focus states for accessibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Smooth page transitions */
+.page-transition {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Enhanced hover states for desktop */
+@media (hover: hover) {
+  .venue-card:hover {
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+  }
+
+  .venue-tag:hover {
+    transform: scale(1.05);
+    background: rgba(23, 185, 230, 0.15);
+  }
+}
+
+/* Loading skeleton improvements */
+.bg-muted {
+  background-color: #e5e7eb;
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-muted::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+/* Improved line clamping for addresses */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Responsive text scaling */
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 360px) {
+  html {
+    font-size: 13px;
+  }
+}
+
+/* Enhanced loading states */
+.itinerary-loading {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Smooth color transitions */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}

@@ -8,7 +8,7 @@
  */
 
 import { format as formatDateFns } from 'date-fns';
-import { formatInTimeZone, toZonedTime } from 'date-fns-tz';
+import { formatInTimeZone, toZonedTime, utcToZonedTime } from 'date-fns-tz';
 
 // Default timezone for NYC
 export const NYC_TIMEZONE = 'America/New_York';
@@ -375,13 +375,14 @@ export function formatISOToNYCTime(isoTimestamp: string, format: string = 'h:mm 
 /**
  * Parse a time string to a Date object
  * Provides consistent time parsing throughout the application
- * Uses America/New_York timezone for consistent local time representation
+ * Uses specified timezone for consistent local time representation
  *
  * @param timeStr Time string to parse (e.g., "3pm", "15:00", "evening", "at 6", "around noon", "around 3 PM")
  * @param baseDate Base date to use (defaults to current date)
- * @returns Date object with the specified time in America/New_York timezone
+ * @param timezone Timezone to use (defaults to America/New_York for backward compatibility)
+ * @returns Date object with the specified time in the specified timezone
  */
-export function parseTimeString(timeStr: string, baseDate?: Date): Date {
+export function parseTimeString(timeStr: string, baseDate?: Date, timezone: string = NYC_TIMEZONE): Date {
   try {
     // Using the imported constants and functions from timeUtils that are already imported at the top of the file
 
@@ -395,7 +396,7 @@ export function parseTimeString(timeStr: string, baseDate?: Date): Date {
         const date = new Date(timeStr);
 
         // Log for debugging
-        console.log(`Parsed ISO timestamp "${timeStr}" to NYC time: ${formatInTimeZone(date, NYC_TIMEZONE, 'yyyy-MM-dd HH:mm:ss zzz')}`);
+        console.log(`Parsed ISO timestamp "${timeStr}" to ${timezone} time: ${formatInTimeZone(date, timezone, 'yyyy-MM-dd HH:mm:ss zzz')}`);
 
         return date;
       } catch (err) {
@@ -413,31 +414,71 @@ export function parseTimeString(timeStr: string, baseDate?: Date): Date {
     const hours = parseInt(hoursStr, 10);
     const minutes = parseInt(minutesStr, 10);
 
-    // Create a new date with the specified time based on the provided base date
-    const date = new Date(currentDate);
-    date.setHours(hours, minutes, 0, 0);
-
-    // Convert to NYC timezone
-    const nycDate = toZonedTime(date, NYC_TIMEZONE);
+    // Create a date that represents the specified time in the target timezone
+    // This ensures "14:00" means "14:00 in the target timezone"
+    
+    // Use a simpler approach: create the date and adjust for timezone offset
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    const day = currentDate.getDate();
+    
+    // Create a date string in ISO format for the target timezone
+    const isoDateStr = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}T${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:00`;
+    
+    // Create date object - this will be interpreted as local time
+    const localDate = new Date(isoDateStr);
+    
+    // Get timezone offset for the target timezone at this date
+    const tempDate = new Date(year, month, day, 12, 0, 0); // noon for consistent offset
+    const localOffset = tempDate.getTimezoneOffset() * 60000; // local offset in ms
+    
+    // Convert to target timezone using formatInTimeZone to get the correct time
+    const targetTime = formatInTimeZone(localDate, timezone, 'HH:mm');
+    
+    // If the formatted time matches our input, we're good
+    // Otherwise, we need to adjust
+    let finalDate = localDate;
+    if (targetTime !== `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`) {
+      // Calculate the difference and adjust
+      const [targetHours, targetMinutes] = targetTime.split(':').map(Number);
+      const targetTotalMinutes = targetHours * 60 + targetMinutes;
+      const desiredTotalMinutes = hours * 60 + minutes;
+      const diffMinutes = desiredTotalMinutes - targetTotalMinutes;
+      
+      finalDate = new Date(localDate.getTime() + diffMinutes * 60000);
+    }
 
     // Format time for logging
-    const displayTime = formatInTimeZone(nycDate, NYC_TIMEZONE, 'h:mm a');
-    const formattedTime = formatInTimeZone(nycDate, NYC_TIMEZONE, 'yyyy-MM-dd HH:mm:ss zzz');
+    const displayTime = formatInTimeZone(finalDate, timezone, 'h:mm a');
+    const formattedTime = formatInTimeZone(finalDate, timezone, 'yyyy-MM-dd HH:mm:ss zzz');
 
-    console.log(`Parsed time "${timeStr}" to normalized time "${normalizedTime}" and NYC time: ${displayTime} (${formattedTime})`);
+    console.log(`Parsed time "${timeStr}" to normalized time "${normalizedTime}" and ${timezone} time: ${displayTime} (${formattedTime})`);
 
-    return nycDate;
+    return finalDate;
   } catch (error) {
     console.error(`Error parsing time:`, error);
-    // Return a default time if parsing fails
+    // Return a default time if parsing fails - 10:00 AM in the target timezone
     const defaultDate = baseDate || new Date();
-    // Default to 10:00 AM NYC time if parsing fails
-    defaultDate.setHours(10, 0, 0, 0);
+    const year = defaultDate.getFullYear();
+    const month = defaultDate.getMonth();
+    const day = defaultDate.getDate();
+    
+    const fallbackIsoStr = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}T10:00:00`;
+    const fallbackLocal = new Date(fallbackIsoStr);
+    
+    // Apply same timezone adjustment as above
+    const fallbackTargetTime = formatInTimeZone(fallbackLocal, timezone, 'HH:mm');
+    let fallbackFinal = fallbackLocal;
+    if (fallbackTargetTime !== '10:00') {
+      const [targetHours, targetMinutes] = fallbackTargetTime.split(':').map(Number);
+      const targetTotalMinutes = targetHours * 60 + targetMinutes;
+      const desiredTotalMinutes = 10 * 60; // 10:00 AM
+      const diffMinutes = desiredTotalMinutes - targetTotalMinutes;
+      
+      fallbackFinal = new Date(fallbackLocal.getTime() + diffMinutes * 60000);
+    }
 
-    // Convert to NYC timezone
-    const nycDate = toZonedTime(defaultDate, 'America/New_York');
-
-    return nycDate;
+    return fallbackFinal;
   }
 }
 

@@ -97,3 +97,86 @@ export function useConfig() {
 
 // Pre-fetch config on module load to speed up first access
 fetchConfig().catch(err => console.warn('Failed to prefetch config:', err));
+
+// This file is used to load environment variables for the client-side application.
+// It fetches configuration from a backend endpoint and merges it with defaults.
+
+interface AppFeatures {
+  auth: boolean;
+  weather: boolean;
+  // Add other feature flags as needed
+}
+
+interface AppConfig {
+  apiUrl: string;
+  googleClientId?: string;
+  features: AppFeatures;
+  // Add other configuration properties as needed
+}
+
+// Default configuration values
+const defaultConfig: AppConfig = {
+  apiUrl: window.location.origin, // Default API URL to current origin
+  googleClientId: '', // Default Google Client ID (needs to be set for OAuth)
+  features: {
+    auth: false,       // Default auth feature flag to false
+    weather: false,    // Default weather feature flag to false
+  },
+};
+
+let currentConfig: AppConfig | null = null;
+let configPromise: Promise<AppConfig> | null = null;
+
+/**
+ * Asynchronously loads the application configuration.
+ * Fetches configuration from '/api/config/public' and merges it with defaults.
+ * Caches the loaded configuration to avoid redundant fetches.
+ * @returns A promise that resolves to the application configuration.
+ */
+export async function loadConfig(): Promise<AppConfig> {
+  if (currentConfig) {
+    return Promise.resolve(currentConfig);
+  }
+
+  if (configPromise) {
+    return configPromise;
+  }
+
+  configPromise = (async () => {
+    try {
+      const response = await fetch('/api/config/public');
+      if (!response.ok) {
+        console.warn('Config endpoint not available, using defaults');
+        currentConfig = defaultConfig;
+      } else {
+        const data = await response.json();
+        currentConfig = { ...defaultConfig, ...data };
+      }
+    } catch (error) {
+      console.warn('Failed to load config:', error);
+      currentConfig = defaultConfig;
+    }
+    return currentConfig || defaultConfig;
+  })();
+
+  return configPromise.then(config => config || defaultConfig);
+}
+
+/**
+ * Gets the currently loaded application configuration.
+ * If the configuration is not yet loaded, it initiates loading.
+ * @returns The application configuration.
+ */
+export function getConfig(): AppConfig {
+  if (!currentConfig && !configPromise) {
+    console.warn("getConfig called before loadConfig, initiating load. Consider pre-loading.");
+    loadConfig(); 
+  }
+  return currentConfig || defaultConfig; 
+}
+
+// Example of how to use early in your application (e.g., main.tsx or App.tsx)
+// loadConfig().then(config => {
+//   console.log('Application config loaded:', config);
+//   // Initialize other parts of your app that depend on config
+// });

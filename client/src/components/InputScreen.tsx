@@ -1,116 +1,157 @@
 import React, { useState, useEffect } from 'react';
 import Logo from './Logo';
+import { usePlanMutation } from '../hooks/usePlanMutation';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useCity } from '../hooks/useCity';
+import { LoadingSpinner } from './LoadingSpinner';
+import WeatherPreferences from './WeatherPreferences';
+import { TripDurationSelector } from './TripDurationSelector';
 
 interface InputScreenProps {
-  onSubmit: (data: { date: string; time: string; plans: string }) => void;
+  onSubmit?: (formData: { date: string; time: string; plans: string }) => void;
   isLoading?: boolean;
 }
 
 const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading }) => {
-  // Initialize with current date and time
-  const [date, setDate] = useState(formatDateForInput(new Date()));
-  const [time, setTime] = useState(formatTimeForInput(new Date()));
-  const [plans, setPlans] = useState('');
+  const { city: citySlugFromParams } = useParams<{ city?: string }>();
+  const navigate = useNavigate();
+  const mutation = usePlanMutation();
+  const { currentCity, isLoading: isCityContextLoading } = useCity();
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [weatherPreferences, setWeatherPreferences] = useState({
+    weatherAware: true,
+    preferIndoor: false
+  });
+  const [tripDuration, setTripDuration] = useState(1);
 
-  // Format date for date input (YYYY-MM-DD)
-  function formatDateForInput(date: Date): string {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  }
+  // Default date and time for form inputs
+  const defaultDate = new Date().toISOString().split('T')[0];
+  const defaultTime = "12:00";
+  
+  // Combine all loading states
+  const showLoading = isLoading || mutation.isPending || isProcessing || isCityContextLoading;
 
-  // Format time for time input (HH:MM)
-  function formatTimeForInput(date: Date): string {
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    return `${hours}:${minutes}`;
-  }
-
-  // Set current date and time when component mounts
-  useEffect(() => {
-    const now = new Date();
-    setDate(formatDateForInput(now));
-    setTime(formatTimeForInput(now));
-  }, []);
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit({ date, time, plans });
+    
+    const formData = new FormData(e.target as HTMLFormElement);
+    const query = formData.get('plans') as string;
+    const date = formData.get('date') as string;
+    const time = formData.get('time') as string;
+    
+    if (!query || !query.trim()) {
+      // Basic validation, can be enhanced
+      alert("Please enter your plans.");
+      return;
+    }
+
+    // If onSubmit prop is provided, use it
+    if (onSubmit) {
+      onSubmit({ date, time, plans: query });
+      return;
+    }
+
+    // Otherwise, use the original behavior with navigation
+    const cityForAPI = citySlugFromParams || currentCity?.slug || 'nyc';
+
+    try {
+      const result = await mutation.mutateAsync({
+        query,
+        date,
+        startTime: time,
+        city: cityForAPI,
+        tripDuration
+      });
+      
+      if (result && result.id) { // Check result and result.id
+        navigate(`/itinerary/${result.id}`);
+      }
+    } catch (error) {
+      console.error('Failed to create plan (handleSubmit):', error);
+      // Error is also handled by usePlanMutation's onError for toast notification
+    }
   };
 
-  // Mobile-first design based on the mockup
+  // Determine city name to display, fallback if context is loading or city not found
+  const displayCityName = isCityContextLoading ? 'Loading city...' : currentCity?.name || citySlugFromParams || 'Selected City';
+
   return (
     <div className="bg-white flex flex-col items-center min-h-screen w-full" style={{
       fontFamily: "'Poppins', sans-serif"
     }}>
-      <div className="w-full max-w-md px-4 py-6 flex flex-col items-center">
-        {/* Logo */}
-        <div className="mb-8 mt-4">
-          <Logo className="w-full" style={{ transform: 'scale(1.5)' }} />
+      {/* Show loading overlay when processing */}
+      {showLoading && (
+        <LoadingSpinner 
+          fullScreen 
+          text="Creating your perfect itinerary..." 
+        />
+      )}
+      
+      <div className="w-full max-w-md px-4 py-4 sm:py-6 flex flex-col items-center">
+        <div className="mb-6 sm:mb-8 mt-2 sm:mt-4">
+          <Logo className="w-full max-w-[250px] sm:max-w-none" style={{ transform: 'scale(1.2) sm:scale(1.5)' }} />
         </div>
         
-        {/* Instruction Text */}
-        <p className="mb-6 font-bold tagline-text" style={{ color: '#17B9E6' }}>
+        <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 sm:mb-4 text-center">
+          Create a Plan for {displayCityName}
+        </h2>
+
+        <p className="mb-4 sm:mb-6 font-bold tagline-text text-center text-sm sm:text-base px-4" style={{ color: '#17B9E6' }}>
           Enter your activities, locations and times below, we'll create a day plan for you.
         </p>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="w-full">
-          {/* Date Field */}
-          <div className="mb-6 bg-white rounded-2xl py-6 px-5 shadow-sm"
+        <form onSubmit={handleSubmit} className="w-full relative">
+          <div className="mb-4 sm:mb-6 bg-white rounded-2xl py-4 sm:py-6 px-4 sm:px-5 shadow-sm transition-all duration-200 hover:shadow-md"
             style={{
               border: '1px solid transparent',
               backgroundImage: 'linear-gradient(white, white), linear-gradient(to right, #E6DBEE, #BCC6E6)',
               backgroundOrigin: 'border-box',
               backgroundClip: 'padding-box, border-box',
-              minHeight: '80px' // Increased height
+              minHeight: '70px'
             }}
           >
-            <label 
-              htmlFor="date"
-              className="block mb-2 font-bold text-xl text-[#1C1C1C]"
-            >
-              Date
-            </label>
+            <label htmlFor="date" className="block mb-1 sm:mb-2 font-bold text-lg sm:text-xl text-[#1C1C1C]">Date</label>
             <input
               type="date"
               id="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              className="w-full bg-transparent text-gray-700 focus:outline-none text-lg pl-3 py-2"
+              name="date"
+              defaultValue={defaultDate}
+              className="w-full bg-transparent text-gray-700 focus:outline-none text-base sm:text-lg pl-2 sm:pl-3 py-1 sm:py-2"
               required
+              disabled={showLoading}
             />
           </div>
 
-          {/* Time Field */}
-          <div className="mb-6 bg-white rounded-2xl py-6 px-5 shadow-sm"
+          <div className="mb-4 sm:mb-6 bg-white rounded-2xl py-4 sm:py-6 px-4 sm:px-5 shadow-sm transition-all duration-200 hover:shadow-md"
             style={{
               border: '1px solid transparent',
               backgroundImage: 'linear-gradient(white, white), linear-gradient(to right, #E6DBEE, #BCC6E6)',
               backgroundOrigin: 'border-box',
               backgroundClip: 'padding-box, border-box',
-              minHeight: '80px' // Increased height
+              minHeight: '70px'
             }}
           >
-            <label
-              htmlFor="time"
-              className="block mb-2 font-bold text-xl text-[#1C1C1C]"
-            >
-              Time
-            </label>
+            <label htmlFor="time" className="block mb-1 sm:mb-2 font-bold text-lg sm:text-xl text-[#1C1C1C]">Time</label>
             <input
               type="time"
               id="time"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-              className="w-full bg-transparent text-gray-700 focus:outline-none text-lg pl-3 py-2"
+              name="time"
+              defaultValue={defaultTime}
+              className="w-full bg-transparent text-gray-700 focus:outline-none text-base sm:text-lg pl-2 sm:pl-3 py-1 sm:py-2"
               required
+              disabled={showLoading}
             />
           </div>
 
-          {/* Plans Field */}
-          <div className="mb-8 bg-white rounded-2xl py-6 px-5 shadow-sm"
+          {/* Trip Duration Selector - Hidden for now */}
+          {/* <div className="mb-6 sm:mb-8">
+            <TripDurationSelector
+              value={tripDuration}
+              onChange={setTripDuration}
+            />
+          </div> */}
+
+          <div className="mb-6 sm:mb-8 bg-white rounded-2xl py-4 sm:py-6 px-4 sm:px-5 shadow-sm transition-all duration-200 hover:shadow-md"
             style={{
               border: '1px solid transparent',
               backgroundImage: 'linear-gradient(white, white), linear-gradient(to right, #E6DBEE, #BCC6E6)',
@@ -118,53 +159,59 @@ const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading }) => {
               backgroundClip: 'padding-box, border-box'
             }}
           >
-            <label
-              htmlFor="plans"
-              className="block mb-2 font-bold text-xl text-[#1C1C1C]"
-            >
-              Your Plans
-            </label>
+            <label htmlFor="plans" className="block mb-1 sm:mb-2 font-bold text-lg sm:text-xl text-[#1C1C1C]">Your Plans</label>
             <textarea
               id="plans"
-              value={plans}
-              onChange={(e) => setPlans(e.target.value)}
-              className="w-full bg-transparent text-gray-700 focus:outline-none text-lg min-h-[135px] p-3"
+              name="plans"
+              className="w-full bg-transparent text-gray-700 focus:outline-none text-base sm:text-lg min-h-[100px] sm:min-h-[135px] p-2 sm:p-3 resize-none"
               placeholder="e.g. 12pm lunch in Mayfair, then grab a coffee and have a walk"
               required
+              disabled={showLoading}
             />
           </div>
 
-          {/* Submit Button */}
+          {/* Weather Preferences */}
+          <div className="mb-6 sm:mb-8">
+            <WeatherPreferences
+              preferences={weatherPreferences}
+              onPreferencesChange={setWeatherPreferences}
+              className="transition-all duration-200 hover:shadow-md"
+            />
+          </div>
+
           <button
             type="submit"
-            className="w-full py-4 rounded-2xl"
+            className="w-full py-3 sm:py-4 rounded-2xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] disabled:hover:scale-100"
             style={{
-              background: '#17B9E6',
+              background: showLoading ? '#ccc' : '#17B9E6',
               color: 'white',
               fontWeight: 600,
-              fontSize: '1rem',
-              cursor: isLoading ? 'not-allowed' : 'pointer',
-              opacity: isLoading ? 0.8 : 1,
+              fontSize: '0.9rem sm:1rem',
+              cursor: showLoading ? 'not-allowed' : 'pointer',
+              opacity: showLoading ? 0.7 : 1,
             }}
-            disabled={isLoading}
+            disabled={showLoading}
           >
-            {isLoading ? (
-              <div className="flex items-center justify-center gap-2">
-                <div className="loading-indicator" style={{ 
-                  width: 20, 
-                  height: 20,
-                  border: '2px solid rgba(255, 255, 255, 0.3)',
-                  borderTopColor: 'white',
-                  borderRadius: '50%',
-                  animation: 'spin 1s linear infinite'
-                }} />
-                <span>Creating Plan...</span>
-              </div>
+            {showLoading ? (
+              <span>Creating Plan...</span>
             ) : (
               'Create Plan'
             )}
           </button>
+          
+          {(isLoading !== undefined ? isLoading : mutation.isPending) && (
+             <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75 rounded-2xl">
+               <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#17B9E6]"></div>
+             </div>
+           )}
         </form>
+
+        {mutation.isError && (
+          <div className="mt-4 p-3 bg-red-100 text-red-700 border border-red-300 rounded-md w-full">
+            <p className="font-semibold">Error Creating Plan:</p>
+            <p>{mutation.error?.message || 'An unexpected error occurred. Please try again.'}</p>
+          </div>
+        )}
       </div>
     </div>
   );

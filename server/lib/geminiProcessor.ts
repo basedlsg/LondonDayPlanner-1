@@ -10,21 +10,48 @@ import { GoogleGenerativeAI, GenerativeModel } from '@google/generative-ai';
 import { logAiInteraction, generateSessionId } from './aiLogging';
 import { getApiKey, isFeatureEnabled } from '../config';
 
-// Define the structured data schema that Gemini should return
+// Define time block schema for extended activities
+const TimeBlockSchema = z.object({
+  startTime: z.string().describe("Start time in 24-hour format (e.g., '10:00')"),
+  endTime: z.string().describe("End time in 24-hour format (e.g., '15:00')"),
+  activity: z.string().describe("The activity during this time block"),
+  location: z.string().describe("The location for this time block"),
+  venue: z.string().optional().describe("A specific venue name if mentioned"),
+  venueRequirements: z.array(z.string()).optional().describe("Requirements for the venue (e.g., 'quiet', 'good wifi', 'suitable for calls')"),
+  searchParameters: z.object({
+    venueType: z.string().optional().nullable().describe("Type of venue needed for this time block"),
+    specificRequirements: z.array(z.string()).optional().nullable().describe("Must-have features for the venue"),
+    ambience: z.string().optional().nullable().describe("Preferred atmosphere (e.g., 'quiet', 'lively')"),
+  }).optional()
+});
+
+// Define fixed appointment schema for non-negotiable commitments
+const FixedAppointmentSchema = z.object({
+  time: z.string().describe("The exact time for this appointment in 24-hour format"),
+  duration: z.number().optional().describe("Duration in minutes (default: 60)"),
+  activity: z.string().describe("The appointment description"),
+  location: z.string().describe("The specific location"),
+  bufferBefore: z.number().optional().describe("Minutes of buffer time needed before (e.g., for travel)"),
+  bufferAfter: z.number().optional().describe("Minutes of buffer time needed after"),
+  isFixed: z.boolean().default(true).describe("Indicates this cannot be moved")
+});
+
+// Enhanced fixed time entry schema
 const FixedTimeEntrySchema = z.object({
   time: z.string().describe("The time for this activity (e.g., '9:00', '15:30')"),
   activity: z.string().describe("The activity description"),
-  location: z.string().describe("The specific location or area in NYC"),
+  location: z.string().describe("The specific location or area in the city"),
   venue: z.string().optional().describe("A specific venue name if mentioned"),
   // Also extract venue preference directly from the schema for simpler access
   venuePreference: z.string().optional().describe("EXTRACT THIS FROM THE QUERY: Specific venue type preference (e.g., 'authentic Jewish deli', 'hipster coffee shop', 'traditional Italian restaurant')"),
+  venueRequirements: z.array(z.string()).optional().describe("Specific requirements (e.g., 'quiet', 'good coffee', 'non-crowded', 'outdoor seating')"),
   searchParameters: z.object({
-    cuisine: z.string().optional().describe("Type of cuisine if food-related"),
-    priceLevel: z.enum(["budget", "moderate", "expensive"]).optional().describe("Price level preference"),
-    ambience: z.string().optional().describe("Preferred ambience/vibe"),
-    venueType: z.string().optional().describe("Type of venue (pub, restaurant, etc.)"),
-    specificRequirements: z.array(z.string()).optional().describe("Any specific requirements"),
-    venuePreference: z.string().optional().describe("DUPLICATE THIS FROM venuePreference FIELD ABOVE: Specific venue preference (e.g., 'sandwich place', 'sports bar')"),
+    cuisine: z.string().optional().nullable().describe("Type of cuisine if food-related"),
+    priceLevel: z.enum(["budget", "moderate", "expensive"]).optional().nullable().describe("Price level preference"),
+    ambience: z.string().optional().nullable().describe("Preferred ambience/vibe"),
+    venueType: z.string().optional().nullable().describe("Type of venue (pub, restaurant, etc.)"),
+    specificRequirements: z.array(z.string()).optional().nullable().describe("Any specific requirements"),
+    venuePreference: z.string().optional().nullable().describe("DUPLICATE THIS FROM venuePreference FIELD ABOVE: Specific venue preference (e.g., 'sandwich place', 'sports bar')"),
   }).optional().describe("IMPORTANT: Use venuePreference for specific venue types like 'hipster coffee shop' or 'authentic Jewish deli'")
 });
 
@@ -32,15 +59,16 @@ const FixedTimeEntrySchema = z.object({
 const FlexibleTimeEntrySchema = z.object({
   time: z.string().describe("The time period for this activity (e.g., 'morning', 'afternoon')"),
   activity: z.string().describe("The activity description"),
-  location: z.string().describe("The specific location or area in NYC"),
+  location: z.string().describe("The specific location or area in the city"),
   venue: z.string().optional().describe("A specific venue name if mentioned"),
   day: z.string().optional().describe("The day for this activity if different from the main date"),
+  venueRequirements: z.array(z.string()).optional().describe("Specific requirements for the venue"),
   searchParameters: z.object({
-    cuisine: z.string().optional().describe("Type of cuisine if food-related"),
-    priceLevel: z.enum(["budget", "moderate", "expensive"]).optional().describe("Price level preference"),
-    venueType: z.string().optional().describe("Type of venue (pub, restaurant, etc.)"),
-    specificRequirements: z.array(z.string()).optional().describe("Any specific requirements"),
-    venuePreference: z.string().optional().describe("Specific venue preference (e.g., 'sandwich place', 'sports bar')"),
+    cuisine: z.string().optional().nullable().describe("Type of cuisine if food-related"),
+    priceLevel: z.enum(["budget", "moderate", "expensive"]).optional().nullable().describe("Price level preference"),
+    venueType: z.string().optional().nullable().describe("Type of venue (pub, restaurant, etc.)"),
+    specificRequirements: z.array(z.string()).optional().nullable().describe("Any specific requirements"),
+    venuePreference: z.string().optional().nullable().describe("Specific venue preference (e.g., 'sandwich place', 'sports bar')"),
   }).optional().describe("IMPORTANT: Use venuePreference for specific venue types like 'hipster art gallery' or 'authentic Jewish deli'")
 });
 
@@ -48,6 +76,8 @@ const StructuredRequestSchema = z.object({
   date: z.string().optional().describe("The date for the itinerary"),
   startLocation: z.string().optional().describe("Where the day starts"),
   endLocation: z.string().optional().describe("Where the day ends"),
+  timeBlocks: z.array(TimeBlockSchema).optional().describe("Extended time blocks (e.g., 'work from 10 AM - 3 PM')"),
+  fixedAppointments: z.array(FixedAppointmentSchema).optional().describe("Non-negotiable appointments with specific times"),
   fixedTimeEntries: z.array(FixedTimeEntrySchema).describe("Activities with specific times"),
   flexibleTimeEntries: z.array(FlexibleTimeEntrySchema).optional().describe("Activities with flexible time periods"),
   preferences: z.object({
@@ -66,14 +96,49 @@ const StructuredRequestSchema = z.object({
   specialRequests: z.array(z.string()).optional().describe("Any special requests or considerations"),
 });
 
+export type TimeBlock = z.infer<typeof TimeBlockSchema>;
+export type FixedAppointment = z.infer<typeof FixedAppointmentSchema>;
 export type FixedTimeEntry = z.infer<typeof FixedTimeEntrySchema>;
 export type FlexibleTimeEntry = z.infer<typeof FlexibleTimeEntrySchema>;
 export type StructuredRequest = z.infer<typeof StructuredRequestSchema>;
 
 /**
+ * Clean null values from Gemini response to match schema expectations
+ */
+function cleanNullValues(obj: any): any {
+  if (obj === null || obj === undefined) return undefined;
+  
+  if (Array.isArray(obj)) {
+    return obj.map(cleanNullValues);
+  }
+  
+  if (typeof obj === 'object') {
+    const cleaned: any = {};
+    for (const [key, value] of Object.entries(obj)) {
+      if (value !== null) {
+        cleaned[key] = cleanNullValues(value);
+      } else {
+        // Convert nulls to appropriate defaults based on field name
+        if (key === 'venuePreference') cleaned[key] = undefined;
+        else if (key === 'cuisine') cleaned[key] = undefined;
+        else if (key === 'priceLevel') cleaned[key] = undefined;
+        else if (key === 'budget') cleaned[key] = 'moderate';
+        else if (key === 'adults') cleaned[key] = 1;
+        else if (key === 'children') cleaned[key] = 0;
+        else if (key === 'specificRequirements') cleaned[key] = [];
+        // Skip other null values
+      }
+    }
+    return cleaned;
+  }
+  
+  return obj;
+}
+
+/**
  * Process a user query using Gemini's natural language understanding
  */
-export async function processWithGemini(query: string): Promise<StructuredRequest | null> {
+export async function processWithGemini(query: string, dateStr?: string, startTime?: string, cityContext?: { name: string; slug: string; timezone?: string }): Promise<StructuredRequest | null> {
   // Generate session ID for tracking all attempts in this processing chain
   const sessionId = generateSessionId();
   
@@ -108,7 +173,7 @@ export async function processWithGemini(query: string): Promise<StructuredReques
   
   for (const temperature of temperatures) {
     try {
-      const result = await attemptGeminiProcessing(query, temperature, sessionId);
+      const result = await attemptGeminiProcessing(query, temperature, sessionId, dateStr, startTime, cityContext);
       if (result) return result;
     } catch (error) {
       lastError = error;
@@ -132,8 +197,8 @@ export async function processWithGemini(query: string): Promise<StructuredReques
 /**
  * Single attempt at processing with Gemini at a specific temperature
  */
-async function attemptGeminiProcessing(query: string, temperature: number, sessionId?: string): Promise<StructuredRequest | null> {
-  const startTime = Date.now();
+async function attemptGeminiProcessing(query: string, temperature: number, sessionId?: string, dateStr?: string, startTime?: string, cityContext?: { name: string; slug: string; timezone?: string }): Promise<StructuredRequest | null> {
+  const processingStartTime = Date.now();
   const apiKey = getApiKey('GEMINI_API_KEY');
   
   if (!apiKey) {
@@ -146,46 +211,211 @@ async function attemptGeminiProcessing(query: string, temperature: number, sessi
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-latest" });
   
   try {
+    // Determine city context
+    const cityName = cityContext?.name || 'New York City';
+    const citySlug = cityContext?.slug || 'nyc';
+    
+    // City-specific location examples
+    const locationExamples: Record<string, string> = {
+      'nyc': '"SoHo", "Greenwich Village", "Upper East Side", "Midtown"',
+      'boston': '"Back Bay", "North End", "Cambridge", "Beacon Hill", "South End"',
+      'austin': '"Downtown", "South Congress", "East 6th", "Rainey Street", "Domain", "Barton Springs", "4th Street"',
+      'london': '"Shoreditch", "Notting Hill", "Covent Garden", "Camden"'
+    };
+    
+    const landmarks: Record<string, string> = {
+      'nyc': 'MoMA, Met, Natural History Museum',
+      'boston': 'Freedom Trail, Museum of Fine Arts, Boston Common',
+      'austin': 'State Capitol, Zilker Park, 6th Street',
+      'london': 'British Museum, Tower of London, Hyde Park'
+    };
+    
+    const defaultLocation: Record<string, string> = {
+      'nyc': 'Midtown',
+      'boston': 'Downtown',
+      'austin': 'Downtown',
+      'london': 'Central London'
+    };
+    
     // Prepare the prompt with schema details and examples
     const prompt = `
-    You are a travel planning assistant for New York City. Extract structured information from this itinerary request. 
+    You are an expert travel planning assistant for ${cityName}. Extract structured information from this itinerary request with extreme attention to detail.
     
-    IMPORTANT RULES:
-    1. Return ONLY valid JSON that matches the schema - no extra text or markdown
-    2. For time values, use 24-hour format (e.g., "09:00", "15:30") when possible
-    3. If a time is mentioned without AM/PM (e.g., "at 6"), default to PM for evening activities like dinner
-    4. For vague meal times: use "09:00" for breakfast, "12:00" for lunch, and "19:00" for dinner unless a specific time is given
-    5. Include all explicitly mentioned fixed times in fixedTimeEntries
-    6. Put activities with vague times (morning, afternoon, evening) in flexibleTimeEntries
-    7. Keep location names authentic to NYC (don't change neighborhood names)
-    8. If the user mentions specific venue requirements, include them in searchParameters
-    9. If the user doesn't specify a budget level, default to "moderate"
-    10. Extract as much detail as possible while staying true to the user's request
-    11. For incomplete information, make reasonable assumptions based on context
-    12. Keep activity descriptions concise but clear
-    13. VENUE PREFERENCES: Always capture specific venue preferences when mentioned:
-       - If user specifies a venue type like "sandwich place", "sports bar", "authentic Jewish deli", "trendy cafe", include it in searchParameters.venuePreference
-       - Use venuePreference for ANY specific venue descriptions (e.g., "hipster coffee shop", "upscale steakhouse", "family-friendly diner", "authentic Jamaican restaurant")
-       - This is different from venueType which should be broader categories like "restaurant", "cafe", "bar"
-       - Examples: for "I want to get a real NY bagel from an authentic Jewish deli", set venuePreference to "authentic Jewish deli"
-    14. LOCATION HANDLING: For EACH activity in both fixedTimeEntries and flexibleTimeEntries:
-       - You MUST identify a specific NYC location (neighborhood, landmark, station, address)
-       - If the user explicitly provides a valid NYC location (e.g., 'SoHo', 'The Met', 'Times Square', 'Wall St'), use that exact location string
-       - If the user does NOT specify a location OR provides a vague location like 'somewhere', 'anywhere', 'New York', 'nearby', you MUST use the exact string 'Midtown'
-       - The location field must NEVER be null or missing - always provide a valid string value
-    15. SCHEMA COMPLIANCE: Strictly adhere to the JSON schema. Ensure ALL required fields within fixedTimeEntries and flexibleTimeEntries (including time, activity, and location) are present and contain non-null string values.
+    CRITICAL PARSING RULES:
     
-    SCHEMA GUIDANCE:
-    - Use fixedTimeEntries for activities with specific clock times (9:00, 14:30, etc.)
-    - Use flexibleTimeEntries for activities with time periods (morning, afternoon, etc.)
-    - Both entry types MUST include: time, activity, location (never null, use 'Midtown' when unspecified)
-    - Always provide reasonable defaults: use '09:00' for breakfast, '12:00' for lunch, '19:00' for dinner
-    - For other activities, use '10:00' for morning, '14:00' for afternoon, '18:00' for evening
-    - Always use 'Midtown' for location if unspecified
-    - Always use searchParameters.venuePreference for specific venue descriptions (e.g., "sandwich place", "trendy bar")
+    1. JSON FORMAT: Return ONLY valid JSON matching the schema - no markdown, no extra text
+    
+    2. TIME EXTRACTION:
+       - Use 24-hour format (e.g., "09:00", "15:30")
+       - "at 6" without context = "18:00" (assume evening for dinner/drinks)
+       - "at 6" with morning context = "06:00"
+       - Default meal times: breakfast="09:00", lunch="12:00", dinner="19:00"
+       - "morning"="09:00", "afternoon"="14:00", "evening"="18:00", "night"="21:00"
+       - "early morning"="07:00", "late morning"="11:00", "late afternoon"="16:00"
+       - "sunset" = "18:30", "sunrise" = "06:30"
+       - RELATIVE TIME HANDLING (CRITICAL):
+         * "in X hours" = add X hours to the start time or previous activity time
+         * "X hours later" = add X hours to the previous activity time
+         * Example: If start is 10:00, "in 1 hour" = "11:00", "in 3 hours" = "13:00"
+         * Example: If last activity is 12:00, "2 hours later" = "14:00"
+       - REVERSE PLANNING (CRITICAL):
+         * "before that" = calculate earlier time from the reference activity
+         * "end with X at Y time" = X happens at Y time, earlier activities before
+         * "working backwards from X" = X is the last/latest activity
+         * Example: "meeting at 3 PM, lunch before that" = lunch at 12:00-13:00
+         * Example: "flight at 8 PM, dinner before" = dinner at 18:00-19:00
+         * ALWAYS include ALL mentioned activities, even reference points like meetings/flights
+    
+    3. TIME BLOCKS & APPOINTMENTS - NEW CRITICAL PARSING:
+       - TIME BLOCKS: "work from X to Y", "spend X hours at", "need X hours for"
+         * Example: "work from 10 AM to 3 PM" → timeBlocks entry with startTime: "10:00", endTime: "15:00"
+         * Example: "need a quiet place to work for 5 hours" → timeBlocks entry with duration reflected in end time
+         * Extract venue requirements: "quiet", "good wifi", "suitable for calls"
+       - FIXED APPOINTMENTS: "meeting at X", "appointment at Y", "reservation at Z"
+         * Example: "meeting in Mayfair at 5" → fixedAppointments entry with time: "17:00", location: "Mayfair"
+         * Add buffers: meeting = 30 min before, dinner = 15 min before
+       - REGULAR ACTIVITIES: Everything else goes in fixedTimeEntries
+    
+    4. ACTIVITY SEQUENCE - CRITICAL:
+       - Preserve the EXACT order mentioned by the user
+       - "then", "after that", "after", "followed by", "next", "afterwards" indicate sequence
+       - Count ALL activities mentioned (coffee, lunch, drinks, etc.)
+       - If no times given, space activities 1.5-2 hours apart
+       - Parse compound sentences carefully: "I have a meeting... and would like to go to a restaurant" = 2 activities
+    
+    5. VENUE PREFERENCES - CRITICAL:
+       - ALWAYS extract venue descriptors to venuePreference field
+       - SPECIFIC FOOD MENTIONS must be captured exactly:
+         * "fish and chips" → venuePreference: "fish and chips restaurant"
+         * "pizza" → venuePreference: "pizza restaurant"
+         * "sushi" → venuePreference: "sushi restaurant"
+         * "tacos" → venuePreference: "taco restaurant"
+         * "burgers" → venuePreference: "burger restaurant"
+         * "chinese food" → venuePreference: "chinese restaurant"
+         * "italian" → venuePreference: "italian restaurant"
+         * "breakfast tacos" → venuePreference: "breakfast taco restaurant"
+       - STYLE DESCRIPTORS:
+         * "hipster cafe" → venuePreference: "hipster cafe"
+         * "authentic Jewish deli" → venuePreference: "authentic Jewish deli"
+         * "trendy brunch spot" → venuePreference: "trendy brunch spot"
+         * "hole-in-the-wall" → venuePreference: "hole-in-the-wall"
+         * "michelin star" → venuePreference: "michelin star restaurant"
+         * "rooftop bar" → venuePreference: "rooftop bar"
+         * "sports bar" → venuePreference: "sports bar"
+         * "family-friendly" → venuePreference: "family-friendly restaurant"
+       - REQUIREMENTS (NOT preferences):
+         * "outdoor seating" → specificRequirements: ["outdoor seating"]
+         * "with a view" → specificRequirements: ["with a view"]
+         * "good wifi" → specificRequirements: ["wifi"]
+    
+    6. LOCATION INTELLIGENCE - CRITICAL:
+       - PRESERVE ALL LOCATION MENTIONS from the user's query!
+       - Common ${cityName} locations: ${locationExamples[citySlug] || locationExamples['nyc']}
+       - If user mentions a specific place (e.g., "Barton Springs", "4th st"), USE IT EXACTLY
+       - LANDMARK RECOGNITION (CRITICAL):
+         * Famous landmarks MUST be preserved exactly as mentioned
+         * ${cityName} landmarks include: ${landmarks[citySlug] || landmarks['nyc']}
+         * "Big Ben" → location: "Big Ben", type: "tourist_attraction"
+         * "Tower of London" → location: "Tower of London", type: "tourist_attraction"  
+         * "Statue of Liberty" → location: "Statue of Liberty", type: "tourist_attraction"
+         * For "lunch near [landmark]" → location: "[landmark area]" (e.g., "Tower Bridge area")
+         * NEVER change landmark names to generic locations
+       - "that famous museum" → Try to infer (${landmarks[citySlug] || landmarks['nyc']})
+       - "nearby" → Use previous activity's location
+       - "somewhere nice" or generic location → "${defaultLocation[citySlug] || 'Downtown'}"
+       - No location → "${defaultLocation[citySlug] || 'Downtown'}"
+       - NEVER replace specific location mentions with generic ones
+    
+    6. SPECIAL REQUIREMENTS:
+       - Budget mentions: "cheap"/"budget" → budget: "budget", "upscale"/"fancy" → budget: "expensive"
+       - Group size: "family", "group of X" → travelGroup numbers
+       - Dietary: "kosher", "vegan", "halal" → specificRequirements
+       - Accessibility: "wheelchair", "accessible" → accessibility requirements
+       - Weather: "if nice weather" → note in specialRequests
+    
+    7. ACTIVITY TYPES:
+       - Meals: breakfast/brunch/lunch/dinner → restaurant
+       - Coffee/work at cafe → cafe
+       - Drinks/cocktails/lounge → bar (NOT attraction)
+       - Shopping → shopping
+       - Museums/galleries → museum
+       - Parks/outdoor/walk → park
+       - Shows/entertainment → entertainment
+       - Meeting/appointment → MUST include in fixedAppointments or fixedTimeEntries with type: "skip"
+       - LANDMARKS (CRITICAL):
+         * Famous landmarks → tourist_attraction
+         * "visit [landmark]", "see [landmark]" → tourist_attraction
+         * Activities near landmarks should reference the landmark in location
+    
+    8. EDGE CASES:
+       - Conflicting requirements: Choose most logical interpretation
+       - Vague queries: Make reasonable ${cityName}-appropriate suggestions
+       - Multi-day: Note day changes in flexibleTimeEntries
+    
+    SCHEMA STRUCTURE:
+    {
+      "timeBlocks": [
+        {
+          "startTime": "10:00",
+          "endTime": "15:00",
+          "activity": "work session",
+          "location": "Canary Wharf",
+          "venueRequirements": ["quiet", "good wifi", "suitable for calls"],
+          "searchParameters": {
+            "venueType": "cafe",
+            "specificRequirements": ["quiet", "wifi", "power outlets"],
+            "ambience": "quiet"
+          }
+        }
+      ],
+      "fixedAppointments": [
+        {
+          "time": "17:00",
+          "duration": 60,
+          "activity": "meeting",
+          "location": "Mayfair",
+          "bufferBefore": 30,
+          "bufferAfter": 15,
+          "isFixed": true
+        }
+      ],
+      "fixedTimeEntries": [
+        {
+          "time": "HH:MM",
+          "activity": "Brief description",
+          "location": "${cityName} location",
+          "venuePreference": "specific venue type if mentioned",
+          "venueRequirements": ["quiet", "non-crowded"],
+          "searchParameters": {
+            "venuePreference": "DUPLICATE venue preference here",
+            "specificRequirements": ["array of requirements"],
+            "cuisine": "if food related",
+            "priceLevel": "budget/moderate/expensive"
+          }
+        }
+      ],
+      "flexibleTimeEntries": [...same structure...],
+      "preferences": {
+        "budget": "overall budget level",
+        "pace": "relaxed/moderate/busy",
+        "interests": ["user interests"]
+      },
+      "travelGroup": {
+        "adults": number,
+        "children": number
+      },
+      "specialRequests": ["any special notes"]
+    }
 
+    ${startTime ? `Start time: ${startTime}` : ''}
+    ${dateStr ? `Date: ${dateStr}` : ''}
+    
+    IMPORTANT: Count ALL activities in this request and ensure each one appears in the output.
+    
     Here's the request to analyze:
     ${query}
+    
+    CRITICAL REMINDER: Extract EVERY SINGLE activity mentioned above. Do not skip any activities even if there are many. Each distinct activity should have its own entry in fixedTimeEntries.
     `;
     
     // Send to Gemini
@@ -193,7 +423,7 @@ async function attemptGeminiProcessing(query: string, temperature: number, sessi
       contents: [{ role: "user", parts: [{ text: prompt }] }],
       generationConfig: {
         temperature: temperature,
-        maxOutputTokens: 1024,
+        maxOutputTokens: 2048, // Increased for complex multi-step queries
       },
     });
     
@@ -213,8 +443,11 @@ async function attemptGeminiProcessing(query: string, temperature: number, sessi
     try {
       const parsedData = JSON.parse(jsonText);
       
+      // Clean null values before validation
+      const cleanedData = cleanNullValues(parsedData);
+      
       // Validate against our schema
-      const validationResult = StructuredRequestSchema.safeParse(parsedData);
+      const validationResult = StructuredRequestSchema.safeParse(cleanedData);
       
       if (validationResult.success) {
         // Successfully validated
@@ -231,12 +464,13 @@ async function attemptGeminiProcessing(query: string, temperature: number, sessi
           rawRequest: { prompt, temperature },
           rawResponse: responseText,
           parsedResponse: structuredData,
-          processingTimeMs: Date.now() - startTime,
+          processingTimeMs: Date.now() - processingStartTime,
           status: 'success'
         });
         
         // Apply additional processing and return the structured data
-        return processGeminiResponse(query, structuredData, responseText);
+        const citySlug = cityContext?.slug || 'london';
+        return processGeminiResponse(query, structuredData, responseText, citySlug);
       } else {
         // Validation failed
         await logAiInteraction({
@@ -246,7 +480,7 @@ async function attemptGeminiProcessing(query: string, temperature: number, sessi
           rawRequest: { prompt, temperature },
           rawResponse: responseText,
           status: 'error',
-          processingTimeMs: Date.now() - startTime,
+          processingTimeMs: Date.now() - processingStartTime,
           errorDetails: `Schema validation error: ${JSON.stringify(validationResult.error)}`,
           parsedResponse: parsedData  // Include the invalid parsed data for debugging
         });
@@ -262,7 +496,7 @@ async function attemptGeminiProcessing(query: string, temperature: number, sessi
         rawRequest: { prompt, temperature },
         rawResponse: responseText,
         status: 'error',
-        processingTimeMs: Date.now() - startTime,
+        processingTimeMs: Date.now() - processingStartTime,
         errorDetails: `JSON parsing error: ${parseError}`
       });
       
@@ -276,7 +510,7 @@ async function attemptGeminiProcessing(query: string, temperature: number, sessi
       modelName: 'gemini-1.5-pro',
       rawRequest: { temperature },
       status: 'error',
-      processingTimeMs: Date.now() - startTime,
+      processingTimeMs: Date.now() - processingStartTime,
       errorDetails: `API or processing error: ${error}`
     });
     
@@ -290,7 +524,8 @@ async function attemptGeminiProcessing(query: string, temperature: number, sessi
 function processGeminiResponse(
   query: string,
   validatedData: StructuredRequest,
-  rawResponse: string
+  rawResponse: string,
+  citySlug: string = 'london'
 ): StructuredRequest {
   // Create a Set to track unique activity signatures to avoid duplicates
   const uniqueActivities = new Set<string>();
@@ -309,7 +544,14 @@ function processGeminiResponse(
 
   // Set default start location if not provided
   if (!structuredData.startLocation) {
-    structuredData.startLocation = "Midtown";
+    const defaultLocationMap: Record<string, string> = {
+      'nyc': 'Midtown',
+      'boston': 'Downtown',
+      'austin': 'Downtown',
+      'london': 'Central London'
+    };
+    const cityDefaultLocation = defaultLocationMap[citySlug] || 'Downtown';
+    structuredData.startLocation = cityDefaultLocation;
   }
   
   // First process fixed time entries with duplicate detection

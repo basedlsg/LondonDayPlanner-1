@@ -1,0 +1,130 @@
+[
+  {
+    "name": "Back Bay",
+    "type": "neighborhood",
+    "coordinates": { "lat": 42.3502, "lng": -71.0808 },
+    "alternativeNames": ["Newbury Street", "Copley Square"],
+    "commonMisspellings": [],
+    "parentArea": "Boston"
+  },
+  {
+    "name": "North End",
+    "type": "neighborhood",
+    "coordinates": { "lat": 42.3648, "lng": -71.0541 },
+    "alternativeNames": ["Little Italy", "Hanover Street"],
+    "commonMisspellings": [],
+    "parentArea": "Boston"
+  },
+  {
+    "name": "Beacon Hill",
+    "type": "neighborhood",
+    "coordinates": { "lat": 42.3588, "lng": -71.0637 },
+    "alternativeNames": ["Beacon Hill Historic District"],
+    "commonMisspellings": [],
+    "parentArea": "Boston"
+  },
+  {
+    "name": "Cambridge",
+    "type": "district",
+    "coordinates": { "lat": 42.3736, "lng": -71.1097 },
+    "alternativeNames": ["Harvard Square", "Harvard area", "MIT area"],
+    "commonMisspellings": [],
+    "parentArea": "Cambridge"
+  },
+  {
+    "name": "South End",
+    "type": "neighborhood",
+    "coordinates": { "lat": 42.3429, "lng": -71.0738 },
+    "alternativeNames": ["SoEnd"],
+    "commonMisspellings": [],
+    "parentArea": "Boston"
+  },
+  {
+    "name": "Fenway",
+    "type": "neighborhood",
+    "coordinates": { "lat": 42.3467, "lng": -71.0972 },
+    "alternativeNames": ["Fenway Park area", "Kenmore"],
+    "commonMisspellings": [],
+    "parentArea": "Boston"
+  },
+  {
+    "name": "Downtown",
+    "type": "district",
+    "coordinates": { "lat": 42.3581, "lng": -71.0636 },
+    "alternativeNames": ["Downtown Crossing", "Financial District"],
+    "commonMisspellings": [],
+    "parentArea": "Boston"
+  },
+  {
+    "name": "Chinatown",
+    "type": "neighborhood",
+    "coordinates": { "lat": 42.3505, "lng": -71.0625 },
+    "alternativeNames": [],
+    "commonMisspellings": [],
+    "parentArea": "Boston"
+  },
+  {
+    "name": "Seaport",
+    "type": "district",
+    "coordinates": { "lat": 42.3505, "lng": -71.0440 },
+    "alternativeNames": ["Seaport District", "Innovation District"],
+    "commonMisspellings": [],
+    "parentArea": "Boston"
+  },
+  {
+    "name": "Harvard Square",
+    "type": "area",
+    "coordinates": { "lat": 42.3740, "lng": -71.1190 },
+    "alternativeNames": ["Harvard"],
+    "commonMisspellings": [],
+    "parentArea": "Cambridge"
+  },
+  {
+    "name": "Porter Square",
+    "type": "area",
+    "coordinates": { "lat": 42.3884, "lng": -71.1190 },
+    "alternativeNames": ["Porter"],
+    "commonMisspellings": [],
+    "parentArea": "Cambridge"
+  },
+  {
+    "name": "Davis Square",
+    "type": "area",
+    "coordinates": { "lat": 42.3967, "lng": -71.1226 },
+    "alternativeNames": ["Davis", "Somerville"],
+    "commonMisspellings": [],
+    "parentArea": "Somerville"
+  },
+  {
+    "name": "Allston",
+    "type": "neighborhood",
+    "coordinates": { "lat": 42.3534, "lng": -71.1370 },
+    "alternativeNames": ["Allston Village"],
+    "commonMisspellings": [],
+    "parentArea": "Boston"
+  },
+  {
+    "name": "Brighton",
+    "type": "neighborhood",
+    "coordinates": { "lat": 42.3479, "lng": -71.1508 },
+    "alternativeNames": ["Brighton Center"],
+    "commonMisspellings": [],
+    "parentArea": "Boston"
+  },
+  {
+    "name": "Jamaica Plain",
+    "type": "neighborhood",
+    "coordinates": { "lat": 42.3097, "lng": -71.1089 },
+    "alternativeNames": ["JP", "J.P."],
+    "commonMisspellings": [],
+    "parentArea": "Boston"
+  },
+  {
+    "name": "Charlestown",
+    "type": "neighborhood",
+    "coordinates": { "lat": 42.3782, "lng": -71.0602 },
+    "alternativeNames": ["Navy Yard"],
+    "commonMisspellings": [],
+    "parentArea": "Boston"
+  }
+]

@@ -29,9 +29,10 @@ export interface GeocodingResult {
  * Validates and normalizes a location name by geocoding it through Google Maps API
  * 
  * @param location Location name to validate (e.g., "Hackney", "Soho", etc.)
+ * @param cityContext Optional city context for location validation
  * @returns Verified location name (neighborhood or locality) or original if verification fails
  */
-export async function validateAndNormalizeLocation(location: string): Promise<string> {
+export async function validateAndNormalizeLocation(location: string, cityContext?: { name: string; state?: string }): Promise<string> {
   // Skip if the feature is disabled
   if (!isFeatureEnabled("PLACES_API")) {
     console.log("Places API is disabled, skipping location validation for:", location);
@@ -41,11 +42,25 @@ export async function validateAndNormalizeLocation(location: string): Promise<st
   try {
     const apiKey = getApiKey("GOOGLE_PLACES_API_KEY");
     
-    // Ensure the location is specifically within New York City
-    const searchQuery = `${location}, New York, NY, USA`;
+    // Ensure the location is within the specified city context
+    let searchQuery: string;
+    if (cityContext) {
+      const cityStateMap: Record<string, string> = {
+        'New York': 'NY',
+        'Boston': 'MA', 
+        'Austin': 'TX',
+        'London': 'UK'
+      };
+      const state = cityContext.state || cityStateMap[cityContext.name] || '';
+      searchQuery = `${location}, ${cityContext.name}${state ? `, ${state}` : ''}, ${cityContext.name === 'London' ? 'UK' : 'USA'}`;
+    } else {
+      // Default to New York for backward compatibility
+      searchQuery = `${location}, New York, NY, USA`;
+    }
     const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(searchQuery)}&key=${apiKey}`;
     
     console.log(`Validating location: "${location}" with Google Maps Geocoding API`);
+    console.log(`Geocoding search query: "${searchQuery}"`);
     
     const response = await fetch(geocodeUrl);
     
@@ -61,13 +76,58 @@ export async function validateAndNormalizeLocation(location: string): Promise<st
     }
     
     // Get the first (most relevant) result
-    const result = data.results[0];
+    let result = data.results[0];
+    
+    // If we have a city context, validate the result is actually in that city
+    if (cityContext && data.results.length > 1) {
+      // Look for a result that's actually in the requested city
+      for (const candidate of data.results) {
+        const formattedAddr = candidate.formatted_address || '';
+        const addrLower = formattedAddr.toLowerCase();
+        const cityLower = cityContext.name.toLowerCase();
+        
+        // Check if the address contains the city name or state
+        const cityStateMap: Record<string, string[]> = {
+          'New York': ['new york', 'ny', 'manhattan', 'brooklyn'],
+          'Boston': ['boston', 'ma', 'massachusetts'],
+          'Austin': ['austin', 'tx', 'texas'],
+          'London': ['london', 'uk', 'united kingdom']
+        };
+        
+        const cityTerms = cityStateMap[cityContext.name] || [cityLower];
+        const isInCity = cityTerms.some(term => addrLower.includes(term));
+        
+        if (isInCity) {
+          console.log(`Found result in ${cityContext.name}: ${formattedAddr}`);
+          result = candidate;
+          break;
+        }
+      }
+    }
     
     // Extract the most specific address component
-    // Prioritize: neighborhood > sublocality > locality > administrative_area
+    // Prioritize: point_of_interest/establishment > neighborhood > sublocality > locality > administrative_area
     const components = result.address_components || [];
     
-    // First, try to find a neighborhood or sublocality
+    // First check if this is a specific landmark/point of interest
+    const pointOfInterest = components.find(
+      (component: AddressComponent) => 
+        component.types.includes("point_of_interest") || 
+        component.types.includes("establishment") ||
+        component.types.includes("park") ||
+        component.types.includes("natural_feature")
+    );
+    
+    if (pointOfInterest) {
+      // If the original query matches the POI name, keep the original
+      if (location.toLowerCase().includes(pointOfInterest.long_name.toLowerCase()) ||
+          pointOfInterest.long_name.toLowerCase().includes(location.toLowerCase())) {
+        console.log(`Preserving landmark name: "${location}"`);
+        return location;
+      }
+    }
+    
+    // Otherwise, try to find a neighborhood or sublocality
     const neighborhood = components.find(
       (component: AddressComponent) => 
         component.types.includes("neighborhood") || 
@@ -85,9 +145,13 @@ export async function validateAndNormalizeLocation(location: string): Promise<st
       (component: AddressComponent) => component.types.includes("locality")
     );
     
-    if (locality && locality.long_name.toLowerCase() !== "new york") {
-      console.log(`Validated "${location}" as locality: "${locality.long_name}"`);
-      return locality.long_name;
+    if (locality) {
+      // Don't return the city name itself, only specific localities within it
+      const cityName = cityContext?.name || 'New York';
+      if (locality.long_name.toLowerCase() !== cityName.toLowerCase()) {
+        console.log(`Validated "${location}" as locality: "${locality.long_name}"`);
+        return locality.long_name;
+      }
     }
     
     // Check for administrative area as last resort
@@ -95,9 +159,16 @@ export async function validateAndNormalizeLocation(location: string): Promise<st
       (component: AddressComponent) => component.types.includes("administrative_area_level_2")
     );
     
-    if (adminArea && adminArea.long_name.toLowerCase() !== "new york county") {
-      console.log(`Validated "${location}" as admin area: "${adminArea.long_name}"`);
-      return adminArea.long_name;
+    if (adminArea) {
+      // Skip generic county names
+      const skipPatterns = ['county', 'borough'];
+      const isGeneric = skipPatterns.some(pattern => 
+        adminArea.long_name.toLowerCase().includes(pattern)
+      );
+      if (!isGeneric) {
+        console.log(`Validated "${location}" as admin area: "${adminArea.long_name}"`);
+        return adminArea.long_name;
+      }
     }
     
     // If we couldn't find a specific component, just return the original
@@ -114,16 +185,30 @@ export async function validateAndNormalizeLocation(location: string): Promise<st
  * Get full geocoding details for a location
  * 
  * @param location Location name or address
+ * @param cityContext Optional city context for location validation
  * @returns Detailed geocoding result or null if not found
  */
-export async function getLocationDetails(location: string): Promise<GeocodingResult | null> {
+export async function getLocationDetails(location: string, cityContext?: { name: string; state?: string }): Promise<GeocodingResult | null> {
   if (!isFeatureEnabled("PLACES_API")) {
     return null;
   }
 
   try {
     const apiKey = getApiKey("GOOGLE_PLACES_API_KEY");
-    const searchQuery = `${location}, New York, NY, USA`;
+    // Use city context if provided
+    let searchQuery: string;
+    if (cityContext) {
+      const cityStateMap: Record<string, string> = {
+        'New York': 'NY',
+        'Boston': 'MA',
+        'Austin': 'TX',
+        'London': 'UK'
+      };
+      const state = cityContext.state || cityStateMap[cityContext.name] || '';
+      searchQuery = `${location}, ${cityContext.name}${state ? `, ${state}` : ''}, ${cityContext.name === 'London' ? 'UK' : 'USA'}`;
+    } else {
+      searchQuery = `${location}, New York, NY, USA`;
+    }
     const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(searchQuery)}&key=${apiKey}`;
     
     const response = await fetch(geocodeUrl);
@@ -183,12 +268,12 @@ export async function getLocationDetails(location: string): Promise<GeocodingRes
  * 
  * This provides the most accurate location information possible.
  */
-export async function processLocationWithAIAndMaps(query: string, extractedLocation?: string): Promise<string> {
+export async function processLocationWithAIAndMaps(query: string, extractedLocation?: string, cityContext?: { name: string; state?: string }): Promise<string> {
   let locationToProcess = extractedLocation || "Midtown";
   
   try {
     // Verify with Google Maps
-    const verifiedLocation = await validateAndNormalizeLocation(locationToProcess);
+    const verifiedLocation = await validateAndNormalizeLocation(locationToProcess, cityContext);
     
     if (verifiedLocation && verifiedLocation !== "New York") {
       console.log(`Location processing result: "${locationToProcess}" -> "${verifiedLocation}"`);
@@ -205,7 +290,7 @@ export async function processLocationWithAIAndMaps(query: string, extractedLocat
       console.log(`Found potential location in query: "${locationToProcess}"`);
       
       // Try to validate this extracted location
-      const verifiedExplicitLocation = await validateAndNormalizeLocation(locationToProcess);
+      const verifiedExplicitLocation = await validateAndNormalizeLocation(locationToProcess, cityContext);
       if (verifiedExplicitLocation && verifiedExplicitLocation !== "New York") {
         console.log(`Verified explicit location: "${verifiedExplicitLocation}"`);
         return verifiedExplicitLocation;

@@ -1,40 +1,91 @@
-import React from 'react';
-import { Route, Switch } from 'wouter';
-import { AuthProvider } from './hooks/useAuth';
-import { ProtectedRoute } from './components/auth/ProtectedRoute';
-import TopNav from './components/TopNav';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet, useNavigate } from 'react-router-dom';
 import HomePage from './pages/HomePage';
+import ItineraryPage from './pages/ItineraryPage';
+import { CitiesPage } from './pages/CitiesPage';
+import { AnalyticsPage } from './pages/AnalyticsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
-import ItineraryPage from './pages/ItineraryPage';
+import ItinerariesPage from './pages/ItinerariesPage';
+import { TopNav } from './components/TopNav';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from './lib/queryClient';
+import { CityProvider, useCity } from './hooks/useCity';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { AuthProvider } from './hooks/useAuth';
 import { Toaster } from './components/ui/toaster';
+
+// Layout component that includes TopNav and ensures city context is available
+const AppLayout = () => {
+  const { currentCity, isLoading: isCityLoading } = useCity();
+
+  // Potentially show a global loading/error state for city context here
+  if (isCityLoading) return <div className="p-8 text-center">Loading city information...</div>;
+  // if (!currentCity) return <Navigate to="/cities" replace />; // Or a more specific "City not found" page
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <TopNav />
+      <main>
+        {/* Outlet will render the matched nested route component */}
+        <Outlet /> 
+      </main>
+    </div>
+  );
+};
 
 function App() {
   return (
-    <AuthProvider>
-      <div className="min-h-screen flex flex-col">
-        <TopNav />
-        <main className="flex-1">
-          <Switch>
-            <Route path="/login" component={LoginPage} />
-            <Route path="/profile">
-              <ProtectedRoute>
-                <ProfilePage />
-              </ProtectedRoute>
-            </Route>
-            <Route path="/itinerary/:id">
-              <ItineraryPage />
-            </Route>
-            <Route path="/">
-              <HomePage />
-            </Route>
-          </Switch>
-        </main>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <AuthProvider>
+            <CityProvider>
+              <Routes>
+              <Route path="/:city" element={<AppLayout />}>
+                <Route index element={<HomePage />} />
+                <Route path="plan" element={<HomePage />} />
+                <Route path="itinerary/:id" element={<ItineraryPage />} />
+                <Route path="analytics" element={<AnalyticsPage />} />
+              </Route>
+
+              <Route path="/cities" element={<><TopNav /><CitiesPage /></>} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/profile" element={<><TopNav /><ProfilePage /></>} />
+              <Route path="/itineraries" element={<ItinerariesPage />} />
+              
+              <Route path="/" element={<NavigateToDefaultCity />} />
+            </Routes>
+            </CityProvider>
+          </AuthProvider>
+        </Router>
         <Toaster />
-      </div>
-    </AuthProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 }
+
+// Helper component to handle initial navigation to a default city
+const NavigateToDefaultCity = () => {
+  const { currentCity, isLoading, availableCities } = useCity();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoading && availableCities.length > 0) {
+      const currentPath = window.location.pathname;
+      if (currentCity && currentPath === '/') {
+        navigate(`/${currentCity.slug}${window.location.search}${window.location.hash}`, { replace: true });
+      } else if (!currentCity && currentPath === '/' && availableCities.length > 0) {
+        // If still at root and no specific city determined by URL, navigate to first available as default
+        navigate(`/${availableCities[0].slug}${window.location.search}${window.location.hash}`, { replace: true });
+      }
+      // CityProvider also has logic to redirect from / to /:city if city can be determined from params or default
+    }
+  }, [currentCity, isLoading, availableCities, navigate]);
+
+  return <div className="p-8 text-center">Loading...</div>; // Or a proper loading spinner
+};
 
 export default App;

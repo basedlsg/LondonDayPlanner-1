@@ -51,6 +51,104 @@ export const userItineraries = pgTable("user_itineraries", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+// User preferences table
+export const userPreferences = pgTable("user_preferences", {
+  id: serial("id").primaryKey(),
+  userId: uuid("user_id").notNull().references(() => users.id).unique(),
+  defaultCity: varchar("default_city", { length: 50 }),
+  favoriteLocations: jsonb("favorite_locations").default([]),
+  activityPreferences: jsonb("activity_preferences").default({}),
+  budgetPreference: varchar("budget_preference", { length: 20 }).default("moderate"), // budget, moderate, premium
+  weatherAware: boolean("weather_aware").default(true),
+  preferIndoor: boolean("prefer_indoor").default(false),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Multi-day trip table
+export const trips = pgTable("trips", {
+  id: serial("id").primaryKey(),
+  userId: uuid("user_id").references(() => users.id),
+  title: text("title").notNull(),
+  description: text("description"),
+  city: varchar("city", { length: 50 }).notNull(),
+  startDate: timestamp("start_date").notNull(),
+  endDate: timestamp("end_date").notNull(),
+  totalDays: serial("total_days").notNull(),
+  accommodations: jsonb("accommodations").default([]), // Array of hotel/accommodation info
+  created: timestamp("created").notNull().defaultNow(),
+});
+
+// Individual days within a trip
+export const tripDays = pgTable("trip_days", {
+  id: serial("id").primaryKey(),
+  tripId: serial("trip_id").notNull().references(() => trips.id),
+  dayNumber: serial("day_number").notNull(),
+  date: timestamp("date").notNull(),
+  title: text("title"),
+  theme: text("theme"), // e.g., "Museums & Culture", "Shopping & Food"
+  places: jsonb("places").notNull().default([]),
+  travelTimes: jsonb("travel_times").notNull().default([]),
+  notes: text("notes"),
+  startLocation: jsonb("start_location"), // Where the day starts (hotel, etc.)
+  endLocation: jsonb("end_location"), // Where the day ends
+});
+
+// Collaboration tables
+export const collaborations = pgTable("collaborations", {
+  id: serial("id").primaryKey(),
+  itineraryId: serial("itinerary_id").notNull().references(() => itineraries.id, { onDelete: "cascade" }),
+  ownerId: uuid("owner_id").notNull().references(() => users.id),
+  shareToken: varchar("share_token", { length: 64 }).notNull().unique(), // For shareable links
+  title: text("title").notNull(), // Custom title for sharing
+  isPublic: boolean("is_public").default(false), // Public link vs private invite
+  allowEditing: boolean("allow_editing").default(true), // Can collaborators edit?
+  allowComments: boolean("allow_comments").default(true), // Can collaborators comment?
+  expiresAt: timestamp("expires_at"), // Optional expiration
+  created: timestamp("created").notNull().defaultNow(),
+  updated: timestamp("updated").notNull().defaultNow(),
+});
+
+export const collaborators = pgTable("collaborators", {
+  id: serial("id").primaryKey(),
+  collaborationId: serial("collaboration_id").notNull().references(() => collaborations.id, { onDelete: "cascade" }),
+  userId: uuid("user_id").references(() => users.id), // Null for anonymous collaborators
+  email: varchar("email", { length: 255 }), // For email invites
+  role: varchar("role", { length: 20 }).notNull().default("collaborator"), // owner, editor, viewer, collaborator
+  joinedAt: timestamp("joined_at").defaultNow(),
+  lastActive: timestamp("last_active").defaultNow(),
+  created: timestamp("created").notNull().defaultNow(),
+});
+
+export const itineraryComments = pgTable("itinerary_comments", {
+  id: serial("id").primaryKey(),
+  itineraryId: serial("itinerary_id").notNull().references(() => itineraries.id, { onDelete: "cascade" }),
+  collaborationId: serial("collaboration_id").references(() => collaborations.id, { onDelete: "cascade" }),
+  userId: uuid("user_id").references(() => users.id), // Null for anonymous comments
+  authorName: varchar("author_name", { length: 100 }), // For anonymous users
+  placeId: varchar("place_id", { length: 255 }), // Null for general comments
+  content: text("content").notNull(),
+  type: varchar("type", { length: 20 }).default("comment"), // comment, suggestion, vote
+  parentId: serial("parent_id").references(() => itineraryComments.id), // For replies
+  votes: jsonb("votes").default({}), // { up: 5, down: 2 }
+  created: timestamp("created").notNull().defaultNow(),
+  updated: timestamp("updated").notNull().defaultNow(),
+});
+
+export const venueVotes = pgTable("venue_votes", {
+  id: serial("id").primaryKey(),
+  collaborationId: serial("collaboration_id").notNull().references(() => collaborations.id, { onDelete: "cascade" }),
+  itineraryId: serial("itinerary_id").notNull().references(() => itineraries.id, { onDelete: "cascade" }),
+  placeId: varchar("place_id", { length: 255 }).notNull(), // Google Place ID
+  userId: uuid("user_id").references(() => users.id),
+  vote: varchar("vote", { length: 10 }).notNull(), // thumbs_up, thumbs_down, heart, star
+  created: timestamp("created").notNull().defaultNow(),
+});
+
+// Indexes for collaboration features
+export const collaborationIndexes = [
+  // Add indexes for better performance
+];
+
 export const insertPlaceSchema = createInsertSchema(places).omit({ id: true });
 export const insertItinerarySchema = createInsertSchema(itineraries, {
   title: z.string().optional(),
@@ -103,9 +201,20 @@ export type InsertPlace = z.infer<typeof insertPlaceSchema>;
 export type Itinerary = typeof itineraries.$inferSelect;
 export type InsertItinerary = z.infer<typeof insertItinerarySchema>;
 export type User = typeof users.$inferSelect;
-export type InsertLocalUser = z.infer<typeof insertLocalUserSchema>;
-export type InsertGoogleUser = z.infer<typeof insertGoogleUserSchema>;
 export type UserItinerary = typeof userItineraries.$inferSelect;
+export type UserPreferences = typeof userPreferences.$inferSelect;
+export type Trip = typeof trips.$inferSelect;
+export type InsertTrip = typeof trips.$inferInsert;
+export type TripDay = typeof tripDays.$inferSelect;
+export type InsertTripDay = typeof tripDays.$inferInsert;
+export type Collaboration = typeof collaborations.$inferSelect;
+export type InsertCollaboration = typeof collaborations.$inferInsert;
+export type Collaborator = typeof collaborators.$inferSelect;
+export type InsertCollaborator = typeof collaborators.$inferInsert;
+export type ItineraryComment = typeof itineraryComments.$inferSelect;
+export type InsertItineraryComment = typeof itineraryComments.$inferInsert;
+export type VenueVote = typeof venueVotes.$inferSelect;
+export type InsertVenueVote = typeof venueVotes.$inferInsert;
 export type LoginCredentials = z.infer<typeof loginSchema>;
 export type GoogleAuthCredentials = z.infer<typeof googleAuthSchema>;
 

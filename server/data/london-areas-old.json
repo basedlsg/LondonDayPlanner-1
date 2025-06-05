@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Canary Wharf",
+    "type": "district",
+    "coordinates": { "lat": 51.5054, "lng": -0.0235 },
+    "alternativeNames": ["The Wharf", "Canary"],
+    "commonMisspellings": ["Canery Warf"],
+    "parentArea": "Isle of Dogs"
+  },
+  {
+    "name": "Mayfair",
+    "type": "district",
+    "coordinates": { "lat": 51.5096, "lng": -0.1498 },
+    "alternativeNames": [],
+    "commonMisspellings": [],
+    "parentArea": "City of Westminster"
+  },
+  {
+    "name": "Soho",
+    "type": "neighborhood",
+    "coordinates": { "lat": 51.5130, "lng": -0.1301 },
+    "alternativeNames": [],
+    "commonMisspellings": [],
+    "parentArea": "City of Westminster"
+  },
+  {
+    "name": "Kensington",
+    "type": "district",
+    "coordinates": { "lat": 51.5015, "lng": -0.1937 },
+    "alternativeNames": [],
+    "commonMisspellings": [],
+    "parentArea": "Royal Borough of Kensington and Chelsea"
+  },
+  {
+    "name": "Shoreditch",
+    "type": "district",
+    "coordinates": { "lat": 51.5229, "lng": -0.0754 },
+    "alternativeNames": [],
+    "commonMisspellings": [],
+    "parentArea": "London Borough of Hackney"
+  },
+  {
+    "name": "The Shard",
+    "type": "landmark",
+    "coordinates": { "lat": 51.5045, "lng": -0.0865 },
+    "alternativeNames": ["Shard London Bridge"],
+    "commonMisspellings": [],
+    "parentArea": "Southwark"
+  }
+] 

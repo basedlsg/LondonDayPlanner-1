@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Downtown Austin",
+    "type": "district",
+    "coordinates": { "lat": 30.2672, "lng": -97.7431 },
+    "alternativeNames": ["Downtown"],
+    "commonMisspellings": [],
+    "parentArea": "Austin"
+  },
+  {
+    "name": "South Congress",
+    "type": "neighborhood",
+    "coordinates": { "lat": 30.2448, "lng": -97.7491 },
+    "alternativeNames": ["SoCo"],
+    "commonMisspellings": [],
+    "parentArea": "Austin"
+  },
+  {
+    "name": "East Austin",
+    "type": "district",
+    "coordinates": { "lat": 30.2631, "lng": -97.7168 },
+    "alternativeNames": ["East Side"],
+    "commonMisspellings": [],
+    "parentArea": "Austin"
+  },
+  {
+    "name": "Westlake",
+    "type": "neighborhood",
+    "coordinates": { "lat": 30.2961, "lng": -97.8008 },
+    "alternativeNames": ["Westlake Hills"],
+    "commonMisspellings": [],
+    "parentArea": "Austin"
+  },
+  {
+    "name": "University of Texas Area",
+    "type": "district",
+    "coordinates": { "lat": 30.2862, "lng": -97.7394 },
+    "alternativeNames": ["UT Area", "The Drag"],
+    "commonMisspellings": [],
+    "parentArea": "Austin"
+  },
+  {
+    "name": "Zilker Park",
+    "type": "landmark",
+    "coordinates": { "lat": 30.2669, "lng": -97.7728 },
+    "alternativeNames": [],
+    "commonMisspellings": [],
+    "parentArea": "Austin"
+  }
+] 

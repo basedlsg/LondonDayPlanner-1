@@ -9,6 +9,7 @@ interface EnvironmentInfo {
   hasEnvFile: boolean;
   databaseUrl: string | null;
   sessionSecret: string | null;
+  openWeatherApiKey: string | null;
   // Add other critical env vars here if needed for validation
 }
 
@@ -25,6 +26,7 @@ export function setupEnvironment(): EnvironmentInfo {
   
   const databaseUrl = getDatabaseUrl(platform);
   const sessionSecret = getSessionSecret(platform);
+  const openWeatherApiKey = getOpenWeatherApiKey();
   
   validateEnvironment(databaseUrl, platform); // This will throw if DATABASE_URL is missing
   
@@ -33,6 +35,7 @@ export function setupEnvironment(): EnvironmentInfo {
     hasEnvFile,
     databaseUrl,
     sessionSecret,
+    openWeatherApiKey,
   };
   
   console.log('✅ [environment.ts] Environment setup complete:', {
@@ -40,6 +43,7 @@ export function setupEnvironment(): EnvironmentInfo {
     hasEnvFile: info.hasEnvFile,
     hasDatabaseUrl: !!info.databaseUrl,
     hasSessionSecret: !!info.sessionSecret,
+    hasOpenWeatherApiKey: !!info.openWeatherApiKey,
   });
   
   return info;
@@ -162,6 +166,18 @@ For ${platform} deployment:
 3. Redeploy your application
 `;
   }
+}
+
+function getOpenWeatherApiKey(): string | null {
+  const apiKey = process.env.WEATHER_API_KEY;
+  
+  if (apiKey) {
+    console.log('🌤️  [environment.ts] OpenWeather API key found.');
+  } else {
+    console.warn('🌤️  [environment.ts] OpenWeather API key not found. Weather features will be disabled.');
+  }
+  
+  return apiKey || null;
 }
 
 function getSetupInstructions(platform: EnvironmentInfo['platform']): string {

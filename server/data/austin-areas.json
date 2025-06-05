@@ -1,0 +1,130 @@
+[
+  {
+    "name": "Downtown",
+    "type": "district",
+    "coordinates": { "lat": 30.2672, "lng": -97.7431 },
+    "alternativeNames": ["6th Street", "Sixth Street", "Rainey Street"],
+    "commonMisspellings": [],
+    "parentArea": "Austin"
+  },
+  {
+    "name": "South Congress",
+    "type": "neighborhood",
+    "coordinates": { "lat": 30.2448, "lng": -97.7491 },
+    "alternativeNames": ["SoCo", "South Congress Avenue", "SoCo District"],
+    "commonMisspellings": [],
+    "parentArea": "Austin"
+  },
+  {
+    "name": "East Austin",
+    "type": "district",
+    "coordinates": { "lat": 30.2631, "lng": -97.7168 },
+    "alternativeNames": ["East Side", "Eastside"],
+    "commonMisspellings": [],
+    "parentArea": "Austin"
+  },
+  {
+    "name": "Westlake",
+    "type": "neighborhood",
+    "coordinates": { "lat": 30.2961, "lng": -97.8008 },
+    "alternativeNames": ["West Lake Hills"],
+    "commonMisspellings": [],
+    "parentArea": "Austin"
+  },
+  {
+    "name": "University of Texas Area",
+    "type": "district",
+    "coordinates": { "lat": 30.2862, "lng": -97.7394 },
+    "alternativeNames": ["UT", "Campus", "Guadalupe", "The Drag"],
+    "commonMisspellings": [],
+    "parentArea": "Austin"
+  },
+  {
+    "name": "Zilker",
+    "type": "neighborhood",
+    "coordinates": { "lat": 30.2669, "lng": -97.7735 },
+    "alternativeNames": ["Zilker Park", "Barton Springs"],
+    "commonMisspellings": [],
+    "parentArea": "Austin"
+  },
+  {
+    "name": "Mueller",
+    "type": "neighborhood",
+    "coordinates": { "lat": 30.2957, "lng": -97.7075 },
+    "alternativeNames": ["Mueller Development"],
+    "commonMisspellings": [],
+    "parentArea": "Austin"
+  },
+  {
+    "name": "Rainey Street",
+    "type": "area",
+    "coordinates": { "lat": 30.2636, "lng": -97.7372 },
+    "alternativeNames": ["Rainey", "Rainey District"],
+    "commonMisspellings": [],
+    "parentArea": "Austin"
+  },
+  {
+    "name": "The Domain",
+    "type": "district",
+    "coordinates": { "lat": 30.4003, "lng": -97.7208 },
+    "alternativeNames": ["Domain Northside"],
+    "commonMisspellings": [],
+    "parentArea": "Austin"
+  },
+  {
+    "name": "Clarksville",
+    "type": "neighborhood",
+    "coordinates": { "lat": 30.2792, "lng": -97.7608 },
+    "alternativeNames": [],
+    "commonMisspellings": [],
+    "parentArea": "Austin"
+  },
+  {
+    "name": "Tarrytown",
+    "type": "neighborhood",
+    "coordinates": { "lat": 30.2906, "lng": -97.7719 },
+    "alternativeNames": [],
+    "commonMisspellings": [],
+    "parentArea": "Austin"
+  },
+  {
+    "name": "Hyde Park",
+    "type": "neighborhood",
+    "coordinates": { "lat": 30.3072, "lng": -97.7394 },
+    "alternativeNames": ["Hyde Park Austin"],
+    "commonMisspellings": [],
+    "parentArea": "Austin"
+  },
+  {
+    "name": "West Campus",
+    "type": "area",
+    "coordinates": { "lat": 30.2883, "lng": -97.7497 },
+    "alternativeNames": ["West Campus UT"],
+    "commonMisspellings": [],
+    "parentArea": "Austin"
+  },
+  {
+    "name": "The Triangle",
+    "type": "area",
+    "coordinates": { "lat": 30.3094, "lng": -97.7431 },
+    "alternativeNames": ["Triangle Austin"],
+    "commonMisspellings": [],
+    "parentArea": "Austin"
+  },
+  {
+    "name": "Crestview",
+    "type": "neighborhood",
+    "coordinates": { "lat": 30.3419, "lng": -97.7369 },
+    "alternativeNames": [],
+    "commonMisspellings": [],
+    "parentArea": "Austin"
+  },
+  {
+    "name": "Montopolis",
+    "type": "neighborhood",
+    "coordinates": { "lat": 30.2275, "lng": -97.6942 },
+    "alternativeNames": [],
+    "commonMisspellings": [],
+    "parentArea": "Austin"
+  }
+]

@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep:*)",
+      "Bash(npx tsx:*)",
+      "Bash(npm run dev:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(rg:*)",
+      "Bash(curl:*)",
+      "Bash(pkill:*)",
+      "Bash(true)",
+      "Bash(chmod:*)",
+      "Bash(timeout:*)",
+      "Bash(sed:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run db:push:*)",
+      "Bash(node:*)",
+      "Bash(npm run:*)",
+      "Bash(npm test:*)",
+      "Bash(npm install:*)",
+      "Bash(mv:*)",
+      "Bash(touch:*)",
+      "Bash(tsx:*)",
+      "Bash(rm:*)",
+      "Bash(npx drizzle-kit push:*)",
+      "Bash(mkdir:*)",
+      "Bash(npx drizzle-kit:*)",
+      "Bash(gtimeout:*)",
+      "Bash(open test-pdf-fixed.pdf)",
+      "Bash(npm uninstall:*)",
+      "Bash(open http://localhost:3001/)",
+      "Bash(kill:*)",
+      "Bash(npx tsc:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": []
+  },
+  "enableAllProjectMcpServers": false
+}

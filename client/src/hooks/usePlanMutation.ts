@@ -2,84 +2,68 @@ import { useMutation } from '@tanstack/react-query';
 import { apiRequest } from '../lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import { formatInTimeZone } from 'date-fns-tz';
+import { useErrorHandler } from './useErrorHandler';
 
-interface PlanFormData {
-  date: string;
-  time: string;
-  plans: string;
-}
-
-export function usePlanMutation() {
+export const usePlanMutation = () => {
   const { toast } = useToast();
+  const { handleError } = useErrorHandler();
   
   return useMutation({
-    mutationFn: async (data: PlanFormData) => {
-      // Map to API expected format if needed
-      const apiData = {
-        date: data.date,
-        startTime: data.time,
-        query: data.plans
-      };
+    mutationFn: async ({ query, city = 'nyc', date, startTime, tripDuration = 1 }: { 
+      query: string; 
+      city?: string;
+      date?: string;
+      startTime?: string;
+      tripDuration?: number;
+    }) => {
+      const response = await fetch(`/api/${city}/plan`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query, date, startTime, tripDuration }),
+      });
       
-      console.log("Sending API request:", apiData);
-      const response = await apiRequest('POST', '/api/plan', apiData);
-      const responseData = await response.json();
-      console.log("API response:", responseData);
-      
-      // Transform API response to match the expected ItineraryData structure
-      const venues = responseData.places.map((place: any) => {
-        // Convert API response format to Venue format expected by the UI
-        const venueDetails = place.details || {};
+      if (!response.ok) {
+        let errorMessage = 'Failed to create plan. Please try again.';
+        let errorCode = 'UNKNOWN_ERROR';
         
-        // Parse and format the time with timezone awareness
-        let formattedTime;
-        if (place.displayTime) {
-          // If displayTime is provided from the backend, use it directly
-          formattedTime = place.displayTime;
-        } else if (place.scheduledTime) {
-          // Otherwise, format the ISO timestamp with NYC timezone
-          formattedTime = formatInTimeZone(
-            new Date(place.scheduledTime),
-            'America/New_York',
-            'h:mm a'
-          );
-        } else {
-          // Fallback if no time information is available
-          formattedTime = "Time not specified";
+        try {
+          const errorJson = await response.json();
+          errorMessage = errorJson.message || errorJson.error || errorMessage;
+          errorCode = errorJson.code || errorCode;
+        } catch (e) {
+          try {
+            errorMessage = await response.text();
+          } catch (textError) {
+            errorMessage = `Request failed with status ${response.status}`;
+          }
         }
         
-        return {
-          name: place.name,
-          time: formattedTime, // This will be properly formatted for NYC timezone
-          address: place.address,
-          rating: venueDetails.rating || 0,
-          categories: venueDetails.types || []
+        const error = {
+          code: errorCode,
+          message: errorMessage,
+          statusCode: response.status
         };
-      });
+        
+        throw error;
+      }
       
-      // Process travel times into the format expected by the UI
-      const travelInfo = responseData.travelTimes.map((time: any) => ({
-        duration: time.duration,
-        destination: time.to // Use 'to' field from server response as the destination
-      }));
-      
-      return {
-        venues,
-        travelInfo
-      };
+      return response.json();
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast({
         title: 'Success!',
-        description: 'Your itinerary has been created.',
+        description: `Itinerary "${data.title || 'Plan'}" created successfully.`,
       });
     },
-    onError: (error: Error) => {
-      toast({
-        title: 'Error',
-        description: error.message || 'Failed to create your itinerary. Please try again.',
-        variant: 'destructive',
+    onError: (error: any) => {
+      handleError(error, {
+        fallbackMessage: 'Failed to create itinerary. Please try again.',
+        onRetry: () => {
+          // The retry will be handled by React Query's retry mechanism
+        }
       });
     }
   });
-}
+};

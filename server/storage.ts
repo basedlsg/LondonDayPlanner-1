@@ -3,21 +3,30 @@ import {
   type InsertPlace, 
   type Itinerary, 
   type InsertItinerary, 
-  type User, 
-  type UserItinerary, 
-  type InsertLocalUser,
-  type InsertGoogleUser
+  type UserItinerary,
+  type Trip,
+  type InsertTrip,
+  type TripDay,
+  type InsertTripDay,
+  type Collaboration,
+  type InsertCollaboration,
+  type Collaborator,
+  type InsertCollaborator,
+  type ItineraryComment,
+  type InsertItineraryComment,
+  type VenueVote,
+  type InsertVenueVote,
 } from "@shared/schema";
 import { db } from './db';
-import { users, itineraries, places, userItineraries } from '@shared/schema';
-import { eq, desc, or } from 'drizzle-orm';
+import { itineraries, places, userItineraries, trips, tripDays, collaborations, collaborators, itineraryComments, venueVotes } from '@shared/schema';
+import { eq, desc, or, sql } from 'drizzle-orm';
+import { dbOptimizer } from './lib/dbOptimizer';
 
 // Configure in-memory fallback for development
 const USE_IN_MEMORY_FALLBACK = process.env.NODE_ENV === 'development';
 const inMemoryStorage = {
   places: new Map<string, Place>(),
   itineraries: new Map<number, Itinerary>(),
-  users: new Map<string, User>(),
   userItineraries: new Map<string, number[]>(),
   nextPlaceId: 1,
   nextItineraryId: 1
@@ -30,27 +39,40 @@ export interface IStorage {
   createPlace(place: InsertPlace): Promise<Place>;
   
   // Itinerary operations
-  createItinerary(itinerary: InsertItinerary, userId?: string): Promise<Itinerary>;
+  createItinerary(itinerary: InsertItinerary, anonymousIdentifier?: string): Promise<Itinerary>;
   getItinerary(id: number): Promise<Itinerary | undefined>;
-  getUserItineraries(userId: string): Promise<Itinerary[]>;
+  getUserItineraries(anonymousIdentifier: string): Promise<Itinerary[]>;
   
-  // User operations
-  getUserById(id: string): Promise<User | undefined>;
-  getUserByEmail(email: string): Promise<User | undefined>;
-  getUserByGoogleId(googleId: string): Promise<User | undefined>;
-  createLocalUser(userData: InsertLocalUser, passwordHash: string): Promise<User>;
-  createGoogleUser(userData: InsertGoogleUser): Promise<User>;
+  // Trip operations
+  createTrip(trip: InsertTrip): Promise<Trip>;
+  getTrip(id: number): Promise<Trip | undefined>;
+  createTripDay(tripDay: InsertTripDay): Promise<TripDay>;
+  getTripDays(tripId: number): Promise<TripDay[]>;
+  
+  // Collaboration operations
+  createCollaboration(collaboration: InsertCollaboration): Promise<Collaboration>;
+  getCollaboration(id: number): Promise<Collaboration | undefined>;
+  getCollaborationByToken(shareToken: string): Promise<Collaboration | undefined>;
+  createCollaborator(collaborator: InsertCollaborator): Promise<Collaborator>;
+  getCollaborators(collaborationId: number): Promise<Collaborator[]>;
+  createComment(comment: InsertItineraryComment): Promise<ItineraryComment>;
+  getComments(itineraryId: number): Promise<ItineraryComment[]>;
+  createVenueVote(vote: InsertVenueVote): Promise<VenueVote>;
+  removeVenueVote(collaborationId: number, placeId: string, userId: string): Promise<void>;
+  getVenueSummary(itineraryId: number): Promise<Record<string, any>>;
 }
 
 // Database-backed storage implementation
 export class DbStorage implements IStorage {
   async getPlace(placeId: string): Promise<Place | undefined> {
-    const results = await db.select()
-      .from(places)
-      .where(eq(places.placeId, placeId))
-      .limit(1);
-    
-    return results.length > 0 ? results[0] : undefined;
+    return await dbOptimizer.monitorQuery(
+      'getPlace',
+      async () => {
+        const results = await db.select().from(places).where(eq(places.placeId, placeId)).limit(1);
+        return results.length > 0 ? results[0] : undefined;
+      },
+      1
+    );
   }
   
   // This method is an alias to getPlace for better semantic meaning and compatibility
@@ -60,158 +82,203 @@ export class DbStorage implements IStorage {
 
   async createPlace(insertPlace: InsertPlace): Promise<Place> {
     try {
-      // First check if this place already exists by placeId
-      const existingPlace = await db.select()
-        .from(places)
-        .where(eq(places.placeId, insertPlace.placeId))
-        .limit(1);
-      
-      // If place already exists, just return it
+      const existingPlace = await db.select().from(places).where(eq(places.placeId, insertPlace.placeId)).limit(1);
       if (existingPlace.length > 0) {
-        console.log(`Place "${insertPlace.name}" already exists, returning existing record`);
-        return existingPlace[0];
+        const existing = existingPlace[0];
+        // If existing place lacks details but we have new details, update it
+        if ((!existing.details || Object.keys(existing.details).length === 0) && insertPlace.details) {
+          console.log(`🔄 [DB] Updating existing place "${insertPlace.name}" with missing details`);
+          try {
+            const [updatedPlace] = await db.update(places)
+              .set({ 
+                details: insertPlace.details,
+                alternatives: insertPlace.alternatives
+              })
+              .where(eq(places.placeId, insertPlace.placeId))
+              .returning();
+            return updatedPlace;
+          } catch (updateError) {
+            console.warn(`⚠️ [DB] Failed to update place details:`, updateError);
+          }
+        }
+        return existing;
       }
-      
-      // If not, create a new place
-      const [place] = await db.insert(places)
-        .values(insertPlace)
-        .returning();
-      
+      const [place] = await db.insert(places).values(insertPlace).returning();
       return place;
     } catch (error: any) {
-      console.error("Error creating place:", error);
-      
-      // For duplicate key errors, try to get the existing record
-      if (error.code === '23505') { // PostgreSQL duplicate key error
-        try {
-          // Retrieve the existing place
-          const existingPlace = await db.select()
-            .from(places)
-            .where(eq(places.placeId, insertPlace.placeId))
-            .limit(1);
-          
-          if (existingPlace.length > 0) {
-            console.log(`Recovered existing place "${insertPlace.name}" after duplicate key error`);
-            return existingPlace[0];
+      if (error.code === '23505') { 
+        const existingPlace = await db.select().from(places).where(eq(places.placeId, insertPlace.placeId)).limit(1);
+        if (existingPlace.length > 0) {
+          const existing = existingPlace[0];
+          // If existing place lacks details but we have new details, update it
+          if ((!existing.details || Object.keys(existing.details).length === 0) && insertPlace.details) {
+            try {
+              const [updatedPlace] = await db.update(places)
+                .set({ 
+                  details: insertPlace.details,
+                  alternatives: insertPlace.alternatives
+                })
+                .where(eq(places.placeId, insertPlace.placeId))
+                .returning();
+              return updatedPlace;
+            } catch (updateError) {
+              console.warn(`⚠️ [DB] Failed to update place details in catch:`, updateError);
+            }
           }
-        } catch (innerError) {
-          console.error("Error retrieving existing place:", innerError);
+          return existing;
         }
       }
-      
       throw error;
     }
   }
 
-  async createItinerary(insertItinerary: InsertItinerary, userId?: string): Promise<Itinerary> {
-    // Begin transaction for creating itinerary and user association
-    return await db.transaction(async (tx) => {
-      // Create the itinerary
-      const [itinerary] = await tx.insert(itineraries)
-        .values(insertItinerary)
+  async createItinerary(insertItinerary: InsertItinerary, anonymousIdentifier?: string): Promise<Itinerary> {
+    // Neon HTTP driver doesn't support transactions, so we'll do sequential operations
+    try {
+      const valuesToInsert = {
+        ...insertItinerary,
+        title: insertItinerary.title ?? null,
+        description: insertItinerary.description ?? null,
+        planDate: insertItinerary.planDate ? new Date(insertItinerary.planDate) : null,
+      };
+      const [itinerary] = await db.insert(itineraries)
+        .values(valuesToInsert)
         .returning();
       
-      // If userId provided, associate with user
-      if (userId) {
-        await tx.insert(userItineraries)
+      if (anonymousIdentifier) {
+        await db.insert(userItineraries)
           .values({
-            userId,
+            userId: anonymousIdentifier as any, // UUID type
             itineraryId: itinerary.id
           });
       }
-      
       return itinerary;
-    });
+    } catch (error) {
+      // If the second insert fails, we should ideally rollback the first
+      // but without transactions, we'll just throw the error
+      throw error;
+    }
   }
 
   async getItinerary(id: number): Promise<Itinerary | undefined> {
-    const results = await db.select()
-      .from(itineraries)
-      .where(eq(itineraries.id, id))
-      .limit(1);
-    
+    const results = await db.select().from(itineraries).where(eq(itineraries.id, id)).limit(1);
     return results.length > 0 ? results[0] : undefined;
   }
   
-  async getUserItineraries(userId: string): Promise<Itinerary[]> {
-    // Get all itinerary IDs associated with the user
-    const userItineraryAssociations = await db.select({
-      itineraryId: userItineraries.itineraryId
-    })
-    .from(userItineraries)
-    .where(eq(userItineraries.userId, userId));
+  async getUserItineraries(anonymousIdentifier: string): Promise<Itinerary[]> {
+    const userItineraryAssociations = await db.select({ itineraryId: userItineraries.itineraryId })
+      .from(userItineraries)
+      .where(eq(userItineraries.userId, anonymousIdentifier as any));
     
-    // Extract the itinerary IDs
     const itineraryIds = userItineraryAssociations.map(assoc => assoc.itineraryId);
+    if (itineraryIds.length === 0) return [];
     
-    if (itineraryIds.length === 0) {
-      return [];
-    }
-    
-    // Get all itineraries for those IDs in a separate query
+    // Ensure all fields for Itinerary type are selected
     return await db.select({
       id: itineraries.id,
+      title: itineraries.title,
+      description: itineraries.description,
+      planDate: itineraries.planDate,
       query: itineraries.query,
       places: itineraries.places,
       travelTimes: itineraries.travelTimes,
       created: itineraries.created
     })
       .from(itineraries)
+      .where(or(...itineraryIds.map(id => eq(itineraries.id, id))))
+      .orderBy(desc(itineraries.created));
+  }
+
+  async createTrip(insertTrip: InsertTrip): Promise<Trip> {
+    const [trip] = await db.insert(trips).values(insertTrip).returning();
+    return trip;
+  }
+
+  async getTrip(id: number): Promise<Trip | undefined> {
+    const results = await db.select().from(trips).where(eq(trips.id, id)).limit(1);
+    return results.length > 0 ? results[0] : undefined;
+  }
+
+  async createTripDay(insertTripDay: InsertTripDay): Promise<TripDay> {
+    const [tripDay] = await db.insert(tripDays).values(insertTripDay).returning();
+    return tripDay;
+  }
+
+  async getTripDays(tripId: number): Promise<TripDay[]> {
+    return await db.select()
+      .from(tripDays)
+      .where(eq(tripDays.tripId, tripId))
+      .orderBy(tripDays.dayNumber);
+  }
+
+  // Collaboration methods
+  async createCollaboration(collaboration: InsertCollaboration): Promise<Collaboration> {
+    const [result] = await db.insert(collaborations).values(collaboration).returning();
+    return result;
+  }
+
+  async getCollaboration(id: number): Promise<Collaboration | undefined> {
+    const results = await db.select().from(collaborations).where(eq(collaborations.id, id)).limit(1);
+    return results.length > 0 ? results[0] : undefined;
+  }
+
+  async getCollaborationByToken(shareToken: string): Promise<Collaboration | undefined> {
+    const results = await db.select().from(collaborations).where(eq(collaborations.shareToken, shareToken)).limit(1);
+    return results.length > 0 ? results[0] : undefined;
+  }
+
+  async createCollaborator(collaborator: InsertCollaborator): Promise<Collaborator> {
+    const [result] = await db.insert(collaborators).values(collaborator).returning();
+    return result;
+  }
+
+  async getCollaborators(collaborationId: number): Promise<Collaborator[]> {
+    return await db.select()
+      .from(collaborators)
+      .where(eq(collaborators.collaborationId, collaborationId))
+      .orderBy(collaborators.created);
+  }
+
+  async createComment(comment: InsertItineraryComment): Promise<ItineraryComment> {
+    const [result] = await db.insert(itineraryComments).values(comment).returning();
+    return result;
+  }
+
+  async getComments(itineraryId: number): Promise<ItineraryComment[]> {
+    return await db.select()
+      .from(itineraryComments)
+      .where(eq(itineraryComments.itineraryId, itineraryId))
+      .orderBy(itineraryComments.created);
+  }
+
+  async createVenueVote(vote: InsertVenueVote): Promise<VenueVote> {
+    const [result] = await db.insert(venueVotes).values(vote).returning();
+    return result;
+  }
+
+  async removeVenueVote(collaborationId: number, placeId: string, userId: string): Promise<void> {
+    await db.delete(venueVotes)
       .where(
-        // Create a where condition for each ID: id = 1 OR id = 2 OR ...
-        or(...itineraryIds.map(id => eq(itineraries.id, id)))
-      )
-      .orderBy(desc(itineraries.created)); // Sort newest first
+        sql`${venueVotes.collaborationId} = ${collaborationId} AND ${venueVotes.placeId} = ${placeId} AND ${venueVotes.userId} = ${userId}`
+      );
   }
 
-  async getUserById(id: string): Promise<User | undefined> {
-    const results = await db.select()
-      .from(users)
-      .where(eq(users.id, id))
-      .limit(1);
+  async getVenueSummary(itineraryId: number): Promise<Record<string, any>> {
+    // This would typically be a more complex query aggregating votes by venue
+    // For now, return a simple structure
+    const votes = await db.select()
+      .from(venueVotes)
+      .where(eq(venueVotes.itineraryId, itineraryId));
+      
+    const summary: Record<string, any> = {};
+    votes.forEach(vote => {
+      if (!summary[vote.placeId]) {
+        summary[vote.placeId] = { thumbs_up: 0, thumbs_down: 0, heart: 0, star: 0 };
+      }
+      summary[vote.placeId][vote.vote]++;
+    });
     
-    return results.length > 0 ? results[0] : undefined;
-  }
-
-  async getUserByEmail(email: string): Promise<User | undefined> {
-    const results = await db.select()
-      .from(users)
-      .where(eq(users.email, email))
-      .limit(1);
-    
-    return results.length > 0 ? results[0] : undefined;
-  }
-
-  async getUserByGoogleId(googleId: string): Promise<User | undefined> {
-    const results = await db.select()
-      .from(users)
-      .where(eq(users.google_id, googleId))
-      .limit(1);
-    
-    return results.length > 0 ? results[0] : undefined;
-  }
-
-  async createLocalUser(userData: InsertLocalUser, passwordHash: string): Promise<User> {
-    const [user] = await db.insert(users)
-      .values({
-        ...userData,
-        password_hash: passwordHash,
-        auth_provider: 'local'
-      })
-      .returning();
-    
-    return user;
-  }
-
-  async createGoogleUser(userData: InsertGoogleUser): Promise<User> {
-    const [user] = await db.insert(users)
-      .values({
-        ...userData,
-        auth_provider: 'google'
-      })
-      .returning();
-    
-    return user;
+    return summary;
   }
 }
 
@@ -219,7 +286,6 @@ export class DbStorage implements IStorage {
 export class MemStorage implements IStorage {
   private places: Map<string, Place>;
   private itineraries: Map<number, Itinerary>;
-  private users: Map<string, User>;
   private userItineraryMap: Map<string, number[]>;
   private currentPlaceId: number;
   private currentItineraryId: number;
@@ -227,7 +293,6 @@ export class MemStorage implements IStorage {
   constructor() {
     this.places = new Map();
     this.itineraries = new Map();
-    this.users = new Map();
     this.userItineraryMap = new Map();
     this.currentPlaceId = 1;
     this.currentItineraryId = 1;
@@ -243,35 +308,67 @@ export class MemStorage implements IStorage {
   }
 
   async createPlace(insertPlace: InsertPlace): Promise<Place> {
+    // Check if place already exists
+    const existingPlace = this.places.get(insertPlace.placeId);
+    if (existingPlace) {
+      console.log(`🔍 [MEM] Existing place "${insertPlace.name}" details check:`, {
+        hasDetails: !!existingPlace.details,
+        detailsType: typeof existingPlace.details,
+        detailsKeys: existingPlace.details ? Object.keys(existingPlace.details) : [],
+        rating: existingPlace.details?.rating,
+        types: existingPlace.details?.types
+      });
+      
+      // If existing place lacks details but we have new details, update it
+      if ((!existingPlace.details || Object.keys(existingPlace.details).length === 0) && insertPlace.details) {
+        console.log(`🔄 [MEM] Updating existing place "${insertPlace.name}" with missing details`);
+        const updatedPlace: Place = {
+          ...existingPlace,
+          details: insertPlace.details,
+          alternatives: insertPlace.alternatives ?? existingPlace.alternatives
+        };
+        this.places.set(insertPlace.placeId, updatedPlace);
+        console.log(`✅ [MEM] Successfully updated place details for "${insertPlace.name}"`);
+        return updatedPlace;
+      }
+      
+      console.log(`Place "${insertPlace.name}" already exists, returning existing record`);
+      return existingPlace;
+    }
+    
     const id = this.currentPlaceId++;
     const place: Place = {
       ...insertPlace,
       id,
-      scheduledTime: insertPlace.scheduledTime || null,
-      alternatives: insertPlace.alternatives || null
+      scheduledTime: insertPlace.scheduledTime ?? null,
+      alternatives: insertPlace.alternatives ?? null
     };
     this.places.set(insertPlace.placeId, place);
+    console.log(`🆕 [MEM] Created new place "${insertPlace.name}" with details`);
     return place;
   }
 
-  async createItinerary(insertItinerary: InsertItinerary, userId?: string): Promise<Itinerary> {
+  async createItinerary(insertItinerary: InsertItinerary, anonymousIdentifier?: string): Promise<Itinerary> {
     const id = this.currentItineraryId++;
     const itinerary: Itinerary = {
       ...insertItinerary,
       id,
+      title: insertItinerary.title ?? null,
+      description: insertItinerary.description ?? null,
+      planDate: insertItinerary.planDate ? new Date(insertItinerary.planDate) : null,
       created: new Date(),
     };
     this.itineraries.set(id, itinerary);
     
-    // If userId provided, associate with user
-    if (userId) {
-      console.log(`MemStorage: Associating itinerary #${id} with user ${userId}`);
-      const userItineraries = this.userItineraryMap.get(userId) || [];
-      userItineraries.push(id);
-      this.userItineraryMap.set(userId, userItineraries);
-      console.log(`MemStorage: User ${userId} now has ${userItineraries.length} itineraries`);
+    // If anonymousIdentifier provided, associate with user
+    if (anonymousIdentifier) {
+      console.log(`MemStorage: Associating itinerary #${id} with identifier ${anonymousIdentifier}`);
+      const userItinerariesList = this.userItineraryMap.get(anonymousIdentifier) || [];
+      userItinerariesList.push(id);
+      this.userItineraryMap.set(anonymousIdentifier, userItinerariesList);
+      console.log(`MemStorage: Identifier ${anonymousIdentifier} now has ${userItinerariesList.length} itineraries`);
     } else {
-      console.log(`MemStorage: Created anonymous itinerary #${id} (no user association)`);
+      console.log(`MemStorage: Created anonymous itinerary #${id} (no identifier association)`);
     }
     
     return itinerary;
@@ -281,89 +378,101 @@ export class MemStorage implements IStorage {
     return this.itineraries.get(id);
   }
   
-  async getUserItineraries(userId: string): Promise<Itinerary[]> {
-    console.log(`MemStorage: Getting itineraries for user ${userId}`);
-    const itineraryIds = this.userItineraryMap.get(userId) || [];
-    console.log(`MemStorage: Found ${itineraryIds.length} itinerary IDs for user ${userId}: ${JSON.stringify(itineraryIds)}`);
+  async getUserItineraries(anonymousIdentifier: string): Promise<Itinerary[]> {
+    console.log(`MemStorage: Getting itineraries for identifier ${anonymousIdentifier}`);
+    const itineraryIds = this.userItineraryMap.get(anonymousIdentifier) || [];
+    console.log(`MemStorage: Found ${itineraryIds.length} itinerary IDs for identifier ${anonymousIdentifier}: ${JSON.stringify(itineraryIds)}`);
     
-    // Debug all itineraries in memory
-    console.log(`MemStorage: Total itineraries in memory: ${this.itineraries.size}`);
+    // Debug all itineraries in memory (optional)
+    // console.log(`MemStorage: Total itineraries in memory: ${this.itineraries.size}`);
     
-    // Get and filter the itineraries
-    const userItineraries = itineraryIds
+    const userItinerariesResult = itineraryIds
       .map(id => this.itineraries.get(id))
       .filter((itinerary): itinerary is Itinerary => itinerary !== undefined)
       .sort((a, b) => b.created.getTime() - a.created.getTime());
     
-    console.log(`MemStorage: Returning ${userItineraries.length} itineraries for user ${userId}`);
-    return userItineraries;
-  }
-  
-  async getUserById(id: string): Promise<User | undefined> {
-    return this.users.get(id);
-  }
-  
-  async getUserByEmail(email: string): Promise<User | undefined> {
-    // Find user by email (inefficient in a real app, but fine for memory storage)
-    // Manual iteration to avoid Map.values() iterator issues
-    let foundUser: User | undefined = undefined;
-    this.users.forEach((user, _) => {
-      if (user.email === email) {
-        foundUser = user;
-      }
-    });
-    return foundUser;
+    console.log(`MemStorage: Returning ${userItinerariesResult.length} itineraries for identifier ${anonymousIdentifier}`);
+    return userItinerariesResult;
   }
 
-  async getUserByGoogleId(googleId: string): Promise<User | undefined> {
-    // Find user by Google ID
-    let foundUser: User | undefined = undefined;
-    this.users.forEach((user, _) => {
-      if (user.google_id === googleId) {
-        foundUser = user;
-      }
-    });
-    return foundUser;
-  }
-
-  async createLocalUser(userData: InsertLocalUser, passwordHash: string): Promise<User> {
-    const id = crypto.randomUUID();
-    // Use definite type casting to handle potential undefined values
-    const name: string | null = userData.name !== undefined ? userData.name : null;
-    
-    const user: User = {
-      id,
-      email: userData.email,
-      name,
-      password_hash: passwordHash,
-      created_at: new Date(),
-      auth_provider: 'local',
-      google_id: null,
-      avatar_url: null
+  async createTrip(insertTrip: InsertTrip): Promise<Trip> {
+    // For MemStorage, we'll just return a mock trip object
+    const trip: Trip = {
+      id: this.currentItineraryId++,
+      userId: insertTrip.userId || null,
+      title: insertTrip.title,
+      city: insertTrip.city,
+      startDate: insertTrip.startDate,
+      endDate: insertTrip.endDate,
+      totalDays: insertTrip.totalDays,
+      accommodations: insertTrip.accommodations || [],
+      created: new Date()
     };
-    this.users.set(id, user);
-    return user;
+    return trip;
   }
 
-  async createGoogleUser(userData: InsertGoogleUser): Promise<User> {
-    const id = crypto.randomUUID();
-    // Use definite type casting to handle potential undefined values
-    const name: string | null = userData.name !== undefined ? userData.name : null;
-    const googleId: string | null = userData.google_id !== undefined ? userData.google_id : null;
-    const avatarUrl: string | null = userData.avatar_url !== undefined ? userData.avatar_url : null;
-    
-    const user: User = {
-      id,
-      email: userData.email,
-      name,
-      password_hash: null,
-      created_at: new Date(),
-      auth_provider: 'google',
-      google_id: googleId,
-      avatar_url: avatarUrl
+  async getTrip(id: number): Promise<Trip | undefined> {
+    // MemStorage doesn't actually store trips, return undefined
+    return undefined;
+  }
+
+  async createTripDay(insertTripDay: InsertTripDay): Promise<TripDay> {
+    // For MemStorage, return a mock trip day
+    const tripDay: TripDay = {
+      id: this.currentItineraryId++,
+      tripId: insertTripDay.tripId,
+      dayNumber: insertTripDay.dayNumber,
+      date: insertTripDay.date,
+      itineraryId: insertTripDay.itineraryId,
+      created: new Date()
     };
-    this.users.set(id, user);
-    return user;
+    return tripDay;
+  }
+
+  async getTripDays(tripId: number): Promise<TripDay[]> {
+    // MemStorage doesn't actually store trip days, return empty array
+    return [];
+  }
+
+  // Collaboration methods (MemStorage stubs)
+  async createCollaboration(collaboration: InsertCollaboration): Promise<Collaboration> {
+    throw new Error('Collaboration not supported in memory storage');
+  }
+
+  async getCollaboration(id: number): Promise<Collaboration | undefined> {
+    return undefined;
+  }
+
+  async getCollaborationByToken(shareToken: string): Promise<Collaboration | undefined> {
+    return undefined;
+  }
+
+  async createCollaborator(collaborator: InsertCollaborator): Promise<Collaborator> {
+    throw new Error('Collaboration not supported in memory storage');
+  }
+
+  async getCollaborators(collaborationId: number): Promise<Collaborator[]> {
+    return [];
+  }
+
+  async createComment(comment: InsertItineraryComment): Promise<ItineraryComment> {
+    throw new Error('Comments not supported in memory storage');
+  }
+
+  async getComments(itineraryId: number): Promise<ItineraryComment[]> {
+    return [];
+  }
+
+  async createVenueVote(vote: InsertVenueVote): Promise<VenueVote> {
+    throw new Error('Voting not supported in memory storage');
+  }
+
+  async removeVenueVote(collaborationId: number, placeId: string, userId: string): Promise<void> {
+    // No-op for memory storage
+  }
+
+  async getVenueSummary(itineraryId: number): Promise<Record<string, any>> {
+    return {};
   }
 }
 
@@ -381,10 +490,38 @@ export class DbStorageWithLogging extends DbStorage {
             .where(eq(places.placeId, insertPlace.placeId))
             .limit(1);
           
-          // If place already exists, just return it
+          // If place already exists, check if it has proper details
           if (existingPlace.length > 0) {
+            const existing = existingPlace[0];
+            console.log(`🔍 [STORAGE] Existing place "${insertPlace.name}" details check:`, {
+              hasDetails: !!existing.details,
+              detailsType: typeof existing.details,
+              detailsKeys: existing.details ? Object.keys(existing.details) : [],
+              rating: existing.details?.rating,
+              types: existing.details?.types
+            });
+            
+            // If existing place lacks details but we have new details, update it
+            if ((!existing.details || Object.keys(existing.details).length === 0) && insertPlace.details) {
+              console.log(`🔄 [STORAGE] Updating existing place "${insertPlace.name}" with missing details`);
+              try {
+                const [updatedPlace] = await db.update(places)
+                  .set({ 
+                    details: insertPlace.details,
+                    alternatives: insertPlace.alternatives
+                  })
+                  .where(eq(places.placeId, insertPlace.placeId))
+                  .returning();
+                console.log(`✅ [STORAGE] Successfully updated place details for "${insertPlace.name}"`);
+                return updatedPlace;
+              } catch (updateError) {
+                console.warn(`⚠️ [STORAGE] Failed to update place details for "${insertPlace.name}":`, updateError);
+                // Fall back to returning existing place even without details
+              }
+            }
+            
             console.log(`Place "${insertPlace.name}" already exists, returning existing record`);
-            return existingPlace[0];
+            return existing;
           }
         } catch (checkError) {
           console.warn("Error checking for existing place:", checkError);
@@ -423,6 +560,34 @@ export class DbStorageWithLogging extends DbStorage {
         const id = inMemoryStorage.nextPlaceId || 1;
         inMemoryStorage.nextPlaceId = (inMemoryStorage.nextPlaceId || 1) + 1;
         
+        // Check if place already exists in memory and update details if needed
+        const existingPlace = inMemoryStorage.places.get(insertPlace.placeId);
+        if (existingPlace) {
+          console.log(`🔍 [MEM-FALLBACK] Existing place "${insertPlace.name}" details check:`, {
+            hasDetails: !!existingPlace.details,
+            detailsType: typeof existingPlace.details,
+            detailsKeys: existingPlace.details ? Object.keys(existingPlace.details) : [],
+            rating: existingPlace.details?.rating,
+            types: existingPlace.details?.types
+          });
+          
+          // If existing place lacks details but we have new details, update it
+          if ((!existingPlace.details || Object.keys(existingPlace.details).length === 0) && insertPlace.details) {
+            console.log(`🔄 [MEM-FALLBACK] Updating existing place "${insertPlace.name}" with missing details`);
+            const updatedPlace: Place = {
+              ...existingPlace,
+              details: insertPlace.details,
+              alternatives: insertPlace.alternatives ?? existingPlace.alternatives
+            };
+            inMemoryStorage.places.set(insertPlace.placeId, updatedPlace);
+            console.log(`✅ [MEM-FALLBACK] Successfully updated place details for "${insertPlace.name}"`);
+            return updatedPlace;
+          }
+          
+          console.log(`Place "${insertPlace.name}" already exists, returning existing record`);
+          return existingPlace;
+        }
+
         const place: Place = {
           ...insertPlace,
           id,
@@ -430,6 +595,7 @@ export class DbStorageWithLogging extends DbStorage {
           alternatives: insertPlace.alternatives || null
         };
         inMemoryStorage.places.set(insertPlace.placeId, place);
+        console.log(`🆕 [MEM-FALLBACK] Created new place "${insertPlace.name}" with details`);
         return place;
       }
       throw error;
@@ -460,37 +626,43 @@ export class DbStorageWithLogging extends DbStorage {
     }
   }
 
-  async createItinerary(insertItinerary: InsertItinerary, userId?: string): Promise<Itinerary> {
-    console.log(`DbStorage (with logging): Creating itinerary ${userId ? 'for user ' + userId : '(anonymous)'}`);
+  async createItinerary(insertItinerary: InsertItinerary, anonymousIdentifier?: string): Promise<Itinerary> {
+    console.log(`DbStorage (with logging): Creating itinerary ${anonymousIdentifier ? 'for identifier ' + anonymousIdentifier : '(anonymous)'}`);
     try {
-      const result = await super.createItinerary(insertItinerary, userId);
+      // Ensure values are compatible with DB schema (nulls for optionals, Date for timestamp)
+      const valuesToInsert = {
+        ...insertItinerary,
+        title: insertItinerary.title ?? null,
+        description: insertItinerary.description ?? null,
+        planDate: insertItinerary.planDate ? new Date(insertItinerary.planDate) : null,
+      };
+      // Call super.createItinerary with the processed values. 
+      // However, super.createItinerary itself will do this processing again. 
+      // It's better to rely on the base class method to handle the conversion.
+      const result = await super.createItinerary(insertItinerary, anonymousIdentifier); 
       console.log(`DbStorage (with logging): Created itinerary #${result.id} successfully`);
       return result;
     } catch (error: any) {
       console.error(`DbStorage (with logging): Error creating itinerary:`, error);
-      
       if (USE_IN_MEMORY_FALLBACK) {
         console.warn("Using in-memory fallback for createItinerary due to database error");
-        
-        // Use in-memory storage as fallback
         const id = inMemoryStorage.nextItineraryId++;
         const itinerary: Itinerary = {
           ...insertItinerary,
           id,
+          title: insertItinerary.title ?? null,
+          description: insertItinerary.description ?? null,
+          planDate: insertItinerary.planDate ? new Date(insertItinerary.planDate) : null,
           created: new Date()
         };
         inMemoryStorage.itineraries.set(id, itinerary);
-        
-        // If userId provided, associate with user
-        if (userId) {
-          const userItineraries = inMemoryStorage.userItineraries.get(userId) || [];
-          userItineraries.push(id);
-          inMemoryStorage.userItineraries.set(userId, userItineraries);
+        if (anonymousIdentifier) {
+          const userItinerariesList = inMemoryStorage.userItineraries.get(anonymousIdentifier) || [];
+          userItinerariesList.push(id);
+          inMemoryStorage.userItineraries.set(anonymousIdentifier, userItinerariesList);
         }
-        
         return itinerary;
       }
-      
       throw error;
     }
   }
@@ -539,3 +711,6 @@ export class DbStorageWithLogging extends DbStorage {
 
 // Use the database storage implementation
 export const storage = new DbStorageWithLogging();
+
+// Export inMemoryStorage for debugging purposes
+export { inMemoryStorage };

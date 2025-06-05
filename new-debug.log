@@ -1,0 +1,2506 @@
+
+> rest-express@1.0.0 dev
+> NODE_ENV=development tsx server/index.ts
+
+🔧 [config.ts] Creating new Config instance.
+🔧 [config.ts] Config constructor starting...
+🔧 [config.ts] process.env.GOOGLE_PLACES_API_KEY at constructor start: NOT SET
+🔧 [config.ts] process.env.GEMINI_API_KEY at constructor start: NOT SET
+🔧 [config.ts] loadApiKeys() starting...
+🔧 [config.ts] Loading GEMINI_API_KEY from process.env: NOT SET
+🔧 [config.ts] Stored GEMINI_API_KEY in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] Loading GOOGLE_PLACES_API_KEY from process.env: NOT SET
+🔧 [config.ts] Stored GOOGLE_PLACES_API_KEY in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] Loading WEATHER_API_KEY from process.env: NOT SET
+🔧 [config.ts] Stored WEATHER_API_KEY in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] Loading GOOGLE_CLIENT_ID from process.env: NOT SET
+🔧 [config.ts] Stored GOOGLE_CLIENT_ID in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] loadApiKeys() finished.
+🔧 [config.ts] initializeFeatureFlags() starting...
+[config.ts isApiKeyValid] Key: GEMINI_API_KEY, Present in this.apiKeys: false, Valid (has length): false
+🚫 [config.ts] AI_PROCESSING feature flag DISABLED (enabled: true, keysMet: false).
+[config.ts isApiKeyValid] Key: GEMINI_API_KEY, Present in this.apiKeys: false, Valid (has length): false
+🚫 [config.ts] USE_GEMINI feature flag DISABLED (enabled: true, keysMet: false).
+[config.ts isApiKeyValid] Key: WEATHER_API_KEY, Present in this.apiKeys: false, Valid (has length): false
+🚫 [config.ts] WEATHER_AWARE feature flag DISABLED (enabled: true, keysMet: false).
+[config.ts isApiKeyValid] Key: GOOGLE_PLACES_API_KEY, Present in this.apiKeys: false, Valid (has length): false
+🚫 [config.ts] PLACES_API feature flag DISABLED (enabled: true, keysMet: false).
+🔧 [config.ts] initializeFeatureFlags() finished.
+🔧 [config.ts] Config constructor finished.
+[CityRegistry] Registered city: London (slug: london)
+[CityRegistry] Registered city: New York City (slug: nyc)
+[CityRegistry] Registered city: Boston (slug: boston)
+[CityRegistry] Registered city: Austin (slug: austin)
+[CityRegistry] City configurations loading process completed. Registry size: 4
+[CityRegistry] Registered slugs: london, nyc, boston, austin
+AI_PROCESSING feature flag status: false
+🔧 Loading environment variables...
+📄 .env file path: /Users/carlos/LondonDayPlanner-1/.env
+📄 .env file exists: true
+✅ Environment variables loaded by dotenv (keys found): [
+  'DATABASE_URL',
+  'GOOGLE_PLACES_API_KEY',
+  'GEMINI_API_KEY',
+  'WEATHER_API_KEY'
+]
+🔍 Environment check (process.env):
+   DATABASE_URL present: true
+   GOOGLE_PLACES_API_KEY present: true
+   GOOGLE_PLACES_API_KEY length: 39
+   GEMINI_API_KEY present: true
+🔧 Initializing application configuration...
+🔄 [config.ts] Config.recheckEnvironment() called. Forcing reload of API keys and features...
+🔧 [config.ts] loadApiKeys() starting...
+🔧 [config.ts] Loading GEMINI_API_KEY from process.env: SET (length: 39)
+🔧 [config.ts] Stored GEMINI_API_KEY in this.apiKeys: SET (length: 39)
+🔧 [config.ts] Loading GOOGLE_PLACES_API_KEY from process.env: SET (length: 39)
+🔧 [config.ts] Stored GOOGLE_PLACES_API_KEY in this.apiKeys: SET (length: 39)
+🔧 [config.ts] Loading WEATHER_API_KEY from process.env: SET (length: 32)
+🔧 [config.ts] Stored WEATHER_API_KEY in this.apiKeys: SET (length: 32)
+🔧 [config.ts] Loading GOOGLE_CLIENT_ID from process.env: NOT SET
+🔧 [config.ts] Stored GOOGLE_CLIENT_ID in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] loadApiKeys() finished.
+🔧 [config.ts] initializeFeatureFlags() starting...
+[config.ts isApiKeyValid] Key: GEMINI_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] AI_PROCESSING feature flag ENABLED.
+[config.ts isApiKeyValid] Key: GEMINI_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] USE_GEMINI feature flag ENABLED.
+[config.ts isApiKeyValid] Key: WEATHER_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] WEATHER_AWARE feature flag ENABLED.
+[config.ts isApiKeyValid] Key: GOOGLE_PLACES_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] PLACES_API feature flag ENABLED.
+🔧 [config.ts] initializeFeatureFlags() finished.
+🔄 [config.ts] Environment recheck complete. Logging new status:
+🔧 [config.ts] Current Application configuration: {
+  features: {
+    AI_PROCESSING: true,
+    USE_GEMINI: true,
+    WEATHER_AWARE: true,
+    PLACES_API: true
+  },
+  apiKeysPresent: {
+    GEMINI_API_KEY: true,
+    GOOGLE_PLACES_API_KEY: true,
+    WEATHER_API_KEY: true,
+    GOOGLE_CLIENT_ID: false
+  },
+  environment: 'development'
+}
+🔧 [config.ts] Config initialize() called.
+🔧 [config.ts] Current Application configuration: {
+  features: {
+    AI_PROCESSING: true,
+    USE_GEMINI: true,
+    WEATHER_AWARE: true,
+    PLACES_API: true
+  },
+  apiKeysPresent: {
+    GEMINI_API_KEY: true,
+    GOOGLE_PLACES_API_KEY: true,
+    WEATHER_API_KEY: true,
+    GOOGLE_CLIENT_ID: false
+  },
+  environment: 'development'
+}
+⚠️  SESSION_SECRET not set, using fallback. SET THIS FOR PRODUCTION!
+2025-06-05 05:18:27 WARN [SESSION] No SESSION_SECRET found, using development fallback {}
+2025-06-05 05:18:27 INFO [SESSION] Session configuration created {
+  "isProduction": false,
+  "hasSecret": true,
+  "cookieSecure": false,
+  "sameSite": "lax"
+}
+🗄️  Testing database connection...
+🗄️  Initializing database instance with Neon driver...
+✅ Database instance initialized and tested successfully with Neon.
+✅ Database connection successful
+🔌 WebSocket service initialized
+🚀 Server running on http://localhost:5001
+🔧 Environment: development
+🗄️  Database: Connected
+🔑 Google Places API Key: Configured
+🔑 Gemini API Key: Configured
+🔌 WebSocket: Available at ws://localhost:5001/ws
+📝 [/api/plan] Generic plan request received
+Query: Coffee in Times Square at 10 AM
+Raw request body: {
+  query: 'Coffee in Times Square at 10 AM',
+  date: '2025-06-04',
+  citySlug: 'nyc'
+}
+🌍 [/api/plan] Parsed parameters: { city: undefined, citySlug: 'nyc', cityIdentifier: 'nyc' }
+🚀 [/api/plan] Creating plan for New York City
+🏙️ Creating plan for city: nyc
+🚀 Creating plan for query: Coffee in Times Square at 10 AM
+Found street reference: "Times Square"
+[NLP] Processing query with context for city: New York City
+🔄 [nlp-fixed] Attempting lazy AI initialization for new Gemini processor...
+🤖 [nlp-fixed] Checking AI_PROCESSING feature flag status: true
+🔑 [nlp-fixed] GEMINI_API_KEY validation: true
+✅ [nlp-fixed] Initializing Gemini API with valid API key
+✅ [nlp-fixed] Gemini API successfully initialized
+🚀 [nlp-fixed] Attempting to process query with new Gemini processor
+🚀 [nlp-fixed] Query: Coffee in Times Square at 10 AM
+🚀 [nlp-fixed] CityContext: { name: 'New York City', slug: 'nyc', timezone: 'America/New_York' }
+Raw Gemini structured data: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "Coffee",
+      "location": "Times Square",
+      "venuePreference": "cafe",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "cafe"
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": []
+}
+[32minfo[39m: AI Interaction {"modelName":"gemini-1.5-pro","parsedResponse":{"fixedAppointments":[],"fixedTimeEntries":[{"activity":"Coffee","location":"Times Square","searchParameters":{"venueType":"cafe"},"time":"10:00","venuePreference":"cafe","venueRequirements":[]}],"flexibleTimeEntries":[],"preferences":{"budget":"moderate","interests":[]},"specialRequests":[],"timeBlocks":[],"travelGroup":{"adults":1,"children":0}},"processingTimeMs":3565,"rawRequest":{"prompt":"\n    You are an expert travel planning assistant for New York City. Extract structured information from this itinerary request with extreme attention to detail.\n    \n    CRITICAL PARSING RULES:\n    \n    1. JSON FORMAT: Return ONLY valid JSON matching the schema - no markdown, no extra text\n    \n    2. TIME EXTRACTION:\n       - Use 24-hour format (e.g., \"09:00\", \"15:30\")\n       - \"at 6\" without context = \"18:00\" (assume evening for dinner/drinks)\n       - \"at 6\" with morning context = \"06:00\"\n       - Default meal times: breakfast=\"09:00\", lunch=\"12:00\", dinner=\"19:00\"\n       - \"morning\"=\"09:00\", \"afternoon\"=\"14:00\", \"evening\"=\"18:00\", \"night\"=\"21:00\"\n       - \"early morning\"=\"07:00\", \"late morning\"=\"11:00\", \"late afternoon\"=\"16:00\"\n       - \"sunset\" = \"18:30\", \"sunrise\" = \"06:30\"\n       - RELATIVE TIME HANDLING (CRITICAL):\n         * \"in X hours\" = add X hours to the start time or previous activity time\n         * \"X hours later\" = add X hours to the previous activity time\n         * Example: If start is 10:00, \"in 1 hour\" = \"11:00\", \"in 3 hours\" = \"13:00\"\n         * Example: If last activity is 12:00, \"2 hours later\" = \"14:00\"\n       - REVERSE PLANNING (CRITICAL):\n         * \"before that\" = calculate earlier time from the reference activity\n         * \"end with X at Y time\" = X happens at Y time, earlier activities before\n         * \"working backwards from X\" = X is the last/latest activity\n         * Example: \"meeting at 3 PM, lunch before that\" = lunch at 12:00-13:00\n         * Example: \"flight at 8 PM, dinner before\" = dinner at 18:00-19:00\n         * ALWAYS include ALL mentioned activities, even reference points like meetings/flights\n    \n    3. TIME BLOCKS & APPOINTMENTS - NEW CRITICAL PARSING:\n       - TIME BLOCKS: \"work from X to Y\", \"spend X hours at\", \"need X hours for\"\n         * Example: \"work from 10 AM to 3 PM\" → timeBlocks entry with startTime: \"10:00\", endTime: \"15:00\"\n         * Example: \"need a quiet place to work for 5 hours\" → timeBlocks entry with duration reflected in end time\n         * Extract venue requirements: \"quiet\", \"good wifi\", \"suitable for calls\"\n       - FIXED APPOINTMENTS: \"meeting at X\", \"appointment at Y\", \"reservation at Z\"\n         * Example: \"meeting in Mayfair at 5\" → fixedAppointments entry with time: \"17:00\", location: \"Mayfair\"\n         * Add buffers: meeting = 30 min before, dinner = 15 min before\n       - REGULAR ACTIVITIES: Everything else goes in fixedTimeEntries\n    \n    4. ACTIVITY SEQUENCE - CRITICAL:\n       - Preserve the EXACT order mentioned by the user\n       - \"then\", \"after that\", \"after\", \"followed by\", \"next\", \"afterwards\" indicate sequence\n       - Count ALL activities mentioned (coffee, lunch, drinks, etc.)\n       - If no times given, space activities 1.5-2 hours apart\n       - Parse compound sentences carefully: \"I have a meeting... and would like to go to a restaurant\" = 2 activities\n    \n    5. VENUE PREFERENCES - CRITICAL:\n       - ALWAYS extract venue descriptors to venuePreference field\n       - SPECIFIC FOOD MENTIONS must be captured exactly:\n         * \"fish and chips\" → venuePreference: \"fish and chips restaurant\"\n         * \"pizza\" → venuePreference: \"pizza restaurant\"\n         * \"sushi\" → venuePreference: \"sushi restaurant\"\n         * \"tacos\" → venuePreference: \"taco restaurant\"\n         * \"burgers\" → venuePreference: \"burger restaurant\"\n         * \"chinese food\" → venuePreference: \"chinese restaurant\"\n         * \"italian\" → venuePreference: \"italian restaurant\"\n         * \"breakfast tacos\" → venuePreference: \"breakfast taco restaurant\"\n       - STYLE DESCRIPTORS:\n         * \"hipster cafe\" → venuePreference: \"hipster cafe\"\n         * \"authentic Jewish deli\" → venuePreference: \"authentic Jewish deli\"\n         * \"trendy brunch spot\" → venuePreference: \"trendy brunch spot\"\n         * \"hole-in-the-wall\" → venuePreference: \"hole-in-the-wall\"\n         * \"michelin star\" → venuePreference: \"michelin star restaurant\"\n         * \"rooftop bar\" → venuePreference: \"rooftop bar\"\n         * \"sports bar\" → venuePreference: \"sports bar\"\n         * \"family-friendly\" → venuePreference: \"family-friendly restaurant\"\n       - REQUIREMENTS (NOT preferences):\n         * \"outdoor seating\" → specificRequirements: [\"outdoor seating\"]\n         * \"with a view\" → specificRequirements: [\"with a view\"]\n         * \"good wifi\" → specificRequirements: [\"wifi\"]\n    \n    6. LOCATION INTELLIGENCE - CRITICAL:\n       - PRESERVE ALL LOCATION MENTIONS from the user's query!\n       - Common New York City locations: \"SoHo\", \"Greenwich Village\", \"Upper East Side\", \"Midtown\"\n       - If user mentions a specific place (e.g., \"Barton Springs\", \"4th st\"), USE IT EXACTLY\n       - LANDMARK RECOGNITION (CRITICAL):\n         * Famous landmarks MUST be preserved exactly as mentioned\n         * New York City landmarks include: MoMA, Met, Natural History Museum\n         * \"Big Ben\" → location: \"Big Ben\", type: \"tourist_attraction\"\n         * \"Tower of London\" → location: \"Tower of London\", type: \"tourist_attraction\"  \n         * \"Statue of Liberty\" → location: \"Statue of Liberty\", type: \"tourist_attraction\"\n         * For \"lunch near [landmark]\" → location: \"[landmark area]\" (e.g., \"Tower Bridge area\")\n         * NEVER change landmark names to generic locations\n       - \"that famous museum\" → Try to infer (MoMA, Met, Natural History Museum)\n       - \"nearby\" → Use previous activity's location\n       - \"somewhere nice\" or generic location → \"Midtown\"\n       - No location → \"Midtown\"\n       - NEVER replace specific location mentions with generic ones\n    \n    6. SPECIAL REQUIREMENTS:\n       - Budget mentions: \"cheap\"/\"budget\" → budget: \"budget\", \"upscale\"/\"fancy\" → budget: \"expensive\"\n       - Group size: \"family\", \"group of X\" → travelGroup numbers\n       - Dietary: \"kosher\", \"vegan\", \"halal\" → specificRequirements\n       - Accessibility: \"wheelchair\", \"accessible\" → accessibility requirements\n       - Weather: \"if nice weather\" → note in specialRequests\n    \n    7. ACTIVITY TYPES:\n       - Meals: breakfast/brunch/lunch/dinner → restaurant\n       - Coffee/work at cafe → cafe\n       - Drinks/cocktails/lounge → bar (NOT attraction)\n       - Shopping → shopping\n       - Museums/galleries → museum\n       - Parks/outdoor/walk → park\n       - Shows/entertainment → entertainment\n       - Meeting/appointment → MUST include in fixedAppointments or fixedTimeEntries with type: \"skip\"\n       - LANDMARKS (CRITICAL):\n         * Famous landmarks → tourist_attraction\n         * \"visit [landmark]\", \"see [landmark]\" → tourist_attraction\n         * Activities near landmarks should reference the landmark in location\n    \n    8. EDGE CASES:\n       - Conflicting requirements: Choose most logical interpretation\n       - Vague queries: Make reasonable New York City-appropriate suggestions\n       - Multi-day: Note day changes in flexibleTimeEntries\n    \n    SCHEMA STRUCTURE:\n    {\n      \"timeBlocks\": [\n        {\n          \"startTime\": \"10:00\",\n          \"endTime\": \"15:00\",\n          \"activity\": \"work session\",\n          \"location\": \"Canary Wharf\",\n          \"venueRequirements\": [\"quiet\", \"good wifi\", \"suitable for calls\"],\n          \"searchParameters\": {\n            \"venueType\": \"cafe\",\n            \"specificRequirements\": [\"quiet\", \"wifi\", \"power outlets\"],\n            \"ambience\": \"quiet\"\n          }\n        }\n      ],\n      \"fixedAppointments\": [\n        {\n          \"time\": \"17:00\",\n          \"duration\": 60,\n          \"activity\": \"meeting\",\n          \"location\": \"Mayfair\",\n          \"bufferBefore\": 30,\n          \"bufferAfter\": 15,\n          \"isFixed\": true\n        }\n      ],\n      \"fixedTimeEntries\": [\n        {\n          \"time\": \"HH:MM\",\n          \"activity\": \"Brief description\",\n          \"location\": \"New York City location\",\n          \"venuePreference\": \"specific venue type if mentioned\",\n          \"venueRequirements\": [\"quiet\", \"non-crowded\"],\n          \"searchParameters\": {\n            \"venuePreference\": \"DUPLICATE venue preference here\",\n            \"specificRequirements\": [\"array of requirements\"],\n            \"cuisine\": \"if food related\",\n            \"priceLevel\": \"budget/moderate/expensive\"\n          }\n        }\n      ],\n      \"flexibleTimeEntries\": [...same structure...],\n      \"preferences\": {\n        \"budget\": \"overall budget level\",\n        \"pace\": \"relaxed/moderate/busy\",\n        \"interests\": [\"user interests\"]\n      },\n      \"travelGroup\": {\n        \"adults\": number,\n        \"children\": number\n      },\n      \"specialRequests\": [\"any special notes\"]\n    }\n\n    \n    Date: 2025-06-04\n    \n    IMPORTANT: Count ALL activities in this request and ensure each one appears in the output.\n    \n    Here's the request to analyze:\n    Coffee in Times Square at 10 AM\n    \n    CRITICAL REMINDER: Extract EVERY SINGLE activity mentioned above. Do not skip any activities even if there are many. Each distinct activity should have its own entry in fixedTimeEntries.\n    ","temperature":0.2},"rawResponse":"```json\n{\n  \"timeBlocks\": [],\n  \"fixedAppointments\": [],\n  \"fixedTimeEntries\": [\n    {\n      \"time\": \"10:00\",\n      \"activity\": \"Coffee\",\n      \"location\": \"Times Square\",\n      \"venuePreference\": \"cafe\",\n      \"venueRequirements\": [],\n      \"searchParameters\": {\n        \"venueType\": \"cafe\"\n      }\n    }\n  ],\n  \"flexibleTimeEntries\": [],\n  \"preferences\": {\n    \"budget\": null,\n    \"pace\": null,\n    \"interests\": []\n  },\n  \"travelGroup\": {\n    \"adults\": null,\n    \"children\": null\n  },\n  \"specialRequests\": []\n}\n```\n","service":"ai-interaction-logger","sessionId":"72e474b1-5502-4c71-b3c1-9b3820b45de7","status":"success","timestamp":"2025-06-05T12:18:44.098Z","userQuery":"Coffee in Times Square at 10 AM"}
+Failed to log AI interaction to database: TypeError: db.insert is not a function
+    at logAiInteraction (/Users/carlos/LondonDayPlanner-1/server/lib/aiLogging.ts:93:16)
+    at attemptGeminiProcessing (/Users/carlos/LondonDayPlanner-1/server/lib/geminiProcessor.ts:460:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at processWithGemini (/Users/carlos/LondonDayPlanner-1/server/lib/geminiProcessor.ts:176:22)
+    at parseItineraryRequest (/Users/carlos/LondonDayPlanner-1/server/lib/nlp-fixed.ts:526:25)
+    at MemoryCache.getOrSet (/Users/carlos/LondonDayPlanner-1/server/lib/cache.ts:59:23)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:71:37)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:189:25)
+Processing Gemini response with raw data: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "Coffee",
+      "location": "Times Square",
+      "venuePreference": "cafe",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "cafe"
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": []
+}
+Processing 1 fixed time entries with duplicate detection
+Added fixed time entry: Coffee at Times Square, 10:00
+Final processed result: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "Coffee",
+      "location": "Times Square",
+      "venuePreference": "cafe",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "cafe",
+        "priceLevel": "moderate"
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Midtown"
+}
+✅ [nlp-fixed] processWithGemini completed successfully, result: VALID
+Successfully processed query with new Gemini processor
+Raw Gemini API response: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "Coffee",
+      "location": "Times Square",
+      "venuePreference": "cafe",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "cafe",
+        "priceLevel": "moderate"
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Midtown"
+}
+Converting Gemini result to app format: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "Coffee",
+      "location": "Times Square",
+      "venuePreference": "cafe",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "cafe",
+        "priceLevel": "moderate"
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Midtown"
+}
+Raw time blocks from Gemini: []
+Raw fixed appointments from Gemini: []
+Raw fixed time entries from Gemini: [
+  {
+    "time": "10:00",
+    "activity": "Coffee",
+    "location": "Times Square",
+    "venuePreference": "cafe",
+    "venueRequirements": [],
+    "searchParameters": {
+      "venueType": "cafe",
+      "priceLevel": "moderate"
+    }
+  }
+]
+Fixed time entry: Normalized time from "10:00" to "10:00"
+Correctly interpreted time "10:00" as America/New_York time: 10:00 AM (2025-06-05T14:00:00.000Z)
+Correctly interpreted time "10:00" as New York City time: 10:00 AM (2025-06-05T14:00:00.000Z)
+Found venue preference: "cafe" for activity: Coffee
+Processed fixed time entry: Coffee at Times Square, time: 2025-06-05T14:00:00.000Z, type: cafe
+Raw flexible time entries from Gemini: []
+Final de-duplicated activities count: 1
+Converted app format request: {
+  "startLocation": "Midtown",
+  "destinations": [
+    "Times Square"
+  ],
+  "fixedTimes": [
+    {
+      "location": "Times Square",
+      "time": "2025-06-05T14:00:00.000Z",
+      "type": "cafe",
+      "searchTerm": "Coffee",
+      "minRating": 4,
+      "displayTime": "10:00 AM",
+      "searchPreference": "cafe"
+    }
+  ],
+  "preferences": {
+    "type": "moderate",
+    "requirements": []
+  }
+}
+Using optimized Gemini result that was converted by convertGeminiToAppFormat function
+Gemini result contains 1 de-duplicated activities
+Validating location: "Times Square" with Google Maps Geocoding API
+Geocoding search query: "Times Square, New York City, USA"
+Validated "Times Square" as neighborhood: "Manhattan"
+Validated "Times Square" as neighborhood: "Manhattan"
+Validating location: "Times Square" with Google Maps Geocoding API
+Geocoding search query: "Times Square, New York City, USA"
+Validated "Times Square" as neighborhood: "Manhattan"
+Final processed Gemini result: {
+  "startLocation": "Midtown",
+  "destinations": [
+    "Manhattan"
+  ],
+  "fixedTimes": [
+    {
+      "location": "Manhattan",
+      "time": "2025-06-05T14:00:00.000Z",
+      "type": "cafe",
+      "searchTerm": "Coffee",
+      "minRating": 4,
+      "displayTime": "10:00 AM",
+      "searchPreference": "cafe"
+    }
+  ],
+  "preferences": {
+    "type": "moderate",
+    "requirements": []
+  }
+}
+📝 Parsed request from cache/fetch: {
+  startLocation: 'Midtown',
+  destinations: [ 'Manhattan' ],
+  fixedTimes: [
+    {
+      location: 'Manhattan',
+      time: '2025-06-05T14:00:00.000Z',
+      type: 'cafe',
+      searchTerm: 'Coffee',
+      keywords: undefined,
+      minRating: 4,
+      displayTime: '10:00 AM',
+      searchPreference: 'cafe'
+    }
+  ],
+  preferences: { type: 'moderate', requirements: [] }
+}
+📍 Using explicit start location from NLP: Midtown
+📍 Determined initial search/start location: Midtown
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Manhattan","time":"2025-06-05T14:00:00.000Z","type":"cafe","searchTerm":"Coffee","minRating":4,"displayTime":"10:00 AM","searchPreference":"cafe"}
+Parsed ISO timestamp "2025-06-05T14:00:00.000Z" to America/New_York time: 2025-06-05 10:00:00 EDT
+🔍 [enhancedPlaceSearch] Starting enhanced search with options: {
+  query: 'Coffee',
+  location: 'Manhattan',
+  keywords: [ 'cafe' ],
+  type: 'cafe',
+  preferences: { venuePreference: 'cafe' },
+  scheduledDateTime: 2025-06-05T14:00:00.000Z,
+  cityContext: { name: 'New York City', slug: 'nyc', timezone: 'America/New_York' }
+}
+🤖 [Gemini] Enhanced query: best cafes in Manhattan
+📍 [enhancedPlaceSearch] Using city center for "nyc"
+🎯 [enhancedPlaceSearch] Using location bias: 40.7128,-74.006 with radius 25000m
+🌐 [enhancedPlaceSearch] Searching with query: best cafes in Manhattan
+🏙️ [enhancedPlaceSearch] After city filtering: 4 venues remain for New York City
+🕒 [enhancedPlaceSearch] Filtering venues by operating hours for 2025-06-05T14:00:00.000Z
+🕒 [Operating Hours] Validating hours for Little Collins at 2025-06-05T14:00:00.000Z
+📅 [Operating Hours] Scheduled: 2025-06-05 10:00:00 Thursday, Day: 4, Time: 1000
+⚠️ [Operating Hours] Could not determine hours for Little Collins
+✅ [Operating Hours] Little Collins: Could not determine operating hours
+🕒 [Operating Hours] Validating hours for La Cabra Bakery at 2025-06-05T14:00:00.000Z
+📅 [Operating Hours] Scheduled: 2025-06-05 10:00:00 Thursday, Day: 4, Time: 1000
+⚠️ [Operating Hours] Could not determine hours for La Cabra Bakery
+✅ [Operating Hours] La Cabra Bakery: Could not determine operating hours
+🕒 [Operating Hours] Validating hours for Bibble & Sip at 2025-06-05T14:00:00.000Z
+📅 [Operating Hours] Scheduled: 2025-06-05 10:00:00 Thursday, Day: 4, Time: 1000
+⚠️ [Operating Hours] Could not determine hours for Bibble & Sip
+✅ [Operating Hours] Bibble & Sip: Could not determine operating hours
+🕒 [Operating Hours] Validating hours for Suited NYC at 2025-06-05T14:00:00.000Z
+📅 [Operating Hours] Scheduled: 2025-06-05 10:00:00 Thursday, Day: 4, Time: 1000
+⚠️ [Operating Hours] Could not determine hours for Suited NYC
+✅ [Operating Hours] Suited NYC: Could not determine operating hours
+✅ [enhancedPlaceSearch] 4 venues are open, 0 are closed
+✅ [enhancedPlaceSearch] Found 4 places with ratings
+🎲 [enhancedPlaceSearch] Selected venue (with variety): {
+  name: 'Bibble & Sip',
+  rating: 4.5,
+  address: '253 W 51st St, New York, NY 10019, United States'
+}
+🔄 [enhancedPlaceSearch] Alternatives: [
+  { name: 'La Cabra Bakery', rating: 4.7 },
+  { name: 'Suited NYC', rating: 4.7 },
+  { name: 'Little Collins', rating: 4.6 }
+]
+🔍 [SERVICE] Place details for "Bibble & Sip": {
+  hasRating: true,
+  rating: 4.5,
+  hasTypes: true,
+  types: [
+    'bakery',
+    'cafe',
+    'food',
+    'point_of_interest',
+    'store',
+    'establishment'
+  ],
+  detailsKeys: [
+    'business_status',
+    'formatted_address',
+    'geometry',
+    'icon',
+    'icon_background_color',
+    'icon_mask_base_uri',
+    'name',
+    'opening_hours',
+    'photos',
+    'place_id',
+    'plus_code',
+    'price_level',
+    'rating',
+    'reference',
+    'types',
+    'user_ratings_total'
+  ],
+  fullDetails: '{\n' +
+    '  "business_status": "OPERATIONAL",\n' +
+    '  "formatted_address": "253 W 51st St, New York, NY 10019, United States",\n' +
+    '  "geometry": {\n' +
+    '    "location": {\n' +
+    '      "lat": 40.7628359,\n' +
+    '      "lng": -73.9851805\n' +
+    '    },\n' +
+    '    "viewport": {\n' +
+    '      "northeast": {\n' +
+    '        "lat": 40.76414407989272,\n' +
+    '        "lng": -73.98385692010727\n' +
+    '      },\n' +
+    '      "southwest": {\n' +
+    '        "lat": 40.76144442010727,\n' +
+    '        "lng": -73.98655657989272\n' +
+    '      }\n' +
+    '    }\n' +
+    '  },\n' +
+    '  "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",\n' +
+    '  "icon_background_color": "#FF9E67",\n' +
+    '  "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",\n' +
+    '  "name": "Bibble & Sip",\n' +
+    '  "opening_hours": {\n' +
+    '    "open_now": true\n' +
+    '  },\n' +
+    '  "photos": [\n' +
+    '    {\n' +
+    '      "height": 1688,\n' +
+    '      "html_attributions": [\n' +
+    '        "<a href=\\"https://maps.google.com/maps/contrib/115345446738777898414\\">Bibble &amp; Sip</a>"\n' +
+    '      ],\n' +
+    '      "photo_reference": "AXQCQNTW2C0yHrJ2jE9WTCjAcmEmxTSEjJKeYpq-psxhcLM6pMIs8QfrrltFFfH356SjUNYlaBu2koUcxJ8ldDjGu2mbU_9e27ax9goB700pTd6SLFwnRtCJyChguAYrZiR06GTvTLiM2S-XmncP-6o2LoOFZWCEvQEHLAdRhiZQI8Bs-2nR9qVAKgv0lzYR5uIaRQCgawuJIq9lYPN8xtMfn3BIMz_boRn_WBLa8azFM5BZy7GiOt-vV5MQJA0IFABX4QgCPilvgEcpfYqgzDN8LnLTHz1EwzZVyaNt0OdukSOPYomD8eQ",\n' +
+    '      "width": 2529\n' +
+    '    }\n' +
+    '  ],\n' +
+    '  "place_id": "ChIJk5I-rVdYwokREJuq-CY6pEg",\n' +
+    '  "plus_code": {\n' +
+    '    "compound_code": "Q277+4W New York",\n' +
+    '    "global_code": "87G8Q277+4W"\n' +
+    '  },\n' +
+    '  "price_level": 2,\n' +
+    '  "rating": 4.5,\n' +
+    '  "reference": "ChIJk5I-rVdYwokREJuq-CY6pEg",\n' +
+    '  "types": [\n' +
+    '    "bakery",\n' +
+    '    "cafe",\n' +
+    '    "food",\n' +
+    '    "point_of_interest",\n' +
+    '    "store",\n' +
+    '    "establishment"\n' +
+    '  ],\n' +
+    '  "user_ratings_total": 3407\n' +
+    '}'
+}
+🔍 [SERVICE] About to store place with details: {
+  hasDetails: true,
+  rating: 4.5,
+  types: [
+    'bakery',
+    'cafe',
+    'food',
+    'point_of_interest',
+    'store',
+    'establishment'
+  ],
+  detailsSize: 1355
+}
+🔍 [SERVICE] placeToInsert details: {
+  hasDetails: true,
+  detailsType: 'object',
+  detailsKeys: [
+    'business_status',
+    'formatted_address',
+    'geometry',
+    'icon',
+    'icon_background_color',
+    'icon_mask_base_uri',
+    'name',
+    'opening_hours',
+    'photos',
+    'place_id',
+    'plus_code',
+    'price_level',
+    'rating',
+    'reference',
+    'types',
+    'user_ratings_total'
+  ]
+}
+Error checking for existing place: TypeError: db.select is not a function
+    at DbStorageWithLogging.createPlace (/Users/carlos/LondonDayPlanner-1/server/storage.ts:481:42)
+    at ItineraryPlanningService._processFixedAppointments (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:554:44)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:221:7)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:189:25)
+Database error in createPlace, using in-memory fallback: db.select is not a function
+🆕 [MEM-FALLBACK] Created new place "Bibble & Sip" with details
+🔍 [SERVICE] Stored place "Bibble & Sip" details: {
+  hasDetails: true,
+  detailsType: 'object',
+  detailsKeys: [
+    'business_status',
+    'formatted_address',
+    'geometry',
+    'icon',
+    'icon_background_color',
+    'icon_mask_base_uri',
+    'name',
+    'opening_hours',
+    'photos',
+    'place_id',
+    'plus_code',
+    'price_level',
+    'rating',
+    'reference',
+    'types',
+    'user_ratings_total'
+  ],
+  rating: 4.5,
+  types: [
+    'bakery',
+    'cafe',
+    'food',
+    'point_of_interest',
+    'store',
+    'establishment'
+  ]
+}
+Added fixed appointment to itinerary: Bibble & Sip at 2025-06-05T14:00:00.000Z
+DbStorage (with logging): Creating itinerary (anonymous)
+DbStorage (with logging): Error creating itinerary: TypeError: db.insert is not a function
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:137:36)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:635:34)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:300:51)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:189:25)
+Using in-memory fallback for createItinerary due to database error
+Successfully created itinerary "Coffee in New York City" for New York City with ID: 1
+[Weather] Fetching weather for 40.76,-73.99
+[Weather] Success with OpenWeatherMap
+🌤️ [/api/plan] Retrieved weather data for itinerary
+🔍 [/api/plan] Place "Bibble & Sip" details: {
+  hasDetails: false,
+  detailsKeys: [],
+  rating: undefined,
+  types: undefined
+}
+📤 [/api/plan] Sending response with 1 venues
+2025-06-05 05:18:45 INFO [API] POST /api/plan 200 (5403ms) {
+  "statusCode": 200,
+  "duration": 5403
+}
+📝 [/api/plan] Generic plan request received
+Query: Coffee at 10 AM
+Raw request body: { query: 'Coffee at 10 AM', citySlug: 'nyc' }
+🌍 [/api/plan] Parsed parameters: { city: undefined, citySlug: 'nyc', cityIdentifier: 'nyc' }
+🚀 [/api/plan] Creating plan for New York City
+🏙️ Creating plan for city: nyc
+🚀 Creating plan for query: Coffee at 10 AM
+[NLP] Processing query with context for city: New York City
+🚀 [nlp-fixed] Attempting to process query with new Gemini processor
+🚀 [nlp-fixed] Query: Coffee at 10 AM
+🚀 [nlp-fixed] CityContext: { name: 'New York City', slug: 'nyc', timezone: 'America/New_York' }
+Raw Gemini structured data: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "Coffee",
+      "location": "Midtown",
+      "venuePreference": "cafe",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "pace": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": []
+}
+[32minfo[39m: AI Interaction {"modelName":"gemini-1.5-pro","parsedResponse":{"fixedAppointments":[],"fixedTimeEntries":[{"activity":"Coffee","location":"Midtown","searchParameters":{"priceLevel":"moderate","specificRequirements":[],"venueType":"cafe"},"time":"10:00","venuePreference":"cafe","venueRequirements":[]}],"flexibleTimeEntries":[],"preferences":{"budget":"moderate","interests":[],"pace":"moderate"},"specialRequests":[],"timeBlocks":[],"travelGroup":{"adults":1,"children":0}},"processingTimeMs":2780,"rawRequest":{"prompt":"\n    You are an expert travel planning assistant for New York City. Extract structured information from this itinerary request with extreme attention to detail.\n    \n    CRITICAL PARSING RULES:\n    \n    1. JSON FORMAT: Return ONLY valid JSON matching the schema - no markdown, no extra text\n    \n    2. TIME EXTRACTION:\n       - Use 24-hour format (e.g., \"09:00\", \"15:30\")\n       - \"at 6\" without context = \"18:00\" (assume evening for dinner/drinks)\n       - \"at 6\" with morning context = \"06:00\"\n       - Default meal times: breakfast=\"09:00\", lunch=\"12:00\", dinner=\"19:00\"\n       - \"morning\"=\"09:00\", \"afternoon\"=\"14:00\", \"evening\"=\"18:00\", \"night\"=\"21:00\"\n       - \"early morning\"=\"07:00\", \"late morning\"=\"11:00\", \"late afternoon\"=\"16:00\"\n       - \"sunset\" = \"18:30\", \"sunrise\" = \"06:30\"\n       - RELATIVE TIME HANDLING (CRITICAL):\n         * \"in X hours\" = add X hours to the start time or previous activity time\n         * \"X hours later\" = add X hours to the previous activity time\n         * Example: If start is 10:00, \"in 1 hour\" = \"11:00\", \"in 3 hours\" = \"13:00\"\n         * Example: If last activity is 12:00, \"2 hours later\" = \"14:00\"\n       - REVERSE PLANNING (CRITICAL):\n         * \"before that\" = calculate earlier time from the reference activity\n         * \"end with X at Y time\" = X happens at Y time, earlier activities before\n         * \"working backwards from X\" = X is the last/latest activity\n         * Example: \"meeting at 3 PM, lunch before that\" = lunch at 12:00-13:00\n         * Example: \"flight at 8 PM, dinner before\" = dinner at 18:00-19:00\n         * ALWAYS include ALL mentioned activities, even reference points like meetings/flights\n    \n    3. TIME BLOCKS & APPOINTMENTS - NEW CRITICAL PARSING:\n       - TIME BLOCKS: \"work from X to Y\", \"spend X hours at\", \"need X hours for\"\n         * Example: \"work from 10 AM to 3 PM\" → timeBlocks entry with startTime: \"10:00\", endTime: \"15:00\"\n         * Example: \"need a quiet place to work for 5 hours\" → timeBlocks entry with duration reflected in end time\n         * Extract venue requirements: \"quiet\", \"good wifi\", \"suitable for calls\"\n       - FIXED APPOINTMENTS: \"meeting at X\", \"appointment at Y\", \"reservation at Z\"\n         * Example: \"meeting in Mayfair at 5\" → fixedAppointments entry with time: \"17:00\", location: \"Mayfair\"\n         * Add buffers: meeting = 30 min before, dinner = 15 min before\n       - REGULAR ACTIVITIES: Everything else goes in fixedTimeEntries\n    \n    4. ACTIVITY SEQUENCE - CRITICAL:\n       - Preserve the EXACT order mentioned by the user\n       - \"then\", \"after that\", \"after\", \"followed by\", \"next\", \"afterwards\" indicate sequence\n       - Count ALL activities mentioned (coffee, lunch, drinks, etc.)\n       - If no times given, space activities 1.5-2 hours apart\n       - Parse compound sentences carefully: \"I have a meeting... and would like to go to a restaurant\" = 2 activities\n    \n    5. VENUE PREFERENCES - CRITICAL:\n       - ALWAYS extract venue descriptors to venuePreference field\n       - SPECIFIC FOOD MENTIONS must be captured exactly:\n         * \"fish and chips\" → venuePreference: \"fish and chips restaurant\"\n         * \"pizza\" → venuePreference: \"pizza restaurant\"\n         * \"sushi\" → venuePreference: \"sushi restaurant\"\n         * \"tacos\" → venuePreference: \"taco restaurant\"\n         * \"burgers\" → venuePreference: \"burger restaurant\"\n         * \"chinese food\" → venuePreference: \"chinese restaurant\"\n         * \"italian\" → venuePreference: \"italian restaurant\"\n         * \"breakfast tacos\" → venuePreference: \"breakfast taco restaurant\"\n       - STYLE DESCRIPTORS:\n         * \"hipster cafe\" → venuePreference: \"hipster cafe\"\n         * \"authentic Jewish deli\" → venuePreference: \"authentic Jewish deli\"\n         * \"trendy brunch spot\" → venuePreference: \"trendy brunch spot\"\n         * \"hole-in-the-wall\" → venuePreference: \"hole-in-the-wall\"\n         * \"michelin star\" → venuePreference: \"michelin star restaurant\"\n         * \"rooftop bar\" → venuePreference: \"rooftop bar\"\n         * \"sports bar\" → venuePreference: \"sports bar\"\n         * \"family-friendly\" → venuePreference: \"family-friendly restaurant\"\n       - REQUIREMENTS (NOT preferences):\n         * \"outdoor seating\" → specificRequirements: [\"outdoor seating\"]\n         * \"with a view\" → specificRequirements: [\"with a view\"]\n         * \"good wifi\" → specificRequirements: [\"wifi\"]\n    \n    6. LOCATION INTELLIGENCE - CRITICAL:\n       - PRESERVE ALL LOCATION MENTIONS from the user's query!\n       - Common New York City locations: \"SoHo\", \"Greenwich Village\", \"Upper East Side\", \"Midtown\"\n       - If user mentions a specific place (e.g., \"Barton Springs\", \"4th st\"), USE IT EXACTLY\n       - LANDMARK RECOGNITION (CRITICAL):\n         * Famous landmarks MUST be preserved exactly as mentioned\n         * New York City landmarks include: MoMA, Met, Natural History Museum\n         * \"Big Ben\" → location: \"Big Ben\", type: \"tourist_attraction\"\n         * \"Tower of London\" → location: \"Tower of London\", type: \"tourist_attraction\"  \n         * \"Statue of Liberty\" → location: \"Statue of Liberty\", type: \"tourist_attraction\"\n         * For \"lunch near [landmark]\" → location: \"[landmark area]\" (e.g., \"Tower Bridge area\")\n         * NEVER change landmark names to generic locations\n       - \"that famous museum\" → Try to infer (MoMA, Met, Natural History Museum)\n       - \"nearby\" → Use previous activity's location\n       - \"somewhere nice\" or generic location → \"Midtown\"\n       - No location → \"Midtown\"\n       - NEVER replace specific location mentions with generic ones\n    \n    6. SPECIAL REQUIREMENTS:\n       - Budget mentions: \"cheap\"/\"budget\" → budget: \"budget\", \"upscale\"/\"fancy\" → budget: \"expensive\"\n       - Group size: \"family\", \"group of X\" → travelGroup numbers\n       - Dietary: \"kosher\", \"vegan\", \"halal\" → specificRequirements\n       - Accessibility: \"wheelchair\", \"accessible\" → accessibility requirements\n       - Weather: \"if nice weather\" → note in specialRequests\n    \n    7. ACTIVITY TYPES:\n       - Meals: breakfast/brunch/lunch/dinner → restaurant\n       - Coffee/work at cafe → cafe\n       - Drinks/cocktails/lounge → bar (NOT attraction)\n       - Shopping → shopping\n       - Museums/galleries → museum\n       - Parks/outdoor/walk → park\n       - Shows/entertainment → entertainment\n       - Meeting/appointment → MUST include in fixedAppointments or fixedTimeEntries with type: \"skip\"\n       - LANDMARKS (CRITICAL):\n         * Famous landmarks → tourist_attraction\n         * \"visit [landmark]\", \"see [landmark]\" → tourist_attraction\n         * Activities near landmarks should reference the landmark in location\n    \n    8. EDGE CASES:\n       - Conflicting requirements: Choose most logical interpretation\n       - Vague queries: Make reasonable New York City-appropriate suggestions\n       - Multi-day: Note day changes in flexibleTimeEntries\n    \n    SCHEMA STRUCTURE:\n    {\n      \"timeBlocks\": [\n        {\n          \"startTime\": \"10:00\",\n          \"endTime\": \"15:00\",\n          \"activity\": \"work session\",\n          \"location\": \"Canary Wharf\",\n          \"venueRequirements\": [\"quiet\", \"good wifi\", \"suitable for calls\"],\n          \"searchParameters\": {\n            \"venueType\": \"cafe\",\n            \"specificRequirements\": [\"quiet\", \"wifi\", \"power outlets\"],\n            \"ambience\": \"quiet\"\n          }\n        }\n      ],\n      \"fixedAppointments\": [\n        {\n          \"time\": \"17:00\",\n          \"duration\": 60,\n          \"activity\": \"meeting\",\n          \"location\": \"Mayfair\",\n          \"bufferBefore\": 30,\n          \"bufferAfter\": 15,\n          \"isFixed\": true\n        }\n      ],\n      \"fixedTimeEntries\": [\n        {\n          \"time\": \"HH:MM\",\n          \"activity\": \"Brief description\",\n          \"location\": \"New York City location\",\n          \"venuePreference\": \"specific venue type if mentioned\",\n          \"venueRequirements\": [\"quiet\", \"non-crowded\"],\n          \"searchParameters\": {\n            \"venuePreference\": \"DUPLICATE venue preference here\",\n            \"specificRequirements\": [\"array of requirements\"],\n            \"cuisine\": \"if food related\",\n            \"priceLevel\": \"budget/moderate/expensive\"\n          }\n        }\n      ],\n      \"flexibleTimeEntries\": [...same structure...],\n      \"preferences\": {\n        \"budget\": \"overall budget level\",\n        \"pace\": \"relaxed/moderate/busy\",\n        \"interests\": [\"user interests\"]\n      },\n      \"travelGroup\": {\n        \"adults\": number,\n        \"children\": number\n      },\n      \"specialRequests\": [\"any special notes\"]\n    }\n\n    \n    \n    \n    IMPORTANT: Count ALL activities in this request and ensure each one appears in the output.\n    \n    Here's the request to analyze:\n    Coffee at 10 AM\n    \n    CRITICAL REMINDER: Extract EVERY SINGLE activity mentioned above. Do not skip any activities even if there are many. Each distinct activity should have its own entry in fixedTimeEntries.\n    ","temperature":0.2},"rawResponse":"```json\n{\n  \"timeBlocks\": [],\n  \"fixedAppointments\": [],\n  \"fixedTimeEntries\": [\n    {\n      \"time\": \"10:00\",\n      \"activity\": \"Coffee\",\n      \"location\": \"Midtown\",\n      \"venuePreference\": \"cafe\",\n      \"venueRequirements\": [],\n      \"searchParameters\": {\n        \"venueType\": \"cafe\",\n        \"specificRequirements\": [],\n        \"priceLevel\": \"moderate\"\n      }\n    }\n  ],\n  \"flexibleTimeEntries\": [],\n  \"preferences\": {\n    \"budget\": \"moderate\",\n    \"pace\": \"moderate\",\n    \"interests\": []\n  },\n  \"travelGroup\": {\n    \"adults\": 1,\n    \"children\": 0\n  },\n  \"specialRequests\": []\n}\n```\n","service":"ai-interaction-logger","sessionId":"f9a7f4b8-cf7b-421a-9c2f-7de5543687fe","status":"success","timestamp":"2025-06-05T12:25:26.454Z","userQuery":"Coffee at 10 AM"}
+Failed to log AI interaction to database: TypeError: db.insert is not a function
+    at logAiInteraction (/Users/carlos/LondonDayPlanner-1/server/lib/aiLogging.ts:93:16)
+    at attemptGeminiProcessing (/Users/carlos/LondonDayPlanner-1/server/lib/geminiProcessor.ts:460:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at processWithGemini (/Users/carlos/LondonDayPlanner-1/server/lib/geminiProcessor.ts:176:22)
+    at parseItineraryRequest (/Users/carlos/LondonDayPlanner-1/server/lib/nlp-fixed.ts:526:25)
+    at MemoryCache.getOrSet (/Users/carlos/LondonDayPlanner-1/server/lib/cache.ts:59:23)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:71:37)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:189:25)
+Processing Gemini response with raw data: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "Coffee",
+      "location": "Midtown",
+      "venuePreference": "cafe",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "pace": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": []
+}
+Processing 1 fixed time entries with duplicate detection
+Added fixed time entry: Coffee at Midtown, 10:00
+Final processed result: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "Coffee",
+      "location": "Midtown",
+      "venuePreference": "cafe",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "pace": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Midtown"
+}
+✅ [nlp-fixed] processWithGemini completed successfully, result: VALID
+Successfully processed query with new Gemini processor
+Raw Gemini API response: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "Coffee",
+      "location": "Midtown",
+      "venuePreference": "cafe",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "pace": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Midtown"
+}
+Converting Gemini result to app format: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "Coffee",
+      "location": "Midtown",
+      "venuePreference": "cafe",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "pace": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Midtown"
+}
+Raw time blocks from Gemini: []
+Raw fixed appointments from Gemini: []
+Raw fixed time entries from Gemini: [
+  {
+    "time": "10:00",
+    "activity": "Coffee",
+    "location": "Midtown",
+    "venuePreference": "cafe",
+    "venueRequirements": [],
+    "searchParameters": {
+      "priceLevel": "moderate",
+      "venueType": "cafe",
+      "specificRequirements": []
+    }
+  }
+]
+Fixed time entry: Normalized time from "10:00" to "10:00"
+Correctly interpreted time "10:00" as America/New_York time: 10:00 AM (2025-06-05T14:00:00.000Z)
+Correctly interpreted time "10:00" as New York City time: 10:00 AM (2025-06-05T14:00:00.000Z)
+Found venue preference: "cafe" for activity: Coffee
+Processed fixed time entry: Coffee at Midtown, time: 2025-06-05T14:00:00.000Z, type: cafe
+Raw flexible time entries from Gemini: []
+Final de-duplicated activities count: 1
+Converted app format request: {
+  "startLocation": "Midtown",
+  "destinations": [],
+  "fixedTimes": [
+    {
+      "location": "Midtown",
+      "time": "2025-06-05T14:00:00.000Z",
+      "type": "cafe",
+      "searchTerm": "Coffee",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "10:00 AM",
+      "searchPreference": "cafe"
+    }
+  ],
+  "preferences": {
+    "type": "moderate",
+    "requirements": []
+  }
+}
+Using optimized Gemini result that was converted by convertGeminiToAppFormat function
+Gemini result contains 1 de-duplicated activities
+Validating location: "Midtown" with Google Maps Geocoding API
+Geocoding search query: "Midtown, New York City, USA"
+Validated "Midtown" as neighborhood: "Midtown Manhattan"
+Final processed Gemini result: {
+  "startLocation": "Midtown",
+  "destinations": [],
+  "fixedTimes": [
+    {
+      "location": "Midtown Manhattan",
+      "time": "2025-06-05T14:00:00.000Z",
+      "type": "cafe",
+      "searchTerm": "Coffee",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "10:00 AM",
+      "searchPreference": "cafe"
+    }
+  ],
+  "preferences": {
+    "type": "moderate",
+    "requirements": []
+  }
+}
+📝 Parsed request from cache/fetch: {
+  startLocation: 'Midtown',
+  destinations: [],
+  fixedTimes: [
+    {
+      location: 'Midtown Manhattan',
+      time: '2025-06-05T14:00:00.000Z',
+      type: 'cafe',
+      searchTerm: 'Coffee',
+      keywords: [],
+      minRating: 4,
+      displayTime: '10:00 AM',
+      searchPreference: 'cafe'
+    }
+  ],
+  preferences: { type: 'moderate', requirements: [] }
+}
+📍 Using explicit start location from NLP: Midtown
+📍 Determined initial search/start location: Midtown
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Midtown Manhattan","time":"2025-06-05T14:00:00.000Z","type":"cafe","searchTerm":"Coffee","keywords":[],"minRating":4,"displayTime":"10:00 AM","searchPreference":"cafe"}
+Parsed ISO timestamp "2025-06-05T14:00:00.000Z" to America/New_York time: 2025-06-05 10:00:00 EDT
+🔍 [enhancedPlaceSearch] Starting enhanced search with options: {
+  query: 'Coffee',
+  location: 'Midtown Manhattan',
+  keywords: [ 'cafe' ],
+  type: 'cafe',
+  preferences: { venuePreference: 'cafe' },
+  scheduledDateTime: 2025-06-05T14:00:00.000Z,
+  cityContext: { name: 'New York City', slug: 'nyc', timezone: 'America/New_York' }
+}
+🤖 [Gemini] Enhanced query: best cafes in Midtown Manhattan
+📍 [enhancedPlaceSearch] Found specific area coordinates for "Midtown Manhattan": { lat: 40.7549, lng: -73.984 }
+🎯 [enhancedPlaceSearch] Using location bias: 40.7549,-73.984 with radius 5000m
+🌐 [enhancedPlaceSearch] Searching with query: best cafes in Midtown Manhattan
+🏙️ [enhancedPlaceSearch] After city filtering: 4 venues remain for New York City
+🕒 [enhancedPlaceSearch] Filtering venues by operating hours for 2025-06-05T14:00:00.000Z
+🕒 [Operating Hours] Validating hours for Little Collins at 2025-06-05T14:00:00.000Z
+📅 [Operating Hours] Scheduled: 2025-06-05 10:00:00 Thursday, Day: 4, Time: 1000
+⚠️ [Operating Hours] Could not determine hours for Little Collins
+✅ [Operating Hours] Little Collins: Could not determine operating hours
+🕒 [Operating Hours] Validating hours for Bibble & Sip at 2025-06-05T14:00:00.000Z
+📅 [Operating Hours] Scheduled: 2025-06-05 10:00:00 Thursday, Day: 4, Time: 1000
+⚠️ [Operating Hours] Could not determine hours for Bibble & Sip
+✅ [Operating Hours] Bibble & Sip: Could not determine operating hours
+🕒 [Operating Hours] Validating hours for Pavé at 2025-06-05T14:00:00.000Z
+📅 [Operating Hours] Scheduled: 2025-06-05 10:00:00 Thursday, Day: 4, Time: 1000
+⚠️ [Operating Hours] Could not determine hours for Pavé
+✅ [Operating Hours] Pavé: Could not determine operating hours
+🕒 [Operating Hours] Validating hours for 787 Coffee Co. at 2025-06-05T14:00:00.000Z
+📅 [Operating Hours] Scheduled: 2025-06-05 10:00:00 Thursday, Day: 4, Time: 1000
+⚠️ [Operating Hours] Could not determine hours for 787 Coffee Co.
+✅ [Operating Hours] 787 Coffee Co.: Could not determine operating hours
+✅ [enhancedPlaceSearch] 4 venues are open, 0 are closed
+✅ [enhancedPlaceSearch] Found 4 places with ratings
+🎲 [enhancedPlaceSearch] Selected venue (with variety): {
+  name: '787 Coffee Co.',
+  rating: 4.9,
+  address: '251 W 30th St, New York, NY 10001, United States'
+}
+🔄 [enhancedPlaceSearch] Alternatives: [
+  { name: 'Pavé', rating: 4.7 },
+  { name: 'Little Collins', rating: 4.6 },
+  { name: 'Bibble & Sip', rating: 4.5 }
+]
+🔍 [SERVICE] Place details for "787 Coffee Co.": {
+  hasRating: true,
+  rating: 4.9,
+  hasTypes: true,
+  types: [ 'cafe', 'store', 'food', 'point_of_interest', 'establishment' ],
+  detailsKeys: [
+    'business_status',
+    'formatted_address',
+    'geometry',
+    'icon',
+    'icon_background_color',
+    'icon_mask_base_uri',
+    'name',
+    'opening_hours',
+    'photos',
+    'place_id',
+    'plus_code',
+    'rating',
+    'reference',
+    'types',
+    'user_ratings_total'
+  ],
+  fullDetails: '{\n' +
+    '  "business_status": "OPERATIONAL",\n' +
+    '  "formatted_address": "251 W 30th St, New York, NY 10001, United States",\n' +
+    '  "geometry": {\n' +
+    '    "location": {\n' +
+    '      "lat": 40.7493629,\n' +
+    '      "lng": -73.9942691\n' +
+    '    },\n' +
+    '    "viewport": {\n' +
+    '      "northeast": {\n' +
+    '        "lat": 40.75066732989272,\n' +
+    '        "lng": -73.99294962010727\n' +
+    '      },\n' +
+    '      "southwest": {\n' +
+    '        "lat": 40.74796767010728,\n' +
+    '        "lng": -73.99564927989272\n' +
+    '      }\n' +
+    '    }\n' +
+    '  },\n' +
+    '  "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png",\n' +
+    '  "icon_background_color": "#FF9E67",\n' +
+    '  "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet",\n' +
+    '  "name": "787 Coffee Co.",\n' +
+    '  "opening_hours": {\n' +
+    '    "open_now": true\n' +
+    '  },\n' +
+    '  "photos": [\n' +
+    '    {\n' +
+    '      "height": 1536,\n' +
+    '      "html_attributions": [\n' +
+    '        "<a href=\\"https://maps.google.com/maps/contrib/105795084623614215544\\">787 Coffee Co.</a>"\n' +
+    '      ],\n' +
+    '      "photo_reference": "AXQCQNS2YZz6gHHAdctHvaW8clSAwPoSusWhgQCXtL_kRdC10MiBwRn5E6UblU4QL5jtINjhXMyWLoBUqG4kuQEpDTYzkllpeZ51yhSfyxNNGvtjLW_0YzVSPmRxDQ7ftXT77jZV1K1z9ROiEbYP2fNXBnq-zSYVH7GLSvFvopW4Dmojgw8l20BHBc6bXh3owcKqzxq4ClWC8KFgS7y0Ogl9Zvdn6srNKevjrCcGoB_8oPvbXqQ1Sk2OKZ6M45LUGBRfhSVFljGEJ8_18wPBtvks8O7KdUcqfm82NFx1ggwx5LSLEtqNGR4",\n' +
+    '      "width": 2048\n' +
+    '    }\n' +
+    '  ],\n' +
+    '  "place_id": "ChIJ41W9caFZwokRVJOfTKNepZI",\n' +
+    '  "plus_code": {\n' +
+    '    "compound_code": "P2X4+P7 New York",\n' +
+    '    "global_code": "87G8P2X4+P7"\n' +
+    '  },\n' +
+    '  "rating": 4.9,\n' +
+    '  "reference": "ChIJ41W9caFZwokRVJOfTKNepZI",\n' +
+    '  "types": [\n' +
+    '    "cafe",\n' +
+    '    "store",\n' +
+    '    "food",\n' +
+    '    "point_of_interest",\n' +
+    '    "establishment"\n' +
+    '  ],\n' +
+    '  "user_ratings_total": 3239\n' +
+    '}'
+}
+🔍 [SERVICE] About to store place with details: {
+  hasDetails: true,
+  rating: 4.9,
+  types: [ 'cafe', 'store', 'food', 'point_of_interest', 'establishment' ],
+  detailsSize: 1318
+}
+🔍 [SERVICE] placeToInsert details: {
+  hasDetails: true,
+  detailsType: 'object',
+  detailsKeys: [
+    'business_status',
+    'formatted_address',
+    'geometry',
+    'icon',
+    'icon_background_color',
+    'icon_mask_base_uri',
+    'name',
+    'opening_hours',
+    'photos',
+    'place_id',
+    'plus_code',
+    'rating',
+    'reference',
+    'types',
+    'user_ratings_total'
+  ]
+}
+Error checking for existing place: TypeError: db.select is not a function
+    at DbStorageWithLogging.createPlace (/Users/carlos/LondonDayPlanner-1/server/storage.ts:481:42)
+    at ItineraryPlanningService._processFixedAppointments (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:554:44)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:221:7)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:189:25)
+Database error in createPlace, using in-memory fallback: db.select is not a function
+🆕 [MEM-FALLBACK] Created new place "787 Coffee Co." with details
+🔍 [SERVICE] Stored place "787 Coffee Co." details: {
+  hasDetails: true,
+  detailsType: 'object',
+  detailsKeys: [
+    'business_status',
+    'formatted_address',
+    'geometry',
+    'icon',
+    'icon_background_color',
+    'icon_mask_base_uri',
+    'name',
+    'opening_hours',
+    'photos',
+    'place_id',
+    'plus_code',
+    'rating',
+    'reference',
+    'types',
+    'user_ratings_total'
+  ],
+  rating: 4.9,
+  types: [ 'cafe', 'store', 'food', 'point_of_interest', 'establishment' ]
+}
+Added fixed appointment to itinerary: 787 Coffee Co. at 2025-06-05T14:00:00.000Z
+DbStorage (with logging): Creating itinerary (anonymous)
+DbStorage (with logging): Error creating itinerary: TypeError: db.insert is not a function
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:137:36)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:635:34)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:300:51)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:189:25)
+Using in-memory fallback for createItinerary due to database error
+Successfully created itinerary "Coffee in New York City" for New York City with ID: 2
+[Weather] Fetching weather for 40.75,-73.99
+[Weather] Success with OpenWeatherMap
+🌤️ [/api/plan] Retrieved weather data for itinerary
+🔍 [/api/plan] Place "787 Coffee Co." details: {
+  hasDetails: false,
+  detailsKeys: [],
+  rating: undefined,
+  types: undefined
+}
+📤 [/api/plan] Sending response with 1 venues
+2025-06-05 05:25:27 INFO [API] POST /api/plan 200 (4120ms) {
+  "statusCode": 200,
+  "duration": 4120
+}
+📝 [/api/plan] Generic plan request received
+Query: Coffee at 10 AM
+Raw request body: { query: 'Coffee at 10 AM', citySlug: 'nyc' }
+🌍 [/api/plan] Parsed parameters: { city: undefined, citySlug: 'nyc', cityIdentifier: 'nyc' }
+🚀 [/api/plan] Creating plan for New York City
+🏙️ Creating plan for city: nyc
+🚀 Creating plan for query: Coffee at 10 AM
+[NLP] Processing query with context for city: New York City
+🚀 [nlp-fixed] Attempting to process query with new Gemini processor
+🚀 [nlp-fixed] Query: Coffee at 10 AM
+🚀 [nlp-fixed] CityContext: { name: 'New York City', slug: 'nyc', timezone: 'America/New_York' }
+Raw Gemini structured data: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "Coffee",
+      "location": "Midtown",
+      "venuePreference": "cafe",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "pace": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": []
+}
+[32minfo[39m: AI Interaction {"modelName":"gemini-1.5-pro","parsedResponse":{"fixedAppointments":[],"fixedTimeEntries":[{"activity":"Coffee","location":"Midtown","searchParameters":{"priceLevel":"moderate","specificRequirements":[],"venueType":"cafe"},"time":"10:00","venuePreference":"cafe","venueRequirements":[]}],"flexibleTimeEntries":[],"preferences":{"budget":"moderate","interests":[],"pace":"moderate"},"specialRequests":[],"timeBlocks":[],"travelGroup":{"adults":1,"children":0}},"processingTimeMs":2829,"rawRequest":{"prompt":"\n    You are an expert travel planning assistant for New York City. Extract structured information from this itinerary request with extreme attention to detail.\n    \n    CRITICAL PARSING RULES:\n    \n    1. JSON FORMAT: Return ONLY valid JSON matching the schema - no markdown, no extra text\n    \n    2. TIME EXTRACTION:\n       - Use 24-hour format (e.g., \"09:00\", \"15:30\")\n       - \"at 6\" without context = \"18:00\" (assume evening for dinner/drinks)\n       - \"at 6\" with morning context = \"06:00\"\n       - Default meal times: breakfast=\"09:00\", lunch=\"12:00\", dinner=\"19:00\"\n       - \"morning\"=\"09:00\", \"afternoon\"=\"14:00\", \"evening\"=\"18:00\", \"night\"=\"21:00\"\n       - \"early morning\"=\"07:00\", \"late morning\"=\"11:00\", \"late afternoon\"=\"16:00\"\n       - \"sunset\" = \"18:30\", \"sunrise\" = \"06:30\"\n       - RELATIVE TIME HANDLING (CRITICAL):\n         * \"in X hours\" = add X hours to the start time or previous activity time\n         * \"X hours later\" = add X hours to the previous activity time\n         * Example: If start is 10:00, \"in 1 hour\" = \"11:00\", \"in 3 hours\" = \"13:00\"\n         * Example: If last activity is 12:00, \"2 hours later\" = \"14:00\"\n       - REVERSE PLANNING (CRITICAL):\n         * \"before that\" = calculate earlier time from the reference activity\n         * \"end with X at Y time\" = X happens at Y time, earlier activities before\n         * \"working backwards from X\" = X is the last/latest activity\n         * Example: \"meeting at 3 PM, lunch before that\" = lunch at 12:00-13:00\n         * Example: \"flight at 8 PM, dinner before\" = dinner at 18:00-19:00\n         * ALWAYS include ALL mentioned activities, even reference points like meetings/flights\n    \n    3. TIME BLOCKS & APPOINTMENTS - NEW CRITICAL PARSING:\n       - TIME BLOCKS: \"work from X to Y\", \"spend X hours at\", \"need X hours for\"\n         * Example: \"work from 10 AM to 3 PM\" → timeBlocks entry with startTime: \"10:00\", endTime: \"15:00\"\n         * Example: \"need a quiet place to work for 5 hours\" → timeBlocks entry with duration reflected in end time\n         * Extract venue requirements: \"quiet\", \"good wifi\", \"suitable for calls\"\n       - FIXED APPOINTMENTS: \"meeting at X\", \"appointment at Y\", \"reservation at Z\"\n         * Example: \"meeting in Mayfair at 5\" → fixedAppointments entry with time: \"17:00\", location: \"Mayfair\"\n         * Add buffers: meeting = 30 min before, dinner = 15 min before\n       - REGULAR ACTIVITIES: Everything else goes in fixedTimeEntries\n    \n    4. ACTIVITY SEQUENCE - CRITICAL:\n       - Preserve the EXACT order mentioned by the user\n       - \"then\", \"after that\", \"after\", \"followed by\", \"next\", \"afterwards\" indicate sequence\n       - Count ALL activities mentioned (coffee, lunch, drinks, etc.)\n       - If no times given, space activities 1.5-2 hours apart\n       - Parse compound sentences carefully: \"I have a meeting... and would like to go to a restaurant\" = 2 activities\n    \n    5. VENUE PREFERENCES - CRITICAL:\n       - ALWAYS extract venue descriptors to venuePreference field\n       - SPECIFIC FOOD MENTIONS must be captured exactly:\n         * \"fish and chips\" → venuePreference: \"fish and chips restaurant\"\n         * \"pizza\" → venuePreference: \"pizza restaurant\"\n         * \"sushi\" → venuePreference: \"sushi restaurant\"\n         * \"tacos\" → venuePreference: \"taco restaurant\"\n         * \"burgers\" → venuePreference: \"burger restaurant\"\n         * \"chinese food\" → venuePreference: \"chinese restaurant\"\n         * \"italian\" → venuePreference: \"italian restaurant\"\n         * \"breakfast tacos\" → venuePreference: \"breakfast taco restaurant\"\n       - STYLE DESCRIPTORS:\n         * \"hipster cafe\" → venuePreference: \"hipster cafe\"\n         * \"authentic Jewish deli\" → venuePreference: \"authentic Jewish deli\"\n         * \"trendy brunch spot\" → venuePreference: \"trendy brunch spot\"\n         * \"hole-in-the-wall\" → venuePreference: \"hole-in-the-wall\"\n         * \"michelin star\" → venuePreference: \"michelin star restaurant\"\n         * \"rooftop bar\" → venuePreference: \"rooftop bar\"\n         * \"sports bar\" → venuePreference: \"sports bar\"\n         * \"family-friendly\" → venuePreference: \"family-friendly restaurant\"\n       - REQUIREMENTS (NOT preferences):\n         * \"outdoor seating\" → specificRequirements: [\"outdoor seating\"]\n         * \"with a view\" → specificRequirements: [\"with a view\"]\n         * \"good wifi\" → specificRequirements: [\"wifi\"]\n    \n    6. LOCATION INTELLIGENCE - CRITICAL:\n       - PRESERVE ALL LOCATION MENTIONS from the user's query!\n       - Common New York City locations: \"SoHo\", \"Greenwich Village\", \"Upper East Side\", \"Midtown\"\n       - If user mentions a specific place (e.g., \"Barton Springs\", \"4th st\"), USE IT EXACTLY\n       - LANDMARK RECOGNITION (CRITICAL):\n         * Famous landmarks MUST be preserved exactly as mentioned\n         * New York City landmarks include: MoMA, Met, Natural History Museum\n         * \"Big Ben\" → location: \"Big Ben\", type: \"tourist_attraction\"\n         * \"Tower of London\" → location: \"Tower of London\", type: \"tourist_attraction\"  \n         * \"Statue of Liberty\" → location: \"Statue of Liberty\", type: \"tourist_attraction\"\n         * For \"lunch near [landmark]\" → location: \"[landmark area]\" (e.g., \"Tower Bridge area\")\n         * NEVER change landmark names to generic locations\n       - \"that famous museum\" → Try to infer (MoMA, Met, Natural History Museum)\n       - \"nearby\" → Use previous activity's location\n       - \"somewhere nice\" or generic location → \"Midtown\"\n       - No location → \"Midtown\"\n       - NEVER replace specific location mentions with generic ones\n    \n    6. SPECIAL REQUIREMENTS:\n       - Budget mentions: \"cheap\"/\"budget\" → budget: \"budget\", \"upscale\"/\"fancy\" → budget: \"expensive\"\n       - Group size: \"family\", \"group of X\" → travelGroup numbers\n       - Dietary: \"kosher\", \"vegan\", \"halal\" → specificRequirements\n       - Accessibility: \"wheelchair\", \"accessible\" → accessibility requirements\n       - Weather: \"if nice weather\" → note in specialRequests\n    \n    7. ACTIVITY TYPES:\n       - Meals: breakfast/brunch/lunch/dinner → restaurant\n       - Coffee/work at cafe → cafe\n       - Drinks/cocktails/lounge → bar (NOT attraction)\n       - Shopping → shopping\n       - Museums/galleries → museum\n       - Parks/outdoor/walk → park\n       - Shows/entertainment → entertainment\n       - Meeting/appointment → MUST include in fixedAppointments or fixedTimeEntries with type: \"skip\"\n       - LANDMARKS (CRITICAL):\n         * Famous landmarks → tourist_attraction\n         * \"visit [landmark]\", \"see [landmark]\" → tourist_attraction\n         * Activities near landmarks should reference the landmark in location\n    \n    8. EDGE CASES:\n       - Conflicting requirements: Choose most logical interpretation\n       - Vague queries: Make reasonable New York City-appropriate suggestions\n       - Multi-day: Note day changes in flexibleTimeEntries\n    \n    SCHEMA STRUCTURE:\n    {\n      \"timeBlocks\": [\n        {\n          \"startTime\": \"10:00\",\n          \"endTime\": \"15:00\",\n          \"activity\": \"work session\",\n          \"location\": \"Canary Wharf\",\n          \"venueRequirements\": [\"quiet\", \"good wifi\", \"suitable for calls\"],\n          \"searchParameters\": {\n            \"venueType\": \"cafe\",\n            \"specificRequirements\": [\"quiet\", \"wifi\", \"power outlets\"],\n            \"ambience\": \"quiet\"\n          }\n        }\n      ],\n      \"fixedAppointments\": [\n        {\n          \"time\": \"17:00\",\n          \"duration\": 60,\n          \"activity\": \"meeting\",\n          \"location\": \"Mayfair\",\n          \"bufferBefore\": 30,\n          \"bufferAfter\": 15,\n          \"isFixed\": true\n        }\n      ],\n      \"fixedTimeEntries\": [\n        {\n          \"time\": \"HH:MM\",\n          \"activity\": \"Brief description\",\n          \"location\": \"New York City location\",\n          \"venuePreference\": \"specific venue type if mentioned\",\n          \"venueRequirements\": [\"quiet\", \"non-crowded\"],\n          \"searchParameters\": {\n            \"venuePreference\": \"DUPLICATE venue preference here\",\n            \"specificRequirements\": [\"array of requirements\"],\n            \"cuisine\": \"if food related\",\n            \"priceLevel\": \"budget/moderate/expensive\"\n          }\n        }\n      ],\n      \"flexibleTimeEntries\": [...same structure...],\n      \"preferences\": {\n        \"budget\": \"overall budget level\",\n        \"pace\": \"relaxed/moderate/busy\",\n        \"interests\": [\"user interests\"]\n      },\n      \"travelGroup\": {\n        \"adults\": number,\n        \"children\": number\n      },\n      \"specialRequests\": [\"any special notes\"]\n    }\n\n    \n    \n    \n    IMPORTANT: Count ALL activities in this request and ensure each one appears in the output.\n    \n    Here's the request to analyze:\n    Coffee at 10 AM\n    \n    CRITICAL REMINDER: Extract EVERY SINGLE activity mentioned above. Do not skip any activities even if there are many. Each distinct activity should have its own entry in fixedTimeEntries.\n    ","temperature":0.2},"rawResponse":"```json\n{\n  \"timeBlocks\": [],\n  \"fixedAppointments\": [],\n  \"fixedTimeEntries\": [\n    {\n      \"time\": \"10:00\",\n      \"activity\": \"Coffee\",\n      \"location\": \"Midtown\",\n      \"venuePreference\": \"cafe\",\n      \"venueRequirements\": [],\n      \"searchParameters\": {\n        \"venueType\": \"cafe\",\n        \"specificRequirements\": [],\n        \"priceLevel\": \"moderate\"\n      }\n    }\n  ],\n  \"flexibleTimeEntries\": [],\n  \"preferences\": {\n    \"budget\": \"moderate\",\n    \"pace\": \"moderate\",\n    \"interests\": []\n  },\n  \"travelGroup\": {\n    \"adults\": 1,\n    \"children\": 0\n  },\n  \"specialRequests\": []\n}\n```\n","service":"ai-interaction-logger","sessionId":"630033cb-6516-4814-ba06-05ee45f7be98","status":"success","timestamp":"2025-06-05T13:27:18.692Z","userQuery":"Coffee at 10 AM"}
+Failed to log AI interaction to database: TypeError: db.insert is not a function
+    at logAiInteraction (/Users/carlos/LondonDayPlanner-1/server/lib/aiLogging.ts:93:16)
+    at attemptGeminiProcessing (/Users/carlos/LondonDayPlanner-1/server/lib/geminiProcessor.ts:460:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at processWithGemini (/Users/carlos/LondonDayPlanner-1/server/lib/geminiProcessor.ts:176:22)
+    at parseItineraryRequest (/Users/carlos/LondonDayPlanner-1/server/lib/nlp-fixed.ts:526:25)
+    at MemoryCache.getOrSet (/Users/carlos/LondonDayPlanner-1/server/lib/cache.ts:59:23)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:71:37)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:189:25)
+Processing Gemini response with raw data: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "Coffee",
+      "location": "Midtown",
+      "venuePreference": "cafe",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "pace": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": []
+}
+Processing 1 fixed time entries with duplicate detection
+Added fixed time entry: Coffee at Midtown, 10:00
+Final processed result: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "Coffee",
+      "location": "Midtown",
+      "venuePreference": "cafe",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "pace": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Midtown"
+}
+✅ [nlp-fixed] processWithGemini completed successfully, result: VALID
+Successfully processed query with new Gemini processor
+Raw Gemini API response: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "Coffee",
+      "location": "Midtown",
+      "venuePreference": "cafe",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "pace": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Midtown"
+}
+Converting Gemini result to app format: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "Coffee",
+      "location": "Midtown",
+      "venuePreference": "cafe",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "pace": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Midtown"
+}
+Raw time blocks from Gemini: []
+Raw fixed appointments from Gemini: []
+Raw fixed time entries from Gemini: [
+  {
+    "time": "10:00",
+    "activity": "Coffee",
+    "location": "Midtown",
+    "venuePreference": "cafe",
+    "venueRequirements": [],
+    "searchParameters": {
+      "priceLevel": "moderate",
+      "venueType": "cafe",
+      "specificRequirements": []
+    }
+  }
+]
+Fixed time entry: Normalized time from "10:00" to "10:00"
+Correctly interpreted time "10:00" as America/New_York time: 10:00 AM (2025-06-05T14:00:00.000Z)
+Correctly interpreted time "10:00" as New York City time: 10:00 AM (2025-06-05T14:00:00.000Z)
+Found venue preference: "cafe" for activity: Coffee
+Processed fixed time entry: Coffee at Midtown, time: 2025-06-05T14:00:00.000Z, type: cafe
+Raw flexible time entries from Gemini: []
+Final de-duplicated activities count: 1
+Converted app format request: {
+  "startLocation": "Midtown",
+  "destinations": [],
+  "fixedTimes": [
+    {
+      "location": "Midtown",
+      "time": "2025-06-05T14:00:00.000Z",
+      "type": "cafe",
+      "searchTerm": "Coffee",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "10:00 AM",
+      "searchPreference": "cafe"
+    }
+  ],
+  "preferences": {
+    "type": "moderate",
+    "requirements": []
+  }
+}
+Using optimized Gemini result that was converted by convertGeminiToAppFormat function
+Gemini result contains 1 de-duplicated activities
+Validating location: "Midtown" with Google Maps Geocoding API
+Geocoding search query: "Midtown, New York City, USA"
+Validated "Midtown" as neighborhood: "Midtown Manhattan"
+Final processed Gemini result: {
+  "startLocation": "Midtown",
+  "destinations": [],
+  "fixedTimes": [
+    {
+      "location": "Midtown Manhattan",
+      "time": "2025-06-05T14:00:00.000Z",
+      "type": "cafe",
+      "searchTerm": "Coffee",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "10:00 AM",
+      "searchPreference": "cafe"
+    }
+  ],
+  "preferences": {
+    "type": "moderate",
+    "requirements": []
+  }
+}
+📝 Parsed request from cache/fetch: {
+  startLocation: 'Midtown',
+  destinations: [],
+  fixedTimes: [
+    {
+      location: 'Midtown Manhattan',
+      time: '2025-06-05T14:00:00.000Z',
+      type: 'cafe',
+      searchTerm: 'Coffee',
+      keywords: [],
+      minRating: 4,
+      displayTime: '10:00 AM',
+      searchPreference: 'cafe'
+    }
+  ],
+  preferences: { type: 'moderate', requirements: [] }
+}
+📍 Using explicit start location from NLP: Midtown
+📍 Determined initial search/start location: Midtown
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Midtown Manhattan","time":"2025-06-05T14:00:00.000Z","type":"cafe","searchTerm":"Coffee","keywords":[],"minRating":4,"displayTime":"10:00 AM","searchPreference":"cafe"}
+Parsed ISO timestamp "2025-06-05T14:00:00.000Z" to America/New_York time: 2025-06-05 10:00:00 EDT
+🔍 [enhancedPlaceSearch] Starting enhanced search with options: {
+  query: 'Coffee',
+  location: 'Midtown Manhattan',
+  keywords: [ 'cafe' ],
+  type: 'cafe',
+  preferences: { venuePreference: 'cafe' },
+  scheduledDateTime: 2025-06-05T14:00:00.000Z,
+  cityContext: { name: 'New York City', slug: 'nyc', timezone: 'America/New_York' }
+}
+🤖 [Gemini] Enhanced query: best cafes in Midtown Manhattan
+📍 [enhancedPlaceSearch] Found specific area coordinates for "Midtown Manhattan": { lat: 40.7549, lng: -73.984 }
+🎯 [enhancedPlaceSearch] Using location bias: 40.7549,-73.984 with radius 5000m
+🌐 [enhancedPlaceSearch] Searching with query: best cafes in Midtown Manhattan
+🏙️ [enhancedPlaceSearch] After city filtering: 4 venues remain for New York City
+🕒 [enhancedPlaceSearch] Filtering venues by operating hours for 2025-06-05T14:00:00.000Z
+🕒 [Operating Hours] Validating hours for Little Collins at 2025-06-05T14:00:00.000Z
+✅ [Operating Hours] Little Collins: Currently open
+🕒 [Operating Hours] Validating hours for Bibble & Sip at 2025-06-05T14:00:00.000Z
+✅ [Operating Hours] Bibble & Sip: Currently open
+🕒 [Operating Hours] Validating hours for 787 Coffee at 2025-06-05T14:00:00.000Z
+✅ [Operating Hours] 787 Coffee: Currently open
+🕒 [Operating Hours] Validating hours for White Noise Coffee - Coffee Shop & Roastery at 2025-06-05T14:00:00.000Z
+✅ [Operating Hours] White Noise Coffee - Coffee Shop & Roastery: Currently open
+✅ [enhancedPlaceSearch] 4 venues are open, 0 are closed
+✅ [enhancedPlaceSearch] Found 4 places with ratings
+🎲 [enhancedPlaceSearch] Selected venue (with variety): {
+  name: '787 Coffee',
+  rating: 4.9,
+  address: '401 E 58th St, New York, NY 10022, United States'
+}
+🔄 [enhancedPlaceSearch] Alternatives: [
+  { name: 'White Noise Coffee - Coffee Shop & Roastery', rating: 4.7 },
+  { name: 'Little Collins', rating: 4.6 },
+  { name: 'Bibble & Sip', rating: 4.5 }
+]
+🔍 [SERVICE] Place details for "787 Coffee": {
+  hasRating: true,
+  rating: 4.9,
+  hasTypes: true,
+  types: [ 'cafe', 'store', 'food', 'point_of_interest', 'establishment' ],
+  detailsKeys: [
+    'business_status',
+    'formatted_address',
+    'geometry',
+    'icon',
+    'icon_background_color',
+    'icon_mask_base_uri',
+    'name',
+    'opening_hours',
+    'photos',
+    'place_id',
+    'plus_code',
+    'rating',
+    'reference',
+    'types',
+    'user_ratings_total'
+  ],
+  fullDetails: '{\n' +
+    '  "business_status": "OPERATIONAL",\n' +
+    '  "formatted_address": "401 E 58th St, New York, NY 10022, United States",\n' +
+    '  "geometry": {\n' +
+    '    "location": {\n' +
+    '      "lat": 40.75892380000001,\n' +
+    '      "lng": -73.9620028\n' +
+    '    },\n' +
+    '    "viewport": {\n' +
+    '      "northeast": {\n' +
+    '        "lat": 40.76022442989272,\n' +
+    '        "lng": -73.96068887010728\n' +
+    '      },\n' +
+    '      "southwest": {\n' +
+    '        "lat": 40.75752477010728,\n' +
+    '        "lng": -73.96338852989271\n' +
+    '      }\n' +
+    '    }\n' +
+    '  },\n' +
+    '  "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png",\n' +
+    '  "icon_background_color": "#FF9E67",\n' +
+    '  "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet",\n' +
+    '  "name": "787 Coffee",\n' +
+    '  "opening_hours": {\n' +
+    '    "open_now": true\n' +
+    '  },\n' +
+    '  "photos": [\n' +
+    '    {\n' +
+    '      "height": 1600,\n' +
+    '      "html_attributions": [\n' +
+    '        "<a href=\\"https://maps.google.com/maps/contrib/101111269416855984215\\">787 Coffee</a>"\n' +
+    '      ],\n' +
+    '      "photo_reference": "AXQCQNR6RidCUwfPSD50NCssVUfCj-amg8V_7UWZ3SAPwlOPYZOfBcPiJSlFRJcpj7ZvOummxMKkgkX75JrshsoplkwIuUrMLzXSMAXMbFT2vUn0sMAvlAv8RRMu_chMQbmOCqXxGtGkc13neHoomX_T9AEsJ01TVgHTXB9cySDr30eQ0Ir7n-IiwmtEGlYpy_lwwjFT7WhWR29o6mZBXAHy0u-HNC8SKVjpXnTcuVh24X_q1ULgZWsxCqJ_bHdOTn-JLh5sugll0S9WB0qIZCetVMYqMfElSKKS0xi8-_Ie_D5X3LrpjDo",\n' +
+    '      "width": 900\n' +
+    '    }\n' +
+    '  ],\n' +
+    '  "place_id": "ChIJK0YMWmdZwokRwRsOreYzArU",\n' +
+    '  "plus_code": {\n' +
+    '    "compound_code": "Q25Q+H5 New York",\n' +
+    '    "global_code": "87G8Q25Q+H5"\n' +
+    '  },\n' +
+    '  "rating": 4.9,\n' +
+    '  "reference": "ChIJK0YMWmdZwokRwRsOreYzArU",\n' +
+    '  "types": [\n' +
+    '    "cafe",\n' +
+    '    "store",\n' +
+    '    "food",\n' +
+    '    "point_of_interest",\n' +
+    '    "establishment"\n' +
+    '  ],\n' +
+    '  "user_ratings_total": 1722\n' +
+    '}'
+}
+🔍 [SERVICE] About to store place with details: {
+  hasDetails: true,
+  rating: 4.9,
+  types: [ 'cafe', 'store', 'food', 'point_of_interest', 'establishment' ],
+  detailsSize: 1316
+}
+🔍 [SERVICE] placeToInsert details: {
+  hasDetails: true,
+  detailsType: 'object',
+  detailsKeys: [
+    'business_status',
+    'formatted_address',
+    'geometry',
+    'icon',
+    'icon_background_color',
+    'icon_mask_base_uri',
+    'name',
+    'opening_hours',
+    'photos',
+    'place_id',
+    'plus_code',
+    'rating',
+    'reference',
+    'types',
+    'user_ratings_total'
+  ]
+}
+Error checking for existing place: TypeError: db.select is not a function
+    at DbStorageWithLogging.createPlace (/Users/carlos/LondonDayPlanner-1/server/storage.ts:481:42)
+    at ItineraryPlanningService._processFixedAppointments (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:554:44)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:221:7)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:189:25)
+Database error in createPlace, using in-memory fallback: db.select is not a function
+🆕 [MEM-FALLBACK] Created new place "787 Coffee" with details
+🔍 [SERVICE] Stored place "787 Coffee" details: {
+  hasDetails: true,
+  detailsType: 'object',
+  detailsKeys: [
+    'business_status',
+    'formatted_address',
+    'geometry',
+    'icon',
+    'icon_background_color',
+    'icon_mask_base_uri',
+    'name',
+    'opening_hours',
+    'photos',
+    'place_id',
+    'plus_code',
+    'rating',
+    'reference',
+    'types',
+    'user_ratings_total'
+  ],
+  rating: 4.9,
+  types: [ 'cafe', 'store', 'food', 'point_of_interest', 'establishment' ]
+}
+Added fixed appointment to itinerary: 787 Coffee at 2025-06-05T14:00:00.000Z
+DbStorage (with logging): Creating itinerary (anonymous)
+DbStorage (with logging): Error creating itinerary: TypeError: db.insert is not a function
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:137:36)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:635:34)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:300:51)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:189:25)
+Using in-memory fallback for createItinerary due to database error
+Successfully created itinerary "Coffee in New York City" for New York City with ID: 3
+[Weather] Fetching weather for 40.76,-73.96
+[Weather] Success with OpenWeatherMap
+🌤️ [/api/plan] Retrieved weather data for itinerary
+🔍 [/api/plan] Place "787 Coffee" details: {
+  hasDetails: false,
+  detailsKeys: [],
+  rating: undefined,
+  types: undefined
+}
+📤 [/api/plan] Sending response with 1 venues
+2025-06-05 06:27:20 INFO [API] POST /api/plan 200 (4242ms) {
+  "statusCode": 200,
+  "duration": 4242
+}
+📝 [/api/plan] Generic plan request received
+Query: Coffee at 10 AM then lunch in SoHo at 1 PM then dinner at 7 PM
+Raw request body: {
+  query: 'Coffee at 10 AM then lunch in SoHo at 1 PM then dinner at 7 PM',
+  citySlug: 'nyc'
+}
+🌍 [/api/plan] Parsed parameters: { city: undefined, citySlug: 'nyc', cityIdentifier: 'nyc' }
+🚀 [/api/plan] Creating plan for New York City
+🏙️ Creating plan for city: nyc
+🚀 Creating plan for query: Coffee at 10 AM then lunch in SoHo at 1 PM then dinner at 7 PM
+[NLP] Processing query with context for city: New York City
+🚀 [nlp-fixed] Attempting to process query with new Gemini processor
+🚀 [nlp-fixed] Query: Coffee at 10 AM then lunch in SoHo at 1 PM then dinner at 7 PM
+🚀 [nlp-fixed] CityContext: { name: 'New York City', slug: 'nyc', timezone: 'America/New_York' }
+Raw Gemini structured data: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "Coffee",
+      "location": "Midtown",
+      "venuePreference": "cafe",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "cafe"
+      }
+    },
+    {
+      "time": "13:00",
+      "activity": "Lunch",
+      "location": "SoHo",
+      "venuePreference": "restaurant",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "restaurant"
+      }
+    },
+    {
+      "time": "19:00",
+      "activity": "Dinner",
+      "location": "Midtown",
+      "venuePreference": "restaurant",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "restaurant"
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {},
+  "travelGroup": {},
+  "specialRequests": []
+}
+[32minfo[39m: AI Interaction {"modelName":"gemini-1.5-pro","parsedResponse":{"fixedAppointments":[],"fixedTimeEntries":[{"activity":"Coffee","location":"Midtown","searchParameters":{"venueType":"cafe"},"time":"10:00","venuePreference":"cafe","venueRequirements":[]},{"activity":"Lunch","location":"SoHo","searchParameters":{"venueType":"restaurant"},"time":"13:00","venuePreference":"restaurant","venueRequirements":[]},{"activity":"Dinner","location":"Midtown","searchParameters":{"venueType":"restaurant"},"time":"19:00","venuePreference":"restaurant","venueRequirements":[]}],"flexibleTimeEntries":[],"preferences":{},"specialRequests":[],"timeBlocks":[],"travelGroup":{}},"processingTimeMs":3570,"rawRequest":{"prompt":"\n    You are an expert travel planning assistant for New York City. Extract structured information from this itinerary request with extreme attention to detail.\n    \n    CRITICAL PARSING RULES:\n    \n    1. JSON FORMAT: Return ONLY valid JSON matching the schema - no markdown, no extra text\n    \n    2. TIME EXTRACTION:\n       - Use 24-hour format (e.g., \"09:00\", \"15:30\")\n       - \"at 6\" without context = \"18:00\" (assume evening for dinner/drinks)\n       - \"at 6\" with morning context = \"06:00\"\n       - Default meal times: breakfast=\"09:00\", lunch=\"12:00\", dinner=\"19:00\"\n       - \"morning\"=\"09:00\", \"afternoon\"=\"14:00\", \"evening\"=\"18:00\", \"night\"=\"21:00\"\n       - \"early morning\"=\"07:00\", \"late morning\"=\"11:00\", \"late afternoon\"=\"16:00\"\n       - \"sunset\" = \"18:30\", \"sunrise\" = \"06:30\"\n       - RELATIVE TIME HANDLING (CRITICAL):\n         * \"in X hours\" = add X hours to the start time or previous activity time\n         * \"X hours later\" = add X hours to the previous activity time\n         * Example: If start is 10:00, \"in 1 hour\" = \"11:00\", \"in 3 hours\" = \"13:00\"\n         * Example: If last activity is 12:00, \"2 hours later\" = \"14:00\"\n       - REVERSE PLANNING (CRITICAL):\n         * \"before that\" = calculate earlier time from the reference activity\n         * \"end with X at Y time\" = X happens at Y time, earlier activities before\n         * \"working backwards from X\" = X is the last/latest activity\n         * Example: \"meeting at 3 PM, lunch before that\" = lunch at 12:00-13:00\n         * Example: \"flight at 8 PM, dinner before\" = dinner at 18:00-19:00\n         * ALWAYS include ALL mentioned activities, even reference points like meetings/flights\n    \n    3. TIME BLOCKS & APPOINTMENTS - NEW CRITICAL PARSING:\n       - TIME BLOCKS: \"work from X to Y\", \"spend X hours at\", \"need X hours for\"\n         * Example: \"work from 10 AM to 3 PM\" → timeBlocks entry with startTime: \"10:00\", endTime: \"15:00\"\n         * Example: \"need a quiet place to work for 5 hours\" → timeBlocks entry with duration reflected in end time\n         * Extract venue requirements: \"quiet\", \"good wifi\", \"suitable for calls\"\n       - FIXED APPOINTMENTS: \"meeting at X\", \"appointment at Y\", \"reservation at Z\"\n         * Example: \"meeting in Mayfair at 5\" → fixedAppointments entry with time: \"17:00\", location: \"Mayfair\"\n         * Add buffers: meeting = 30 min before, dinner = 15 min before\n       - REGULAR ACTIVITIES: Everything else goes in fixedTimeEntries\n    \n    4. ACTIVITY SEQUENCE - CRITICAL:\n       - Preserve the EXACT order mentioned by the user\n       - \"then\", \"after that\", \"after\", \"followed by\", \"next\", \"afterwards\" indicate sequence\n       - Count ALL activities mentioned (coffee, lunch, drinks, etc.)\n       - If no times given, space activities 1.5-2 hours apart\n       - Parse compound sentences carefully: \"I have a meeting... and would like to go to a restaurant\" = 2 activities\n    \n    5. VENUE PREFERENCES - CRITICAL:\n       - ALWAYS extract venue descriptors to venuePreference field\n       - SPECIFIC FOOD MENTIONS must be captured exactly:\n         * \"fish and chips\" → venuePreference: \"fish and chips restaurant\"\n         * \"pizza\" → venuePreference: \"pizza restaurant\"\n         * \"sushi\" → venuePreference: \"sushi restaurant\"\n         * \"tacos\" → venuePreference: \"taco restaurant\"\n         * \"burgers\" → venuePreference: \"burger restaurant\"\n         * \"chinese food\" → venuePreference: \"chinese restaurant\"\n         * \"italian\" → venuePreference: \"italian restaurant\"\n         * \"breakfast tacos\" → venuePreference: \"breakfast taco restaurant\"\n       - STYLE DESCRIPTORS:\n         * \"hipster cafe\" → venuePreference: \"hipster cafe\"\n         * \"authentic Jewish deli\" → venuePreference: \"authentic Jewish deli\"\n         * \"trendy brunch spot\" → venuePreference: \"trendy brunch spot\"\n         * \"hole-in-the-wall\" → venuePreference: \"hole-in-the-wall\"\n         * \"michelin star\" → venuePreference: \"michelin star restaurant\"\n         * \"rooftop bar\" → venuePreference: \"rooftop bar\"\n         * \"sports bar\" → venuePreference: \"sports bar\"\n         * \"family-friendly\" → venuePreference: \"family-friendly restaurant\"\n       - REQUIREMENTS (NOT preferences):\n         * \"outdoor seating\" → specificRequirements: [\"outdoor seating\"]\n         * \"with a view\" → specificRequirements: [\"with a view\"]\n         * \"good wifi\" → specificRequirements: [\"wifi\"]\n    \n    6. LOCATION INTELLIGENCE - CRITICAL:\n       - PRESERVE ALL LOCATION MENTIONS from the user's query!\n       - Common New York City locations: \"SoHo\", \"Greenwich Village\", \"Upper East Side\", \"Midtown\"\n       - If user mentions a specific place (e.g., \"Barton Springs\", \"4th st\"), USE IT EXACTLY\n       - LANDMARK RECOGNITION (CRITICAL):\n         * Famous landmarks MUST be preserved exactly as mentioned\n         * New York City landmarks include: MoMA, Met, Natural History Museum\n         * \"Big Ben\" → location: \"Big Ben\", type: \"tourist_attraction\"\n         * \"Tower of London\" → location: \"Tower of London\", type: \"tourist_attraction\"  \n         * \"Statue of Liberty\" → location: \"Statue of Liberty\", type: \"tourist_attraction\"\n         * For \"lunch near [landmark]\" → location: \"[landmark area]\" (e.g., \"Tower Bridge area\")\n         * NEVER change landmark names to generic locations\n       - \"that famous museum\" → Try to infer (MoMA, Met, Natural History Museum)\n       - \"nearby\" → Use previous activity's location\n       - \"somewhere nice\" or generic location → \"Midtown\"\n       - No location → \"Midtown\"\n       - NEVER replace specific location mentions with generic ones\n    \n    6. SPECIAL REQUIREMENTS:\n       - Budget mentions: \"cheap\"/\"budget\" → budget: \"budget\", \"upscale\"/\"fancy\" → budget: \"expensive\"\n       - Group size: \"family\", \"group of X\" → travelGroup numbers\n       - Dietary: \"kosher\", \"vegan\", \"halal\" → specificRequirements\n       - Accessibility: \"wheelchair\", \"accessible\" → accessibility requirements\n       - Weather: \"if nice weather\" → note in specialRequests\n    \n    7. ACTIVITY TYPES:\n       - Meals: breakfast/brunch/lunch/dinner → restaurant\n       - Coffee/work at cafe → cafe\n       - Drinks/cocktails/lounge → bar (NOT attraction)\n       - Shopping → shopping\n       - Museums/galleries → museum\n       - Parks/outdoor/walk → park\n       - Shows/entertainment → entertainment\n       - Meeting/appointment → MUST include in fixedAppointments or fixedTimeEntries with type: \"skip\"\n       - LANDMARKS (CRITICAL):\n         * Famous landmarks → tourist_attraction\n         * \"visit [landmark]\", \"see [landmark]\" → tourist_attraction\n         * Activities near landmarks should reference the landmark in location\n    \n    8. EDGE CASES:\n       - Conflicting requirements: Choose most logical interpretation\n       - Vague queries: Make reasonable New York City-appropriate suggestions\n       - Multi-day: Note day changes in flexibleTimeEntries\n    \n    SCHEMA STRUCTURE:\n    {\n      \"timeBlocks\": [\n        {\n          \"startTime\": \"10:00\",\n          \"endTime\": \"15:00\",\n          \"activity\": \"work session\",\n          \"location\": \"Canary Wharf\",\n          \"venueRequirements\": [\"quiet\", \"good wifi\", \"suitable for calls\"],\n          \"searchParameters\": {\n            \"venueType\": \"cafe\",\n            \"specificRequirements\": [\"quiet\", \"wifi\", \"power outlets\"],\n            \"ambience\": \"quiet\"\n          }\n        }\n      ],\n      \"fixedAppointments\": [\n        {\n          \"time\": \"17:00\",\n          \"duration\": 60,\n          \"activity\": \"meeting\",\n          \"location\": \"Mayfair\",\n          \"bufferBefore\": 30,\n          \"bufferAfter\": 15,\n          \"isFixed\": true\n        }\n      ],\n      \"fixedTimeEntries\": [\n        {\n          \"time\": \"HH:MM\",\n          \"activity\": \"Brief description\",\n          \"location\": \"New York City location\",\n          \"venuePreference\": \"specific venue type if mentioned\",\n          \"venueRequirements\": [\"quiet\", \"non-crowded\"],\n          \"searchParameters\": {\n            \"venuePreference\": \"DUPLICATE venue preference here\",\n            \"specificRequirements\": [\"array of requirements\"],\n            \"cuisine\": \"if food related\",\n            \"priceLevel\": \"budget/moderate/expensive\"\n          }\n        }\n      ],\n      \"flexibleTimeEntries\": [...same structure...],\n      \"preferences\": {\n        \"budget\": \"overall budget level\",\n        \"pace\": \"relaxed/moderate/busy\",\n        \"interests\": [\"user interests\"]\n      },\n      \"travelGroup\": {\n        \"adults\": number,\n        \"children\": number\n      },\n      \"specialRequests\": [\"any special notes\"]\n    }\n\n    \n    \n    \n    IMPORTANT: Count ALL activities in this request and ensure each one appears in the output.\n    \n    Here's the request to analyze:\n    Coffee at 10 AM then lunch in SoHo at 1 PM then dinner at 7 PM\n    \n    CRITICAL REMINDER: Extract EVERY SINGLE activity mentioned above. Do not skip any activities even if there are many. Each distinct activity should have its own entry in fixedTimeEntries.\n    ","temperature":0.2},"rawResponse":"```json\n{\n  \"timeBlocks\": [],\n  \"fixedAppointments\": [],\n  \"fixedTimeEntries\": [\n    {\n      \"time\": \"10:00\",\n      \"activity\": \"Coffee\",\n      \"location\": \"Midtown\",\n      \"venuePreference\": \"cafe\",\n      \"venueRequirements\": [],\n      \"searchParameters\": {\n        \"venueType\": \"cafe\"\n      }\n    },\n    {\n      \"time\": \"13:00\",\n      \"activity\": \"Lunch\",\n      \"location\": \"SoHo\",\n      \"venuePreference\": \"restaurant\",\n      \"venueRequirements\": [],\n      \"searchParameters\": {\n        \"venueType\": \"restaurant\"\n      }\n    },\n    {\n      \"time\": \"19:00\",\n      \"activity\": \"Dinner\",\n      \"location\": \"Midtown\",\n      \"venuePreference\": \"restaurant\",\n      \"venueRequirements\": [],\n      \"searchParameters\": {\n        \"venueType\": \"restaurant\"\n      }\n    }\n  ],\n  \"flexibleTimeEntries\": [],\n  \"preferences\": {},\n  \"travelGroup\": {},\n  \"specialRequests\": []\n}\n```","service":"ai-interaction-logger","sessionId":"430710c6-b032-45d3-a273-9f3e6497122c","status":"success","timestamp":"2025-06-05T13:28:13.717Z","userQuery":"Coffee at 10 AM then lunch in SoHo at 1 PM then dinner at 7 PM"}
+Failed to log AI interaction to database: TypeError: db.insert is not a function
+    at logAiInteraction (/Users/carlos/LondonDayPlanner-1/server/lib/aiLogging.ts:93:16)
+    at attemptGeminiProcessing (/Users/carlos/LondonDayPlanner-1/server/lib/geminiProcessor.ts:460:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at processWithGemini (/Users/carlos/LondonDayPlanner-1/server/lib/geminiProcessor.ts:176:22)
+    at parseItineraryRequest (/Users/carlos/LondonDayPlanner-1/server/lib/nlp-fixed.ts:526:25)
+    at MemoryCache.getOrSet (/Users/carlos/LondonDayPlanner-1/server/lib/cache.ts:59:23)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:71:37)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:189:25)
+Processing Gemini response with raw data: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "Coffee",
+      "location": "Midtown",
+      "venuePreference": "cafe",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "cafe"
+      }
+    },
+    {
+      "time": "13:00",
+      "activity": "Lunch",
+      "location": "SoHo",
+      "venuePreference": "restaurant",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "restaurant"
+      }
+    },
+    {
+      "time": "19:00",
+      "activity": "Dinner",
+      "location": "Midtown",
+      "venuePreference": "restaurant",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "restaurant"
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {},
+  "travelGroup": {},
+  "specialRequests": []
+}
+Processing 3 fixed time entries with duplicate detection
+Added fixed time entry: Coffee at Midtown, 10:00
+Added fixed time entry: Lunch at SoHo, 13:00
+Added fixed time entry: Dinner at Midtown, 19:00
+Final processed result: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "Coffee",
+      "location": "Midtown",
+      "venuePreference": "cafe",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "cafe"
+      }
+    },
+    {
+      "time": "13:00",
+      "activity": "Lunch",
+      "location": "SoHo",
+      "venuePreference": "restaurant",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "restaurant"
+      }
+    },
+    {
+      "time": "19:00",
+      "activity": "Dinner",
+      "location": "Midtown",
+      "venuePreference": "restaurant",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "restaurant"
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {},
+  "travelGroup": {},
+  "specialRequests": [],
+  "startLocation": "Midtown"
+}
+✅ [nlp-fixed] processWithGemini completed successfully, result: VALID
+Successfully processed query with new Gemini processor
+Raw Gemini API response: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "Coffee",
+      "location": "Midtown",
+      "venuePreference": "cafe",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "cafe"
+      }
+    },
+    {
+      "time": "13:00",
+      "activity": "Lunch",
+      "location": "SoHo",
+      "venuePreference": "restaurant",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "restaurant"
+      }
+    },
+    {
+      "time": "19:00",
+      "activity": "Dinner",
+      "location": "Midtown",
+      "venuePreference": "restaurant",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "restaurant"
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {},
+  "travelGroup": {},
+  "specialRequests": [],
+  "startLocation": "Midtown"
+}
+Converting Gemini result to app format: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "Coffee",
+      "location": "Midtown",
+      "venuePreference": "cafe",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "cafe"
+      }
+    },
+    {
+      "time": "13:00",
+      "activity": "Lunch",
+      "location": "SoHo",
+      "venuePreference": "restaurant",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "restaurant"
+      }
+    },
+    {
+      "time": "19:00",
+      "activity": "Dinner",
+      "location": "Midtown",
+      "venuePreference": "restaurant",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "restaurant"
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {},
+  "travelGroup": {},
+  "specialRequests": [],
+  "startLocation": "Midtown"
+}
+Raw time blocks from Gemini: []
+Raw fixed appointments from Gemini: []
+Raw fixed time entries from Gemini: [
+  {
+    "time": "10:00",
+    "activity": "Coffee",
+    "location": "Midtown",
+    "venuePreference": "cafe",
+    "venueRequirements": [],
+    "searchParameters": {
+      "venueType": "cafe"
+    }
+  },
+  {
+    "time": "13:00",
+    "activity": "Lunch",
+    "location": "SoHo",
+    "venuePreference": "restaurant",
+    "venueRequirements": [],
+    "searchParameters": {
+      "venueType": "restaurant"
+    }
+  },
+  {
+    "time": "19:00",
+    "activity": "Dinner",
+    "location": "Midtown",
+    "venuePreference": "restaurant",
+    "venueRequirements": [],
+    "searchParameters": {
+      "venueType": "restaurant"
+    }
+  }
+]
+Fixed time entry: Normalized time from "10:00" to "10:00"
+Correctly interpreted time "10:00" as America/New_York time: 10:00 AM (2025-06-05T14:00:00.000Z)
+Correctly interpreted time "10:00" as New York City time: 10:00 AM (2025-06-05T14:00:00.000Z)
+Found venue preference: "cafe" for activity: Coffee
+Processed fixed time entry: Coffee at Midtown, time: 2025-06-05T14:00:00.000Z, type: cafe
+Fixed time entry: Normalized time from "13:00" to "13:00"
+Correctly interpreted time "13:00" as America/New_York time: 1:00 PM (2025-06-05T17:00:00.000Z)
+Correctly interpreted time "13:00" as New York City time: 1:00 PM (2025-06-05T17:00:00.000Z)
+Found venue preference: "restaurant" for activity: Lunch
+Processed fixed time entry: Lunch at SoHo, time: 2025-06-05T17:00:00.000Z, type: restaurant
+Fixed time entry: Normalized time from "19:00" to "19:00"
+Correctly interpreted time "19:00" as America/New_York time: 7:00 PM (2025-06-05T23:00:00.000Z)
+Correctly interpreted time "19:00" as New York City time: 7:00 PM (2025-06-05T23:00:00.000Z)
+Found venue preference: "restaurant" for activity: Dinner
+Processed fixed time entry: Dinner at Midtown, time: 2025-06-05T23:00:00.000Z, type: restaurant
+Raw flexible time entries from Gemini: []
+Final de-duplicated activities count: 3
+Converted app format request: {
+  "startLocation": "Midtown",
+  "destinations": [
+    "SoHo"
+  ],
+  "fixedTimes": [
+    {
+      "location": "Midtown",
+      "time": "2025-06-05T14:00:00.000Z",
+      "type": "cafe",
+      "searchTerm": "Coffee",
+      "minRating": 4,
+      "displayTime": "10:00 AM",
+      "searchPreference": "cafe"
+    },
+    {
+      "location": "SoHo",
+      "time": "2025-06-05T17:00:00.000Z",
+      "type": "restaurant",
+      "searchTerm": "Lunch",
+      "minRating": 4,
+      "displayTime": "1:00 PM",
+      "searchPreference": "restaurant"
+    },
+    {
+      "location": "Midtown",
+      "time": "2025-06-05T23:00:00.000Z",
+      "type": "restaurant",
+      "searchTerm": "Dinner",
+      "minRating": 4,
+      "displayTime": "7:00 PM",
+      "searchPreference": "restaurant"
+    }
+  ],
+  "preferences": {
+    "requirements": []
+  }
+}
+Using optimized Gemini result that was converted by convertGeminiToAppFormat function
+Gemini result contains 3 de-duplicated activities
+Validating location: "SoHo" with Google Maps Geocoding API
+Geocoding search query: "SoHo, New York City, USA"
+Validated "SoHo" as neighborhood: "SoHo"
+Validated "SoHo" as neighborhood: "SoHo"
+Validating location: "Midtown" with Google Maps Geocoding API
+Geocoding search query: "Midtown, New York City, USA"
+Validated "Midtown" as neighborhood: "Midtown Manhattan"
+Validating location: "SoHo" with Google Maps Geocoding API
+Geocoding search query: "SoHo, New York City, USA"
+Validated "SoHo" as neighborhood: "SoHo"
+Validating location: "Midtown" with Google Maps Geocoding API
+Geocoding search query: "Midtown, New York City, USA"
+Validated "Midtown" as neighborhood: "Midtown Manhattan"
+Final processed Gemini result: {
+  "startLocation": "Midtown",
+  "destinations": [
+    "SoHo"
+  ],
+  "fixedTimes": [
+    {
+      "location": "Midtown Manhattan",
+      "time": "2025-06-05T14:00:00.000Z",
+      "type": "cafe",
+      "searchTerm": "Coffee",
+      "minRating": 4,
+      "displayTime": "10:00 AM",
+      "searchPreference": "cafe"
+    },
+    {
+      "location": "SoHo",
+      "time": "2025-06-05T17:00:00.000Z",
+      "type": "restaurant",
+      "searchTerm": "Lunch",
+      "minRating": 4,
+      "displayTime": "1:00 PM",
+      "searchPreference": "restaurant"
+    },
+    {
+      "location": "Midtown Manhattan",
+      "time": "2025-06-05T23:00:00.000Z",
+      "type": "restaurant",
+      "searchTerm": "Dinner",
+      "minRating": 4,
+      "displayTime": "7:00 PM",
+      "searchPreference": "restaurant"
+    }
+  ],
+  "preferences": {
+    "requirements": []
+  }
+}
+📝 Parsed request from cache/fetch: {
+  startLocation: 'Midtown',
+  destinations: [ 'SoHo' ],
+  fixedTimes: [
+    {
+      location: 'Midtown Manhattan',
+      time: '2025-06-05T14:00:00.000Z',
+      type: 'cafe',
+      searchTerm: 'Coffee',
+      keywords: undefined,
+      minRating: 4,
+      displayTime: '10:00 AM',
+      searchPreference: 'cafe'
+    },
+    {
+      location: 'SoHo',
+      time: '2025-06-05T17:00:00.000Z',
+      type: 'restaurant',
+      searchTerm: 'Lunch',
+      keywords: undefined,
+      minRating: 4,
+      displayTime: '1:00 PM',
+      searchPreference: 'restaurant'
+    },
+    {
+      location: 'Midtown Manhattan',
+      time: '2025-06-05T23:00:00.000Z',
+      type: 'restaurant',
+      searchTerm: 'Dinner',
+      keywords: undefined,
+      minRating: 4,
+      displayTime: '7:00 PM',
+      searchPreference: 'restaurant'
+    }
+  ],
+  preferences: { type: undefined, requirements: [] }
+}
+📍 Using explicit start location from NLP: Midtown
+📍 Determined initial search/start location: Midtown
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Midtown Manhattan","time":"2025-06-05T14:00:00.000Z","type":"cafe","searchTerm":"Coffee","minRating":4,"displayTime":"10:00 AM","searchPreference":"cafe"}
+Parsed ISO timestamp "2025-06-05T14:00:00.000Z" to America/New_York time: 2025-06-05 10:00:00 EDT
+🔍 [SERVICE] Place details for "787 Coffee": {
+  hasRating: true,
+  rating: 4.9,
+  hasTypes: true,
+  types: [ 'cafe', 'store', 'food', 'point_of_interest', 'establishment' ],
+  detailsKeys: [
+    'business_status',
+    'formatted_address',
+    'geometry',
+    'icon',
+    'icon_background_color',
+    'icon_mask_base_uri',
+    'name',
+    'opening_hours',
+    'photos',
+    'place_id',
+    'plus_code',
+    'rating',
+    'reference',
+    'types',
+    'user_ratings_total'
+  ],
+  fullDetails: '{\n' +
+    '  "business_status": "OPERATIONAL",\n' +
+    '  "formatted_address": "401 E 58th St, New York, NY 10022, United States",\n' +
+    '  "geometry": {\n' +
+    '    "location": {\n' +
+    '      "lat": 40.75892380000001,\n' +
+    '      "lng": -73.9620028\n' +
+    '    },\n' +
+    '    "viewport": {\n' +
+    '      "northeast": {\n' +
+    '        "lat": 40.76022442989272,\n' +
+    '        "lng": -73.96068887010728\n' +
+    '      },\n' +
+    '      "southwest": {\n' +
+    '        "lat": 40.75752477010728,\n' +
+    '        "lng": -73.96338852989271\n' +
+    '      }\n' +
+    '    }\n' +
+    '  },\n' +
+    '  "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png",\n' +
+    '  "icon_background_color": "#FF9E67",\n' +
+    '  "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet",\n' +
+    '  "name": "787 Coffee",\n' +
+    '  "opening_hours": {\n' +
+    '    "open_now": true\n' +
+    '  },\n' +
+    '  "photos": [\n' +
+    '    {\n' +
+    '      "height": 1600,\n' +
+    '      "html_attributions": [\n' +
+    '        "<a href=\\"https://maps.google.com/maps/contrib/101111269416855984215\\">787 Coffee</a>"\n' +
+    '      ],\n' +
+    '      "photo_reference": "AXQCQNR6RidCUwfPSD50NCssVUfCj-amg8V_7UWZ3SAPwlOPYZOfBcPiJSlFRJcpj7ZvOummxMKkgkX75JrshsoplkwIuUrMLzXSMAXMbFT2vUn0sMAvlAv8RRMu_chMQbmOCqXxGtGkc13neHoomX_T9AEsJ01TVgHTXB9cySDr30eQ0Ir7n-IiwmtEGlYpy_lwwjFT7WhWR29o6mZBXAHy0u-HNC8SKVjpXnTcuVh24X_q1ULgZWsxCqJ_bHdOTn-JLh5sugll0S9WB0qIZCetVMYqMfElSKKS0xi8-_Ie_D5X3LrpjDo",\n' +
+    '      "width": 900\n' +
+    '    }\n' +
+    '  ],\n' +
+    '  "place_id": "ChIJK0YMWmdZwokRwRsOreYzArU",\n' +
+    '  "plus_code": {\n' +
+    '    "compound_code": "Q25Q+H5 New York",\n' +
+    '    "global_code": "87G8Q25Q+H5"\n' +
+    '  },\n' +
+    '  "rating": 4.9,\n' +
+    '  "reference": "ChIJK0YMWmdZwokRwRsOreYzArU",\n' +
+    '  "types": [\n' +
+    '    "cafe",\n' +
+    '    "store",\n' +
+    '    "food",\n' +
+    '    "point_of_interest",\n' +
+    '    "establishment"\n' +
+    '  ],\n' +
+    '  "user_ratings_total": 1722\n' +
+    '}'
+}
+🔍 [SERVICE] About to store place with details: {
+  hasDetails: true,
+  rating: 4.9,
+  types: [ 'cafe', 'store', 'food', 'point_of_interest', 'establishment' ],
+  detailsSize: 1316
+}
+🔍 [SERVICE] placeToInsert details: {
+  hasDetails: true,
+  detailsType: 'object',
+  detailsKeys: [
+    'business_status',
+    'formatted_address',
+    'geometry',
+    'icon',
+    'icon_background_color',
+    'icon_mask_base_uri',
+    'name',
+    'opening_hours',
+    'photos',
+    'place_id',
+    'plus_code',
+    'rating',
+    'reference',
+    'types',
+    'user_ratings_total'
+  ]
+}
+Error checking for existing place: TypeError: db.select is not a function
+    at DbStorageWithLogging.createPlace (/Users/carlos/LondonDayPlanner-1/server/storage.ts:481:42)
+    at ItineraryPlanningService._processFixedAppointments (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:554:44)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:221:7)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:189:25)
+Database error in createPlace, using in-memory fallback: db.select is not a function
+🔍 [MEM-FALLBACK] Existing place "787 Coffee" details check: {
+  hasDetails: true,
+  detailsType: 'object',
+  detailsKeys: [
+    'business_status',
+    'formatted_address',
+    'geometry',
+    'icon',
+    'icon_background_color',
+    'icon_mask_base_uri',
+    'name',
+    'opening_hours',
+    'photos',
+    'place_id',
+    'plus_code',
+    'rating',
+    'reference',
+    'types',
+    'user_ratings_total'
+  ],
+  rating: 4.9,
+  types: [ 'cafe', 'store', 'food', 'point_of_interest', 'establishment' ]
+}
+Place "787 Coffee" already exists, returning existing record
+🔍 [SERVICE] Stored place "787 Coffee" details: {
+  hasDetails: true,
+  detailsType: 'object',
+  detailsKeys: [
+    'business_status',
+    'formatted_address',
+    'geometry',
+    'icon',
+    'icon_background_color',
+    'icon_mask_base_uri',
+    'name',
+    'opening_hours',
+    'photos',
+    'place_id',
+    'plus_code',
+    'rating',
+    'reference',
+    'types',
+    'user_ratings_total'
+  ],
+  rating: 4.9,
+  types: [ 'cafe', 'store', 'food', 'point_of_interest', 'establishment' ]
+}
+Added fixed appointment to itinerary: 787 Coffee at 2025-06-05T14:00:00.000Z
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"SoHo","time":"2025-06-05T17:00:00.000Z","type":"restaurant","searchTerm":"Lunch","minRating":4,"displayTime":"1:00 PM","searchPreference":"restaurant"}
+Parsed ISO timestamp "2025-06-05T17:00:00.000Z" to America/New_York time: 2025-06-05 13:00:00 EDT
+🔍 [enhancedPlaceSearch] Starting enhanced search with options: {
+  query: 'Lunch',
+  location: 'SoHo',
+  keywords: [ 'restaurant' ],
+  type: 'restaurant',
+  preferences: { venuePreference: 'restaurant' },
+  scheduledDateTime: 2025-06-05T17:00:00.000Z,
+  cityContext: { name: 'New York City', slug: 'nyc', timezone: 'America/New_York' }
+}
+🤖 [Gemini] Enhanced query: best restaurants in SoHo
+📍 [enhancedPlaceSearch] Found specific area coordinates for "SoHo": { lat: 40.722, lng: -74.0002 }
+🎯 [enhancedPlaceSearch] Using location bias: 40.722,-74.0002 with radius 5000m
+🌐 [enhancedPlaceSearch] Searching with query: best restaurants in SoHo
+🏙️ [enhancedPlaceSearch] After city filtering: 4 venues remain for New York City
+🕒 [enhancedPlaceSearch] Filtering venues by operating hours for 2025-06-05T17:00:00.000Z
+🕒 [Operating Hours] Validating hours for La Pecora Bianca SoHo at 2025-06-05T17:00:00.000Z
+📅 [Operating Hours] Scheduled: 2025-06-05 13:00:00 Thursday, Day: 4, Time: 1300
+⚠️ [Operating Hours] Could not determine hours for La Pecora Bianca SoHo
+✅ [Operating Hours] La Pecora Bianca SoHo: Could not determine operating hours
+🕒 [Operating Hours] Validating hours for Jack's Wife Freda at 2025-06-05T17:00:00.000Z
+📅 [Operating Hours] Scheduled: 2025-06-05 13:00:00 Thursday, Day: 4, Time: 1300
+⚠️ [Operating Hours] Could not determine hours for Jack's Wife Freda
+✅ [Operating Hours] Jack's Wife Freda: Could not determine operating hours
+🕒 [Operating Hours] Validating hours for Lindens at 2025-06-05T17:00:00.000Z
+📅 [Operating Hours] Scheduled: 2025-06-05 13:00:00 Thursday, Day: 4, Time: 1300
+⚠️ [Operating Hours] Could not determine hours for Lindens
+✅ [Operating Hours] Lindens: Could not determine operating hours
+🕒 [Operating Hours] Validating hours for Boqueria Soho at 2025-06-05T17:00:00.000Z
+📅 [Operating Hours] Scheduled: 2025-06-05 13:00:00 Thursday, Day: 4, Time: 1300
+⚠️ [Operating Hours] Could not determine hours for Boqueria Soho
+✅ [Operating Hours] Boqueria Soho: Could not determine operating hours
+✅ [enhancedPlaceSearch] 4 venues are open, 0 are closed
+✅ [enhancedPlaceSearch] Found 4 places with ratings
+🎲 [enhancedPlaceSearch] Selected venue (with variety): {
+  name: 'La Pecora Bianca SoHo',
+  rating: 4.8,
+  address: '54 Prince St, New York, NY 10012, United States'
+}
+🔄 [enhancedPlaceSearch] Alternatives: [
+  { name: 'Lindens', rating: 4.8 },
+  { name: 'Boqueria Soho', rating: 4.5 },
+  { name: "Jack's Wife Freda", rating: 4.4 }
+]
+🔍 [SERVICE] Place details for "La Pecora Bianca SoHo": {
+  hasRating: true,
+  rating: 4.8,
+  hasTypes: true,
+  types: [ 'restaurant', 'food', 'point_of_interest', 'establishment' ],
+  detailsKeys: [
+    'business_status',
+    'formatted_address',
+    'geometry',
+    'icon',
+    'icon_background_color',
+    'icon_mask_base_uri',
+    'name',
+    'opening_hours',
+    'photos',
+    'place_id',
+    'plus_code',
+    'price_level',
+    'rating',
+    'reference',
+    'types',
+    'user_ratings_total'
+  ],
+  fullDetails: '{\n' +
+    '  "business_status": "OPERATIONAL",\n' +
+    '  "formatted_address": "54 Prince St, New York, NY 10012, United States",\n' +
+    '  "geometry": {\n' +
+    '    "location": {\n' +
+    '      "lat": 40.72346,\n' +
+    '      "lng": -73.9963118\n' +
+    '    },\n' +
+    '    "viewport": {\n' +
+    '      "northeast": {\n' +
+    '        "lat": 40.72487267989272,\n' +
+    '        "lng": -73.99504087010727\n' +
+    '      },\n' +
+    '      "southwest": {\n' +
+    '        "lat": 40.72217302010727,\n' +
+    '        "lng": -73.99774052989272\n' +
+    '      }\n' +
+    '    }\n' +
+    '  },\n' +
+    '  "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",\n' +
+    '  "icon_background_color": "#FF9E67",\n' +
+    '  "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",\n' +
+    '  "name": "La Pecora Bianca SoHo",\n' +
+    '  "opening_hours": {\n' +
+    '    "open_now": false\n' +
+    '  },\n' +
+    '  "photos": [\n' +
+    '    {\n' +
+    '      "height": 2724,\n' +
+    '      "html_attributions": [\n' +
+    '        "<a href=\\"https://maps.google.com/maps/contrib/111444671146808251214\\">Eric Finkelstein</a>"\n' +
+    '      ],\n' +
+    '      "photo_reference": "AXQCQNSxnf-p_zPzRc1XTNLA3Dsyga4UmX45txCzgI9C3Jcdb6I5uaCH3y1exN0RoGFjgQr-9xt8hFYCHuioB_8HvGpXORsSeMtf5tRUTeCSBLaXhCJFXIM9nd_cFdX78R-V0wHfSAwIrAK_McSA2ySaKGz58TDbo3AhOezPUZ15op0nNyDu0lwl4C4fnTlDAqkdDuUZFJOUAuoeCQVBbWt4_ocOtt-69C3p9o44hjHakkpIr5GUFQbBE3VxdlSpvIADQXJsz5My9qnOs-YHHAwWsszDjVaCCGOdaQAmsc8kGRkID-xWQ28BFsHuhRtrK0tL5b4gmjuVMh_wRZpDYi11N-0rMVIdNQ5GuyoIcqAi6ag9AIORT9bGD4u-nesSjxPNgUKdj8iX0t93oEDrpFKZJGuemKmHoYCMCctxFU3IAr9hDt-P5SSBR5QCGtVuZeX7kFijPFpCXl_XRdt1zgvoB6PgOXg18L-P1pXyETRicBhQAnViKUUsq0KrTxIxXRv0DicCAWj3aSYXjGfCKy_aaVU94EDtpImeZUbRq_AMXfxT66da9QdKfq3Mk3kWaehGgsEiiSS0dIfRpw",\n' +
+    '      "width": 4000\n' +
+    '    }\n' +
+    '  ],\n' +
+    '  "place_id": "ChIJfe6ZYKFZwokR_mHm7GNoAxc",\n' +
+    '  "plus_code": {\n' +
+    '    "compound_code": "P2F3+9F New York",\n' +
+    '    "global_code": "87G8P2F3+9F"\n' +
+    '  },\n' +
+    '  "price_level": 2,\n' +
+    '  "rating": 4.8,\n' +
+    '  "reference": "ChIJfe6ZYKFZwokR_mHm7GNoAxc",\n' +
+    '  "types": [\n' +
+    '    "restaurant",\n' +
+    '    "food",\n' +
+    '    "point_of_interest",\n' +
+    '    "establishment"\n' +
+    '  ],\n' +
+    '  "user_ratings_total": 2396\n' +
+    '}'
+}
+🔍 [SERVICE] About to store place with details: {
+  hasDetails: true,
+  rating: 4.8,
+  types: [ 'restaurant', 'food', 'point_of_interest', 'establishment' ],
+  detailsSize: 1634
+}
+🔍 [SERVICE] placeToInsert details: {
+  hasDetails: true,
+  detailsType: 'object',
+  detailsKeys: [
+    'business_status',
+    'formatted_address',
+    'geometry',
+    'icon',
+    'icon_background_color',
+    'icon_mask_base_uri',
+    'name',
+    'opening_hours',
+    'photos',
+    'place_id',
+    'plus_code',
+    'price_level',
+    'rating',
+    'reference',
+    'types',
+    'user_ratings_total'
+  ]
+}
+Error checking for existing place: TypeError: db.select is not a function
+    at DbStorageWithLogging.createPlace (/Users/carlos/LondonDayPlanner-1/server/storage.ts:481:42)
+    at ItineraryPlanningService._processFixedAppointments (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:554:44)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:221:7)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:189:25)
+Database error in createPlace, using in-memory fallback: db.select is not a function
+🆕 [MEM-FALLBACK] Created new place "La Pecora Bianca SoHo" with details
+🔍 [SERVICE] Stored place "La Pecora Bianca SoHo" details: {
+  hasDetails: true,
+  detailsType: 'object',
+  detailsKeys: [
+    'business_status',
+    'formatted_address',
+    'geometry',
+    'icon',
+    'icon_background_color',
+    'icon_mask_base_uri',
+    'name',
+    'opening_hours',
+    'photos',
+    'place_id',
+    'plus_code',
+    'price_level',
+    'rating',
+    'reference',
+    'types',
+    'user_ratings_total'
+  ],
+  rating: 4.8,
+  types: [ 'restaurant', 'food', 'point_of_interest', 'establishment' ]
+}
+Added fixed appointment to itinerary: La Pecora Bianca SoHo at 2025-06-05T17:00:00.000Z
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Midtown Manhattan","time":"2025-06-05T23:00:00.000Z","type":"restaurant","searchTerm":"Dinner","minRating":4,"displayTime":"7:00 PM","searchPreference":"restaurant"}
+Parsed ISO timestamp "2025-06-05T23:00:00.000Z" to America/New_York time: 2025-06-05 19:00:00 EDT
+🔍 [enhancedPlaceSearch] Starting enhanced search with options: {
+  query: 'Dinner',
+  location: 'Midtown Manhattan',
+  keywords: [ 'restaurant' ],
+  type: 'restaurant',
+  preferences: { venuePreference: 'restaurant' },
+  scheduledDateTime: 2025-06-05T23:00:00.000Z,
+  cityContext: { name: 'New York City', slug: 'nyc', timezone: 'America/New_York' }
+}
+🤖 [Gemini] Enhanced query: best restaurants in Midtown Manhattan
+📍 [enhancedPlaceSearch] Found specific area coordinates for "Midtown Manhattan": { lat: 40.7549, lng: -73.984 }
+🎯 [enhancedPlaceSearch] Using location bias: 40.7549,-73.984 with radius 5000m
+🌐 [enhancedPlaceSearch] Searching with query: best restaurants in Midtown Manhattan
+🏙️ [enhancedPlaceSearch] After city filtering: 4 venues remain for New York City
+🕒 [enhancedPlaceSearch] Filtering venues by operating hours for 2025-06-05T23:00:00.000Z
+🕒 [Operating Hours] Validating hours for La Grande Boucherie at 2025-06-05T23:00:00.000Z
+📅 [Operating Hours] Scheduled: 2025-06-05 19:00:00 Thursday, Day: 4, Time: 1900
+⚠️ [Operating Hours] Could not determine hours for La Grande Boucherie
+✅ [Operating Hours] La Grande Boucherie: Could not determine operating hours
+🕒 [Operating Hours] Validating hours for Monterey at 2025-06-05T23:00:00.000Z
+📅 [Operating Hours] Scheduled: 2025-06-05 19:00:00 Thursday, Day: 4, Time: 1900
+⚠️ [Operating Hours] Could not determine hours for Monterey
+✅ [Operating Hours] Monterey: Could not determine operating hours
+🕒 [Operating Hours] Validating hours for Monkey Bar at 2025-06-05T23:00:00.000Z
+📅 [Operating Hours] Scheduled: 2025-06-05 19:00:00 Thursday, Day: 4, Time: 1900
+⚠️ [Operating Hours] Could not determine hours for Monkey Bar
+✅ [Operating Hours] Monkey Bar: Could not determine operating hours
+🕒 [Operating Hours] Validating hours for Osteria La Baia at 2025-06-05T23:00:00.000Z
+📅 [Operating Hours] Scheduled: 2025-06-05 19:00:00 Thursday, Day: 4, Time: 1900
+⚠️ [Operating Hours] Could not determine hours for Osteria La Baia
+✅ [Operating Hours] Osteria La Baia: Could not determine operating hours
+✅ [enhancedPlaceSearch] 4 venues are open, 0 are closed
+✅ [enhancedPlaceSearch] Found 4 places with ratings
+🎲 [enhancedPlaceSearch] Selected venue (with variety): {
+  name: 'La Grande Boucherie',
+  rating: 4.6,
+  address: '145 W 53rd St, New York, NY 10019, United States'
+}
+🔄 [enhancedPlaceSearch] Alternatives: [
+  { name: 'Monterey', rating: 4.8 },
+  { name: 'Osteria La Baia', rating: 4.8 },
+  { name: 'Monkey Bar', rating: 4.5 }
+]
+🔍 [SERVICE] Place details for "La Grande Boucherie": {
+  hasRating: true,
+  rating: 4.6,
+  hasTypes: true,
+  types: [ 'restaurant', 'food', 'point_of_interest', 'establishment' ],
+  detailsKeys: [
+    'business_status',
+    'formatted_address',
+    'geometry',
+    'icon',
+    'icon_background_color',
+    'icon_mask_base_uri',
+    'name',
+    'opening_hours',
+    'photos',
+    'place_id',
+    'plus_code',
+    'price_level',
+    'rating',
+    'reference',
+    'types',
+    'user_ratings_total'
+  ],
+  fullDetails: '{\n' +
+    '  "business_status": "OPERATIONAL",\n' +
+    '  "formatted_address": "145 W 53rd St, New York, NY 10019, United States",\n' +
+    '  "geometry": {\n' +
+    '    "location": {\n' +
+    '      "lat": 40.7626345,\n' +
+    '      "lng": -73.9808359\n' +
+    '    },\n' +
+    '    "viewport": {\n' +
+    '      "northeast": {\n' +
+    '        "lat": 40.76393602989272,\n' +
+    '        "lng": -73.97949477010728\n' +
+    '      },\n' +
+    '      "southwest": {\n' +
+    '        "lat": 40.76123637010727,\n' +
+    '        "lng": -73.98219442989273\n' +
+    '      }\n' +
+    '    }\n' +
+    '  },\n' +
+    '  "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",\n' +
+    '  "icon_background_color": "#FF9E67",\n' +
+    '  "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",\n' +
+    '  "name": "La Grande Boucherie",\n' +
+    '  "opening_hours": {\n' +
+    '    "open_now": true\n' +
+    '  },\n' +
+    '  "photos": [\n' +
+    '    {\n' +
+    '      "height": 3600,\n' +
+    '      "html_attributions": [\n' +
+    '        "<a href=\\"https://maps.google.com/maps/contrib/108323005295250067942\\">David Presas</a>"\n' +
+    '      ],\n' +
+    '      "photo_reference": "AXQCQNSviJ1e1PrxrPv5Y9v9yuLI0a55gPjxosiRFj4dPp973CSDvVoeHXif62UTxl8KhEBIpnA3ZpbwALfTTITfds61YLTGLvh8pznxlRu9Ah7oHRA6ue02pnZyprHPzBeRxYBv7q3jKCVofG9JGx_4Qwxfv9Ctd-217lfokX0O4b4etm55aOEEimTcGzNbhaldGWc_HkrkZMamnY-NKt1BKLkg1XiTCB_nutzQfeAyAGcRQINlPV2JX7gXhrg4kvf3yF7TPAEAEpdlgS83FbA3oXM8k4yGNmA2s_UyXWQ0xp2QlWyLb8ZxHFAPS8a4FnbzNgmTiVPeZfVCBJaU-oxcZDArtSAQiO_H2WpQmqIS_8DOEJbqA3tO1qacntszYjKD-JTgRjD1dSdxNAnzijWjmgXafQ2AVOoOiKmH2FckZU4OES4gdINU1SDZzm4mVgSk8GqQcVr1RfnWaJyjzFyDpPjdyGfZ8kIBLNA-VbfTO25WDNdcYcvLf_TXjvFXeT0StbkwTJc7UMCKRek2QJyAOZ10BF2zAuvZ2BWmSCuVuaoAxilz7SzjGGrswHkMBdH6SrRycArz",\n' +
+    '      "width": 3000\n' +
+    '    }\n' +
+    '  ],\n' +
+    '  "place_id": "ChIJ58OtM8pZwokRbd6DT6gcVys",\n' +
+    '  "plus_code": {\n' +
+    '    "compound_code": "Q279+3M New York",\n' +
+    '    "global_code": "87G8Q279+3M"\n' +
+    '  },\n' +
+    '  "price_level": 2,\n' +
+    '  "rating": 4.6,\n' +
+    '  "reference": "ChIJ58OtM8pZwokRbd6DT6gcVys",\n' +
+    '  "types": [\n' +
+    '    "restaurant",\n' +
+    '    "food",\n' +
+    '    "point_of_interest",\n' +
+    '    "establishment"\n' +
+    '  ],\n' +
+    '  "user_ratings_total": 7756\n' +
+    '}'
+}
+🔍 [SERVICE] About to store place with details: {
+  hasDetails: true,
+  rating: 4.6,
+  types: [ 'restaurant', 'food', 'point_of_interest', 'establishment' ],
+  detailsSize: 1624
+}
+🔍 [SERVICE] placeToInsert details: {
+  hasDetails: true,
+  detailsType: 'object',
+  detailsKeys: [
+    'business_status',
+    'formatted_address',
+    'geometry',
+    'icon',
+    'icon_background_color',
+    'icon_mask_base_uri',
+    'name',
+    'opening_hours',
+    'photos',
+    'place_id',
+    'plus_code',
+    'price_level',
+    'rating',
+    'reference',
+    'types',
+    'user_ratings_total'
+  ]
+}
+Error checking for existing place: TypeError: db.select is not a function
+    at DbStorageWithLogging.createPlace (/Users/carlos/LondonDayPlanner-1/server/storage.ts:481:42)
+    at ItineraryPlanningService._processFixedAppointments (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:554:44)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:221:7)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:189:25)
+Database error in createPlace, using in-memory fallback: db.select is not a function
+🆕 [MEM-FALLBACK] Created new place "La Grande Boucherie" with details
+🔍 [SERVICE] Stored place "La Grande Boucherie" details: {
+  hasDetails: true,
+  detailsType: 'object',
+  detailsKeys: [
+    'business_status',
+    'formatted_address',
+    'geometry',
+    'icon',
+    'icon_background_color',
+    'icon_mask_base_uri',
+    'name',
+    'opening_hours',
+    'photos',
+    'place_id',
+    'plus_code',
+    'price_level',
+    'rating',
+    'reference',
+    'types',
+    'user_ratings_total'
+  ],
+  rating: 4.6,
+  types: [ 'restaurant', 'food', 'point_of_interest', 'establishment' ]
+}
+Added fixed appointment to itinerary: La Grande Boucherie at 2025-06-05T23:00:00.000Z
+Calculating travel times for 3 places in New York City
+Travel time from 787 Coffee to La Pecora Bianca SoHo: 15 minutes
+Travel time from La Pecora Bianca SoHo to La Grande Boucherie: 14 minutes
+DbStorage (with logging): Creating itinerary (anonymous)
+DbStorage (with logging): Error creating itinerary: TypeError: db.insert is not a function
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:137:36)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:635:34)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:300:51)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:189:25)
+Using in-memory fallback for createItinerary due to database error
+Successfully created itinerary "Coffee, Lunch, Dinner in New York City" for New York City with ID: 4
+[Weather] Using cached data for 40.76,-73.96
+🌤️ [/api/plan] Retrieved weather data for itinerary
+🔍 [/api/plan] Place "787 Coffee" details: {
+  hasDetails: false,
+  detailsKeys: [],
+  rating: undefined,
+  types: undefined
+}
+🔍 [/api/plan] Place "La Pecora Bianca SoHo" details: {
+  hasDetails: false,
+  detailsKeys: [],
+  rating: undefined,
+  types: undefined
+}
+🔍 [/api/plan] Place "La Grande Boucherie" details: {
+  hasDetails: false,
+  detailsKeys: [],
+  rating: undefined,
+  types: undefined
+}
+📤 [/api/plan] Sending response with 3 venues
+2025-06-05 06:28:16 INFO [API] POST /api/plan 200 (6581ms) {
+  "statusCode": 200,
+  "duration": 6581
+}
+SIGTERM received, shutting down gracefully...
+Server closed

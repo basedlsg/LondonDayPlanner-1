@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Back Bay",
+    "type": "neighborhood",
+    "coordinates": { "lat": 42.3502, "lng": -71.0808 },
+    "alternativeNames": [],
+    "commonMisspellings": [],
+    "parentArea": "Boston"
+  },
+  {
+    "name": "North End",
+    "type": "neighborhood",
+    "coordinates": { "lat": 42.3648, "lng": -71.0541 },
+    "alternativeNames": [],
+    "commonMisspellings": [],
+    "parentArea": "Boston"
+  },
+  {
+    "name": "Beacon Hill",
+    "type": "neighborhood",
+    "coordinates": { "lat": 42.3588, "lng": -71.0637 },
+    "alternativeNames": [],
+    "commonMisspellings": [],
+    "parentArea": "Boston"
+  },
+  {
+    "name": "Cambridge",
+    "type": "district", 
+    "coordinates": { "lat": 42.3736, "lng": -71.1097 },
+    "alternativeNames": ["Harvard Square area"],
+    "commonMisspellings": [],
+    "parentArea": "Greater Boston"
+  },
+  {
+    "name": "South End",
+    "type": "neighborhood",
+    "coordinates": { "lat": 42.3429, "lng": -71.0738 },
+    "alternativeNames": [],
+    "commonMisspellings": [],
+    "parentArea": "Boston"
+  },
+  {
+    "name": "Fenway Park",
+    "type": "landmark",
+    "coordinates": { "lat": 42.3467, "lng": -71.0972 },
+    "alternativeNames": [],
+    "commonMisspellings": [],
+    "parentArea": "Fenway-Kenmore"
+  }
+] 

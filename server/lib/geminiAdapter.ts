@@ -1,4 +1,6 @@
 import { StructuredRequest } from '@shared/types';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import { getApiKey } from '../config';
 
 /**
  * Adapter function to convert Gemini response format to the application's format
@@ -84,4 +86,44 @@ export function convertGeminiToAppFormat(geminiResponse: any): StructuredRequest
   console.log("Converted app format:", JSON.stringify(result, null, 2));
   
   return result;
+}
+
+interface GeminiGenerateOptions {
+  prompt: string;
+  temperature?: number;
+  maxTokens?: number;
+}
+
+/**
+ * Generate text using Gemini API
+ */
+export async function geminiGenerate(options: GeminiGenerateOptions): Promise<string> {
+  const apiKey = getApiKey('GEMINI_API_KEY');
+  
+  if (!apiKey) {
+    throw new Error('Gemini API key not configured');
+  }
+
+  try {
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro-latest' });
+    
+    const generationConfig = {
+      temperature: options.temperature || 0.7,
+      maxOutputTokens: options.maxTokens || 1024,
+    };
+
+    const result = await model.generateContent({
+      contents: [{ role: 'user', parts: [{ text: options.prompt }] }],
+      generationConfig,
+    });
+
+    const response = await result.response;
+    const text = response.text();
+    
+    return text;
+  } catch (error: any) {
+    console.error('Gemini generation error:', error);
+    throw new Error(`Gemini generation failed: ${error.message}`);
+  }
 }

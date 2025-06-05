@@ -8,7 +8,7 @@ import * as schema from '@shared/schema'; // Import your Drizzle schema
 let dbInstance: NeonHttpDatabase<typeof schema> | null = null; // Typed instance
 let connectionString: string | null = null;
 
-function initializeDatabase(): NeonHttpDatabase<typeof schema> {
+async function initializeDatabase(): Promise<NeonHttpDatabase<typeof schema>> {
   if (dbInstance) {
     // console.log('🗄️  Database connection already initialized.');
     return dbInstance;
@@ -39,20 +39,41 @@ For production deployment:
 
   console.log('🗄️  Initializing database instance with Neon driver...');
   
-  try {
-    const sql = neon(connectionString);
-    dbInstance = drizzle(sql, { schema }); // Pass the schema here
-    console.log('✅ Database instance initialized successfully with Neon.');
-    return dbInstance;
-  } catch (error) {
-    console.error('❌ Failed to initialize database with Neon driver:', error);
-    throw error; // Re-throw the error to be caught by startup logic
+  const maxRetries = 3;
+  let retryCount = 0;
+  
+  while (retryCount < maxRetries) {
+    try {
+      const sql = neon(connectionString);
+      dbInstance = drizzle(sql, { schema }); // Pass the schema here
+      
+      // Test the connection with a simple query using sql from neon
+      await sql`SELECT 1 as test`;
+      
+      console.log('✅ Database instance initialized and tested successfully with Neon.');
+      return dbInstance;
+    } catch (error) {
+      retryCount++;
+      console.error(`❌ Failed to initialize database (attempt ${retryCount}/${maxRetries}):`, error);
+      
+      if (retryCount >= maxRetries) {
+        console.error('❌ Database initialization failed after all retries');
+        throw error; // Re-throw the error to be caught by startup logic
+      }
+      
+      // Wait before retrying (exponential backoff)
+      const waitTime = Math.pow(2, retryCount) * 1000; // 2s, 4s, 8s
+      console.log(`⏳ Waiting ${waitTime}ms before retry...`);
+      await new Promise(resolve => setTimeout(resolve, waitTime));
+    }
   }
+  
+  throw new Error('Database initialization failed after all retries');
 }
 
 // Export a getter function for explicit initialization and access
-export function getDb(): NeonHttpDatabase<typeof schema> {
-  return initializeDatabase();
+export async function getDb(): Promise<NeonHttpDatabase<typeof schema>> {
+  return await initializeDatabase();
 }
 
 // For backwards compatibility and direct usage (e.g. in storage.ts if it expects a `db` export)

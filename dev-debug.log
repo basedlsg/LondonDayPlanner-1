@@ -1,0 +1,596 @@
+
+> rest-express@1.0.0 dev
+> NODE_ENV=development tsx server/index.ts
+
+🔧 [config.ts] Creating new Config instance.
+🔧 [config.ts] Config constructor starting...
+🔧 [config.ts] process.env.GOOGLE_PLACES_API_KEY at constructor start: NOT SET
+🔧 [config.ts] process.env.GEMINI_API_KEY at constructor start: NOT SET
+🔧 [config.ts] loadApiKeys() starting...
+🔧 [config.ts] Loading GEMINI_API_KEY from process.env: NOT SET
+🔧 [config.ts] Stored GEMINI_API_KEY in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] Loading GOOGLE_PLACES_API_KEY from process.env: NOT SET
+🔧 [config.ts] Stored GOOGLE_PLACES_API_KEY in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] Loading WEATHER_API_KEY from process.env: NOT SET
+🔧 [config.ts] Stored WEATHER_API_KEY in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] Loading GOOGLE_CLIENT_ID from process.env: NOT SET
+🔧 [config.ts] Stored GOOGLE_CLIENT_ID in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] loadApiKeys() finished.
+🔧 [config.ts] initializeFeatureFlags() starting...
+[config.ts isApiKeyValid] Key: GEMINI_API_KEY, Present in this.apiKeys: false, Valid (has length): false
+🚫 [config.ts] AI_PROCESSING feature flag DISABLED (enabled: true, keysMet: false).
+[config.ts isApiKeyValid] Key: GEMINI_API_KEY, Present in this.apiKeys: false, Valid (has length): false
+🚫 [config.ts] USE_GEMINI feature flag DISABLED (enabled: true, keysMet: false).
+[config.ts isApiKeyValid] Key: WEATHER_API_KEY, Present in this.apiKeys: false, Valid (has length): false
+🚫 [config.ts] WEATHER_AWARE feature flag DISABLED (enabled: true, keysMet: false).
+[config.ts isApiKeyValid] Key: GOOGLE_PLACES_API_KEY, Present in this.apiKeys: false, Valid (has length): false
+🚫 [config.ts] PLACES_API feature flag DISABLED (enabled: true, keysMet: false).
+🔧 [config.ts] initializeFeatureFlags() finished.
+🔧 [config.ts] Config constructor finished.
+[CityRegistry] Registered city: London (slug: london)
+[CityRegistry] Registered city: New York City (slug: nyc)
+[CityRegistry] Registered city: Boston (slug: boston)
+[CityRegistry] Registered city: Austin (slug: austin)
+[CityRegistry] City configurations loading process completed. Registry size: 4
+[CityRegistry] Registered slugs: london, nyc, boston, austin
+AI_PROCESSING feature flag status: false
+🔧 Loading environment variables...
+📄 .env file path: /Users/carlos/LondonDayPlanner-1/.env
+📄 .env file exists: true
+✅ Environment variables loaded by dotenv (keys found): [
+  'DATABASE_URL',
+  'GOOGLE_PLACES_API_KEY',
+  'GEMINI_API_KEY',
+  'WEATHER_API_KEY'
+]
+🔍 Environment check (process.env):
+   DATABASE_URL present: true
+   GOOGLE_PLACES_API_KEY present: true
+   GOOGLE_PLACES_API_KEY length: 39
+   GEMINI_API_KEY present: true
+🔧 Initializing application configuration...
+🔄 [config.ts] Config.recheckEnvironment() called. Forcing reload of API keys and features...
+🔧 [config.ts] loadApiKeys() starting...
+🔧 [config.ts] Loading GEMINI_API_KEY from process.env: SET (length: 39)
+🔧 [config.ts] Stored GEMINI_API_KEY in this.apiKeys: SET (length: 39)
+🔧 [config.ts] Loading GOOGLE_PLACES_API_KEY from process.env: SET (length: 39)
+🔧 [config.ts] Stored GOOGLE_PLACES_API_KEY in this.apiKeys: SET (length: 39)
+🔧 [config.ts] Loading WEATHER_API_KEY from process.env: SET (length: 32)
+🔧 [config.ts] Stored WEATHER_API_KEY in this.apiKeys: SET (length: 32)
+🔧 [config.ts] Loading GOOGLE_CLIENT_ID from process.env: NOT SET
+🔧 [config.ts] Stored GOOGLE_CLIENT_ID in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] loadApiKeys() finished.
+🔧 [config.ts] initializeFeatureFlags() starting...
+[config.ts isApiKeyValid] Key: GEMINI_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] AI_PROCESSING feature flag ENABLED.
+[config.ts isApiKeyValid] Key: GEMINI_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] USE_GEMINI feature flag ENABLED.
+[config.ts isApiKeyValid] Key: WEATHER_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] WEATHER_AWARE feature flag ENABLED.
+[config.ts isApiKeyValid] Key: GOOGLE_PLACES_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] PLACES_API feature flag ENABLED.
+🔧 [config.ts] initializeFeatureFlags() finished.
+🔄 [config.ts] Environment recheck complete. Logging new status:
+🔧 [config.ts] Current Application configuration: {
+  features: {
+    AI_PROCESSING: true,
+    USE_GEMINI: true,
+    WEATHER_AWARE: true,
+    PLACES_API: true
+  },
+  apiKeysPresent: {
+    GEMINI_API_KEY: true,
+    GOOGLE_PLACES_API_KEY: true,
+    WEATHER_API_KEY: true,
+    GOOGLE_CLIENT_ID: false
+  },
+  environment: 'development'
+}
+🔧 [config.ts] Config initialize() called.
+🔧 [config.ts] Current Application configuration: {
+  features: {
+    AI_PROCESSING: true,
+    USE_GEMINI: true,
+    WEATHER_AWARE: true,
+    PLACES_API: true
+  },
+  apiKeysPresent: {
+    GEMINI_API_KEY: true,
+    GOOGLE_PLACES_API_KEY: true,
+    WEATHER_API_KEY: true,
+    GOOGLE_CLIENT_ID: false
+  },
+  environment: 'development'
+}
+⚠️  SESSION_SECRET not set, using fallback. SET THIS FOR PRODUCTION!
+2025-06-04 21:04:07 WARN [SESSION] No SESSION_SECRET found, using development fallback {}
+2025-06-04 21:04:07 INFO [SESSION] Session configuration created {
+  "isProduction": false,
+  "hasSecret": true,
+  "cookieSecure": false,
+  "sameSite": "lax"
+}
+🗄️  Testing database connection...
+🗄️  Initializing database instance with Neon driver...
+✅ Database instance initialized and tested successfully with Neon.
+✅ Database connection successful
+🔌 WebSocket service initialized
+node:events:492
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5001
+    at __node_internal_captureLargerStackTrace (node:internal/errors:497:5)
+    at __node_internal_uvExceptionWithHostPort (node:internal/errors:594:12)
+    at Server.setupListenHandle [as _listen2] (node:net:1872:16)
+    at listenInCluster (node:net:1920:12)
+    at doListen (node:net:2069:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+Emitted 'error' event on WebSocketServer instance at:
+    at Server.emit (node:events:514:28)
+    at emitErrorNT (node:net:1899:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '0.0.0.0',
+  port: 5001
+}
+
+Node.js v20.9.0
+
+> rest-express@1.0.0 dev
+> NODE_ENV=development tsx server/index.ts
+
+🔧 [config.ts] Creating new Config instance.
+🔧 [config.ts] Config constructor starting...
+🔧 [config.ts] process.env.GOOGLE_PLACES_API_KEY at constructor start: NOT SET
+🔧 [config.ts] process.env.GEMINI_API_KEY at constructor start: NOT SET
+🔧 [config.ts] loadApiKeys() starting...
+🔧 [config.ts] Loading GEMINI_API_KEY from process.env: NOT SET
+🔧 [config.ts] Stored GEMINI_API_KEY in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] Loading GOOGLE_PLACES_API_KEY from process.env: NOT SET
+🔧 [config.ts] Stored GOOGLE_PLACES_API_KEY in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] Loading WEATHER_API_KEY from process.env: NOT SET
+🔧 [config.ts] Stored WEATHER_API_KEY in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] Loading GOOGLE_CLIENT_ID from process.env: NOT SET
+🔧 [config.ts] Stored GOOGLE_CLIENT_ID in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] loadApiKeys() finished.
+🔧 [config.ts] initializeFeatureFlags() starting...
+[config.ts isApiKeyValid] Key: GEMINI_API_KEY, Present in this.apiKeys: false, Valid (has length): false
+🚫 [config.ts] AI_PROCESSING feature flag DISABLED (enabled: true, keysMet: false).
+[config.ts isApiKeyValid] Key: GEMINI_API_KEY, Present in this.apiKeys: false, Valid (has length): false
+🚫 [config.ts] USE_GEMINI feature flag DISABLED (enabled: true, keysMet: false).
+[config.ts isApiKeyValid] Key: WEATHER_API_KEY, Present in this.apiKeys: false, Valid (has length): false
+🚫 [config.ts] WEATHER_AWARE feature flag DISABLED (enabled: true, keysMet: false).
+[config.ts isApiKeyValid] Key: GOOGLE_PLACES_API_KEY, Present in this.apiKeys: false, Valid (has length): false
+🚫 [config.ts] PLACES_API feature flag DISABLED (enabled: true, keysMet: false).
+🔧 [config.ts] initializeFeatureFlags() finished.
+🔧 [config.ts] Config constructor finished.
+[CityRegistry] Registered city: London (slug: london)
+[CityRegistry] Registered city: New York City (slug: nyc)
+[CityRegistry] Registered city: Boston (slug: boston)
+[CityRegistry] Registered city: Austin (slug: austin)
+[CityRegistry] City configurations loading process completed. Registry size: 4
+[CityRegistry] Registered slugs: london, nyc, boston, austin
+AI_PROCESSING feature flag status: false
+🔧 Loading environment variables...
+📄 .env file path: /Users/carlos/LondonDayPlanner-1/.env
+📄 .env file exists: true
+✅ Environment variables loaded by dotenv (keys found): [
+  'DATABASE_URL',
+  'GOOGLE_PLACES_API_KEY',
+  'GEMINI_API_KEY',
+  'WEATHER_API_KEY'
+]
+🔍 Environment check (process.env):
+   DATABASE_URL present: true
+   GOOGLE_PLACES_API_KEY present: true
+   GOOGLE_PLACES_API_KEY length: 39
+   GEMINI_API_KEY present: true
+🔧 Initializing application configuration...
+🔄 [config.ts] Config.recheckEnvironment() called. Forcing reload of API keys and features...
+🔧 [config.ts] loadApiKeys() starting...
+🔧 [config.ts] Loading GEMINI_API_KEY from process.env: SET (length: 39)
+🔧 [config.ts] Stored GEMINI_API_KEY in this.apiKeys: SET (length: 39)
+🔧 [config.ts] Loading GOOGLE_PLACES_API_KEY from process.env: SET (length: 39)
+🔧 [config.ts] Stored GOOGLE_PLACES_API_KEY in this.apiKeys: SET (length: 39)
+🔧 [config.ts] Loading WEATHER_API_KEY from process.env: SET (length: 32)
+🔧 [config.ts] Stored WEATHER_API_KEY in this.apiKeys: SET (length: 32)
+🔧 [config.ts] Loading GOOGLE_CLIENT_ID from process.env: NOT SET
+🔧 [config.ts] Stored GOOGLE_CLIENT_ID in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] loadApiKeys() finished.
+🔧 [config.ts] initializeFeatureFlags() starting...
+[config.ts isApiKeyValid] Key: GEMINI_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] AI_PROCESSING feature flag ENABLED.
+[config.ts isApiKeyValid] Key: GEMINI_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] USE_GEMINI feature flag ENABLED.
+[config.ts isApiKeyValid] Key: WEATHER_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] WEATHER_AWARE feature flag ENABLED.
+[config.ts isApiKeyValid] Key: GOOGLE_PLACES_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] PLACES_API feature flag ENABLED.
+🔧 [config.ts] initializeFeatureFlags() finished.
+🔄 [config.ts] Environment recheck complete. Logging new status:
+🔧 [config.ts] Current Application configuration: {
+  features: {
+    AI_PROCESSING: true,
+    USE_GEMINI: true,
+    WEATHER_AWARE: true,
+    PLACES_API: true
+  },
+  apiKeysPresent: {
+    GEMINI_API_KEY: true,
+    GOOGLE_PLACES_API_KEY: true,
+    WEATHER_API_KEY: true,
+    GOOGLE_CLIENT_ID: false
+  },
+  environment: 'development'
+}
+🔧 [config.ts] Config initialize() called.
+🔧 [config.ts] Current Application configuration: {
+  features: {
+    AI_PROCESSING: true,
+    USE_GEMINI: true,
+    WEATHER_AWARE: true,
+    PLACES_API: true
+  },
+  apiKeysPresent: {
+    GEMINI_API_KEY: true,
+    GOOGLE_PLACES_API_KEY: true,
+    WEATHER_API_KEY: true,
+    GOOGLE_CLIENT_ID: false
+  },
+  environment: 'development'
+}
+⚠️  SESSION_SECRET not set, using fallback. SET THIS FOR PRODUCTION!
+2025-06-04 21:09:47 WARN [SESSION] No SESSION_SECRET found, using development fallback {}
+2025-06-04 21:09:47 INFO [SESSION] Session configuration created {
+  "isProduction": false,
+  "hasSecret": true,
+  "cookieSecure": false,
+  "sameSite": "lax"
+}
+🗄️  Testing database connection...
+🗄️  Initializing database instance with Neon driver...
+✅ Database instance initialized and tested successfully with Neon.
+✅ Database connection successful
+🔌 WebSocket service initialized
+🚀 Server running on http://localhost:5001
+🔧 Environment: development
+🗄️  Database: Connected
+🔑 Google Places API Key: Configured
+🔑 Gemini API Key: Configured
+🔌 WebSocket: Available at ws://localhost:5001/ws
+📝 [/:city/plan] City-specific plan request for: New York City
+Query: I want coffee in Manhattan at 10 AM
+🚀 [/:city/plan] Creating city-aware plan for New York City
+🏙️ Creating plan for city: nyc
+🚀 Creating plan for query: I want coffee in Manhattan at 10 AM
+[NLP] Processing query with context for city: New York City
+🔄 [nlp-fixed] Attempting lazy AI initialization for new Gemini processor...
+🤖 [nlp-fixed] Checking AI_PROCESSING feature flag status: true
+🔑 [nlp-fixed] GEMINI_API_KEY validation: true
+✅ [nlp-fixed] Initializing Gemini API with valid API key
+✅ [nlp-fixed] Gemini API successfully initialized
+🚀 [nlp-fixed] Attempting to process query with new Gemini processor
+🚀 [nlp-fixed] Query: I want coffee in Manhattan at 10 AM
+🚀 [nlp-fixed] CityContext: { name: 'New York City', slug: 'nyc', timezone: 'America/New_York' }
+Raw Gemini structured data: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "coffee",
+      "location": "Manhattan",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": []
+}
+[32minfo[39m: AI Interaction {"modelName":"gemini-1.5-pro","parsedResponse":{"fixedAppointments":[],"fixedTimeEntries":[{"activity":"coffee","location":"Manhattan","searchParameters":{"specificRequirements":[],"venueType":"cafe"},"time":"10:00","venueRequirements":[]}],"flexibleTimeEntries":[],"preferences":{"budget":"moderate","interests":[]},"specialRequests":[],"timeBlocks":[],"travelGroup":{"adults":1,"children":0}},"processingTimeMs":2716,"rawRequest":{"prompt":"\n    You are an expert travel planning assistant for New York City. Extract structured information from this itinerary request with extreme attention to detail.\n    \n    CRITICAL PARSING RULES:\n    \n    1. JSON FORMAT: Return ONLY valid JSON matching the schema - no markdown, no extra text\n    \n    2. TIME EXTRACTION:\n       - Use 24-hour format (e.g., \"09:00\", \"15:30\")\n       - \"at 6\" without context = \"18:00\" (assume evening for dinner/drinks)\n       - \"at 6\" with morning context = \"06:00\"\n       - Default meal times: breakfast=\"09:00\", lunch=\"12:00\", dinner=\"19:00\"\n       - \"morning\"=\"09:00\", \"afternoon\"=\"14:00\", \"evening\"=\"18:00\", \"night\"=\"21:00\"\n       - \"early morning\"=\"07:00\", \"late morning\"=\"11:00\", \"late afternoon\"=\"16:00\"\n       - \"sunset\" = \"18:30\", \"sunrise\" = \"06:30\"\n       - RELATIVE TIME HANDLING (CRITICAL):\n         * \"in X hours\" = add X hours to the start time or previous activity time\n         * \"X hours later\" = add X hours to the previous activity time\n         * Example: If start is 10:00, \"in 1 hour\" = \"11:00\", \"in 3 hours\" = \"13:00\"\n         * Example: If last activity is 12:00, \"2 hours later\" = \"14:00\"\n    \n    3. TIME BLOCKS & APPOINTMENTS - NEW CRITICAL PARSING:\n       - TIME BLOCKS: \"work from X to Y\", \"spend X hours at\", \"need X hours for\"\n         * Example: \"work from 10 AM to 3 PM\" → timeBlocks entry with startTime: \"10:00\", endTime: \"15:00\"\n         * Example: \"need a quiet place to work for 5 hours\" → timeBlocks entry with duration reflected in end time\n         * Extract venue requirements: \"quiet\", \"good wifi\", \"suitable for calls\"\n       - FIXED APPOINTMENTS: \"meeting at X\", \"appointment at Y\", \"reservation at Z\"\n         * Example: \"meeting in Mayfair at 5\" → fixedAppointments entry with time: \"17:00\", location: \"Mayfair\"\n         * Add buffers: meeting = 30 min before, dinner = 15 min before\n       - REGULAR ACTIVITIES: Everything else goes in fixedTimeEntries\n    \n    4. ACTIVITY SEQUENCE - CRITICAL:\n       - Preserve the EXACT order mentioned by the user\n       - \"then\", \"after that\", \"after\", \"followed by\", \"next\", \"afterwards\" indicate sequence\n       - Count ALL activities mentioned (coffee, lunch, drinks, etc.)\n       - If no times given, space activities 1.5-2 hours apart\n       - Parse compound sentences carefully: \"I have a meeting... and would like to go to a restaurant\" = 2 activities\n    \n    5. VENUE PREFERENCES - CRITICAL:\n       - ALWAYS extract venue descriptors to venuePreference field\n       - Examples that MUST be captured:\n         * \"hipster cafe\" → venuePreference: \"hipster cafe\"\n         * \"authentic Jewish deli\" → venuePreference: \"authentic Jewish deli\"\n         * \"trendy brunch spot\" → venuePreference: \"trendy brunch spot\"\n         * \"hole-in-the-wall\" → venuePreference: \"hole-in-the-wall\"\n         * \"michelin star\" → venuePreference: \"michelin star restaurant\"\n         * \"rooftop bar\" → venuePreference: \"rooftop bar\"\n         * \"sports bar\" → venuePreference: \"sports bar\"\n         * \"family-friendly\" → venuePreference: \"family-friendly restaurant\"\n         * \"outdoor seating\" → specificRequirements: [\"outdoor seating\"]\n         * \"with a view\" → specificRequirements: [\"with a view\"]\n         * \"good wifi\" → specificRequirements: [\"wifi\"]\n    \n    6. LOCATION INTELLIGENCE - CRITICAL:\n       - PRESERVE ALL LOCATION MENTIONS from the user's query!\n       - Common New York City locations: \"SoHo\", \"Greenwich Village\", \"Upper East Side\", \"Midtown\"\n       - If user mentions a specific place (e.g., \"Barton Springs\", \"4th st\"), USE IT EXACTLY\n       - Keep landmark names as-is\n       - \"that famous museum\" → Try to infer (MoMA, Met, Natural History Museum)\n       - \"nearby\" → Use previous activity's location\n       - \"somewhere nice\" or generic location → \"Midtown\"\n       - No location → \"Midtown\"\n       - NEVER replace specific location mentions with generic ones\n    \n    6. SPECIAL REQUIREMENTS:\n       - Budget mentions: \"cheap\"/\"budget\" → budget: \"budget\", \"upscale\"/\"fancy\" → budget: \"expensive\"\n       - Group size: \"family\", \"group of X\" → travelGroup numbers\n       - Dietary: \"kosher\", \"vegan\", \"halal\" → specificRequirements\n       - Accessibility: \"wheelchair\", \"accessible\" → accessibility requirements\n       - Weather: \"if nice weather\" → note in specialRequests\n    \n    7. ACTIVITY TYPES:\n       - Meals: breakfast/brunch/lunch/dinner → restaurant\n       - Coffee/work at cafe → cafe\n       - Drinks/cocktails/lounge → bar (NOT attraction)\n       - Shopping → shopping\n       - Museums/galleries → museum\n       - Parks/outdoor/walk → park\n       - Shows/entertainment → entertainment\n       - Meeting/appointment → Skip venue search BUT preserve time/location for context\n    \n    8. EDGE CASES:\n       - Conflicting requirements: Choose most logical interpretation\n       - Vague queries: Make reasonable New York City-appropriate suggestions\n       - Multi-day: Note day changes in flexibleTimeEntries\n    \n    SCHEMA STRUCTURE:\n    {\n      \"timeBlocks\": [\n        {\n          \"startTime\": \"10:00\",\n          \"endTime\": \"15:00\",\n          \"activity\": \"work session\",\n          \"location\": \"Canary Wharf\",\n          \"venueRequirements\": [\"quiet\", \"good wifi\", \"suitable for calls\"],\n          \"searchParameters\": {\n            \"venueType\": \"cafe\",\n            \"specificRequirements\": [\"quiet\", \"wifi\", \"power outlets\"],\n            \"ambience\": \"quiet\"\n          }\n        }\n      ],\n      \"fixedAppointments\": [\n        {\n          \"time\": \"17:00\",\n          \"duration\": 60,\n          \"activity\": \"meeting\",\n          \"location\": \"Mayfair\",\n          \"bufferBefore\": 30,\n          \"bufferAfter\": 15,\n          \"isFixed\": true\n        }\n      ],\n      \"fixedTimeEntries\": [\n        {\n          \"time\": \"HH:MM\",\n          \"activity\": \"Brief description\",\n          \"location\": \"New York City location\",\n          \"venuePreference\": \"specific venue type if mentioned\",\n          \"venueRequirements\": [\"quiet\", \"non-crowded\"],\n          \"searchParameters\": {\n            \"venuePreference\": \"DUPLICATE venue preference here\",\n            \"specificRequirements\": [\"array of requirements\"],\n            \"cuisine\": \"if food related\",\n            \"priceLevel\": \"budget/moderate/expensive\"\n          }\n        }\n      ],\n      \"flexibleTimeEntries\": [...same structure...],\n      \"preferences\": {\n        \"budget\": \"overall budget level\",\n        \"pace\": \"relaxed/moderate/busy\",\n        \"interests\": [\"user interests\"]\n      },\n      \"travelGroup\": {\n        \"adults\": number,\n        \"children\": number\n      },\n      \"specialRequests\": [\"any special notes\"]\n    }\n\n    Start time: 10:00\n    Date: 2025-06-05\n    \n    IMPORTANT: Count ALL activities in this request and ensure each one appears in the output.\n    \n    Here's the request to analyze:\n    I want coffee in Manhattan at 10 AM\n    ","temperature":0.2},"rawResponse":"```json\n{\n  \"timeBlocks\": [],\n  \"fixedAppointments\": [],\n  \"fixedTimeEntries\": [\n    {\n      \"time\": \"10:00\",\n      \"activity\": \"coffee\",\n      \"location\": \"Manhattan\",\n      \"venuePreference\": null,\n      \"venueRequirements\": [],\n      \"searchParameters\": {\n        \"venueType\": \"cafe\",\n        \"specificRequirements\": [],\n        \"cuisine\": null,\n        \"priceLevel\": null\n      }\n    }\n  ],\n  \"flexibleTimeEntries\": [],\n  \"preferences\": {\n    \"budget\": null,\n    \"pace\": null,\n    \"interests\": []\n  },\n  \"travelGroup\": {\n    \"adults\": 1,\n    \"children\": 0\n  },\n  \"specialRequests\": []\n}\n```","service":"ai-interaction-logger","sessionId":"80e3492b-ec0b-432b-842e-b821a09ac848","status":"success","timestamp":"2025-06-05T06:19:20.981Z","userQuery":"I want coffee in Manhattan at 10 AM"}
+Failed to log AI interaction to database: TypeError: db.insert is not a function
+    at logAiInteraction (/Users/carlos/LondonDayPlanner-1/server/lib/aiLogging.ts:93:16)
+    at attemptGeminiProcessing (/Users/carlos/LondonDayPlanner-1/server/lib/geminiProcessor.ts:430:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at processWithGemini (/Users/carlos/LondonDayPlanner-1/server/lib/geminiProcessor.ts:176:22)
+    at parseItineraryRequest (/Users/carlos/LondonDayPlanner-1/server/lib/nlp-fixed.ts:526:25)
+    at MemoryCache.getOrSet (/Users/carlos/LondonDayPlanner-1/server/lib/cache.ts:59:23)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:71:37)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:333:25)
+Processing Gemini response with raw data: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "coffee",
+      "location": "Manhattan",
+      "venueRequirements": [],
+      "searchParameters": {
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": []
+}
+Processing 1 fixed time entries with duplicate detection
+Added fixed time entry: coffee at Manhattan, 10:00
+Final processed result: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "coffee",
+      "location": "Manhattan",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Midtown"
+}
+✅ [nlp-fixed] processWithGemini completed successfully, result: VALID
+Successfully processed query with new Gemini processor
+Raw Gemini API response: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "coffee",
+      "location": "Manhattan",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Midtown"
+}
+Converting Gemini result to app format: {
+  "timeBlocks": [],
+  "fixedAppointments": [],
+  "fixedTimeEntries": [
+    {
+      "time": "10:00",
+      "activity": "coffee",
+      "location": "Manhattan",
+      "venueRequirements": [],
+      "searchParameters": {
+        "priceLevel": "moderate",
+        "venueType": "cafe",
+        "specificRequirements": []
+      }
+    }
+  ],
+  "flexibleTimeEntries": [],
+  "preferences": {
+    "budget": "moderate",
+    "interests": []
+  },
+  "travelGroup": {
+    "adults": 1,
+    "children": 0
+  },
+  "specialRequests": [],
+  "startLocation": "Midtown"
+}
+Raw time blocks from Gemini: []
+Raw fixed appointments from Gemini: []
+Raw fixed time entries from Gemini: [
+  {
+    "time": "10:00",
+    "activity": "coffee",
+    "location": "Manhattan",
+    "venueRequirements": [],
+    "searchParameters": {
+      "priceLevel": "moderate",
+      "venueType": "cafe",
+      "specificRequirements": []
+    }
+  }
+]
+Fixed time entry: Normalized time from "10:00" to "10:00"
+Correctly interpreted time "10:00" as America/New_York time: 10:00 AM (2025-06-05T14:00:00.000Z)
+Correctly interpreted time "10:00" as New York City time: 10:00 AM (2025-06-05T14:00:00.000Z)
+Processed fixed time entry: coffee at Manhattan, time: 2025-06-05T14:00:00.000Z, type: cafe
+Raw flexible time entries from Gemini: []
+Final de-duplicated activities count: 1
+Converted app format request: {
+  "startLocation": "Midtown",
+  "destinations": [
+    "Manhattan"
+  ],
+  "fixedTimes": [
+    {
+      "location": "Manhattan",
+      "time": "2025-06-05T14:00:00.000Z",
+      "type": "cafe",
+      "searchTerm": "coffee",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "10:00 AM"
+    }
+  ],
+  "preferences": {
+    "type": "moderate",
+    "requirements": []
+  }
+}
+Using optimized Gemini result that was converted by convertGeminiToAppFormat function
+Gemini result contains 1 de-duplicated activities
+Validating location: "Manhattan" with Google Maps Geocoding API
+Geocoding search query: "Manhattan, New York City, USA"
+Validated "Manhattan" as neighborhood: "Manhattan"
+Validated "Manhattan" as neighborhood: "Manhattan"
+Validating location: "Manhattan" with Google Maps Geocoding API
+Geocoding search query: "Manhattan, New York City, USA"
+Validated "Manhattan" as neighborhood: "Manhattan"
+Final processed Gemini result: {
+  "startLocation": "Midtown",
+  "destinations": [
+    "Manhattan"
+  ],
+  "fixedTimes": [
+    {
+      "location": "Manhattan",
+      "time": "2025-06-05T14:00:00.000Z",
+      "type": "cafe",
+      "searchTerm": "coffee",
+      "keywords": [],
+      "minRating": 4,
+      "displayTime": "10:00 AM"
+    }
+  ],
+  "preferences": {
+    "type": "moderate",
+    "requirements": []
+  }
+}
+📝 Parsed request from cache/fetch: {
+  startLocation: 'Midtown',
+  destinations: [ 'Manhattan' ],
+  fixedTimes: [
+    {
+      location: 'Manhattan',
+      time: '2025-06-05T14:00:00.000Z',
+      type: 'cafe',
+      searchTerm: 'coffee',
+      keywords: [],
+      minRating: 4,
+      displayTime: '10:00 AM',
+      searchPreference: undefined
+    }
+  ],
+  preferences: { type: 'moderate', requirements: [] }
+}
+📍 Using explicit start location from NLP: Midtown
+📍 Determined initial search/start location: Midtown
+Parsed time "10:00" to normalized time "10:00" and America/New_York time: 10:00 AM (2025-06-04 10:00:00 EDT)
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Manhattan","time":"2025-06-05T14:00:00.000Z","type":"cafe","searchTerm":"coffee","keywords":[],"minRating":4,"displayTime":"10:00 AM"}
+Parsed ISO timestamp "2025-06-05T14:00:00.000Z" to America/New_York time: 2025-06-05 10:00:00 EDT
+🔍 [enhancedPlaceSearch] Starting enhanced search with options: {
+  query: 'coffee',
+  location: 'Manhattan',
+  keywords: [],
+  type: 'cafe',
+  preferences: undefined,
+  cityContext: { name: 'New York City', slug: 'nyc', timezone: 'America/New_York' }
+}
+🤖 [Gemini] Enhanced query: best coffee shop in Manhattan
+📍 [enhancedPlaceSearch] Using city center for "nyc"
+🎯 [enhancedPlaceSearch] Using location bias: 40.7128,-74.006 with radius 25000m
+🌐 [enhancedPlaceSearch] Searching with query: best coffee shop in Manhattan
+🚫 [enhancedPlaceSearch] Filtering out La Cabra Bakery - address "152 2nd Ave, New York, NY 10003, United States" not in New York City
+🚫 [enhancedPlaceSearch] Filtering out Little Collins - address "708 3rd Ave, New York, NY 10017, United States" not in New York City
+🚫 [enhancedPlaceSearch] Filtering out Suited NYC - address "45 John St, New York, NY 10038, United States" not in New York City
+🚫 [enhancedPlaceSearch] Filtering out Drip Drop Café, coffee shop - address "98 Thompson St, New York, NY 10012, United States" not in New York City
+🏙️ [enhancedPlaceSearch] After city filtering: 0 venues remain for New York City
+📍 [enhancedPlaceSearch] No results found after city filtering
+Could not find location for fixed appointment: coffee at Manhattan
+DbStorage (with logging): Creating itinerary (anonymous)
+DbStorage (with logging): Error creating itinerary: TypeError: db.insert is not a function
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:137:36)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:635:34)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:300:51)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:333:25)
+Using in-memory fallback for createItinerary due to database error
+Successfully created itinerary "coffee in New York City" for New York City with ID: 1
+📤 [/:city/plan] Sending response with 0 venues
+2025-06-04 23:19:22 INFO [API] POST /api/nyc/plan 200 (4309ms) {
+  "statusCode": 200,
+  "duration": 4309
+}
+📝 [/:city/plan] City-specific plan request for: New York City
+Query: I want coffee in Manhattan at 10 AM
+🚀 [/:city/plan] Creating city-aware plan for New York City
+🏙️ Creating plan for city: nyc
+🚀 Creating plan for query: I want coffee in Manhattan at 10 AM
+📝 Parsed request from cache/fetch: {
+  startLocation: 'Midtown',
+  destinations: [ 'Manhattan' ],
+  fixedTimes: [
+    {
+      location: 'Manhattan',
+      time: '2025-06-05T14:00:00.000Z',
+      type: 'cafe',
+      searchTerm: 'coffee',
+      keywords: [],
+      minRating: 4,
+      displayTime: '10:00 AM',
+      searchPreference: undefined
+    }
+  ],
+  preferences: { type: 'moderate', requirements: [] }
+}
+📍 Using explicit start location from NLP: Midtown
+📍 Determined initial search/start location: Midtown
+Parsed time "10:00" to normalized time "10:00" and America/New_York time: 10:00 AM (2025-06-04 10:00:00 EDT)
+[SERVICE DEBUG] Raw timeSlot being processed: {"location":"Manhattan","time":"2025-06-05T14:00:00.000Z","type":"cafe","searchTerm":"coffee","keywords":[],"minRating":4,"displayTime":"10:00 AM"}
+Parsed ISO timestamp "2025-06-05T14:00:00.000Z" to America/New_York time: 2025-06-05 10:00:00 EDT
+Could not find location for fixed appointment: coffee at Manhattan
+DbStorage (with logging): Creating itinerary (anonymous)
+DbStorage (with logging): Error creating itinerary: TypeError: db.insert is not a function
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:137:36)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/server/storage.ts:635:34)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/server/services/ItineraryPlanningService.ts:300:51)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/server/routes.ts:333:25)
+Using in-memory fallback for createItinerary due to database error
+Successfully created itinerary "coffee in New York City" for New York City with ID: 2
+📤 [/:city/plan] Sending response with 0 venues
+2025-06-04 23:20:29 INFO [API] POST /api/nyc/plan 200 (2ms) {
+  "statusCode": 200,
+  "duration": 2
+}

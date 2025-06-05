@@ -1,60 +1,42 @@
-/**
- * Test weather API connection
- * This simple script runs the weather service test function to verify the API key works
- */
+import { testWeatherAPI, getWeatherForecast } from './lib/weatherService.js';
+import { setupEnvironment } from './lib/environment.js';
 
-import {
-  getWeatherForecast,
-  isVenueOutdoor,
-  isWeatherSuitableForOutdoor
-} from './lib/weatherService';
-
-async function testWeatherAPI() {
-  // Test location (London)
-  const londonLat = 51.5074;
-  const londonLng = -0.1278;
+async function testWeather() {
+  console.log('🌤️  Testing Weather API Integration...\n');
   
-  console.log("=== TESTING WEATHER API CONNECTION ===");
-  console.log("API Key availability:", process.env.WEATHER_API_KEY ? "✅ Present" : "❌ Missing");
+  // Setup environment first
+  setupEnvironment();
   
-  // Test weather forecast fetch
   try {
-    console.log("\nFetching London weather forecast...");
-    const forecast = await getWeatherForecast(londonLat, londonLng);
+    // Test basic weather API
+    console.log('1. Testing basic weather API functionality...');
+    const isWorking = await testWeatherAPI();
+    console.log(`   API Test Result: ${isWorking ? '✅ PASS' : '❌ FAIL'}\n`);
     
-    console.log("✅ Successfully fetched weather data!");
-    console.log("--------------------------------");
-    console.log(`City: ${forecast.city.name}`);
-    console.log(`Current temp: ${forecast.list[0].main.temp}°C`);
-    console.log(`Conditions: ${forecast.list[0].weather[0].main} (${forecast.list[0].weather[0].description})`);
-    console.log(`Wind: ${forecast.list[0].wind.speed} m/s`);
-    console.log(`Humidity: ${forecast.list[0].main.humidity}%`);
-    console.log("--------------------------------");
+    if (isWorking) {
+      // Test specific cities
+      const testCities = [
+        { name: 'NYC', lat: 40.7128, lng: -74.0060 },
+        { name: 'London', lat: 51.5074, lng: -0.1278 },
+        { name: 'Boston', lat: 42.3601, lng: -71.0589 },
+        { name: 'Austin', lat: 30.2672, lng: -97.7431 }
+      ];
+      
+      console.log('2. Testing weather for supported cities...');
+      for (const city of testCities) {
+        try {
+          const weather = await getWeatherForecast(city.lat, city.lng);
+          console.log(`   ${city.name}: ${weather.temperature}°C, ${weather.condition} - ${weather.description}`);
+        } catch (error) {
+          console.error(`   ${city.name}: ❌ Failed -`, error);
+        }
+      }
+    }
     
-    // Test cache by making a second request
-    console.log("\nTesting cache (should use cached data):");
-    console.time("Second request");
-    await getWeatherForecast(londonLat, londonLng);
-    console.timeEnd("Second request");
-    
-    // Verify weather suitability checks
-    const now = new Date();
-    const suitability = isWeatherSuitableForOutdoor(forecast, now);
-    console.log(`\nWeather suitability for outdoor activities: ${suitability ? "✅ Suitable" : "❌ Not suitable"}`);
-    
-    // Return success
-    return true;
+    console.log('\n✅ Weather API test completed!');
   } catch (error) {
-    console.error("❌ ERROR fetching weather data:", error);
-    return false;
+    console.error('❌ Weather API test failed:', error);
   }
 }
 
-// Run the test
-testWeatherAPI().then(success => {
-  if (success) {
-    console.log("\n✅ Weather API connection test completed successfully!");
-  } else {
-    console.log("\n❌ Weather API connection test failed!");
-  }
-});
+testWeather();

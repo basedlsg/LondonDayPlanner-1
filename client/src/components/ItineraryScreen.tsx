@@ -1,5 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { format, formatInTimeZone } from 'date-fns-tz';
+import { ItineraryLoading } from './LoadingSpinner';
+import WeatherDisplay from './WeatherDisplay';
+import { ShareModal } from './ShareModal';
+import { InteractiveMap } from './InteractiveMap';
+import { Share2, Save, Map } from 'lucide-react';
+import { useAuth } from '../hooks/useAuth';
+import { useToast } from '../hooks/use-toast';
+
+interface WeatherData {
+  main: {
+    temp: number;
+    feels_like: number;
+    humidity: number;
+  };
+  weather: Array<{
+    main: string;
+    description: string;
+    icon: string;
+  }>;
+  dt: number;
+  isOutdoor: boolean;
+  suitable: boolean;
+}
 
 interface Venue {
   name: string;
@@ -7,6 +30,8 @@ interface Venue {
   address: string;
   rating: number;
   categories: string[];
+  weather?: WeatherData;
+  isOutdoor?: boolean;
 }
 
 interface TravelInfo {
@@ -18,13 +43,48 @@ interface ItineraryScreenProps {
   venues: Venue[];
   travelInfo: TravelInfo[];
   onExport: () => void;
+  isLoading?: boolean;
+  title?: string;
+  cityName?: string;
+  timezone?: string;
+  planDate?: string;
+  shareableUrl?: string;
+  // Multi-day trip support
+  isMultiDay?: boolean;
+  tripId?: number;
+  tripDuration?: number;
+  currentDay?: number;
+  allDays?: Array<{
+    dayNumber: number;
+    date: string;
+    itineraryId: number;
+    title: string;
+  }>;
 }
 
 const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
   venues,
   travelInfo,
-  onExport
+  onExport,
+  isLoading = false,
+  title,
+  cityName,
+  timezone,
+  planDate,
+  shareableUrl,
+  // Multi-day trip support
+  isMultiDay = false,
+  tripId,
+  tripDuration = 1,
+  currentDay = 1,
+  allDays
 }) => {
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [showMap, setShowMap] = useState(false);
+  const { user, isAuthenticated } = useAuth();
+  const { toast } = useToast();
+
   // Add debug logging to track the data flow
   useEffect(() => {
     console.log("ItineraryScreen received venues:", venues);
@@ -34,61 +94,199 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
   const hasVenues = venues && Array.isArray(venues) && venues.length > 0;
   const hasTravelInfo = travelInfo && Array.isArray(travelInfo);
 
+  const handleSaveItinerary = async () => {
+    if (!isAuthenticated || !hasVenues) return;
+
+    setIsSaving(true);
+    try {
+      const response = await fetch('/api/user/itineraries', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          title: title || `${cityName} Itinerary`,
+          venues,
+          travelInfo,
+          planDate,
+          cityName,
+          timezone,
+        }),
+      });
+
+      if (response.ok) {
+        toast({
+          title: 'Itinerary saved!',
+          description: 'You can view it in your saved itineraries.',
+        });
+      } else {
+        throw new Error('Failed to save itinerary');
+      }
+    } catch (error) {
+      console.error('Error saving itinerary:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to save itinerary. Please try again.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  // Show loading state
+  if (isLoading) {
+    return <ItineraryLoading />;
+  }
+
   // Don't render anything if there are no venues
   if (!hasVenues) {
     return null;
   }
 
   return (
-    <div className="bg-white flex flex-col items-center w-full">
-      <div className="w-full max-w-md px-4 pb-12">
+    <div className="bg-white flex flex-col items-center w-full min-h-screen">
+      <div className="w-full max-w-md px-4 py-4 sm:py-6 pb-20 sm:pb-12">
         {/* Header - only shown when we have venues */}
-        <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold mb-8 itinerary-title" style={{ 
+        <div className="mb-6 sm:mb-8 text-center">
+          <h1 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 itinerary-title" style={{ 
             fontFamily: "'Rozha One', serif", /* Keep this font for the title to match the app's branding */
             color: 'var(--color-text-black)',
-            fontSize: '1.875rem' // text-3xl is 1.875rem, which is ~20% bigger than text-2xl (1.5rem)
+            fontSize: 'clamp(1.75rem, 5vw, 2rem)' // Better mobile font scaling
           }}>
-            Your NYC Itinerary
+            {title || `Your ${cityName || 'NYC'} Itinerary`}
           </h1>
+          
+          {/* Multi-day trip navigation - Hidden for now */}
+          {/* {isMultiDay && tripDuration && tripDuration > 1 && (
+            <div className="mb-6">
+              <div className="flex justify-center items-center gap-2 mb-4">
+                <span className="text-sm text-gray-600">{tripDuration}-Day Trip</span>
+              </div>
+              <div className="flex gap-2 overflow-x-auto pb-2">
+                {Array.from({ length: tripDuration }, (_, i) => i + 1).map(dayNum => {
+                  const dayDate = new Date(planDate || new Date());
+                  dayDate.setDate(dayDate.getDate() + dayNum - 1);
+                  
+                  return (
+                    <button
+                      key={dayNum}
+                      className={`flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                        currentDay === dayNum || (!currentDay && dayNum === 1)
+                          ? 'bg-[#17B9E6] text-white'
+                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      }`}
+                      onClick={() => {
+                        // TODO: Load itinerary for selected day
+                        console.log(`Switch to day ${dayNum}`);
+                      }}
+                    >
+                      Day {dayNum}
+                      <div className="text-xs opacity-75 mt-0.5">
+                        {format(dayDate, 'MMM d')}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )} */}
 
-          <button
-            onClick={onExport}
-            className="w-full py-4 rounded-2xl text-white export-button"
-            style={{ 
-              background: '#17B9E6',
-              fontWeight: 600,
-              fontSize: '1rem',
-              fontFamily: "'Inter', sans-serif"
-            }}
-          >
-            Export to Calendar
-          </button>
+          <div className="flex flex-col gap-3">
+            <button
+              onClick={() => setShowMap(!showMap)}
+              className="w-full py-3 sm:py-4 rounded-2xl text-white export-button transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
+              style={{ 
+                background: showMap ? '#6366f1' : '#8b5cf6',
+                fontWeight: 600,
+                fontSize: 'clamp(0.875rem, 2.5vw, 1rem)',
+                fontFamily: "'Inter', sans-serif"
+              }}
+            >
+              <Map className="w-4 h-4 sm:w-5 sm:h-5" />
+              {showMap ? 'Hide Map' : 'Show Map'}
+            </button>
+            
+            <div className="flex gap-3">
+              {isAuthenticated && (
+                <button
+                  onClick={handleSaveItinerary}
+                  disabled={isSaving}
+                  className="flex-1 py-3 sm:py-4 rounded-2xl text-white export-button transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  style={{ 
+                    background: '#17B9E6',
+                    fontWeight: 600,
+                    fontSize: 'clamp(0.875rem, 2.5vw, 1rem)',
+                    fontFamily: "'Inter', sans-serif"
+                  }}
+                >
+                  <Save className="w-4 h-4 sm:w-5 sm:h-5" />
+                  {isSaving ? 'Saving...' : 'Save'}
+                </button>
+              )}
+              <button
+                onClick={() => setShowShareModal(true)}
+                className="flex-1 py-3 sm:py-4 rounded-2xl text-white export-button transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
+                style={{ 
+                  background: '#17B9E6',
+                  fontWeight: 600,
+                  fontSize: 'clamp(0.875rem, 2.5vw, 1rem)',
+                  fontFamily: "'Inter', sans-serif"
+                }}
+              >
+                <Share2 className="w-4 h-4 sm:w-5 sm:h-5" />
+                Share & Export
+              </button>
+            </div>
+          </div>
         </div>
 
+        {/* Interactive Map */}
+        {showMap && (
+          <div className="mb-8">
+            <InteractiveMap 
+              venues={venues.map(v => ({
+                ...v,
+                location: v.location || (v.address ? undefined : undefined) // We'll need to geocode addresses
+              }))} 
+              city={cityName?.toLowerCase()} 
+            />
+          </div>
+        )}
+
         {/* Venues List */}
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
           {venues.map((venue, index) => (
             <React.Fragment key={`${venue.name}-${index}`}>
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 venue-card" style={{ fontFamily: "'Inter', sans-serif" }}>
-                <h2 className="text-xl font-bold mb-4 venue-name" style={{ fontFamily: "'Inter', sans-serif", letterSpacing: 'normal' }}>
+              <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-gray-100 venue-card transition-all duration-300 hover:shadow-md hover:scale-[1.01] active:scale-[0.99]" style={{ fontFamily: "'Inter', sans-serif" }}>
+                <h2 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 venue-name" style={{ fontFamily: "'Inter', sans-serif", letterSpacing: 'normal', fontSize: 'clamp(1.125rem, 3vw, 1.25rem)' }}>
                   {venue.name}
                 </h2>
                 
-                <div className="space-y-3 mb-5">
-                  <p className="text-lg font-semibold venue-time" style={{ fontFamily: "'Inter', sans-serif" }}>
-                    {/* Display time with ET (Eastern Time) suffix */}
-                    {venue.time.includes('ET') ? venue.time : `${venue.time} ET`}
-                  </p>
-                  <p className="text-gray-500 text-sm venue-address" style={{ fontFamily: "'Inter', sans-serif", textTransform: 'none' }}>{venue.address}</p>
-                  <p className="text-gray-500 text-sm venue-rating" style={{ fontFamily: "'Inter', sans-serif" }}>Rating: {venue.rating || 'N/A'}</p>
+                <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-5">
+                  <div className="flex items-center justify-between">
+                    <p className="text-base sm:text-lg font-semibold venue-time" style={{ fontFamily: "'Inter', sans-serif", fontSize: 'clamp(1rem, 2.5vw, 1.125rem)' }}>
+                      {/* Display time with ET (Eastern Time) suffix */}
+                      {venue.time.includes('ET') ? venue.time : `${venue.time} ET`}
+                    </p>
+                    {venue.weather && venue.isOutdoor && (
+                      <WeatherDisplay 
+                        weather={venue.weather}
+                        venueTime={venue.time}
+                        isOutdoor={venue.isOutdoor}
+                        compact={true}
+                      />
+                    )}
+                  </div>
+                  <p className="text-gray-500 text-sm sm:text-base venue-address line-clamp-2" style={{ fontFamily: "'Inter', sans-serif", textTransform: 'none' }}>{venue.address}</p>
                 </div>
                 
                 <div className="flex flex-wrap gap-2">
                   {venue.categories && Array.isArray(venue.categories) && venue.categories.map((category, catIndex) => (
                     <span 
                       key={`${category}-${catIndex}`} 
-                      className="px-3 py-1 rounded-full text-xs venue-tag"
+                      className="px-3 py-1.5 rounded-full text-xs sm:text-sm venue-tag transition-all duration-200 hover:scale-105"
                       style={{
                         background: 'rgba(23, 185, 230, 0.1)',
                         color: 'var(--color-text-black)',
@@ -103,10 +301,9 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
               </div>
               
               {index < venues.length - 1 && hasTravelInfo && travelInfo[index] && (
-                <div className="flex items-center gap-3 px-5 py-4 mt-4 mb-4 bg-white rounded-lg text-gray-500 text-sm shadow-sm border border-gray-100 travel-info" style={{ fontFamily: "'Inter', sans-serif" }}>
+                <div className="flex items-center gap-3 px-4 sm:px-5 py-3 sm:py-4 mt-4 mb-4 bg-gray-50 rounded-xl text-gray-600 text-sm sm:text-base shadow-sm border border-gray-100 travel-info transition-all duration-200 hover:bg-gray-100" style={{ fontFamily: "'Inter', sans-serif" }}>
                   <svg
-                    width="16"
-                    height="16"
+                    className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
                     viewBox="0 0 16 16"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +318,7 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
                       fill="currentColor"
                     />
                   </svg>
-                  <span className="whitespace-normal overflow-visible travel-duration" style={{ fontFamily: "'Inter', sans-serif" }}>
+                  <span className="whitespace-normal overflow-visible travel-duration flex-1" style={{ fontFamily: "'Inter', sans-serif", fontSize: 'clamp(0.875rem, 2vw, 1rem)' }}>
                     {travelInfo[index].duration} minutes to {travelInfo[index].destination}
                   </span>
                 </div>
@@ -130,6 +327,19 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
           ))}
         </div>
       </div>
+      
+      {/* Share Modal */}
+      <ShareModal
+        isOpen={showShareModal}
+        onClose={() => setShowShareModal(false)}
+        venues={venues}
+        travelInfo={travelInfo}
+        title={title}
+        cityName={cityName || 'NYC'}
+        timezone={timezone || 'America/New_York'}
+        planDate={planDate}
+        itineraryUrl={shareableUrl}
+      />
     </div>
   );
 };

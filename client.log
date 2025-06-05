@@ -1,0 +1,14 @@
+
+> rest-express@1.0.0 dev:client
+> vite
+
+
+  VITE v5.4.19  ready in 158 ms
+
+  ➜  Local:   http://localhost:3000/
+  ➜  Network: use --host to expose
+4:46:41 PM [vite] hmr update /src/components/ShareModal.tsx, /src/index.css
+4:46:54 PM [vite] hmr update /src/components/ShareModal.tsx, /src/index.css
+4:46:55 PM [vite] hmr update /src/components/ShareModal.tsx, /src/index.css
+4:47:10 PM [vite] page reload src/main.tsx
+4:47:15 PM [vite] hmr update /src/components/GoogleCalendarButton.tsx, /src/index.css

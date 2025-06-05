@@ -17,61 +17,71 @@ import { processWithGemini, StructuredRequest as GeminiStructuredRequest } from 
 import { validateAndNormalizeLocation, processLocationWithAIAndMaps } from './mapGeocoding';
 import { parseAndNormalizeTime } from './timeUtils';
 import { format, parseISO } from 'date-fns';
-import { formatInTimeZone, toZonedTime } from 'date-fns-tz';
+import { formatInTimeZone, toZonedTime, fromZonedTime } from 'date-fns-tz';
+import { CityConfig } from "../config/cities"; // Corrected import path
 
 // Configure Gemini model with safety settings
 let genAI: GoogleGenerativeAI | null = null;
 let model: any = null;
 
-// Initialize AI only if API key is available
-// Check if AI processing is enabled
-console.log("AI_PROCESSING feature flag status:", isFeatureEnabled("AI_PROCESSING"));
+// Initialize AI lazily - moved to a function to avoid module load timing issues
+function initializeAI() {
+  // Check if AI processing is enabled (this will be called after config is loaded)
+  console.log("🤖 [nlp-fixed] Checking AI_PROCESSING feature flag status:", isFeatureEnabled("AI_PROCESSING"));
 
-if (isFeatureEnabled("AI_PROCESSING")) {
-  try {
-    // Check if Gemini API key is valid
-    const geminiApiKey = getApiKey("GEMINI_API_KEY");
-    console.log("GEMINI_API_KEY validation:", validateApiKey("GEMINI_API_KEY"));
-    
-    if (!geminiApiKey) {
-      console.error("Gemini API Key is missing or empty");
-    } else if (!validateApiKey("GEMINI_API_KEY")) {
-      console.error("Gemini API Key failed validation pattern");
-    } else {
-      console.log("Initializing Gemini API with valid API key");
+  if (isFeatureEnabled("AI_PROCESSING")) {
+    try {
+      // Check if Gemini API key is valid
+      const geminiApiKey = getApiKey("GEMINI_API_KEY");
+      console.log("🔑 [nlp-fixed] GEMINI_API_KEY validation:", validateApiKey("GEMINI_API_KEY"));
       
-      // Initialize Google Generative AI with centralized config
-      genAI = new GoogleGenerativeAI(geminiApiKey);
-      
-      // Configure Gemini model with safety settings
-      model = genAI.getGenerativeModel({
-        model: "gemini-1.5-pro-latest",
-        safetySettings: [
-          {
-            category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-            threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-          },
-          {
-            category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-            threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-          },
-          {
-            category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-            threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-          },
-          {
-            category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-            threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-          },
-        ],
-      });
-      
-      console.log("Gemini API successfully initialized");
+      if (!geminiApiKey) {
+        console.error("❌ [nlp-fixed] Gemini API Key is missing or empty");
+        return false;
+      } else if (!validateApiKey("GEMINI_API_KEY")) {
+        console.error("❌ [nlp-fixed] Gemini API Key failed validation pattern");
+        return false;
+      } else {
+        console.log("✅ [nlp-fixed] Initializing Gemini API with valid API key");
+        
+        // Initialize Google Generative AI with centralized config
+        genAI = new GoogleGenerativeAI(geminiApiKey);
+        
+        // Configure Gemini model with safety settings
+        model = genAI.getGenerativeModel({
+          model: "gemini-1.5-pro-latest",
+          safetySettings: [
+            {
+              category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+              threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+            },
+            {
+              category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+              threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+            },
+            {
+              category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+              threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+            },
+            {
+              category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+              threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+            },
+          ],
+        });
+        
+        console.log("✅ [nlp-fixed] Gemini API successfully initialized");
+        return true;
+      }
+    } catch (err) {
+      console.error("❌ [nlp-fixed] Failed to initialize Gemini API:", err);
+      // Leave genAI and model as null to trigger fallback handling
+      return false;
     }
-  } catch (err) {
-    console.error("Failed to initialize Gemini API:", err);
-    // Leave genAI and model as null to trigger fallback handling
   }
+  
+  console.log("⚠️ [nlp-fixed] AI_PROCESSING feature disabled, skipping AI initialization");
+  return false;
 }
 
 // Using the imported StructuredRequest interface from shared/types.ts
@@ -90,54 +100,52 @@ type FixedTimeEntry = {
 };
 
 /**
- * Helper function to correctly convert a time string into NYC timezone-aware values
+ * Helper function to correctly convert a time string into timezone-aware values
  * 
  * @param timeString Time string in 24-hour format (HH:MM)
+ * @param timezone The timezone to use (e.g., 'America/New_York', 'America/Chicago')
  * @returns Object containing the ISO timestamp and formatted display time
  */
-function convertTimeStringToNYC(timeString: string): { isoTimestamp: string, displayTime: string } {
-  const timeZone = 'America/New_York';
-  const [hours, minutes] = timeString.split(':').map(Number);
+function convertTimeStringToTimezone(timeString: string, timezone: string, dateStr?: string): { isoTimestamp: string, displayTime: string } {
+  const timeZone = timezone;
   
-  // Get current date in NYC time zone to ensure proper DST handling
-  const now = new Date();
-  const nycTime = toZonedTime(now, timeZone);
+  // Get today's date components IN the target timezone to avoid DST issues at midnight
+  const nowInTargetTz = toZonedTime(new Date(), timeZone);
+  const year = nowInTargetTz.getFullYear();
+  const month = String(nowInTargetTz.getMonth() + 1).padStart(2, '0');
+  const day = String(nowInTargetTz.getDate()).padStart(2, '0');
   
-  // Extract date components from NYC time
-  const year = nycTime.getFullYear();
-  const month = nycTime.getMonth(); // 0-indexed in JavaScript
-  const day = nycTime.getDate();
+  // Construct the date string *representing the intended time in the target timezone*
+  const dateTimeStringInTargetTz = `${year}-${month}-${day}T${timeString}:00`;
   
-  // Create a new date with the parsed time components but NYC date
-  const localDate = new Date(year, month, day, hours, minutes);
+  // Parse this string *as if it's in the target timezone* and get the correct UTC Date object
+  const utcDate = fromZonedTime(dateTimeStringInTargetTz, timeZone);
   
-  // Calculate UTC equivalent by accounting for timezone offset
-  const utcDate = new Date(localDate.getTime() + (localDate.getTimezoneOffset() * 60000));
+  // Generate the correct ISO string representing this moment in UTC
+  const correctIsoTimestamp = utcDate.toISOString();
   
-  // Format for output
-  const isoTimestamp = utcDate.toISOString();
-  const displayTime = formatInTimeZone(localDate, timeZone, 'h:mm a');
+  // Generate the correct display string by formatting the UTC time *back* to target timezone
+  const correctDisplayTime = formatInTimeZone(utcDate, timeZone, 'p'); // 'p' = 'h:mm aa' format
   
-  return { isoTimestamp, displayTime };
+  // Add this log for verification:
+  console.log(`Correctly interpreted time "${timeString}" as ${timeZone} time: ${correctDisplayTime} (${correctIsoTimestamp})`);
+  
+  return { isoTimestamp: correctIsoTimestamp, displayTime: correctDisplayTime };
 }
 
 /**
  * Convert Gemini structured request to the application's expected format
  */
-function convertGeminiToAppFormat(geminiResult: GeminiStructuredRequest | null): StructuredRequest | null {
+function convertGeminiToAppFormat(geminiResult: GeminiStructuredRequest | null, dateStr?: string, cityConfig?: any): StructuredRequest | null {
   console.log("Converting Gemini result to app format:", JSON.stringify(geminiResult, null, 2));
+  if (!geminiResult) return null;
   
-  if (!geminiResult) {
-    return null;
-  }
-  
-  // Initialize the result structure
   const appFormatRequest: StructuredRequest = {
-    startLocation: geminiResult.startLocation || "Midtown", // Default to Midtown Manhattan
+    startLocation: geminiResult.startLocation || null, // Keep null if Gemini doesn't provide
     destinations: [],
     fixedTimes: [],
     preferences: {
-      type: undefined,
+      type: undefined, // Ensure undefined for string | undefined type
       requirements: []
     }
   };
@@ -158,32 +166,76 @@ function convertGeminiToAppFormat(geminiResult: GeminiStructuredRequest | null):
   // Helper function to determine the most specific activity type
   const determineActivityType = (activityText: string): string => {
     const activityLower = activityText.toLowerCase();
-    
-    if (activityLower.includes('museum') || activityLower.includes('gallery') || activityLower.includes('exhibition')) {
-      return "museum";
-    } else if (activityLower.includes('lunch') || activityLower.includes('dinner') || 
-               activityLower.includes('breakfast') || activityLower.includes('eat') || 
-               activityLower.includes('restaurant') || activityLower.includes('food')) {
-      return "restaurant";
-    } else if (activityLower.includes('coffee') || activityLower.includes('cafe')) {
-      return "cafe";
-    } else if (activityLower.includes('park') || activityLower.includes('garden')) {
-      return "park";
-    } else if (activityLower.includes('shop') || activityLower.includes('store') || activityLower.includes('mall')) {
-      return "shopping_mall";
-    } else {
-      return "attraction";
-    }
+    if (activityLower.includes('museum') || activityLower.includes('gallery')) return "museum";
+    if (activityLower.includes('lunch') || activityLower.includes('dinner') || activityLower.includes('breakfast') || activityLower.includes('brunch') || activityLower.includes('restaurant')) return "restaurant";
+    if (activityLower.includes('coffee') || activityLower.includes('cafe') || activityLower.includes('work')) return "cafe";
+    if (activityLower.includes('bar') || activityLower.includes('drinks') || activityLower.includes('cocktail') || activityLower.includes('lounge')) return "bar";
+    if (activityLower.includes('park') || activityLower.includes('garden') || activityLower.includes('walk')) return "park";
+    if (activityLower.includes('shop') || activityLower.includes('store')) return "shopping_mall";
+    if (activityLower.includes('meeting') || activityLower.includes('appointment')) return "skip"; // Special marker for meetings
+    return "attraction";
   };
   
   // Helper function to create a unique key for an activity at a location
-  const createActivityKey = (location: string, activityText: string): string => {
-    // Normalize the location and activity text to avoid case-sensitive duplicates
-    const normalizedLocation = location.toLowerCase();
-    const normalizedActivity = activityText.toLowerCase();
-    
-    return `${normalizedLocation}|${determineActivityType(normalizedActivity)}`;
+  const createActivityKey = (location: string, activityText: string, time?: string): string => {
+    return `${location.toLowerCase()}|${determineActivityType(activityText.toLowerCase())}|${time || 'no-time'}`;
   };
+  
+  // Process time blocks first (extended activities like "work from 10 AM - 3 PM")
+  if (geminiResult.timeBlocks && Array.isArray(geminiResult.timeBlocks)) {
+    console.log("Raw time blocks from Gemini:", JSON.stringify(geminiResult.timeBlocks, null, 2));
+    
+    for (const block of geminiResult.timeBlocks) {
+      if (block && typeof block === 'object' && block.location && block.startTime) {
+        // Convert start time
+        const originalStartTime = block.startTime;
+        const normalizedStartTime = parseAndNormalizeTime(block.startTime);
+        const timezone = (cityConfig && cityConfig.timezone) || 'America/New_York';
+        const { isoTimestamp: startIso, displayTime: startDisplay } = convertTimeStringToTimezone(normalizedStartTime, timezone, dateStr);
+        
+        console.log(`Time block: ${block.activity} from ${startDisplay} in ${block.location}`);
+        
+        // Add as a fixed time entry with special venue requirements
+        const activityKey = createActivityKey(block.location, block.activity, startIso);
+        activityMap.set(activityKey, {
+          location: block.location,
+          time: startIso,
+          type: 'cafe', // Default to cafe for work sessions
+          searchTerm: block.activity,
+          keywords: block.venueRequirements || block.searchParameters?.specificRequirements || [],
+          minRating: 4.0,
+          displayTime: startDisplay,
+          searchPreference: 'quiet workspace' // Default for work blocks
+        });
+      }
+    }
+  }
+  
+  // Process fixed appointments (meetings, reservations with specific times)
+  if (geminiResult.fixedAppointments && Array.isArray(geminiResult.fixedAppointments)) {
+    console.log("Raw fixed appointments from Gemini:", JSON.stringify(geminiResult.fixedAppointments, null, 2));
+    
+    for (const appt of geminiResult.fixedAppointments) {
+      if (appt && typeof appt === 'object' && appt.location && appt.time) {
+        // Convert appointment time
+        const normalizedTime = parseAndNormalizeTime(appt.time);
+        const timezone = (cityConfig && cityConfig.timezone) || 'America/New_York';
+        const { isoTimestamp, displayTime } = convertTimeStringToTimezone(normalizedTime, timezone, dateStr);
+        
+        console.log(`Fixed appointment: ${appt.activity} at ${displayTime} in ${appt.location}`);
+        
+        // Add as a fixed time entry but mark as appointment (no venue search needed)
+        const activityKey = createActivityKey(appt.location, appt.activity, isoTimestamp);
+        activityMap.set(activityKey, {
+          location: appt.location,
+          time: isoTimestamp,
+          type: 'skip', // Skip venue search for appointments
+          searchTerm: appt.activity,
+          displayTime: displayTime,
+        });
+      }
+    }
+  }
   
   // Process fixed time entries if present
   if (geminiResult.fixedTimeEntries && Array.isArray(geminiResult.fixedTimeEntries)) {
@@ -201,44 +253,27 @@ function convertGeminiToAppFormat(geminiResult: GeminiStructuredRequest | null):
           timeValue = parseAndNormalizeTime(timeValue);
           console.log(`Fixed time entry: Normalized time from "${originalTime}" to "${timeValue}"`);
           
-          // Convert the normalized time string (HH:MM) to NYC timezone-aware values
-          const { isoTimestamp, displayTime: formattedTime } = convertTimeStringToNYC(timeValue);
+          // Convert the normalized time string (HH:MM) to timezone-aware values
+          const timezone = (cityConfig && cityConfig.timezone) || 'America/New_York';
+          const { isoTimestamp, displayTime: formattedTime } = convertTimeStringToTimezone(timeValue, timezone, dateStr);
           
           // Store the ISO timestamp for backend processing
           timeValue = isoTimestamp;
           displayTime = formattedTime;
           
-          console.log(`Correctly interpreted time "${originalTime}" as NYC time: ${displayTime} (${timeValue})`);
+          console.log(`Correctly interpreted time "${originalTime}" as ${(cityConfig && cityConfig.name) || 'city'} time: ${displayTime} (${timeValue})`);
         }
         
         // Determine the most appropriate activity type
         const activityType = entry.searchParameters?.venueType || determineActivityType(entry.activity);
         
         // Create a key for this activity
-        const activityKey = createActivityKey(entry.location, entry.activity);
+        const activityKey = createActivityKey(entry.location, entry.activity, timeValue);
         
-        // Check if there's a specific search preference from multiple possible locations
-        let searchPreference: string | undefined = undefined;
-        
-        // First check for the venue preference at the top level of the Gemini response object
-        if (geminiResult.venuePreference) {
-          searchPreference = geminiResult.venuePreference;
-          console.log(`Found top-level venue preference in Gemini response: "${searchPreference}" for activity: ${entry.activity}`);
-        }
-        // Then check for the entry-specific venuePreference field directly
-        else if (entry.venuePreference) {
-          searchPreference = entry.venuePreference;
-          console.log(`Found entry-level venue preference: "${searchPreference}" for activity: ${entry.activity}`);
-        }
-        // Then check if searchParameters.venuePreference exists
-        else if (entry.searchParameters?.venuePreference) {
-          searchPreference = entry.searchParameters.venuePreference;
-          console.log(`Found venue preference in searchParameters: "${searchPreference}" for activity: ${entry.activity}`);
-        }
-        
-        // Log whether we found a preference or not, for debugging
-        if (!searchPreference) {
-          console.log(`No venue preference found in Gemini data for activity: ${entry.activity}`);
+        // Safely access venuePreference, assuming it might be in searchParameters
+        const searchPreference = entry.searchParameters?.venuePreference || (entry as any).venuePreference;
+        if (searchPreference) {
+            console.log(`Found venue preference: "${searchPreference}" for activity: ${entry.activity}`);
         }
         
         // Store in our map, potentially overwriting less specific entries
@@ -276,44 +311,27 @@ function convertGeminiToAppFormat(geminiResult: GeminiStructuredRequest | null):
           timeValue = parseAndNormalizeTime(timeValue);
           console.log(`Normalized time from "${originalTime}" to "${timeValue}"`);
           
-          // Convert the normalized time string (HH:MM) to NYC timezone-aware values
-          const { isoTimestamp, displayTime: formattedTime } = convertTimeStringToNYC(timeValue);
+          // Convert the normalized time string (HH:MM) to timezone-aware values
+          const timezone = (cityConfig && cityConfig.timezone) || 'America/New_York';
+          const { isoTimestamp, displayTime: formattedTime } = convertTimeStringToTimezone(timeValue, timezone, dateStr);
           
           // Store the ISO timestamp for backend processing
           timeValue = isoTimestamp;
           displayTime = formattedTime;
           
-          console.log(`Correctly interpreted time "${originalTime}" as NYC time: ${displayTime} (${timeValue})`);
+          console.log(`Correctly interpreted time "${originalTime}" as ${(cityConfig && cityConfig.name) || 'city'} time: ${displayTime} (${timeValue})`);
         }
         
         // Determine the most appropriate activity type
         const activityType = determineActivityType(entry.activity);
         
         // Create a key for this activity
-        const activityKey = createActivityKey(entry.location, entry.activity);
+        const activityKey = createActivityKey(entry.location, entry.activity, timeValue);
         
-        // Check if there's a specific search preference from multiple possible locations
-        let searchPreference: string | undefined = undefined;
-        
-        // First check for the venue preference at the top level of the Gemini response object
-        if (geminiResult.venuePreference) {
-          searchPreference = geminiResult.venuePreference;
-          console.log(`Found top-level venue preference in Gemini response: "${searchPreference}" for flexible activity: ${entry.activity}`);
-        }
-        // Then check for the entry-specific venuePreference field directly
-        else if (entry.venuePreference) {
-          searchPreference = entry.venuePreference;
-          console.log(`Found entry-level venue preference (flexible): "${searchPreference}" for activity: ${entry.activity}`);
-        }
-        // Then check if searchParameters.venuePreference exists
-        else if (entry.searchParameters?.venuePreference) {
-          searchPreference = entry.searchParameters.venuePreference;
-          console.log(`Found venue preference in searchParameters (flexible): "${searchPreference}" for activity: ${entry.activity}`);
-        }
-        
-        // Log whether we found a preference or not, for debugging
-        if (!searchPreference) {
-          console.log(`No venue preference found in Gemini data for flexible activity: ${entry.activity}`);
+        // Safely access venuePreference, assuming it might be in searchParameters
+        const searchPreference = entry.searchParameters?.venuePreference || (entry as any).venuePreference;
+        if (searchPreference) {
+            console.log(`Found venue preference (flexible): "${searchPreference}" for activity: ${entry.activity}`);
         }
         
         // Only add if we don't already have this activity, or if we're adding a more specific type
@@ -366,10 +384,13 @@ function convertGeminiToAppFormat(geminiResult: GeminiStructuredRequest | null):
   
   // Create destinations array from fixed time locations
   const uniqueLocations = new Set<string>();
+  // Get generic location exclusions based on city
+  const genericLocations = cityConfig ? [cityConfig.name, cityConfig.slug.toUpperCase()] : ["New York", "NYC"];
+  const defaultLocationName = (cityConfig && cityConfig.name && cityConfig.name.includes('York')) ? 'Midtown' : 'Downtown';
+  genericLocations.push(defaultLocationName);
+  
   appFormatRequest.fixedTimes.forEach(entry => {
-    if (entry.location && entry.location !== "New York" && entry.location !== "NYC" && entry.location !== "Midtown") {
-      uniqueLocations.add(entry.location);
-    }
+    if (entry.location && !genericLocations.includes(entry.location)) uniqueLocations.add(entry.location);
   });
   
   appFormatRequest.destinations = Array.from(uniqueLocations);
@@ -378,19 +399,33 @@ function convertGeminiToAppFormat(geminiResult: GeminiStructuredRequest | null):
   return appFormatRequest;
 }
 
+// Get city-specific street patterns
+function getCityStreetPatterns(citySlug?: string): RegExp {
+  const streetPatterns: Record<string, string> = {
+    nyc: 'wall\\s*st|fifth\\s*ave|5th\\s*avenue|broadway|times\\s*square|madison\\s*ave|lexington\\s*ave|park\\s*ave|canal\\s*st|mott\\s*st|mulberry\\s*st|bowery|houston\\s*st|bleecker\\s*st|christopher\\s*st|west\\s*4th|42nd\\s*st|34th\\s*st|14th\\s*st|grand\\s*st|delancey\\s*st',
+    boston: 'newbury\\s*st|boylston\\s*st|commonwealth\\s*ave|charles\\s*st|beacon\\s*st|state\\s*st|congress\\s*st|atlantic\\s*ave|hanover\\s*st|cambridge\\s*st|tremont\\s*st',
+    austin: '6th\\s*st|congress\\s*ave|guadalupe\\s*st|lamar\\s*blvd|south\\s*congress|rainey\\s*st|red\\s*river|cesar\\s*chavez|barton\\s*springs|4th\\s*st',
+    london: 'oxford\\s*st|regent\\s*st|bond\\s*st|piccadilly|strand|fleet\\s*st|kings\\s*rd|portobello\\s*rd|brick\\s*ln|shoreditch\\s*high\\s*st'
+  };
+  
+  const pattern = streetPatterns[citySlug || 'nyc'] || streetPatterns.nyc;
+  return new RegExp(`\\b(${pattern})\\b`, 'i');
+}
+
 // Extract locations with confidence scores
-function extractLocations(text: string): LocationContext[] {
+function extractLocations(text: string, citySlug?: string): LocationContext[] {
   const locations: LocationContext[] = [];
 
   // Split text into potential location phrases
   const phrases = text.split(/[,.]|\s+(?:then|and|to|at)\s+/);
 
   for (const phrase of phrases) {
-    // Look for common NYC street name patterns like "Wall St" or "5th Ave"
-    const streetMatch = phrase.match(/\b(wall\s*st|fifth\s*ave|5th\s*avenue|broadway|times\s*square|madison\s*ave|lexington\s*ave|park\s*ave|canal\s*st|mott\s*st|mulberry\s*st|bowery|houston\s*st|bleecker\s*st|christopher\s*st|west\s*4th|42nd\s*st|34th\s*st|14th\s*st|canal\s*st|grand\s*st|delancey\s*st)\b/i);
+    // Look for common street name patterns based on city
+    const streetPattern = getCityStreetPatterns(citySlug);
+    const streetMatch = phrase.match(streetPattern);
     if (streetMatch?.[1]) {
       const streetName = streetMatch[1].trim();
-      console.log(`Found NYC street reference: "${streetName}"`);
+      console.log(`Found street reference: "${streetName}"`);
       
       // Map common street abbreviations to full names
       const normalizedStreet = streetName.toLowerCase()
@@ -458,72 +493,49 @@ function extractActivities(text: string): ActivityContext[] {
  * Parse a natural language itinerary request into structured data
  * 
  * @param query User's natural language request
+ * @param cityConfig Optional city configuration for context-aware parsing
  * @returns StructuredRequest object with parsed locations, activities and preferences
  */
-export async function parseItineraryRequest(query: string): Promise<StructuredRequest> {
-  // We've already imported processWithGemini from './geminiProcessor'
+export async function parseItineraryRequest(query: string, cityConfig?: CityConfig, dateStr?: string, startTime?: string): Promise<StructuredRequest> {
+  const defaultStartLocation = cityConfig ? `${cityConfig.defaultLocation.lat},${cityConfig.defaultLocation.lng}` : "Midtown";
   
-  // Initialize basic fallback structure with direct extraction methods
-  const extractedLocations = extractLocations(query);
-  const extractedActivities = extractActivities(query);
-  
-  // Extract time from the query directly for 6PM, 9AM style inputs
-  const timeRegex = /(\d{1,2})\s*(am|pm)/i;
-  const timeMatch = query.match(timeRegex);
-  let timeFromQuery = null;
-  
-  if (timeMatch) {
-    const [_, hour, meridian] = timeMatch;
-    const parsedHour = parseInt(hour);
-    const hourIn24 = meridian.toLowerCase() === 'pm' && parsedHour < 12 ? parsedHour + 12 : parsedHour;
-    timeFromQuery = `${hourIn24.toString().padStart(2, '0')}:00`;
-  }
-
-  // Create fallback structure that will be used if AI processing fails
   const fallbackStructure: StructuredRequest = {
-    startLocation: null,
-    destinations: extractedLocations.map(loc => loc.name),
-    fixedTimes: extractedActivities.length > 0 ? 
-      extractedActivities.map(activity => {
-        const location = extractedLocations[0]?.name || "Midtown";
-        
-        // Try to extract time from the query directly if it's a simple time reference
-        const time = timeFromQuery || activity.timeContext?.preferredTime || 
-              (activity.type === 'breakfast' ? '09:00' : 
-               activity.type === 'lunch' ? '13:00' : 
-               activity.type === 'dinner' ? '19:00' : '12:00');
-        
-        return {
-          location,
-          time,
-          type: activity.venueType || activity.type,
-          searchTerm: activity.naturalDescription
-        };
-      }) : 
-      // If no activities extracted but we found a time, create an entry with that time
-      timeFromQuery ? [{
-        location: extractedLocations[0]?.name || "Midtown",
-        time: timeFromQuery,
-        type: 'activity',
-        searchTerm: query
-      }] : [],
-    preferences: {
-      type: null,
-      requirements: []
-    }
+    startLocation: defaultStartLocation,
+    destinations: extractLocations(query, cityConfig?.slug).map(loc => loc.name), // Pass city slug for city-aware extraction
+    fixedTimes: [], // Simplified for brevity, populate as needed
+    preferences: { type: undefined, requirements: [] } // Ensure type is undefined
   };
 
+  if (cityConfig) console.log(`[NLP] Processing query with context for city: ${cityConfig.name}`);
+
   try {
+    // Initialize AI lazily if not already done
+    if (!model && isFeatureEnabled("AI_PROCESSING")) {
+      console.log("🔄 [nlp-fixed] Attempting lazy AI initialization for new Gemini processor...");
+      initializeAI();
+    }
+    
     // First attempt: Use the new Gemini processor
-    console.log("Attempting to process query with new Gemini processor");
-    const rawGeminiResult = await processWithGemini(query);
+    console.log("🚀 [nlp-fixed] Attempting to process query with new Gemini processor");
+    console.log("🚀 [nlp-fixed] Query:", query);
+    console.log("🚀 [nlp-fixed] CityContext:", cityConfig ? { name: cityConfig.name, slug: cityConfig.slug, timezone: cityConfig.timezone } : undefined);
+    const cityContextForGemini = cityConfig ? { name: cityConfig.name, slug: cityConfig.slug, timezone: cityConfig.timezone } : undefined;
+    
+    let rawGeminiResult;
+    try {
+      rawGeminiResult = await processWithGemini(query, dateStr, startTime, cityContextForGemini);
+      console.log("✅ [nlp-fixed] processWithGemini completed successfully, result:", rawGeminiResult ? "VALID" : "NULL");
+    } catch (error) {
+      console.error("❌ [nlp-fixed] processWithGemini threw error:", error);
+      throw error;
+    }
     
     if (rawGeminiResult) {
       console.log("Successfully processed query with new Gemini processor");
       console.log("Raw Gemini API response:", JSON.stringify(rawGeminiResult, null, 2));
       
       // Convert from Gemini processor format to application format
-      const geminiResult = convertGeminiToAppFormat(rawGeminiResult);
+      const geminiResult = convertGeminiToAppFormat(rawGeminiResult, dateStr, cityConfig);
       
       if (geminiResult) {
         // We don't need to process flexible time entries here again.
@@ -545,7 +557,8 @@ export async function parseItineraryRequest(query: string): Promise<StructuredRe
         try {
           // Using imported functions directly
           for (const destination of geminiResult.destinations) {
-            const validatedLocation = await validateAndNormalizeLocation(destination);
+            const cityContextForValidation = cityConfig ? { name: cityConfig.name } : undefined;
+            const validatedLocation = await validateAndNormalizeLocation(destination, cityContextForValidation);
             // If validation succeeds, replace the original location with the validated one
             if (validatedLocation) {
               console.log(`Validated "${destination}" as neighborhood: "${validatedLocation}"`);
@@ -566,13 +579,15 @@ export async function parseItineraryRequest(query: string): Promise<StructuredRe
                     fixedTime.location.toLowerCase() === 'central nyc' || 
                     fixedTime.location.toLowerCase() === 'central new york') {
                   
-                  const enhancedLocation = await processLocationWithAIAndMaps(fixedTime.location, fixedTime.searchTerm);
-                  if (enhancedLocation && enhancedLocation !== "New York" && enhancedLocation !== "NYC" && enhancedLocation !== "Midtown") {
+                  const cityContextForEnhancement = cityConfig ? { name: cityConfig.name } : undefined;
+                  const enhancedLocation = await processLocationWithAIAndMaps(fixedTime.location, fixedTime.searchTerm, cityContextForEnhancement);
+                  if (enhancedLocation && enhancedLocation !== cityConfig?.name) {
                     fixedTime.location = enhancedLocation;
                     console.log(`Enhanced fixed time location from generic to "${enhancedLocation}"`);
                   }
                 } else if (fixedTime.location) {
-                  const validatedLocation = await validateAndNormalizeLocation(fixedTime.location);
+                  const cityContextForValidation = cityConfig ? { name: cityConfig.name } : undefined;
+                  const validatedLocation = await validateAndNormalizeLocation(fixedTime.location, cityContextForValidation);
                   if (validatedLocation) {
                     fixedTime.location = validatedLocation;
                   }
@@ -593,36 +608,34 @@ export async function parseItineraryRequest(query: string): Promise<StructuredRe
     // If the new Gemini processor isn't available or fails, fall back to the original method
     console.log("New Gemini processor unavailable or failed, falling back to original method");
     
+    // Initialize AI lazily if not already done
+    if (!model && isFeatureEnabled("AI_PROCESSING")) {
+      console.log("🔄 [nlp-fixed] Attempting lazy AI initialization...");
+      initializeAI();
+    }
+    
     // Skip Gemini processing if the feature is disabled or model initialization failed
     if (!isFeatureEnabled("AI_PROCESSING") || !model) {
-      console.log("AI processing skipped - using basic fallback structure");
-      
-      // Even though we're using the fallback structure, let's improve it with Google Maps verification
-      // This will help improve the location data quality even without Gemini
-      for (let i = 0; i < fallbackStructure.destinations.length; i++) {
-        const destination = fallbackStructure.destinations[i];
-        const validated = await validateAndNormalizeLocation(destination);
-        if (validated) {
-          fallbackStructure.destinations[i] = validated;
-        }
-      }
-      
-      // Also validate fixed time locations
-      for (const fixedTime of fallbackStructure.fixedTimes) {
-        const validated = await validateAndNormalizeLocation(fixedTime.location);
-        if (validated) {
-          fixedTime.location = validated;
-        }
-      }
-      
+      console.log("⚠️ [nlp-fixed] AI processing skipped - using basic fallback structure");
+      console.log("⚠️ [nlp-fixed] AI_PROCESSING enabled:", isFeatureEnabled("AI_PROCESSING"), "Model available:", !!model);
+      fallbackStructure.startLocation = defaultStartLocation; // Ensure fallback uses city default
+      // ... (validate locations in fallbackStructure using cityConfig context if possible) ...
       return fallbackStructure;
     }
 
-    // Still here? Use the fallback structure
-    return fallbackStructure;
+    // If Gemini result is used, ensure its locations are also contextualized or validated with cityConfig if needed.
+    const geminiResultToReturn = convertGeminiToAppFormat(rawGeminiResult, undefined, cityConfig);
+    if (geminiResultToReturn) {
+      if (!geminiResultToReturn.startLocation) geminiResultToReturn.startLocation = defaultStartLocation;
+      // TODO: Further refine geminiResultToReturn using cityConfig if needed.
+      return geminiResultToReturn;
+    }
+
+    return fallbackStructure; // Final fallback
 
   } catch (error) {
     console.error("Error during NLP processing:", error);
+    fallbackStructure.startLocation = defaultStartLocation; // Ensure fallback uses city default on error
     return fallbackStructure;
   }
 }

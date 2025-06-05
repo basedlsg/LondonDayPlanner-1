@@ -1,18 +1,25 @@
 import React, { useEffect } from 'react';
+import { SimpleRegisterForm } from '../components/auth/SimpleRegisterForm';
+import { TopNav } from '../components/TopNav';
+import { useAuth } from '../hooks/useAuth';
 import { useLocation } from 'wouter';
 
 export default function RegisterPage() {
+  const { user } = useAuth();
   const [, setLocation] = useLocation();
 
-  // Immediately redirect to login page (Google login only)
+  // Redirect to home if already logged in
   useEffect(() => {
-    setLocation('/login');
-  }, [setLocation]);
+    if (user) {
+      setLocation('/');
+    }
+  }, [user, setLocation]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-white">
-      <div className="text-center">
-        <p>Redirecting to sign in page...</p>
+    <div className="min-h-screen bg-gray-50">
+      <TopNav />
+      <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 py-12">
+        <SimpleRegisterForm />
       </div>
     </div>
   );

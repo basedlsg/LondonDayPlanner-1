@@ -1,0 +1,162 @@
+[
+  {
+    "name": "Canary Wharf",
+    "type": "district",
+    "coordinates": { "lat": 51.5054, "lng": -0.0235 },
+    "alternativeNames": ["The Wharf", "Canary"],
+    "commonMisspellings": ["Canery Warf"],
+    "parentArea": "Isle of Dogs"
+  },
+  {
+    "name": "Mayfair",
+    "type": "district",
+    "coordinates": { "lat": 51.5096, "lng": -0.1498 },
+    "alternativeNames": [],
+    "commonMisspellings": [],
+    "parentArea": "City of Westminster"
+  },
+  {
+    "name": "Soho",
+    "type": "neighborhood",
+    "coordinates": { "lat": 51.5136, "lng": -0.1371 },
+    "alternativeNames": ["SoHo"],
+    "commonMisspellings": [],
+    "parentArea": "City of Westminster"
+  },
+  {
+    "name": "Kensington",
+    "type": "district",
+    "coordinates": { "lat": 51.5020, "lng": -0.1947 },
+    "alternativeNames": ["Kensington Gardens area"],
+    "commonMisspellings": [],
+    "parentArea": "Royal Borough of Kensington and Chelsea"
+  },
+  {
+    "name": "Shoreditch",
+    "type": "neighborhood",
+    "coordinates": { "lat": 51.5264, "lng": -0.0778 },
+    "alternativeNames": ["Shoreditch High Street"],
+    "commonMisspellings": ["Shoredich"],
+    "parentArea": "Hackney"
+  },
+  {
+    "name": "Camden",
+    "type": "neighborhood",
+    "coordinates": { "lat": 51.5409, "lng": -0.1419 },
+    "alternativeNames": ["Camden Town", "Camden Market"],
+    "commonMisspellings": ["Camdem"],
+    "parentArea": "Camden Borough"
+  },
+  {
+    "name": "Notting Hill",
+    "type": "neighborhood",
+    "coordinates": { "lat": 51.5155, "lng": -0.2046 },
+    "alternativeNames": ["Notting Hill Gate"],
+    "commonMisspellings": ["Nothing Hill"],
+    "parentArea": "Royal Borough of Kensington and Chelsea"
+  },
+  {
+    "name": "Covent Garden",
+    "type": "district",
+    "coordinates": { "lat": 51.5118, "lng": -0.1226 },
+    "alternativeNames": ["Covent Garden Market"],
+    "commonMisspellings": ["Covenant Garden"],
+    "parentArea": "City of Westminster"
+  },
+  {
+    "name": "Borough",
+    "type": "neighborhood",
+    "coordinates": { "lat": 51.5006, "lng": -0.0900 },
+    "alternativeNames": ["Borough Market", "London Bridge area"],
+    "commonMisspellings": [],
+    "parentArea": "Southwark"
+  },
+  {
+    "name": "Brick Lane",
+    "type": "area",
+    "coordinates": { "lat": 51.5206, "lng": -0.0713 },
+    "alternativeNames": ["Brick Lane Market", "Banglatown"],
+    "commonMisspellings": [],
+    "parentArea": "Tower Hamlets"
+  },
+  {
+    "name": "Greenwich",
+    "type": "district",
+    "coordinates": { "lat": 51.4816, "lng": -0.0046 },
+    "alternativeNames": ["Greenwich Village", "Greenwich Park"],
+    "commonMisspellings": ["Greenwhich"],
+    "parentArea": "Royal Borough of Greenwich"
+  },
+  {
+    "name": "Islington",
+    "type": "neighborhood",
+    "coordinates": { "lat": 51.5384, "lng": -0.1031 },
+    "alternativeNames": ["Angel", "Upper Street"],
+    "commonMisspellings": [],
+    "parentArea": "Islington Borough"
+  },
+  {
+    "name": "Hackney",
+    "type": "neighborhood",
+    "coordinates": { "lat": 51.5450, "lng": -0.0553 },
+    "alternativeNames": ["Hackney Central", "Hackney Wick"],
+    "commonMisspellings": [],
+    "parentArea": "Hackney Borough"
+  },
+  {
+    "name": "Fitzrovia",
+    "type": "neighborhood",
+    "coordinates": { "lat": 51.5216, "lng": -0.1389 },
+    "alternativeNames": ["Fitzroy Square"],
+    "commonMisspellings": [],
+    "parentArea": "City of Westminster"
+  },
+  {
+    "name": "King's Cross",
+    "type": "area",
+    "coordinates": { "lat": 51.5301, "lng": -0.1240 },
+    "alternativeNames": ["Kings Cross", "King's Cross St. Pancras"],
+    "commonMisspellings": ["Kings Cross"],
+    "parentArea": "Camden Borough"
+  },
+  {
+    "name": "Clapham",
+    "type": "neighborhood",
+    "coordinates": { "lat": 51.4618, "lng": -0.1403 },
+    "alternativeNames": ["Clapham Common", "Clapham Junction"],
+    "commonMisspellings": [],
+    "parentArea": "Lambeth"
+  },
+  {
+    "name": "Brixton",
+    "type": "neighborhood",
+    "coordinates": { "lat": 51.4613, "lng": -0.1157 },
+    "alternativeNames": ["Brixton Market"],
+    "commonMisspellings": [],
+    "parentArea": "Lambeth"
+  },
+  {
+    "name": "Chelsea",
+    "type": "district",
+    "coordinates": { "lat": 51.4875, "lng": -0.1687 },
+    "alternativeNames": ["Chelsea Embankment", "Kings Road"],
+    "commonMisspellings": [],
+    "parentArea": "Royal Borough of Kensington and Chelsea"
+  },
+  {
+    "name": "Marylebone",
+    "type": "neighborhood",
+    "coordinates": { "lat": 51.5186, "lng": -0.1547 },
+    "alternativeNames": ["Marylebone High Street"],
+    "commonMisspellings": ["Marylabone"],
+    "parentArea": "City of Westminster"
+  },
+  {
+    "name": "South Bank",
+    "type": "area",
+    "coordinates": { "lat": 51.5045, "lng": -0.1097 },
+    "alternativeNames": ["Southbank", "London Eye area"],
+    "commonMisspellings": [],
+    "parentArea": "Lambeth"
+  }
+]

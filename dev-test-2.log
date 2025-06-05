@@ -1,0 +1,140 @@
+
+> rest-express@1.0.0 dev
+> NODE_ENV=development tsx server/index.ts
+
+🔧 [config.ts] Creating new Config instance.
+🔧 [config.ts] Config constructor starting...
+🔧 [config.ts] process.env.GOOGLE_PLACES_API_KEY at constructor start: NOT SET
+🔧 [config.ts] process.env.GEMINI_API_KEY at constructor start: NOT SET
+🔧 [config.ts] loadApiKeys() starting...
+🔧 [config.ts] Loading GEMINI_API_KEY from process.env: NOT SET
+🔧 [config.ts] Stored GEMINI_API_KEY in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] Loading GOOGLE_PLACES_API_KEY from process.env: NOT SET
+🔧 [config.ts] Stored GOOGLE_PLACES_API_KEY in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] Loading WEATHER_API_KEY from process.env: NOT SET
+🔧 [config.ts] Stored WEATHER_API_KEY in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] Loading GOOGLE_CLIENT_ID from process.env: NOT SET
+🔧 [config.ts] Stored GOOGLE_CLIENT_ID in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] loadApiKeys() finished.
+🔧 [config.ts] initializeFeatureFlags() starting...
+[config.ts isApiKeyValid] Key: GEMINI_API_KEY, Present in this.apiKeys: false, Valid (has length): false
+🚫 [config.ts] AI_PROCESSING feature flag DISABLED (enabled: true, keysMet: false).
+[config.ts isApiKeyValid] Key: GEMINI_API_KEY, Present in this.apiKeys: false, Valid (has length): false
+🚫 [config.ts] USE_GEMINI feature flag DISABLED (enabled: true, keysMet: false).
+[config.ts isApiKeyValid] Key: WEATHER_API_KEY, Present in this.apiKeys: false, Valid (has length): false
+🚫 [config.ts] WEATHER_AWARE feature flag DISABLED (enabled: true, keysMet: false).
+[config.ts isApiKeyValid] Key: GOOGLE_PLACES_API_KEY, Present in this.apiKeys: false, Valid (has length): false
+🚫 [config.ts] PLACES_API feature flag DISABLED (enabled: true, keysMet: false).
+🔧 [config.ts] initializeFeatureFlags() finished.
+🔧 [config.ts] Config constructor finished.
+[CityRegistry] Registered city: London (slug: london)
+[CityRegistry] Registered city: New York City (slug: nyc)
+[CityRegistry] Registered city: Boston (slug: boston)
+[CityRegistry] Registered city: Austin (slug: austin)
+[CityRegistry] City configurations loading process completed. Registry size: 4
+[CityRegistry] Registered slugs: london, nyc, boston, austin
+AI_PROCESSING feature flag status: false
+🔧 Loading environment variables...
+📄 .env file path: /Users/carlos/LondonDayPlanner-1/.env
+📄 .env file exists: true
+✅ Environment variables loaded by dotenv (keys found): [
+  'DATABASE_URL',
+  'GOOGLE_PLACES_API_KEY',
+  'GEMINI_API_KEY',
+  'WEATHER_API_KEY'
+]
+🔍 Environment check (process.env):
+   DATABASE_URL present: true
+   GOOGLE_PLACES_API_KEY present: true
+   GOOGLE_PLACES_API_KEY length: 39
+   GEMINI_API_KEY present: true
+🔧 Initializing application configuration...
+🔄 [config.ts] Config.recheckEnvironment() called. Forcing reload of API keys and features...
+🔧 [config.ts] loadApiKeys() starting...
+🔧 [config.ts] Loading GEMINI_API_KEY from process.env: SET (length: 39)
+🔧 [config.ts] Stored GEMINI_API_KEY in this.apiKeys: SET (length: 39)
+🔧 [config.ts] Loading GOOGLE_PLACES_API_KEY from process.env: SET (length: 39)
+🔧 [config.ts] Stored GOOGLE_PLACES_API_KEY in this.apiKeys: SET (length: 39)
+🔧 [config.ts] Loading WEATHER_API_KEY from process.env: SET (length: 32)
+🔧 [config.ts] Stored WEATHER_API_KEY in this.apiKeys: SET (length: 32)
+🔧 [config.ts] Loading GOOGLE_CLIENT_ID from process.env: NOT SET
+🔧 [config.ts] Stored GOOGLE_CLIENT_ID in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] loadApiKeys() finished.
+🔧 [config.ts] initializeFeatureFlags() starting...
+[config.ts isApiKeyValid] Key: GEMINI_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] AI_PROCESSING feature flag ENABLED.
+[config.ts isApiKeyValid] Key: GEMINI_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] USE_GEMINI feature flag ENABLED.
+[config.ts isApiKeyValid] Key: WEATHER_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] WEATHER_AWARE feature flag ENABLED.
+[config.ts isApiKeyValid] Key: GOOGLE_PLACES_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] PLACES_API feature flag ENABLED.
+🔧 [config.ts] initializeFeatureFlags() finished.
+🔄 [config.ts] Environment recheck complete. Logging new status:
+🔧 [config.ts] Current Application configuration: {
+  features: {
+    AI_PROCESSING: true,
+    USE_GEMINI: true,
+    WEATHER_AWARE: true,
+    PLACES_API: true
+  },
+  apiKeysPresent: {
+    GEMINI_API_KEY: true,
+    GOOGLE_PLACES_API_KEY: true,
+    WEATHER_API_KEY: true,
+    GOOGLE_CLIENT_ID: false
+  },
+  environment: 'development'
+}
+🔧 [config.ts] Config initialize() called.
+🔧 [config.ts] Current Application configuration: {
+  features: {
+    AI_PROCESSING: true,
+    USE_GEMINI: true,
+    WEATHER_AWARE: true,
+    PLACES_API: true
+  },
+  apiKeysPresent: {
+    GEMINI_API_KEY: true,
+    GOOGLE_PLACES_API_KEY: true,
+    WEATHER_API_KEY: true,
+    GOOGLE_CLIENT_ID: false
+  },
+  environment: 'development'
+}
+⚠️  SESSION_SECRET not set, using fallback. SET THIS FOR PRODUCTION!
+2025-06-05 01:28:40 WARN [SESSION] No SESSION_SECRET found, using development fallback {}
+2025-06-05 01:28:40 INFO [SESSION] Session configuration created {
+  "isProduction": false,
+  "hasSecret": true,
+  "cookieSecure": false,
+  "sameSite": "lax"
+}
+🗄️  Testing database connection...
+🗄️  Initializing database instance with Neon driver...
+✅ Database instance initialized and tested successfully with Neon.
+✅ Database connection successful
+🔌 WebSocket service initialized
+node:events:492
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5001
+    at __node_internal_captureLargerStackTrace (node:internal/errors:497:5)
+    at __node_internal_uvExceptionWithHostPort (node:internal/errors:594:12)
+    at Server.setupListenHandle [as _listen2] (node:net:1872:16)
+    at listenInCluster (node:net:1920:12)
+    at doListen (node:net:2069:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+Emitted 'error' event on WebSocketServer instance at:
+    at Server.emit (node:events:514:28)
+    at emitErrorNT (node:net:1899:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '0.0.0.0',
+  port: 5001
+}
+
+Node.js v20.9.0
