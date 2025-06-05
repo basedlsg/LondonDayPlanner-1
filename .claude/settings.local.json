@@ -33,7 +33,11 @@
       "Bash(open http://localhost:3001/)",
       "Bash(kill:*)",
       "Bash(npx tsc:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(railway login:*)",
+      "Bash(./deploy.sh)"
     ],
     "deny": []
   },

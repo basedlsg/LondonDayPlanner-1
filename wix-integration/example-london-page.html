@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Your Perfect Day in London | PlanYourPerfectDay.app</title>
+    <meta name="description" content="AI-powered London itinerary planning. Create your perfect day with personalized recommendations for restaurants, attractions, and activities.">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Plan Your Perfect Day in London">
+    <meta property="og:description" content="AI-powered London itinerary planning with personalized recommendations">
+    <meta property="og:image" content="https://planyourperfectday.app/london-preview.jpg">
+    <meta property="og:url" content="https://planyourperfectday.app/london">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .hero {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        #day-planner-widget {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>🇬🇧 Plan Your Perfect Day in London</h1>
+            <p>Discover hidden gems, iconic landmarks, and authentic experiences with AI-powered recommendations tailored just for you.</p>
+        </div>
+        
+        <!-- This is where the planner widget will be embedded -->
+        <div id="day-planner-widget"></div>
+    </div>
+    
+    <!-- London Day Planner Widget -->
+    <script>
+        // Paste the contents of wix-integration/planner-widget.js here
+        // For now, we'll load it from the deployed API
+        
+        // Load the widget script from your deployed API
+        const script = document.createElement('script');
+        script.src = 'https://api.planyourperfectday.app/static/planner-widget.js';
+        script.onload = function() {
+            // Initialize the London planner
+            if (window.initializeDayPlanner) {
+                window.initializeDayPlanner('london');
+            }
+        };
+        document.head.appendChild(script);
+        
+        // Fallback if script fails to load
+        script.onerror = function() {
+            document.getElementById('day-planner-widget').innerHTML = `
+                <div style="padding: 3rem; text-align: center; color: #666;">
+                    <h3>London Day Planner</h3>
+                    <p>Loading planner interface...</p>
+                    <p><em>If this persists, the API may still be deploying.</em></p>
+                </div>
+            `;
+        };
+    </script>
+    
+    <!-- Analytics (Add your Google Analytics tag here) -->
+    <script>
+        // Google Analytics
+        // gtag('config', 'GA_MEASUREMENT_ID');
+        
+        // Track page view
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_view', {
+                page_title: 'London Planning Page',
+                page_location: window.location.href
+            });
+        }
+    </script>
+</body>
+</html>
