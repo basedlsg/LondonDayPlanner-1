@@ -46,7 +46,10 @@ function getSessionSecret(): string {
   
   if (!secret) {
     if (process.env.NODE_ENV === 'production') {
-      throw new Error('SESSION_SECRET is required in production');
+      // Generate a fallback secret for production if none provided
+      const fallbackSecret = 'railway-fallback-' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+      logger.warn('No SESSION_SECRET found in production, using generated fallback', {}, 'SESSION');
+      return fallbackSecret;
     }
     
     logger.warn('No SESSION_SECRET found, using development fallback', {}, 'SESSION');

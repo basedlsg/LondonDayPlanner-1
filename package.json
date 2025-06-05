@@ -8,7 +8,7 @@
     "dev:client": "vite",
     "dev:both": "concurrently \"npm run dev\" \"npm run dev:client\"",
     "build": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist/server && cp -r dist/public dist/server/",
-    "start": "NODE_ENV=production node dist/server/index.js",
+    "start": "npm run build && NODE_ENV=production node dist/server/index.js",
     "check": "tsc",
     "db:generate": "drizzle-kit generate:pg",
     "db:migrate": "drizzle-kit push:pg",
