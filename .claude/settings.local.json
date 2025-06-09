@@ -38,7 +38,10 @@
       "Bash(git push:*)",
       "Bash(railway login:*)",
       "Bash(./deploy.sh)",
-      "Bash(NODE_ENV=production PORT=8080 timeout 10s node dist/server/index.js)"
+      "Bash(NODE_ENV=production PORT=8080 timeout 10s node dist/server/index.js)",
+      "WebFetch(domain:londondayplanner-1.railway.internal)",
+      "WebFetch(domain:londondayplanner-1-production.railway.app)",
+      "Bash(cp:*)"
     ],
     "deny": []
   },

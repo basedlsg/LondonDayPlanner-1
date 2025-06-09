@@ -7,7 +7,8 @@
 3. **New Project**: Click "New Project"
 4. **Deploy from GitHub**: Select "Deploy from GitHub repo"
 5. **Select Repository**: Choose `basedlsg/LondonDayPlanner-1`
-6. **Auto-Deploy**: Railway will detect the Dockerfile and start building
+6. **Auto-Deploy**: Railway will detect Node.js and use Nixpacks to build
+7. **Wait for Build**: Initial build takes 3-5 minutes
 
 ## Step 2: Configure Environment Variables
 
