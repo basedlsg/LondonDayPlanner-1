@@ -43,7 +43,7 @@ export function useRealtimeUpdates(config: RealtimeConfig = {}) {
     if (ws.current?.readyState === WebSocket.OPEN) return;
 
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const host = import.meta.env.DEV ? 'localhost:5001' : window.location.host;
+    const host = window.location.host;
     const params = new URLSearchParams();
     
     if (user?.id) params.append('userId', user.id);

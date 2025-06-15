@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate, Outlet, useNavigate } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import ItineraryPage from './pages/ItineraryPage';
 import { CitiesPage } from './pages/CitiesPage';
@@ -9,12 +9,16 @@ import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
 import ItinerariesPage from './pages/ItinerariesPage';
 import { TopNav } from './components/TopNav';
-import { QueryClientProvider } from '@tanstack/react-query';
-import { queryClient } from './lib/queryClient';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { CityProvider, useCity } from './hooks/useCity';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { AuthProvider } from './hooks/useAuth';
 import { Toaster } from './components/ui/toaster';
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { ItineraryProvider } from "@/hooks/useItinerary";
+import AppRoutes from "./AppRoutes";
+import { HashRouter as RouterBasename } from 'react-router-dom';
 
 // Layout component that includes TopNav and ensures city context is available
 const AppLayout = () => {
@@ -38,30 +42,35 @@ const AppLayout = () => {
 function App() {
   return (
     <ErrorBoundary>
-      <QueryClientProvider client={queryClient}>
-        <Router>
-          <AuthProvider>
-            <CityProvider>
-              <Routes>
-              <Route path="/:city" element={<AppLayout />}>
-                <Route index element={<HomePage />} />
-                <Route path="plan" element={<HomePage />} />
-                <Route path="itinerary/:id" element={<ItineraryPage />} />
-                <Route path="analytics" element={<AnalyticsPage />} />
-              </Route>
+      <QueryClientProvider client={new QueryClient()}>
+        <TooltipProvider>
+          <Toaster />
+          <RouterBasename basename={import.meta.env.BASE_URL}>
+            <AuthProvider>
+              <CityProvider>
+                <ItineraryProvider>
+                  <Routes>
+                    <Route path="/:city" element={<AppLayout />}>
+                      <Route index element={<HomePage />} />
+                      <Route path="plan" element={<HomePage />} />
+                      <Route path="itinerary/:id" element={<ItineraryPage />} />
+                      <Route path="analytics" element={<AnalyticsPage />} />
+                    </Route>
 
-              <Route path="/cities" element={<><TopNav /><CitiesPage /></>} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/profile" element={<><TopNav /><ProfilePage /></>} />
-              <Route path="/itineraries" element={<ItinerariesPage />} />
-              
-              <Route path="/" element={<NavigateToDefaultCity />} />
-            </Routes>
-            </CityProvider>
-          </AuthProvider>
-        </Router>
-        <Toaster />
+                    <Route path="/cities" element={<><TopNav /><CitiesPage /></>} />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
+                    <Route path="/profile" element={<><TopNav /><ProfilePage /></>} />
+                    <Route path="/itineraries" element={<ItinerariesPage />} />
+                    
+                    <Route path="/" element={<NavigateToDefaultCity />} />
+                  </Routes>
+                </ItineraryProvider>
+              </CityProvider>
+            </AuthProvider>
+          </RouterBasename>
+        </TooltipProvider>
+        {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
       </QueryClientProvider>
     </ErrorBoundary>
   );

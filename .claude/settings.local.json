@@ -41,7 +41,12 @@
       "Bash(NODE_ENV=production PORT=8080 timeout 10s node dist/server/index.js)",
       "WebFetch(domain:londondayplanner-1.railway.internal)",
       "WebFetch(domain:londondayplanner-1-production.railway.app)",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "Bash(npx cap init:*)",
+      "Bash(npx cap add:*)",
+      "Bash(npx cap:*)",
+      "Bash(ln:*)",
+      "Bash(git rm:*)"
     ],
     "deny": []
   },

@@ -87,51 +87,73 @@ export const CityProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    // Extract city slug from pathname
     const pathParts = location.pathname.split('/');
-    const citySlugFromUrl = pathParts[1]; // First part after /
-    
-    console.log('[useCity] Effect triggered with:', { 
-      availableCitiesLength: availableCities.length, 
-      citySlugFromUrl,
-      availableSlugs: availableCities.map(c => c.slug),
-      currentPath: location.pathname,
-      pathParts
-    });
-    
-    if (availableCities.length > 0) {
-      let cityToSet: CityConfig | null = null;
+    const citySlugFromUrl = pathParts[1]?.toLowerCase(); // Ensure lowercase for comparison
 
-      // Check if the first part of the path is a valid city slug
-      const isValidCitySlug = citySlugFromUrl && availableCities.some(c => c.slug.toLowerCase() === citySlugFromUrl.toLowerCase());
-
-      if (isValidCitySlug) {
-        console.log('[useCity] Looking for city:', citySlugFromUrl);
-        cityToSet = availableCities.find(c => c.slug.toLowerCase() === citySlugFromUrl.toLowerCase()) || null;
-        console.log('[useCity] Found city:', cityToSet?.name || 'NOT FOUND');
+    if (availableCities.length === 0) {
+      console.log('[useCity] Effect: No available cities yet, skipping city determination.');
+      // Optionally set currentCity to null if it's not already, to clear stale city while loading
+      if (currentCity !== null) {
+        setCurrentCity(null);
       }
-      
-      // If we're on a non-city route (like /login, /register, etc), don't redirect
-      const nonCityRoutes = ['login', 'register', 'profile', 'itineraries', 'cities'];
-      const isNonCityRoute = nonCityRoutes.includes(citySlugFromUrl);
-      
-      // If no valid city in URL and not on a special route, set default
-      if (!cityToSet && !isNonCityRoute) {
-        console.log('[useCity] No valid city in URL, setting default NYC');
-        const defaultSlug = 'nyc';
-        cityToSet = availableCities.find(c => c.slug.toLowerCase() === defaultSlug.toLowerCase()) || availableCities[0];
-        
-        // Only navigate if we're not already on a city route
-        if (cityToSet && location.pathname === '/') {
-          console.log('[useCity] Navigating to default city:', `/${cityToSet.slug}`);
-          navigate(`/${cityToSet.slug}`, { replace: true });
+      return; // Wait for cities to load
+    }
+
+    let newTargetCity: CityConfig | null = null;
+
+    // 1. Try to determine city from URL
+    if (citySlugFromUrl) {
+      const cityFromUrl = availableCities.find(c => c.slug.toLowerCase() === citySlugFromUrl);
+      if (cityFromUrl) {
+        newTargetCity = cityFromUrl;
+        console.log('[useCity] Effect: City determined from URL:', newTargetCity.name);
+      }
+    }
+
+    // 2. Handle cases where city is not determined from URL (e.g., root path or invalid slug)
+    if (!newTargetCity) {
+      // Define routes that are at the base level and don't imply a city context from path[1]
+      const nonCitySpecificBaseRoutes = ['login', 'register', 'profile', 'itineraries', 'cities']; 
+      const isNonCitySpecificBaseRoute = citySlugFromUrl && nonCitySpecificBaseRoutes.includes(citySlugFromUrl);
+
+      if (!isNonCitySpecificBaseRoute) { 
+        const defaultCitySlug = 'nyc'; // Your default city
+        const defaultCity = availableCities.find(c => c.slug.toLowerCase() === defaultCitySlug) || availableCities[0];
+
+        if (defaultCity) {
+          // Condition for redirect: 
+          // A) We are at the absolute root path '/'
+          // B) Or, citySlugFromUrl was present (e.g. /somebadslug) but didn't match any available city
+          const needsRedirectToDefault = location.pathname === '/' || 
+                                       (citySlugFromUrl && !availableCities.some(c => c.slug.toLowerCase() === citySlugFromUrl));
+
+          if (needsRedirectToDefault) {
+            const targetPath = `/${defaultCity.slug}`;
+            // Only navigate if we are not already at the target path (defensive check)
+            if (location.pathname !== targetPath) {
+              console.log(`[useCity] Effect: Path is '${location.pathname}'. Navigating to default/fallback city path:`, targetPath);
+              navigate(targetPath, { replace: true });
+              return; // CRITICAL: Exit effect early, it will re-run after navigation
+            } else {
+              // We are already at the target default path, so this is our target city
+              newTargetCity = defaultCity;
+              console.log('[useCity] Effect: Already at target default path, setting city:', newTargetCity.name);
+            }
+          }
         }
       }
-      
-      console.log('[useCity] Setting current city to:', cityToSet?.name || 'null');
-      setCurrentCity(cityToSet);
+      // If it IS a nonCitySpecificBaseRoute (e.g. /login), newTargetCity remains null.
+      // If it's a deeper path without city context (e.g. /settings/user), newTargetCity also remains null.
+      // This means currentCity will be set to null for these routes, which is intended.
     }
-  }, [location.pathname, availableCities, navigate]);
+
+    // 3. Update currentCity context state only if it has actually changed
+    if (currentCity?.slug !== newTargetCity?.slug) {
+      console.log('[useCity] Effect: Updating currentCity context to:', newTargetCity?.name || 'null');
+      setCurrentCity(newTargetCity);
+    }
+
+  }, [location.pathname, availableCities, navigate, currentCity]); // Added currentCity to dependency array
 
   const switchCity = useCallback((citySlug: string) => {
     console.log('[switchCity] Called with:', citySlug);

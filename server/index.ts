@@ -46,7 +46,7 @@ import { LocationResolver } from './services/LocationResolver';
 import { globalErrorHandler } from './lib/errorHandler';
 import { logger, requestLogger } from './lib/logging';
 import { createSessionConfig } from './lib/sessionConfig';
-import { apiLimiter } from './lib/rateLimiter';
+import { apiLimiter, authLimiter } from './lib/rateLimiter';
 
 // Import routes
 import { registerRoutes } from './routes'; // This will need planningService
@@ -104,15 +104,34 @@ import cors from 'cors';
 
 // Configure CORS for production deployment
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' ? [
-    'https://planyourperfectday.app',
-    'https://www.planyourperfectday.app',
-    'https://*.wix.com'
-  ] : [
-    'http://localhost:5173',
-    'http://localhost:3000',
-    'http://localhost:5001'
-  ],
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    const allowedOrigins = process.env.NODE_ENV === 'production' ? [
+      'https://planyourperfectday.app',
+      'https://www.planyourperfectday.app',
+      'https://london.planyourperfectday.app',
+      /^https:\/\/.*\.wix\.com$/,
+      /^https:\/\/.*\.wixstatic\.com$/,
+      /^https:\/\/.*\.wixsite\.com$/
+    ] : [
+      'http://localhost:5173',
+      'http://localhost:3000',
+      'http://localhost:5001'
+    ];
+    
+    // Allow requests with no origin (mobile apps, postman, etc.)
+    if (!origin) return callback(null, true);
+    
+    const isAllowed = allowedOrigins.some(allowed => 
+      typeof allowed === 'string' ? allowed === origin : allowed.test(origin)
+    );
+    
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      logger.warn(`CORS blocked origin: ${origin}`);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'x-requested-with']
@@ -133,7 +152,7 @@ app.use(performanceMiddleware());
 // Enhanced request logging and error handling
 app.use(requestLogger);
 
-// Apply rate limiting to API routes
+// Apply rate limiting to API routes. The limiter itself will skip if NODE_ENV is 'development'.
 app.use('/api', apiLimiter);
 
 // Routes will be registered in startServer() to ensure proper order
@@ -193,7 +212,9 @@ async function startServer() {
     const realtimeService = new RealtimeService(httpServer, storage);
     console.log('🔌 WebSocket service initialized');
     
-    const port = process.env.PORT || 8080; // Standard port for Railway/production
+    const portString = process.env.PORT || '8080'; // Standard port for Railway/production
+    const port = parseInt(portString, 10);
+
     httpServer.listen(port, '0.0.0.0', () => {
       console.log(`🚀 Server running on http://localhost:${port}`);
       console.log(`🔧 Environment: ${process.env.NODE_ENV || 'development'}`);
