@@ -42,7 +42,7 @@ export async function fetchConfig(): Promise<ServerConfig> {
   isLoading = true;
   loadError = null;
   
-  loadPromise = fetch(`${import.meta.env.PROD ? 'https://londondayplanner-1-production.railway.app' : ''}/api/config/public`)
+  loadPromise = fetch('/api/config/public')
     .then(response => {
       if (!response.ok) {
         throw new Error(`Failed to load configuration: ${response.status} ${response.statusText}`);
@@ -119,7 +119,7 @@ interface AppConfig {
 
 // Default configuration values
 const defaultConfig: AppConfig = {
-  apiUrl: import.meta.env.PROD ? 'https://londondayplanner-1-production.railway.app' : window.location.origin,
+  apiUrl: window.location.origin,
   googleClientId: '', // Default Google Client ID (needs to be set for OAuth)
   features: {
     auth: false,       // Default auth feature flag to false
@@ -147,7 +147,7 @@ export async function loadConfig(): Promise<AppConfig> {
 
   configPromise = (async () => {
     try {
-      const response = await fetch(`${import.meta.env.PROD ? 'https://londondayplanner-1-production.railway.app' : ''}/api/config/public`);
+      const response = await fetch('/api/config/public');
       if (!response.ok) {
         console.warn('Config endpoint not available, using defaults');
         currentConfig = defaultConfig;
