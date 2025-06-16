@@ -103,6 +103,10 @@ export function findInterestingActivities(
 }
 
 export async function registerRoutes(app: Express, planningService: ItineraryPlanningService, cityConfigService: CityConfigService) {
+  // Health check route
+  app.get('/api/health', (req, res) => {
+    res.json({ status: 'ok', timestamp: new Date().toISOString() });
+  });
   // const httpServer = createServer(app); // httpServer is created in index.ts now
   // const planningService = new ItineraryPlanningService(storage); // Service is now passed in
   const analytics = getAnalytics(storage);
