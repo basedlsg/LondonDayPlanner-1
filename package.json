@@ -9,7 +9,7 @@
     "dev:both": "concurrently \"npm run dev\" \"npm run dev:client\"",
     "build": "vite build",
     "vercel-build": "vite build",
-    "start": "NODE_ENV=production tsx server/index.ts",
+    "start": "node railway-server.js",
     "check": "tsc",
     "db:generate": "drizzle-kit generate:pg",
     "db:migrate": "drizzle-kit push:pg",
