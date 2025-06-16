@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { HashRouter as Router, Routes, Route, Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet, useNavigate } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import ItineraryPage from './pages/ItineraryPage';
 import { CitiesPage } from './pages/CitiesPage';
@@ -15,10 +15,6 @@ import { CityProvider, useCity } from './hooks/useCity';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { AuthProvider } from './hooks/useAuth';
 import { Toaster } from './components/ui/toaster';
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { ItineraryProvider } from "@/hooks/useItinerary";
-import AppRoutes from "./AppRoutes";
-import { HashRouter as RouterBasename } from 'react-router-dom';
 
 // Layout component that includes TopNav and ensures city context is available
 const AppLayout = () => {
@@ -39,37 +35,35 @@ const AppLayout = () => {
   );
 };
 
+const queryClient = new QueryClient();
+
 function App() {
   return (
     <ErrorBoundary>
-      <QueryClientProvider client={new QueryClient()}>
-        <TooltipProvider>
-          <Toaster />
-          <RouterBasename basename={import.meta.env.BASE_URL}>
-            <AuthProvider>
-              <CityProvider>
-                <ItineraryProvider>
-                  <Routes>
-                    <Route path="/:city" element={<AppLayout />}>
-                      <Route index element={<HomePage />} />
-                      <Route path="plan" element={<HomePage />} />
-                      <Route path="itinerary/:id" element={<ItineraryPage />} />
-                      <Route path="analytics" element={<AnalyticsPage />} />
-                    </Route>
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <AuthProvider>
+            <CityProvider>
+              <Routes>
+                <Route path="/:city" element={<AppLayout />}>
+                  <Route index element={<HomePage />} />
+                  <Route path="plan" element={<HomePage />} />
+                  <Route path="itinerary/:id" element={<ItineraryPage />} />
+                  <Route path="analytics" element={<AnalyticsPage />} />
+                </Route>
 
-                    <Route path="/cities" element={<><TopNav /><CitiesPage /></>} />
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/register" element={<RegisterPage />} />
-                    <Route path="/profile" element={<><TopNav /><ProfilePage /></>} />
-                    <Route path="/itineraries" element={<ItinerariesPage />} />
-                    
-                    <Route path="/" element={<NavigateToDefaultCity />} />
-                  </Routes>
-                </ItineraryProvider>
-              </CityProvider>
-            </AuthProvider>
-          </RouterBasename>
-        </TooltipProvider>
+                <Route path="/cities" element={<><TopNav /><CitiesPage /></>} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/profile" element={<><TopNav /><ProfilePage /></>} />
+                <Route path="/itineraries" element={<ItinerariesPage />} />
+                
+                <Route path="/" element={<NavigateToDefaultCity />} />
+              </Routes>
+            </CityProvider>
+          </AuthProvider>
+        </Router>
+        <Toaster />
         {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
       </QueryClientProvider>
     </ErrorBoundary>
