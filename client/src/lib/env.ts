@@ -9,6 +9,9 @@ import { useState, useEffect } from 'react';
 // Directly available environment variables
 export const BASE_URL = import.meta.env.VITE_BASE_URL || '';
 
+// API base URL utility
+export const getApiUrl = () => import.meta.env.PROD ? 'https://londondayplanner-1-production.railway.app' : '';
+
 // Remote configuration values that must be fetched from server
 interface ServerConfig {
   googleClientId: string;
@@ -39,7 +42,7 @@ export async function fetchConfig(): Promise<ServerConfig> {
   isLoading = true;
   loadError = null;
   
-  loadPromise = fetch('/api/config/public')
+  loadPromise = fetch(`${import.meta.env.PROD ? 'https://londondayplanner-1-production.railway.app' : ''}/api/config/public`)
     .then(response => {
       if (!response.ok) {
         throw new Error(`Failed to load configuration: ${response.status} ${response.statusText}`);
@@ -116,7 +119,7 @@ interface AppConfig {
 
 // Default configuration values
 const defaultConfig: AppConfig = {
-  apiUrl: window.location.origin, // Default API URL to current origin
+  apiUrl: import.meta.env.PROD ? 'https://londondayplanner-1-production.railway.app' : window.location.origin,
   googleClientId: '', // Default Google Client ID (needs to be set for OAuth)
   features: {
     auth: false,       // Default auth feature flag to false
@@ -144,7 +147,7 @@ export async function loadConfig(): Promise<AppConfig> {
 
   configPromise = (async () => {
     try {
-      const response = await fetch('/api/config/public');
+      const response = await fetch(`${import.meta.env.PROD ? 'https://londondayplanner-1-production.railway.app' : ''}/api/config/public`);
       if (!response.ok) {
         console.warn('Config endpoint not available, using defaults');
         currentConfig = defaultConfig;

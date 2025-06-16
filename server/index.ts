@@ -109,6 +109,9 @@ const corsOptions = {
       'https://planyourperfectday.app',
       'https://www.planyourperfectday.app',
       'https://london.planyourperfectday.app',
+      'https://app.planyourperfectday.app',
+      'https://planyourperfectday-app.netlify.app',
+      'https://coruscating-shortbread-3eea56.netlify.app',
       /^https:\/\/.*\.wix\.com$/,
       /^https:\/\/.*\.wixstatic\.com$/,
       /^https:\/\/.*\.wixsite\.com$/

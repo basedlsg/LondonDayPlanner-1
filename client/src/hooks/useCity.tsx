@@ -68,7 +68,7 @@ export const CityProvider = ({ children }: { children: React.ReactNode }) => {
       setIsLoading(true);
       try {
         console.log('[useCity] Fetching cities from /api/cities');
-        const response = await fetch('/api/cities');
+        const response = await fetch(`${import.meta.env.PROD ? 'https://londondayplanner-1-production.railway.app' : ''}/api/cities`);
         if (!response.ok) {
           throw new Error('Failed to fetch city configurations');
         }

@@ -16,7 +16,7 @@ export const usePlanMutation = () => {
       startTime?: string;
       tripDuration?: number;
     }) => {
-      const response = await fetch(`/api/${city}/plan`, {
+      const response = await fetch(`${import.meta.env.PROD ? 'https://londondayplanner-1-production.railway.app' : ''}/api/${city}/plan`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
