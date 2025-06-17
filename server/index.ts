@@ -196,9 +196,11 @@ async function startServer() {
     // Register API routes FIRST (before vite middleware)
     registerRoutes(app, planningService, cityConfigService);
 
-    // Add a catch-all for unmatched API routes before vite middleware
+    // Add a catch-all for unmatched API routes AFTER all route registration
+    // This must be LAST to avoid intercepting valid routes
     app.use('/api/*', (req, res) => {
-      res.status(404).json({ error: 'API endpoint not found' });
+      console.warn(`🚫 Unmatched API route: ${req.method} ${req.path}`);
+      res.status(404).json({ error: 'API endpoint not found', path: req.path });
     });
 
     // THEN setup vite/static serving (which has catch-all routes)
