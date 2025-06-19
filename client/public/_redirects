@@ -1,5 +1,0 @@
-# Force HTTPS
-http://app.planyourperfectday.app/* https://app.planyourperfectday.app/:splat 301!
-
-# SPA Fallback: Serve index.html for all non-file routes
-/*    /index.html    200
