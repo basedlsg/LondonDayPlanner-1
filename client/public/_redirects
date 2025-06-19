@@ -1,7 +1,5 @@
 # Force HTTPS
-http://app.planyourperfectday.app/*  https://app.planyourperfectday.app/:splat  301!
+http://app.planyourperfectday.app/* https://app.planyourperfectday.app/:splat 301!
 
-# Cache busting - serve index.html for all routes
-/* /index.html 200
-
-/assets/*  /assets/:splat  200
+# SPA Fallback: Serve index.html for all non-file routes
+/*    /index.html    200
