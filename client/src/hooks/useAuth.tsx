@@ -34,149 +34,34 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const checkAuthStatus = async () => {
-    try {
-      const response = await fetch('/api/auth/me', {
-        credentials: 'include',
-        headers: {
-          'Accept': 'application/json',
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setUser(data.user);
-      } else {
-        setUser(null);
-      }
-    } catch (err) {
-      console.error('Error checking auth status:', err);
-      setUser(null);
-    } finally {
-      setIsLoading(false);
-    }
+    // Skip auth check in demo mode
+    console.log('Skipping auth check - demo mode');
+    setUser(null);
+    setIsLoading(false);
   };
 
   const login = async (email: string, password: string) => {
-    setError(null);
-    setIsLoading(true);
-
-    try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Login failed');
-      }
-
-      setUser(data.user);
-      // Redirect to home page after successful login
-      setLocation('/');
-    } catch (err: any) {
-      setError(err.message || 'An error occurred during login');
-      throw err;
-    } finally {
-      setIsLoading(false);
-    }
+    setError('Authentication is disabled in demo mode');
+    setIsLoading(false);
+    throw new Error('Authentication is disabled in demo mode');
   };
 
   const loginWithGoogle = async (credential: string) => {
-    setError(null);
-    setIsLoading(true);
-
-    try {
-      const response = await fetch('/api/auth/google', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({ token: credential }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Google login failed');
-      }
-
-      setUser(data.user);
-      // Redirect to home page after successful login
-      setLocation('/');
-    } catch (err: any) {
-      setError(err.message || 'An error occurred during Google login');
-      throw err;
-    } finally {
-      setIsLoading(false);
-    }
+    setError('Authentication is disabled in demo mode');
+    setIsLoading(false);
+    throw new Error('Authentication is disabled in demo mode');
   };
 
   const register = async (email: string, password: string, name: string) => {
-    setError(null);
-    setIsLoading(true);
-
-    try {
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({ 
-          email, 
-          password, 
-          confirmPassword: password, // API expects confirmPassword
-          name 
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Registration failed');
-      }
-
-      setUser(data.user);
-      // Redirect to home page after successful registration
-      setLocation('/');
-    } catch (err: any) {
-      setError(err.message || 'An error occurred during registration');
-      throw err;
-    } finally {
-      setIsLoading(false);
-    }
+    setError('Authentication is disabled in demo mode');
+    setIsLoading(false);
+    throw new Error('Authentication is disabled in demo mode');
   };
 
   const logout = async () => {
-    setIsLoading(true);
-
-    try {
-      const response = await fetch('/api/auth/logout', {
-        method: 'POST',
-        credentials: 'include',
-      });
-
-      if (!response.ok) {
-        throw new Error('Logout failed');
-      }
-
-      setUser(null);
-      // Redirect to home page after logout
-      setLocation('/');
-    } catch (err: any) {
-      console.error('Logout error:', err);
-      // Even if logout fails on server, clear local state
-      setUser(null);
-    } finally {
-      setIsLoading(false);
-    }
+    setUser(null);
+    setIsLoading(false);
+    setLocation('/');
   };
 
   const clearError = useCallback(() => {

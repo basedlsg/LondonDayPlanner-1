@@ -25,9 +25,9 @@ const AppLayout = () => {
   // if (!currentCity) return <Navigate to="/cities" replace />; // Or a more specific "City not found" page
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="flex flex-col flex-1 w-full bg-gray-50 overflow-hidden">
       <TopNav />
-      <main>
+      <main className="flex-1 overflow-y-auto">
         {/* Outlet will render the matched nested route component */}
         <Outlet /> 
       </main>

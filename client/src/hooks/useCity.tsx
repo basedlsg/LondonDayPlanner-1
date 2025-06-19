@@ -68,11 +68,24 @@ export const CityProvider = ({ children }: { children: React.ReactNode }) => {
       setIsLoading(true);
       try {
         console.log('[useCity] Fetching cities from /api/cities');
-        const response = await fetch('/api/cities');
-        if (!response.ok) {
-          throw new Error('Failed to fetch city configurations');
+        let citiesData: CityConfig[];
+        try {
+          const API_BASE_URL = 'https://londondayplanner-1-production.railway.app';
+          const response = await fetch(`${API_BASE_URL}/api/cities`);
+          if (!response.ok) {
+            throw new Error('Failed to fetch city configurations');
+          }
+          citiesData = await response.json();
+        } catch (error) {
+          console.warn('API not available, using fallback data');
+          // Fallback city data
+          citiesData = [
+            { id: 'london', name: 'London', slug: 'london', timezone: 'Europe/London' },
+            { id: 'nyc', name: 'New York City', slug: 'nyc', timezone: 'America/New_York' },
+            { id: 'boston', name: 'Boston', slug: 'boston', timezone: 'America/New_York' },
+            { id: 'austin', name: 'Austin', slug: 'austin', timezone: 'America/Chicago' }
+          ];
         }
-        const citiesData: CityConfig[] = await response.json();
         setAvailableCities(citiesData.length > 0 ? citiesData : defaultCities);
         setError(null);
       } catch (err: any) {

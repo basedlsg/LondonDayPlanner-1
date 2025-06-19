@@ -142,6 +142,9 @@ export default function HomePage() {
               timezone={currentCity?.timezone || 'America/New_York'}
               planDate={itineraryData?.planDate}
               shareableUrl={itineraryData?.shareableUrl}
+              // Smart display modes
+              isSingleVenue={itineraryData?.isSingleVenue}
+              isTimeline={itineraryData?.isTimeline}
               // Multi-day trip support
               isMultiDay={itineraryData?.isMultiDay}
               tripId={itineraryData?.tripId}

@@ -63,7 +63,8 @@
       "Bash(vercel:*)",
       "Bash(vercel login:*)",
       "Bash(dig:*)",
-      "Bash(nslookup:*)"
+      "Bash(nslookup:*)",
+      "WebFetch(domain:docs.railway.app)"
     ],
     "deny": []
   },

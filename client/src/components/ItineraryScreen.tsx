@@ -3,8 +3,7 @@ import { format, formatInTimeZone } from 'date-fns-tz';
 import { ItineraryLoading } from './LoadingSpinner';
 import WeatherDisplay from './WeatherDisplay';
 import { ShareModal } from './ShareModal';
-import { InteractiveMap } from './InteractiveMap';
-import { Share2, Save, Map } from 'lucide-react';
+import { Share2, Save } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useToast } from '../hooks/use-toast';
 
@@ -49,6 +48,9 @@ interface ItineraryScreenProps {
   timezone?: string;
   planDate?: string;
   shareableUrl?: string;
+  // Smart display modes
+  isSingleVenue?: boolean;
+  isTimeline?: boolean;
   // Multi-day trip support
   isMultiDay?: boolean;
   tripId?: number;
@@ -72,6 +74,9 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
   timezone,
   planDate,
   shareableUrl,
+  // Smart display modes
+  isSingleVenue = false,
+  isTimeline = false,
   // Multi-day trip support
   isMultiDay = false,
   tripId,
@@ -81,7 +86,6 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
 }) => {
   const [showShareModal, setShowShareModal] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [showMap, setShowMap] = useState(false);
   const { user, isAuthenticated } = useAuth();
   const { toast } = useToast();
 
@@ -155,8 +159,17 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
             color: 'var(--color-text-black)',
             fontSize: 'clamp(1.75rem, 5vw, 2rem)' // Better mobile font scaling
           }}>
-            {title || `Your ${cityName || 'NYC'} Itinerary`}
+            {isSingleVenue ? title : (title || `Your ${cityName || 'NYC'} Itinerary`)}
           </h1>
+          
+          {/* Display mode indicator */}
+          {(isSingleVenue || isTimeline) && (
+            <div className="mb-4">
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 text-blue-800">
+                {isSingleVenue ? '📍 Perfect Match' : '📅 Timeline'}
+              </span>
+            </div>
+          )}
           
           {/* Multi-day trip navigation - Hidden for now */}
           {/* {isMultiDay && tripDuration && tripDuration > 1 && (
@@ -193,22 +206,7 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
             </div>
           )} */}
 
-          <div className="flex flex-col gap-3">
-            <button
-              onClick={() => setShowMap(!showMap)}
-              className="w-full py-3 sm:py-4 rounded-2xl text-white export-button transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
-              style={{ 
-                background: showMap ? '#6366f1' : '#8b5cf6',
-                fontWeight: 600,
-                fontSize: 'clamp(0.875rem, 2.5vw, 1rem)',
-                fontFamily: "'Inter', sans-serif"
-              }}
-            >
-              <Map className="w-4 h-4 sm:w-5 sm:h-5" />
-              {showMap ? 'Hide Map' : 'Show Map'}
-            </button>
-            
-            <div className="flex gap-3">
+          <div className="flex gap-3">
               {isAuthenticated && (
                 <button
                   onClick={handleSaveItinerary}
@@ -239,27 +237,34 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
                 Share & Export
               </button>
             </div>
-          </div>
         </div>
 
-        {/* Interactive Map */}
-        {showMap && (
-          <div className="mb-8">
-            <InteractiveMap 
-              venues={venues.map(v => ({
-                ...v,
-                location: v.location || (v.address ? undefined : undefined) // We'll need to geocode addresses
-              }))} 
-              city={cityName?.toLowerCase()} 
-            />
-          </div>
-        )}
 
-        {/* Venues List */}
-        <div className="space-y-6 sm:space-y-8">
+        {/* Venues Display - Smart Layout */}
+        <div className={isSingleVenue ? "space-y-4" : "space-y-6 sm:space-y-8"}>
           {venues.map((venue, index) => (
             <React.Fragment key={`${venue.name}-${index}`}>
-              <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-gray-100 venue-card transition-all duration-300 hover:shadow-md hover:scale-[1.01] active:scale-[0.99]" style={{ fontFamily: "'Inter', sans-serif" }}>
+              <div className={`bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-gray-100 venue-card transition-all duration-300 hover:shadow-md hover:scale-[1.01] active:scale-[0.99] ${isSingleVenue ? 'border-blue-200 shadow-lg' : ''}`} style={{ fontFamily: "'Inter', sans-serif" }}>
+                
+                {/* Single venue mode - enhanced display */}
+                {isSingleVenue && (
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-2xl">⭐</span>
+                    <span className="text-sm font-medium text-blue-600">Perfect Match</span>
+                    {venue.rating && <span className="text-sm text-gray-500">• {venue.rating} ★</span>}
+                  </div>
+                )}
+                
+                {/* Timeline mode - show step number */}
+                {isTimeline && venues.length > 1 && (
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="bg-blue-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+                      {index + 1}
+                    </span>
+                    <span className="text-sm font-medium text-blue-600">Step {index + 1}</span>
+                  </div>
+                )}
+                
                 <h2 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 venue-name" style={{ fontFamily: "'Inter', sans-serif", letterSpacing: 'normal', fontSize: 'clamp(1.125rem, 3vw, 1.25rem)' }}>
                   {venue.name}
                 </h2>
@@ -280,6 +285,13 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
                     )}
                   </div>
                   <p className="text-gray-500 text-sm sm:text-base venue-address line-clamp-2" style={{ fontFamily: "'Inter', sans-serif", textTransform: 'none' }}>{venue.address}</p>
+                  
+                  {/* Enhanced description for single venue */}
+                  {isSingleVenue && venue.description && (
+                    <p className="text-gray-600 text-sm italic mt-2" style={{ fontFamily: "'Inter', sans-serif" }}>
+                      {venue.description}
+                    </p>
+                  )}
                 </div>
                 
                 <div className="flex flex-wrap gap-2">
@@ -288,9 +300,9 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
                       key={`${category}-${catIndex}`} 
                       className="px-3 py-1.5 rounded-full text-xs sm:text-sm venue-tag transition-all duration-200 hover:scale-105"
                       style={{
-                        background: 'rgba(23, 185, 230, 0.1)',
+                        background: isSingleVenue ? 'rgba(59, 130, 246, 0.1)' : 'rgba(23, 185, 230, 0.1)',
                         color: 'var(--color-text-black)',
-                        border: '1px solid rgba(23, 185, 230, 0.2)',
+                        border: `1px solid ${isSingleVenue ? 'rgba(59, 130, 246, 0.2)' : 'rgba(23, 185, 230, 0.2)'}`,
                         fontFamily: "'Inter', sans-serif"
                       }}
                     >
@@ -300,29 +312,6 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
                 </div>
               </div>
               
-              {index < venues.length - 1 && hasTravelInfo && travelInfo[index] && (
-                <div className="flex items-center gap-3 px-4 sm:px-5 py-3 sm:py-4 mt-4 mb-4 bg-gray-50 rounded-xl text-gray-600 text-sm sm:text-base shadow-sm border border-gray-100 travel-info transition-all duration-200 hover:bg-gray-100" style={{ fontFamily: "'Inter', sans-serif" }}>
-                  <svg
-                    className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    style={{color: '#17B9E6'}}
-                  >
-                    <path
-                      d="M8 0C5.87827 0 3.84344 0.842855 2.34315 2.34315C0.842855 3.84344 0 5.87827 0 8C0 10.1217 0.842855 12.1566 2.34315 13.6569C3.84344 15.1571 5.87827 16 8 16C10.1217 16 12.1566 15.1571 13.6569 13.6569C15.1571 12.1566 16 10.1217 16 8C16 5.87827 15.1571 3.84344 13.6569 2.34315C12.1566 0.842855 10.1217 0 8 0ZM8 14.4C6.25044 14.4 4.57275 13.7257 3.32294 12.5259C2.07312 11.326 1.39819 9.64784 1.39819 7.89828C1.39819 6.14872 2.07312 4.47103 3.32294 3.27121C4.57275 2.0714 6.25044 1.39647 8 1.39647C9.74956 1.39647 11.4272 2.0714 12.6771 3.27121C13.9269 4.47103 14.6018 6.14872 14.6018 7.89828C14.6018 9.64784 13.9269 11.326 12.6771 12.5259C11.4272 13.7257 9.74956 14.4 8 14.4Z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M8 3.2C7.68174 3.2 7.37652 3.32643 7.15147 3.55147C6.92643 3.77652 6.8 4.08174 6.8 4.4V7.6H4.4C4.08174 7.6 3.77652 7.72643 3.55147 7.95147C3.32643 8.17652 3.2 8.48174 3.2 8.8C3.2 9.11826 3.32643 9.42348 3.55147 9.64853C3.77652 9.87357 4.08174 10 4.4 10H8C8.31826 10 8.62348 9.87357 8.84853 9.64853C9.07357 9.42348 9.2 9.11826 9.2 8.8V4.4C9.2 4.08174 9.07357 3.77652 8.84853 3.55147C8.62348 3.32643 8.31826 3.2 8 3.2Z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                  <span className="whitespace-normal overflow-visible travel-duration flex-1" style={{ fontFamily: "'Inter', sans-serif", fontSize: 'clamp(0.875rem, 2vw, 1rem)' }}>
-                    {travelInfo[index].duration} minutes to {travelInfo[index].destination}
-                  </span>
-                </div>
-              )}
             </React.Fragment>
           ))}
         </div>

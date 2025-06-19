@@ -37,7 +37,7 @@ export const apiLimiter = rateLimit({
     const retryAfterSeconds = (req.rateLimit && req.rateLimit.resetTime)
       ? Math.ceil((req.rateLimit.resetTime.getTime() - Date.now()) / 1000)
       : Math.ceil(windowMs / 1000);
-
+    
     res.status(429).json({
       error: 'Too many requests',
       message: 'You have exceeded the rate limit. Please try again later.',
@@ -67,7 +67,7 @@ export const planningLimiter = rateLimit({
     const retryAfterSeconds = (req.rateLimit && req.rateLimit.resetTime)
       ? Math.ceil((req.rateLimit.resetTime.getTime() - Date.now()) / 1000)
       : Math.ceil(windowMs / 1000);
-
+    
     res.status(429).json({
       error: 'Too many planning requests',
       message: 'You are making too many itinerary requests. Please wait before trying again.',
@@ -99,7 +99,7 @@ export const authLimiter = rateLimit({
     const retryAfterSeconds = (req.rateLimit && req.rateLimit.resetTime)
       ? Math.ceil((req.rateLimit.resetTime.getTime() - Date.now()) / 1000)
       : Math.ceil(windowMs / 1000);
-
+    
     res.status(429).json({
       error: 'Too many authentication attempts',
       message: 'Too many failed login attempts. Please try again later.',
@@ -140,7 +140,7 @@ export function createCustomLimiter(windowMs: number, max: number, message?: str
       const retryAfterSeconds = (req.rateLimit && req.rateLimit.resetTime)
         ? Math.ceil((req.rateLimit.resetTime.getTime() - Date.now()) / 1000)
         : Math.ceil(currentWindowMs / 1000);
-
+      
       res.status(429).json({
         error: 'Rate limit exceeded',
         message: message || 'You have exceeded the rate limit for this endpoint.',

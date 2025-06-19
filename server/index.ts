@@ -104,37 +104,16 @@ import cors from 'cors';
 
 // Configure CORS for production deployment
 const corsOptions = {
-  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
-    const allowedOrigins = process.env.NODE_ENV === 'production' ? [
-      'https://planyourperfectday.app',
-      'https://www.planyourperfectday.app',
-      'https://london.planyourperfectday.app',
-      'https://app.planyourperfectday.app',
-      'https://planyourperfectday-app.netlify.app',
-      'https://coruscating-shortbread-3eea56.netlify.app',
-      /^https:\/\/.*\.wix\.com$/,
-      /^https:\/\/.*\.wixstatic\.com$/,
-      /^https:\/\/.*\.wixsite\.com$/
-    ] : [
-      'http://localhost:5173',
-      'http://localhost:3000',
-      'http://localhost:5001'
-    ];
-    
-    // Allow requests with no origin (mobile apps, postman, etc.)
-    if (!origin) return callback(null, true);
-    
-    const isAllowed = allowedOrigins.some(allowed => 
-      typeof allowed === 'string' ? allowed === origin : allowed.test(origin)
-    );
-    
-    if (isAllowed) {
-      callback(null, true);
-    } else {
-      logger.warn(`CORS blocked origin: ${origin}`);
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: process.env.NODE_ENV === 'production' ? [
+    'https://planyourperfectday.app',
+    'https://www.planyourperfectday.app',
+    'https://app.planyourperfectday.app',
+    'https://*.wix.com'
+  ] : [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'http://localhost:8080'
+  ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'x-requested-with']
