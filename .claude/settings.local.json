@@ -64,7 +64,11 @@
       "Bash(vercel login:*)",
       "Bash(dig:*)",
       "Bash(nslookup:*)",
-      "WebFetch(domain:docs.railway.app)"
+      "WebFetch(domain:docs.railway.app)",
+      "mcp__zen__analyze",
+      "mcp__zen__thinkdeep",
+      "Bash(./test_noon_api.sh:*)",
+      "mcp__zen__precommit"
     ],
     "deny": []
   },

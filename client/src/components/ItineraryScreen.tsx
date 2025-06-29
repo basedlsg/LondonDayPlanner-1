@@ -240,11 +240,16 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
         </div>
 
 
-        {/* Venues Display - Smart Layout */}
-        <div className={isSingleVenue ? "space-y-4" : "space-y-6 sm:space-y-8"}>
+        {/* Venues Display - Enhanced Mobile-first Layout */}
+        <div className={isSingleVenue ? "space-y-3 sm:space-y-4" : "space-y-4 sm:space-y-6"}>
           {venues.map((venue, index) => (
             <React.Fragment key={`${venue.name}-${index}`}>
-              <div className={`bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-gray-100 venue-card transition-all duration-300 hover:shadow-md hover:scale-[1.01] active:scale-[0.99] ${isSingleVenue ? 'border-blue-200 shadow-lg' : ''}`} style={{ fontFamily: "'Inter', sans-serif" }}>
+              <div className={`bg-white rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 shadow-sm border border-gray-100 venue-card transition-all duration-300 hover:shadow-md hover:scale-[1.01] active:scale-[0.99] ${isSingleVenue ? 'border-blue-200 shadow-lg' : ''} ${isTimeline ? 'relative overflow-hidden' : ''}`} style={{ fontFamily: "'Inter', sans-serif" }}>
+                
+                {/* Timeline step indicator for mobile */}
+                {isTimeline && venues.length > 1 && (
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-blue-600"></div>
+                )}
                 
                 {/* Single venue mode - enhanced display */}
                 {isSingleVenue && (
@@ -255,62 +260,130 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
                   </div>
                 )}
                 
-                {/* Timeline mode - show step number */}
+                {/* Timeline mode - enhanced mobile step indicator */}
                 {isTimeline && venues.length > 1 && (
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="bg-blue-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
-                      {index + 1}
-                    </span>
-                    <span className="text-sm font-medium text-blue-600">Step {index + 1}</span>
+                  <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                    <div className="flex items-center gap-2">
+                      <span className="bg-blue-500 text-white text-xs sm:text-sm font-bold rounded-full w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center shadow-sm">
+                        {index + 1}
+                      </span>
+                      <span className="text-sm sm:text-base font-medium text-blue-600">Step {index + 1}</span>
+                    </div>
+                    {/* Mobile time indicator */}
+                    <div className="ml-auto flex items-center gap-1 text-xs sm:text-sm text-gray-500">
+                      <span>⏰</span>
+                      <span className="font-medium">{venue.time}</span>
+                    </div>
                   </div>
                 )}
                 
-                <h2 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 venue-name" style={{ fontFamily: "'Inter', sans-serif", letterSpacing: 'normal', fontSize: 'clamp(1.125rem, 3vw, 1.25rem)' }}>
-                  {venue.name}
-                </h2>
-                
-                <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-5">
-                  <div className="flex items-center justify-between">
-                    <p className="text-base sm:text-lg font-semibold venue-time" style={{ fontFamily: "'Inter', sans-serif", fontSize: 'clamp(1rem, 2.5vw, 1.125rem)' }}>
-                      {/* Display time with ET (Eastern Time) suffix */}
-                      {venue.time.includes('ET') ? venue.time : `${venue.time} ET`}
+                {/* Venue name with mobile-optimized sizing */}
+                <div className="mb-3 sm:mb-4">
+                  <h2 className="text-lg sm:text-xl font-bold venue-name leading-tight" style={{ fontFamily: "'Inter', sans-serif", letterSpacing: 'normal', fontSize: 'clamp(1.125rem, 4vw, 1.375rem)' }}>
+                    {venue.name}
+                  </h2>
+                  
+                  {/* Mobile-first time display for non-timeline mode */}
+                  {!isTimeline && (
+                    <p className="text-base sm:text-lg font-semibold venue-time mt-1 text-blue-600" style={{ fontFamily: "'Inter', sans-serif", fontSize: 'clamp(1rem, 3vw, 1.125rem)' }}>
+                      {venue.time}
                     </p>
-                    {venue.weather && venue.isOutdoor && (
+                  )}
+                </div>
+                
+                {/* Compact mobile info section */}
+                <div className="space-y-2 mb-3 sm:mb-4">
+                  {/* Weather display for mobile - more compact */}
+                  {venue.weather && venue.isOutdoor && (
+                    <div className="flex items-center gap-2">
                       <WeatherDisplay 
                         weather={venue.weather}
                         venueTime={venue.time}
                         isOutdoor={venue.isOutdoor}
                         compact={true}
                       />
-                    )}
+                    </div>
+                  )}
+                  
+                  {/* Address with better mobile formatting */}
+                  <div className="flex items-start gap-2">
+                    <span className="text-gray-400 text-xs sm:text-sm mt-0.5 flex-shrink-0">📍</span>
+                    <p className="text-gray-600 text-sm sm:text-base venue-address line-clamp-2" style={{ fontFamily: "'Inter', sans-serif" }}>
+                      {venue.address}
+                    </p>
                   </div>
-                  <p className="text-gray-500 text-sm sm:text-base venue-address line-clamp-2" style={{ fontFamily: "'Inter', sans-serif", textTransform: 'none' }}>{venue.address}</p>
                   
                   {/* Enhanced description for single venue */}
-                  {isSingleVenue && venue.description && (
-                    <p className="text-gray-600 text-sm italic mt-2" style={{ fontFamily: "'Inter', sans-serif" }}>
-                      {venue.description}
-                    </p>
+                  {isSingleVenue && (venue as any).description && (
+                    <div className="flex items-start gap-2 mt-2">
+                      <span className="text-gray-400 text-xs mt-0.5 flex-shrink-0">💭</span>
+                      <p className="text-gray-600 text-sm italic" style={{ fontFamily: "'Inter', sans-serif" }}>
+                        {(venue as any).description}
+                      </p>
+                    </div>
                   )}
                 </div>
                 
-                <div className="flex flex-wrap gap-2">
-                  {venue.categories && Array.isArray(venue.categories) && venue.categories.map((category, catIndex) => (
-                    <span 
-                      key={`${category}-${catIndex}`} 
-                      className="px-3 py-1.5 rounded-full text-xs sm:text-sm venue-tag transition-all duration-200 hover:scale-105"
-                      style={{
-                        background: isSingleVenue ? 'rgba(59, 130, 246, 0.1)' : 'rgba(23, 185, 230, 0.1)',
-                        color: 'var(--color-text-black)',
-                        border: `1px solid ${isSingleVenue ? 'rgba(59, 130, 246, 0.2)' : 'rgba(23, 185, 230, 0.2)'}`,
-                        fontFamily: "'Inter', sans-serif"
-                      }}
-                    >
-                      {category.replace(/_/g, ' ')}
-                    </span>
-                  ))}
-                </div>
+                {/* Mobile-optimized category tags */}
+                {venue.categories && Array.isArray(venue.categories) && venue.categories.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                    {venue.categories.slice(0, 4).map((category, catIndex) => (
+                      <span 
+                        key={`${category}-${catIndex}`} 
+                        className="px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs venue-tag transition-all duration-200 hover:scale-105"
+                        style={{
+                          background: isSingleVenue ? 'rgba(59, 130, 246, 0.1)' : 'rgba(23, 185, 230, 0.1)',
+                          color: 'var(--color-text-black)',
+                          border: `1px solid ${isSingleVenue ? 'rgba(59, 130, 246, 0.2)' : 'rgba(23, 185, 230, 0.2)'}`,
+                          fontFamily: "'Inter', sans-serif"
+                        }}
+                      >
+                        {category.replace(/_/g, ' ')}
+                      </span>
+                    ))}
+                    {venue.categories.length > 4 && (
+                      <span className="px-2 py-1 text-xs text-gray-500 font-medium">
+                        +{venue.categories.length - 4} more
+                      </span>
+                    )}
+                  </div>
+                )}
               </div>
+              
+              {/* Travel Info Display - Mobile-first timeline connector */}
+              {index < venues.length - 1 && hasTravelInfo && travelInfo[index] && (
+                <div className="relative flex items-center gap-3 px-4 sm:px-6 py-3 sm:py-4 mt-4 mb-4 bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl shadow-sm border border-gray-100 mx-2">
+                  {/* Timeline connector line */}
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-200 to-blue-400 rounded-full"></div>
+                  
+                  {/* Travel icon */}
+                  <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-blue-500 rounded-full flex items-center justify-center shadow-sm">
+                    <span className="text-white text-sm sm:text-base">🚶</span>
+                  </div>
+                  
+                  {/* Travel details */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm sm:text-base font-medium text-gray-800">
+                        {travelInfo[index].duration} min to
+                      </span>
+                      <span className="text-xs sm:text-sm text-blue-600 font-medium">
+                        Step {index + 2}
+                      </span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-gray-600 truncate mt-0.5">
+                      {travelInfo[index].destination || venues[index + 1]?.name}
+                    </p>
+                  </div>
+                  
+                  {/* Arrow indicator */}
+                  <div className="flex-shrink-0 text-gray-400">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                </div>
+              )}
               
             </React.Fragment>
           ))}

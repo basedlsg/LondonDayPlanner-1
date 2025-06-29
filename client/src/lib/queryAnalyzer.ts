@@ -94,8 +94,17 @@ function parseMultiActivityQuery(query: string): ActivityMatch[] {
     
     // First try to match explicit AM/PM times
     const explicitTimeMatch = trimmed.match(/\b(?:at\s?)?(\d{1,2}(?::\d{2})?\s?(?:am|pm))\b/i);
+    // Check for "noon"
+    const noonMatch = trimmed.match(/\bnoon\b/i);
+    // Check for "midnight"
+    const midnightMatch = trimmed.match(/\bmidnight\b/i);
+
     if (explicitTimeMatch) {
       time = explicitTimeMatch[1];
+    } else if (noonMatch) {
+      time = '12:00 PM';
+    } else if (midnightMatch) {
+      time = '12:00 AM';
     } else {
       // Try to match bare numbers like "at 12", "at 5", "at 8"
       const bareNumberMatch = trimmed.match(/\bat\s?(\d{1,2})(?!\d)/i);

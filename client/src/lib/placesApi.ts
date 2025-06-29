@@ -3,9 +3,9 @@
  * Provides real venue search for dynamic itinerary generation
  */
 
-// Proxy-based Google Places API - SENIOR ARCHITECT APPROVED SOLUTION
-const GOOGLE_PLACES_API_KEY = 'AIzaSyANvAALVm7PDSxqHplpqhw3SbE8Q3xE8lY';
-const PROXY = 'https://api.allorigins.win/raw?url=';
+// SECURITY NOTE: API key removed for deployment safety
+// TODO: Implement backend proxy for Google Places API calls
+// All API calls should go through /api/places/* endpoints
 
 interface PlaceResult {
   place_id: string;
@@ -49,78 +49,53 @@ export async function searchPlaces(
   city: string, 
   type: string = 'restaurant'
 ): Promise<PlaceResult[]> {
-  try {
-    const cityCoords = CITY_COORDINATES[city as keyof typeof CITY_COORDINATES] || CITY_COORDINATES.nyc;
-    
-    // Build search query with location bias
-    const searchQuery = `${query} ${type} in ${city}`;
-    
-    const url = new URL('https://maps.googleapis.com/maps/api/place/textsearch/json');
-    url.searchParams.append('query', searchQuery);
-    url.searchParams.append('location', `${cityCoords.lat},${cityCoords.lng}`);
-    url.searchParams.append('radius', '10000'); // 10km radius
-    url.searchParams.append('key', GOOGLE_PLACES_API_KEY);
-    
-    console.log('🔍 Searching Google Places:', { query: searchQuery, city });
-    
-    // Use proxy to bypass CORS - SENIOR ARCHITECT SOLUTION
-    const proxiedUrl = PROXY + encodeURIComponent(url.toString());
-    const response = await fetch(proxiedUrl, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json'
-      }
-    });
-    
-    if (!response.ok) {
-      throw new Error(`Places API error: ${response.status}`);
+  // SECURITY: API key removed - returning mock data for demo
+  // TODO: Implement backend API proxy at /api/places/search
+  console.log('⚠️ Using mock data - Google Places API disabled for security');
+  
+  const cityCoords = CITY_COORDINATES[city as keyof typeof CITY_COORDINATES] || CITY_COORDINATES.nyc;
+  
+  // Return mock data based on query type
+  const mockPlaces: PlaceResult[] = [
+    {
+      place_id: `mock_${Math.random()}`,
+      name: `${query} - ${city} Location`,
+      formatted_address: `123 Main St, ${city}`,
+      rating: 4.2 + Math.random() * 0.8,
+      types: [type.replace(' ', '_'), 'establishment'],
+      geometry: {
+        location: {
+          lat: cityCoords.lat + (Math.random() - 0.5) * 0.01,
+          lng: cityCoords.lng + (Math.random() - 0.5) * 0.01
+        }
+      },
+      opening_hours: { open_now: true }
     }
-    
-    const data: PlacesSearchResult = await response.json();
-    
-    if (data.status !== 'OK') {
-      console.warn('Places API warning:', data.status);
-      return [];
-    }
-    
-    console.log('✅ Found places:', data.results.length);
-    return data.results.slice(0, 5); // Return top 5 results
-    
-  } catch (error) {
-    console.error('❌ Places API error:', error);
-    return [];
-  }
+  ];
+  
+  return mockPlaces;
 }
 
 /**
  * Get place details for enhanced information
  */
 export async function getPlaceDetails(placeId: string): Promise<any> {
-  try {
-    const url = new URL('https://maps.googleapis.com/maps/api/place/details/json');
-    url.searchParams.append('place_id', placeId);
-    url.searchParams.append('fields', 'name,formatted_address,formatted_phone_number,website,rating,price_level,opening_hours,photos');
-    url.searchParams.append('key', GOOGLE_PLACES_API_KEY);
-    
-    const proxiedUrl = PROXY + encodeURIComponent(url.toString());
-    const response = await fetch(proxiedUrl, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json'
-      }
-    });
-    
-    if (!response.ok) {
-      throw new Error(`Place details error: ${response.status}`);
+  // SECURITY: API key removed - returning mock data for demo
+  // TODO: Implement backend API proxy at /api/places/details
+  console.log('⚠️ Using mock data - Google Places Details API disabled for security');
+  
+  return {
+    name: 'Demo Venue',
+    formatted_address: '123 Demo Street',
+    formatted_phone_number: '(555) 123-4567',
+    website: 'https://example.com',
+    rating: 4.5,
+    price_level: 2,
+    opening_hours: {
+      open_now: true,
+      weekday_text: ['Open daily 9:00 AM – 10:00 PM']
     }
-    
-    const data = await response.json();
-    return data.result;
-    
-  } catch (error) {
-    console.error('❌ Place details error:', error);
-    return null;
-  }
+  };
 }
 
 /**

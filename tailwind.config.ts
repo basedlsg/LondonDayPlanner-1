@@ -61,6 +61,12 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // App-specific brand colors
+        brand: {
+          blue: "#17B9E6",
+          purple: "#E6DBEE", 
+          gradient: "linear-gradient(to right, #E6DBEE, #BCC6E6)",
+        },
       },
       keyframes: {
         "accordion-down": {

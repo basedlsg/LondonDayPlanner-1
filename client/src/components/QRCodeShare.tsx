@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
+import QRCode from 'react-qr-code';
 
 interface QRCodeShareProps {
   url: string;
@@ -11,112 +12,74 @@ export const QRCodeShare: React.FC<QRCodeShareProps> = ({
   size = 200,
   className = '' 
 }) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [qrGenerated, setQrGenerated] = useState(false);
+  const qrRef = useRef<HTMLDivElement>(null);
   
-  useEffect(() => {
-    // Simple QR code generation using Canvas
-    // For production, consider using a library like qrcode.js
-    const generateQR = () => {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
+  const handleDownloadQR = async () => {
+    if (!qrRef.current) return;
+    
+    try {
+      // Find the SVG element within the QR code component
+      const svgElement = qrRef.current.querySelector('svg');
+      if (!svgElement) return;
       
+      // Convert SVG to canvas for download
+      const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
       
-      // Simple placeholder - in production use a proper QR library
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, size, size);
+      const svgData = new XMLSerializer().serializeToString(svgElement);
+      const svgBlob = new Blob([svgData], { type: 'image/svg+xml' });
+      const svgUrl = URL.createObjectURL(svgBlob);
       
-      // Draw border
-      ctx.strokeStyle = '#000000';
-      ctx.lineWidth = 4;
-      ctx.strokeRect(10, 10, size - 20, size - 20);
-      
-      // Add some pattern to indicate it's a QR code
-      const moduleSize = 8;
-      const modules = Math.floor((size - 40) / moduleSize);
-      
-      // Generate pseudo-random pattern based on URL
-      let hash = 0;
-      for (let i = 0; i < url.length; i++) {
-        hash = ((hash << 5) - hash) + url.charCodeAt(i);
-        hash = hash & hash;
-      }
-      
-      ctx.fillStyle = '#000000';
-      for (let row = 0; row < modules; row++) {
-        for (let col = 0; col < modules; col++) {
-          if ((hash + row * col) % 3 === 0) {
-            ctx.fillRect(
-              20 + col * moduleSize,
-              20 + row * moduleSize,
-              moduleSize - 1,
-              moduleSize - 1
-            );
-          }
-        }
-      }
-      
-      // Add corner markers
-      const markerSize = 40;
-      const positions = [
-        { x: 20, y: 20 },
-        { x: size - markerSize - 20, y: 20 },
-        { x: 20, y: size - markerSize - 20 }
-      ];
-      
-      positions.forEach(pos => {
-        ctx.fillRect(pos.x, pos.y, markerSize, markerSize);
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(pos.x + 10, pos.y + 10, markerSize - 20, markerSize - 20);
-        ctx.fillStyle = '#000000';
-        ctx.fillRect(pos.x + 15, pos.y + 15, markerSize - 30, markerSize - 30);
-      });
-      
-      setQrGenerated(true);
-    };
-    
-    generateQR();
-  }, [url, size]);
-  
-  const handleDownloadQR = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    
-    canvas.toBlob((blob) => {
-      if (!blob) return;
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'itinerary-qr-code.png';
-      a.click();
-      URL.revokeObjectURL(url);
-    });
+      const img = new Image();
+      img.onload = () => {
+        canvas.width = size;
+        canvas.height = size;
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, size, size);
+        ctx.drawImage(img, 0, 0, size, size);
+        
+        canvas.toBlob((blob) => {
+          if (!blob) return;
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'itinerary-qr-code.png';
+          a.click();
+          URL.revokeObjectURL(url);
+        });
+        
+        URL.revokeObjectURL(svgUrl);
+      };
+      img.src = svgUrl;
+    } catch (error) {
+      console.error('Error downloading QR code:', error);
+    }
   };
   
   return (
     <div className={`flex flex-col items-center ${className}`}>
-      <canvas
-        ref={canvasRef}
-        width={size}
-        height={size}
-        className="border border-gray-200 rounded-lg shadow-sm bg-white"
-      />
+      <div 
+        ref={qrRef}
+        className="border border-gray-200 rounded-lg shadow-sm bg-white p-4"
+      >
+        <QRCode
+          value={url}
+          size={size}
+          level="M"
+          includeMargin={false}
+        />
+      </div>
       
-      {qrGenerated && (
-        <>
-          <p className="text-xs text-gray-500 mt-2 text-center">
-            Scan to view on mobile
-          </p>
-          <button
-            onClick={handleDownloadQR}
-            className="mt-2 text-xs text-blue-600 hover:text-blue-700 underline"
-          >
-            Download QR Code
-          </button>
-        </>
-      )}
+      <p className="text-xs text-gray-500 mt-2 text-center">
+        Scan to view on mobile
+      </p>
+      <button
+        onClick={handleDownloadQR}
+        className="mt-2 text-xs text-blue-600 hover:text-blue-700 underline"
+      >
+        Download QR Code
+      </button>
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { useCity } from '../hooks/useCity';
 import { LoadingSpinner } from './LoadingSpinner';
 import WeatherPreferences from './WeatherPreferences';
 import { TripDurationSelector } from './TripDurationSelector';
+import { useToast } from '../hooks/use-toast';
 
 interface InputScreenProps {
   onSubmit?: (formData: { date: string; time: string; plans: string }) => void;
@@ -17,6 +18,7 @@ const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading }) => {
   const navigate = useNavigate();
   const mutation = usePlanMutation();
   const { currentCity, isLoading: isCityContextLoading } = useCity();
+  const { toast } = useToast();
   const [isProcessing, setIsProcessing] = useState(false);
   const [weatherPreferences, setWeatherPreferences] = useState({
     weatherAware: true,
@@ -40,8 +42,11 @@ const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading }) => {
     const time = formData.get('time') as string;
     
     if (!query || !query.trim()) {
-      // Basic validation, can be enhanced
-      alert("Please enter your plans.");
+      toast({
+        variant: "destructive",
+        title: "Plans Required",
+        description: "Please enter your plans to generate an itinerary.",
+      });
       return;
     }
 
@@ -76,9 +81,7 @@ const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading }) => {
   const displayCityName = isCityContextLoading ? 'Loading city...' : currentCity?.name || citySlugFromParams || 'Selected City';
 
   return (
-    <div className="bg-white flex flex-col items-center min-h-screen w-full" style={{
-      fontFamily: "'Poppins', sans-serif"
-    }}>
+    <div className="bg-white flex flex-col items-center min-h-screen w-full font-sans">
       {/* Show loading overlay when processing */}
       {showLoading && (
         <LoadingSpinner 
@@ -89,27 +92,19 @@ const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading }) => {
       
       <div className="w-full max-w-md px-4 py-4 sm:py-6 flex flex-col items-center">
         <div className="mb-6 sm:mb-8 mt-2 sm:mt-4">
-          <Logo className="w-full max-w-[250px] sm:max-w-none" style={{ transform: 'scale(1.2) sm:scale(1.5)' }} />
+          <Logo className="w-full max-w-[250px] sm:max-w-none scale-110 sm:scale-125" />
         </div>
         
         <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 sm:mb-4 text-center">
           Create a Plan for {displayCityName}
         </h2>
 
-        <p className="mb-4 sm:mb-6 font-bold tagline-text text-center text-sm sm:text-base px-4" style={{ color: '#17B9E6' }}>
+        <p className="mb-4 sm:mb-6 font-bold tagline-text text-center text-sm sm:text-base px-4 text-brand-blue">
           Enter your activities, locations and times below, we'll create a day plan for you.
         </p>
 
         <form onSubmit={handleSubmit} className="w-full relative">
-          <div className="mb-4 sm:mb-6 bg-white rounded-2xl py-4 sm:py-6 px-4 sm:px-5 shadow-sm transition-all duration-200 hover:shadow-md"
-            style={{
-              border: '1px solid transparent',
-              backgroundImage: 'linear-gradient(white, white), linear-gradient(to right, #E6DBEE, #BCC6E6)',
-              backgroundOrigin: 'border-box',
-              backgroundClip: 'padding-box, border-box',
-              minHeight: '70px'
-            }}
-          >
+          <div className="mb-4 sm:mb-6 bg-white rounded-2xl py-4 sm:py-6 px-4 sm:px-5 shadow-sm transition-all duration-200 hover:shadow-md border border-purple-200 min-h-[70px]">
             <label htmlFor="date" className="block mb-1 sm:mb-2 font-bold text-lg sm:text-xl text-[#1C1C1C]">Date</label>
             <input
               type="date"
@@ -122,15 +117,7 @@ const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading }) => {
             />
           </div>
 
-          <div className="mb-4 sm:mb-6 bg-white rounded-2xl py-4 sm:py-6 px-4 sm:px-5 shadow-sm transition-all duration-200 hover:shadow-md"
-            style={{
-              border: '1px solid transparent',
-              backgroundImage: 'linear-gradient(white, white), linear-gradient(to right, #E6DBEE, #BCC6E6)',
-              backgroundOrigin: 'border-box',
-              backgroundClip: 'padding-box, border-box',
-              minHeight: '70px'
-            }}
-          >
+          <div className="mb-4 sm:mb-6 bg-white rounded-2xl py-4 sm:py-6 px-4 sm:px-5 shadow-sm transition-all duration-200 hover:shadow-md border border-purple-200 min-h-[70px]">
             <label htmlFor="time" className="block mb-1 sm:mb-2 font-bold text-lg sm:text-xl text-[#1C1C1C]">Time</label>
             <input
               type="time"
@@ -151,14 +138,7 @@ const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading }) => {
             />
           </div> */}
 
-          <div className="mb-6 sm:mb-8 bg-white rounded-2xl py-4 sm:py-6 px-4 sm:px-5 shadow-sm transition-all duration-200 hover:shadow-md"
-            style={{
-              border: '1px solid transparent',
-              backgroundImage: 'linear-gradient(white, white), linear-gradient(to right, #E6DBEE, #BCC6E6)',
-              backgroundOrigin: 'border-box',
-              backgroundClip: 'padding-box, border-box'
-            }}
-          >
+          <div className="mb-6 sm:mb-8 bg-white rounded-2xl py-4 sm:py-6 px-4 sm:px-5 shadow-sm transition-all duration-200 hover:shadow-md border border-purple-200">
             <label htmlFor="plans" className="block mb-1 sm:mb-2 font-bold text-lg sm:text-xl text-[#1C1C1C]">Your Plans</label>
             <textarea
               id="plans"
@@ -181,15 +161,7 @@ const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading }) => {
 
           <button
             type="submit"
-            className="w-full py-3 sm:py-4 rounded-2xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] disabled:hover:scale-100"
-            style={{
-              background: showLoading ? '#ccc' : '#17B9E6',
-              color: 'white',
-              fontWeight: 600,
-              fontSize: '0.9rem sm:1rem',
-              cursor: showLoading ? 'not-allowed' : 'pointer',
-              opacity: showLoading ? 0.7 : 1,
-            }}
+            className="w-full py-3 sm:py-4 rounded-2xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] disabled:hover:scale-100 text-white font-semibold text-sm sm:text-base bg-brand-blue disabled:bg-gray-400 disabled:cursor-not-allowed disabled:opacity-70"
             disabled={showLoading}
           >
             {showLoading ? (
@@ -198,12 +170,6 @@ const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading }) => {
               'Create Plan'
             )}
           </button>
-          
-          {(isLoading !== undefined ? isLoading : mutation.isPending) && (
-             <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75 rounded-2xl">
-               <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#17B9E6]"></div>
-             </div>
-           )}
         </form>
 
         {mutation.isError && (

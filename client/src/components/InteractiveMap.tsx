@@ -161,138 +161,14 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
     setSelectedVenue(null);
   };
 
-  // Get Google Maps API key from environment variable
-  const apiKey = import.meta.env.VITE_GOOGLE_PLACES_API_KEY;
-  if (!apiKey) {
-    return <div className="p-8 text-center text-gray-500">Map unavailable: API key not configured</div>;
-  }
-
+  // SECURITY: Map functionality disabled for deployment
+  // Google Maps API key must be moved to backend proxy before enabling
   return (
-    <LoadScript googleMapsApiKey={apiKey} libraries={['places', 'geometry']}>
-      <div className="w-full rounded-lg overflow-hidden shadow-lg">
-        <GoogleMap
-          mapContainerStyle={mapContainerStyle}
-          center={center}
-          zoom={13}
-          onLoad={onLoad}
-          options={options}
-        >
-          {/* Render route directions */}
-          {directions && (
-            <DirectionsRenderer
-              directions={directions}
-              options={{
-                suppressMarkers: true,
-                preserveViewport: true,
-                polylineOptions: {
-                  strokeColor: '#3b82f6',
-                  strokeWeight: 4,
-                  strokeOpacity: 0.7
-                }
-              }}
-            />
-          )}
-
-          {/* Render venue markers */}
-          {venues.map((venue, index) => {
-            if (!venue.location) return null;
-            
-            const markerColor = getMarkerColor(index, venues.length);
-            
-            return (
-              <React.Fragment key={index}>
-                <Marker
-                  position={venue.location}
-                  onClick={() => handleMarkerClick(index)}
-                  icon={{
-                    path: google.maps.SymbolPath.CIRCLE,
-                    scale: 10,
-                    fillColor: markerColor,
-                    fillOpacity: 1,
-                    strokeColor: '#ffffff',
-                    strokeWeight: 2,
-                  }}
-                  label={{
-                    text: String(index + 1),
-                    color: '#ffffff',
-                    fontSize: '12px',
-                    fontWeight: 'bold'
-                  }}
-                />
-
-                {/* Info window for selected venue */}
-                {selectedVenue === index && (
-                  <InfoWindow
-                    position={venue.location}
-                    onCloseClick={() => setSelectedVenue(null)}
-                  >
-                    <div className="p-2 max-w-xs">
-                      <h3 className="font-semibold text-lg mb-1">{venue.name}</h3>
-                      <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
-                        <Clock className="w-4 h-4" />
-                        <span>{venue.time}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
-                        <MapPin className="w-4 h-4" />
-                        <span className="line-clamp-2">{venue.address}</span>
-                      </div>
-                      {venue.rating && (
-                        <div className="flex items-center gap-1 text-sm mb-2">
-                          <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                          <span>{venue.rating}</span>
-                        </div>
-                      )}
-                      {venue.alternatives && venue.alternatives.length > 0 && (
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => handleShowAlternatives(index)}
-                          className="w-full mt-2"
-                        >
-                          <Navigation className="w-4 h-4 mr-1" />
-                          View {venue.alternatives.length} alternatives
-                        </Button>
-                      )}
-                    </div>
-                  </InfoWindow>
-                )}
-
-                {/* Show alternative venues */}
-                {showAlternatives === index && venue.alternatives && (
-                  <>
-                    {venue.alternatives.map((alt, altIndex) => {
-                      if (!alt.location) return null;
-                      
-                      return (
-                        <React.Fragment key={`alt-${index}-${altIndex}`}>
-                          <Marker
-                            position={alt.location}
-                            onClick={() => handleSelectAlternative(index, altIndex)}
-                            icon={{
-                              path: google.maps.SymbolPath.CIRCLE,
-                              scale: 8,
-                              fillColor: '#9ca3af',
-                              fillOpacity: 0.8,
-                              strokeColor: '#ffffff',
-                              strokeWeight: 2,
-                            }}
-                            label={{
-                              text: String.fromCharCode(65 + altIndex), // A, B, C...
-                              color: '#ffffff',
-                              fontSize: '10px',
-                              fontWeight: 'bold'
-                            }}
-                          />
-                        </React.Fragment>
-                      );
-                    })}
-                  </>
-                )}
-              </React.Fragment>
-            );
-          })}
-        </GoogleMap>
-      </div>
-    </LoadScript>
+    <div className="p-8 text-center text-gray-500 bg-gray-50 rounded-lg border">
+      <MapPin className="mx-auto mb-2 h-8 w-8" />
+      <p className="font-medium">Interactive Map Temporarily Disabled</p>
+      <p className="text-sm mt-1">Map functionality disabled for security during deployment</p>
+      <p className="text-xs mt-2 text-gray-400">Venues are still available in list view above</p>
+    </div>
   );
 };
