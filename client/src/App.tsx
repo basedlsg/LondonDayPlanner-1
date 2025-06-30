@@ -4,7 +4,6 @@ import HomePage from './pages/HomePage';
 import ItineraryPage from './pages/ItineraryPage';
 import { CitiesPage } from './pages/CitiesPage';
 import { AnalyticsPage } from './pages/AnalyticsPage';
-import ItinerariesPage from './pages/ItinerariesPage';
 import { TopNav } from './components/TopNav';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -38,21 +37,20 @@ function App() {
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <Router>
-          <CityProvider>
-            <Routes>
-              <Route path="/:city" element={<AppLayout />}>
-                <Route index element={<HomePage />} />
-                <Route path="plan" element={<HomePage />} />
-                <Route path="itinerary/:id" element={<ItineraryPage />} />
-                <Route path="analytics" element={<AnalyticsPage />} />
-              </Route>
+            <CityProvider>
+              <Routes>
+                <Route path="/:city" element={<AppLayout />}>
+                  <Route index element={<HomePage />} />
+                  <Route path="plan" element={<HomePage />} />
+                  <Route path="itinerary/:id" element={<ItineraryPage />} />
+                  <Route path="analytics" element={<AnalyticsPage />} />
+                </Route>
 
-              <Route path="/cities" element={<><TopNav /><CitiesPage /></>} />
-              <Route path="/itineraries" element={<ItinerariesPage />} />
-              
-              <Route path="/" element={<NavigateToDefaultCity />} />
-            </Routes>
-          </CityProvider>
+                <Route path="/cities" element={<><TopNav /><CitiesPage /></>} />
+                
+                <Route path="/" element={<NavigateToDefaultCity />} />
+              </Routes>
+            </CityProvider>
         </Router>
         <Toaster />
         {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}

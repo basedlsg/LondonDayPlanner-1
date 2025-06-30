@@ -4,7 +4,6 @@ import { ItineraryLoading } from './LoadingSpinner';
 import WeatherDisplay from './WeatherDisplay';
 import { ShareModal } from './ShareModal';
 import { Share2, Save } from 'lucide-react';
-import { useAuth } from '../hooks/useAuth';
 import { useToast } from '../hooks/use-toast';
 
 interface WeatherData {
@@ -86,7 +85,6 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
 }) => {
   const [showShareModal, setShowShareModal] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const { user, isAuthenticated } = useAuth();
   const { toast } = useToast();
 
   // Add debug logging to track the data flow
@@ -97,47 +95,6 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
 
   const hasVenues = venues && Array.isArray(venues) && venues.length > 0;
   const hasTravelInfo = travelInfo && Array.isArray(travelInfo);
-
-  const handleSaveItinerary = async () => {
-    if (!isAuthenticated || !hasVenues) return;
-
-    setIsSaving(true);
-    try {
-      const response = await fetch('/api/user/itineraries', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          title: title || `${cityName} Itinerary`,
-          venues,
-          travelInfo,
-          planDate,
-          cityName,
-          timezone,
-        }),
-      });
-
-      if (response.ok) {
-        toast({
-          title: 'Itinerary saved!',
-          description: 'You can view it in your saved itineraries.',
-        });
-      } else {
-        throw new Error('Failed to save itinerary');
-      }
-    } catch (error) {
-      console.error('Error saving itinerary:', error);
-      toast({
-        title: 'Error',
-        description: 'Failed to save itinerary. Please try again.',
-        variant: 'destructive',
-      });
-    } finally {
-      setIsSaving(false);
-    }
-  };
 
   // Show loading state
   if (isLoading) {
@@ -207,22 +164,6 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
           )} */}
 
           <div className="flex gap-3">
-              {isAuthenticated && (
-                <button
-                  onClick={handleSaveItinerary}
-                  disabled={isSaving}
-                  className="flex-1 py-3 sm:py-4 rounded-2xl text-white export-button transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                  style={{ 
-                    background: '#17B9E6',
-                    fontWeight: 600,
-                    fontSize: 'clamp(0.875rem, 2.5vw, 1rem)',
-                    fontFamily: "'Inter', sans-serif"
-                  }}
-                >
-                  <Save className="w-4 h-4 sm:w-5 sm:h-5" />
-                  {isSaving ? 'Saving...' : 'Save'}
-                </button>
-              )}
               <button
                 onClick={() => setShowShareModal(true)}
                 className="flex-1 py-3 sm:py-4 rounded-2xl text-white export-button transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"

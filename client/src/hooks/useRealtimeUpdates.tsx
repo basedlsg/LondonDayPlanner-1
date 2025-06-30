@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useToast } from './use-toast';
 import { useCity } from './useCity';
-import { useAuth } from './useAuth';
 
 interface RealtimeConfig {
   reconnectDelay?: number;
@@ -21,7 +20,6 @@ type MessageHandler = (message: RealtimeMessage) => void;
 export function useRealtimeUpdates(config: RealtimeConfig = {}) {
   const { toast } = useToast();
   const { currentCity } = useCity();
-  const { user } = useAuth();
   
   const ws = useRef<WebSocket | null>(null);
   const reconnectTimer = useRef<NodeJS.Timeout | null>(null);
@@ -46,7 +44,6 @@ export function useRealtimeUpdates(config: RealtimeConfig = {}) {
     const host = window.location.host;
     const params = new URLSearchParams();
     
-    if (user?.id) params.append('userId', user.id);
     if (currentCity?.slug) params.append('city', currentCity.slug);
     
     const wsUrl = `${protocol}//${host}/ws?${params.toString()}`;
@@ -98,7 +95,7 @@ export function useRealtimeUpdates(config: RealtimeConfig = {}) {
       console.error('[Realtime] Failed to connect:', error);
       scheduleReconnect();
     }
-  }, [user, currentCity, reconnectAttempts, maxReconnectAttempts, subscribedRooms]);
+  }, [currentCity, reconnectAttempts, maxReconnectAttempts, subscribedRooms]);
 
   // Handle incoming messages
   const handleMessage = useCallback((message: RealtimeMessage) => {
@@ -232,18 +229,17 @@ export function useRealtimeUpdates(config: RealtimeConfig = {}) {
     };
   }, [connect, stopPingInterval]);
 
-  // Reconnect when city or user changes
+  // Reconnect when city changes
   useEffect(() => {
     if (ws.current?.readyState === WebSocket.OPEN) {
       send({
         type: 'presence',
         data: {
-          userId: user?.id,
           city: currentCity?.slug
         }
       });
     }
-  }, [user, currentCity, send]);
+  }, [currentCity, send]);
 
   return {
     connected,

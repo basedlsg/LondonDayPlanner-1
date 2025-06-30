@@ -3,7 +3,6 @@ import InputScreen from '../components/InputScreen';
 import ItineraryScreen from '../components/ItineraryScreen';
 import { usePlanMutation } from '../hooks/usePlanMutation';
 import { exportToCalendar } from '../lib/calendar';
-import { useAuth } from '../hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { useLocation } from 'wouter';
 import { useCity } from '../hooks/useCity';
@@ -43,7 +42,6 @@ interface ItineraryData {
 export default function HomePage() {
   const [itineraryData, setItineraryData] = useState<ItineraryData | null>(null);
   const planMutation = usePlanMutation();
-  const { user, logout } = useAuth();
   const [, setLocation] = useLocation();
   const { currentCity } = useCity();
 
@@ -101,11 +99,6 @@ export default function HomePage() {
     }
   };
 
-  const handleLogout = async () => {
-    await logout();
-    setLocation('/login');
-  };
-
   return (
     <div className="bg-white text-foreground min-h-screen">
       {/* Main Content */}
@@ -113,11 +106,6 @@ export default function HomePage() {
         <div className="flex flex-col gap-8">
           <div className="flex justify-between items-center mb-6">
             {/* Removed "Plan Your Perfect Day" header */}
-            {user && (
-              <div className="text-sm text-muted-foreground">
-                Welcome back, {user.name?.split(' ')[0] || 'traveler'}
-              </div>
-            )}
           </div>
 
           {/* Input Section */}
