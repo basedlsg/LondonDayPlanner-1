@@ -434,3 +434,173 @@ Generating 352 itineraries sequentially...
 ⏳ Rate limited. Waiting 30 seconds...
 ✗ [250/352] Failed (110 total): "Art galleries in Tribeca" in nyc
 ⏳ Rate limited. Waiting 30 seconds...
+
+📊 Progress: 250/352 (71%) - Success: 140, Failed: 110
+
+✗ [251/352] Failed (111 total): "Breakfast in Camden, walk through Hampstead Heath, dinner in Camden" in london
+⏳ Rate limited. Waiting 30 seconds...
+✗ [252/352] Failed (112 total): "Bagel shops for breakfast" in nyc
+⏳ Rate limited. Waiting 30 seconds...
+✗ [253/352] Failed (113 total): "Breakfast tacos in Domain, shopping, BBQ dinner in Domain" in austin
+⏳ Rate limited. Waiting 30 seconds...
+✗ [254/352] Failed (114 total): "Museums near Empire State Building" in nyc
+⏳ Rate limited. Waiting 30 seconds...
+✓ [255/352] Success (141 total): "Morning hike, lunch at food trucks, evening on Rainey Street" in austin
+✓ [256/352] Success (142 total): "Vintage shopping in Brixton" in london
+✓ [257/352] Success (143 total): "Coffee shops in East Austin" in austin
+✓ [258/352] Success (144 total): "Jazz clubs tonight" in nyc
+✓ [259/352] Success (145 total): "Coffee shops in Beacon Hill" in boston
+✓ [260/352] Success (146 total): "Seafood restaurants near Freedom Trail" in boston
+
+📊 Progress: 260/352 (74%) - Success: 146, Failed: 114
+
+✓ [261/352] Success (147 total): "Bagel shops for breakfast" in nyc
+✓ [262/352] Success (148 total): "Breakfast in Camden, walk through Hampstead Heath, dinner in Shoreditch" in london
+✓ [263/352] Success (149 total): "Vintage shopping in Shoreditch" in london
+✓ [264/352] Success (150 total): "Breweries in South End" in boston
+✗ [265/352] Failed (115 total): "Morning hike, lunch at food trucks, evening on 6th Street" in austin
+⏳ Rate limited. Waiting 30 seconds...
+✗ [266/352] Failed (116 total): "Start at Tower Bridge, lunch nearby, then shopping in Notting Hill" in london
+⏳ Rate limited. Waiting 30 seconds...
+✗ [267/352] Failed (117 total): "Bagel shops for breakfast" in nyc
+⏳ Rate limited. Waiting 30 seconds...
+✗ [268/352] Failed (118 total): "Breweries in South Congress" in austin
+⏳ Rate limited. Waiting 30 seconds...
+✗ [269/352] Failed (119 total): "Live music venues tonight" in london
+⏳ Rate limited. Waiting 30 seconds...
+✗ [270/352] Failed (120 total): "Live music venues on 6th Street" in austin
+⏳ Rate limited. Waiting 30 seconds...
+
+📊 Progress: 270/352 (77%) - Success: 150, Failed: 120
+
+✗ [271/352] Failed (121 total): "Art galleries near Big Ben" in london
+⏳ Rate limited. Waiting 30 seconds...
+✗ [272/352] Failed (122 total): "Best coffee shops in Covent Garden" in london
+⏳ Rate limited. Waiting 30 seconds...
+✓ [273/352] Success (151 total): "Museums near Central Park" in nyc
+✓ [274/352] Success (152 total): "Freedom Trail walk, lunch in North End, harbor cruise" in boston
+✓ [275/352] Success (153 total): "Pizza places in Tribeca" in nyc
+✓ [276/352] Success (154 total): "Brunch places in Notting Hill" in london
+✓ [277/352] Success (155 total): "Breakfast in Shoreditch, walk through Hyde Park, dinner in Notting Hill" in london
+✓ [278/352] Success (156 total): "Breakfast in Chelsea, walk through Regent's Park, dinner in Notting Hill" in london
+✓ [279/352] Success (157 total): "Vintage shopping in Covent Garden" in london
+✓ [280/352] Success (158 total): "Morning hike, lunch at food trucks, evening on 6th Street" in austin
+
+📊 Progress: 280/352 (80%) - Success: 158, Failed: 122
+
+✓ [281/352] Success (159 total): "Seafood restaurants near Fenway Park" in boston
+✓ [282/352] Success (160 total): "Food trucks near Capitol Building" in austin
+✗ [283/352] Failed (123 total): "Morning in Bryant Park, lunch in Chelsea, shopping in Williamsburg" in nyc
+⏳ Rate limited. Waiting 30 seconds...
+✗ [284/352] Failed (124 total): "Italian food in North End" in boston
+⏳ Rate limited. Waiting 30 seconds...
+✗ [285/352] Failed (125 total): "Morning coffee in Notting Hill, lunch in Chelsea, then museums" in london
+⏳ Rate limited. Waiting 30 seconds...
+✗ [286/352] Failed (126 total): "Historic pubs near Big Ben" in london
+⏳ Rate limited. Waiting 30 seconds...
+✗ [287/352] Failed (127 total): "Art galleries in Williamsburg" in nyc
+⏳ Rate limited. Waiting 30 seconds...
+✗ [288/352] Failed (128 total): "Italian food in Cambridge" in boston
+⏳ Rate limited. Waiting 30 seconds...
+✗ [289/352] Failed (129 total): "Museums near Empire State Building" in nyc
+⏳ Rate limited. Waiting 30 seconds...
+✗ [290/352] Failed (130 total): "Bookshops in Shoreditch" in london
+⏳ Rate limited. Waiting 30 seconds...
+
+📊 Progress: 290/352 (82%) - Success: 160, Failed: 130
+
+✓ [291/352] Success (161 total): "Museums to visit today" in london
+✓ [292/352] Success (162 total): "Breakfast in Camden, walk through Regent's Park, dinner in Covent Garden" in london
+✓ [293/352] Success (163 total): "Coffee shops in Chelsea" in nyc
+✓ [294/352] Success (164 total): "Museums to visit today" in london
+✓ [295/352] Success (165 total): "Morning coffee in Chelsea, lunch in Brixton, then museums" in london
+✓ [296/352] Success (166 total): "Parks for a morning walk" in london
+✓ [297/352] Success (167 total): "Museums to visit today" in london
+✓ [298/352] Success (168 total): "Italian food in North End" in boston
+✓ [299/352] Success (169 total): "Brunch places in Notting Hill" in london
+✓ [300/352] Success (170 total): "Morning hike, lunch at food trucks, evening on Rainey Street" in austin
+
+📊 Progress: 300/352 (85%) - Success: 170, Failed: 130
+
+✗ [301/352] Failed (131 total): "Freedom Trail walk, lunch in Beacon Hill, harbor cruise" in boston
+⏳ Rate limited. Waiting 30 seconds...
+✗ [302/352] Failed (132 total): "Breakfast in Covent Garden, walk through Hampstead Heath, dinner in Camden" in london
+⏳ Rate limited. Waiting 30 seconds...
+✗ [303/352] Failed (133 total): "Vintage shopping in Notting Hill" in london
+⏳ Rate limited. Waiting 30 seconds...
+✗ [304/352] Failed (134 total): "Morning coffee in South End, museums, dinner in Back Bay" in boston
+⏳ Rate limited. Waiting 30 seconds...
+✗ [305/352] Failed (135 total): "Parks for jogging" in nyc
+⏳ Rate limited. Waiting 30 seconds...
+✗ [306/352] Failed (136 total): "Live music venues tonight" in london
+⏳ Rate limited. Waiting 30 seconds...
+✗ [307/352] Failed (137 total): "Breakfast in SoHo, Times Square visit, dinner in Upper West Side" in nyc
+⏳ Rate limited. Waiting 30 seconds...
+✗ [308/352] Failed (138 total): "Historic sites to visit" in boston
+⏳ Rate limited. Waiting 30 seconds...
+✗ [309/352] Failed (139 total): "Vintage shopping in Shoreditch" in london
+⏳ Rate limited. Waiting 30 seconds...
+✓ [310/352] Success (171 total): "Start at Tate Modern, lunch nearby, then shopping in Covent Garden" in london
+
+📊 Progress: 310/352 (88%) - Success: 171, Failed: 139
+
+✓ [311/352] Success (172 total): "Jazz clubs tonight" in nyc
+✓ [312/352] Success (173 total): "Morning coffee in Shoreditch, lunch in Soho, then museums" in london
+✓ [313/352] Success (174 total): "Morning coffee in South End, museums, dinner in South End" in boston
+✓ [314/352] Success (175 total): "Italian food in Cambridge" in boston
+✓ [315/352] Success (176 total): "Live music venues tonight" in london
+✓ [316/352] Success (177 total): "Bookshops in Soho" in london
+✓ [317/352] Success (178 total): "Historic pubs near Tower Bridge" in london
+✓ [318/352] Success (179 total): "Museums near Central Park" in nyc
+✓ [319/352] Success (180 total): "Bagel shops for breakfast" in nyc
+✗ [320/352] Failed (140 total): "Morning coffee in Beacon Hill, museums, dinner in Beacon Hill" in boston
+⏳ Rate limited. Waiting 30 seconds...
+
+📊 Progress: 320/352 (91%) - Success: 180, Failed: 140
+
+✗ [321/352] Failed (141 total): "Rooftop bars in East Village" in nyc
+⏳ Rate limited. Waiting 30 seconds...
+✗ [322/352] Failed (142 total): "Bagel shops for breakfast" in nyc
+⏳ Rate limited. Waiting 30 seconds...
+✗ [323/352] Failed (143 total): "Morning in Prospect Park, lunch in Williamsburg, shopping in Upper West Side" in nyc
+⏳ Rate limited. Waiting 30 seconds...
+✗ [324/352] Failed (144 total): "Brunch places in Brixton" in london
+⏳ Rate limited. Waiting 30 seconds...
+✗ [325/352] Failed (145 total): "Museums near Times Square" in nyc
+⏳ Rate limited. Waiting 30 seconds...
+✗ [326/352] Failed (146 total): "Morning hike, lunch at food trucks, evening on Rainey Street" in austin
+⏳ Rate limited. Waiting 30 seconds...
+✗ [327/352] Failed (147 total): "Breakfast in Soho, walk through Hyde Park, dinner in Chelsea" in london
+⏳ Rate limited. Waiting 30 seconds...
+✓ [328/352] Success (181 total): "Start at British Museum, lunch nearby, then shopping in Chelsea" in london
+✓ [329/352] Success (182 total): "Best coffee shops in Covent Garden" in london
+✓ [330/352] Success (183 total): "Start at Big Ben, lunch nearby, then shopping in Soho" in london
+
+📊 Progress: 330/352 (94%) - Success: 183, Failed: 147
+
+✓ [331/352] Success (184 total): "Start at Big Ben, lunch nearby, then shopping in Chelsea" in london
+✓ [332/352] Success (185 total): "Morning coffee in Shoreditch, lunch in Camden, then museums" in london
+✓ [333/352] Success (186 total): "Seafood restaurants near Fenway Park" in boston
+✓ [334/352] Success (187 total): "Breakfast tacos in East Austin, shopping, BBQ dinner in Domain" in austin
+✓ [335/352] Success (188 total): "Best coffee shops in Notting Hill" in london
+✓ [336/352] Success (189 total): "Art galleries near Tate Modern" in london
+✓ [337/352] Success (190 total): "Breakfast tacos in Downtown, shopping, BBQ dinner in South Congress" in austin
+✗ [338/352] Failed (148 total): "Historic pubs near Big Ben" in london
+⏳ Rate limited. Waiting 30 seconds...
+✗ [339/352] Failed (149 total): "Morning coffee in Covent Garden, lunch in Soho, then museums" in london
+⏳ Rate limited. Waiting 30 seconds...
+✗ [340/352] Failed (150 total): "Lunch spots in Covent Garden" in london
+⏳ Rate limited. Waiting 30 seconds...
+
+📊 Progress: 340/352 (97%) - Success: 190, Failed: 150
+
+✗ [341/352] Failed (151 total): "Breweries in Domain" in austin
+⏳ Rate limited. Waiting 30 seconds...
+✗ [342/352] Failed (152 total): "Bookshops in Soho" in london
+⏳ Rate limited. Waiting 30 seconds...
+✗ [343/352] Failed (153 total): "Museums in the morning, lunch in Camden, theatre tonight" in london
+⏳ Rate limited. Waiting 30 seconds...
+✗ [344/352] Failed (154 total): "Art galleries near Big Ben" in london
+⏳ Rate limited. Waiting 30 seconds...
+✗ [345/352] Failed (155 total): "Museums in the morning, lunch in Brixton, theatre tonight" in london
+⏳ Rate limited. Waiting 30 seconds...
