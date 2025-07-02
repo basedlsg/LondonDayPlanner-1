@@ -68,7 +68,10 @@
       "mcp__zen__analyze",
       "mcp__zen__thinkdeep",
       "Bash(./test_noon_api.sh:*)",
-      "mcp__zen__precommit"
+      "mcp__zen__precommit",
+      "Bash(git pull:*)",
+      "Bash(npx neonctl:*)",
+      "Bash(DATABASE_URL=\"postgresql://neondb_owner:npg_qrvAMB0IRVa6@ep-lucky-mouse-a8ezvazt.eastus2.azure.neon.tech/neondb?sslmode=require\" node -e \"\nconst { neon } = require(''@neondatabase/serverless'');\nconst sql = neon(process.env.DATABASE_URL);\n\nasync function testConnection() {\n  try {\n    console.log(''🔍 Testing new Neon database connection for deployment...'');\n    const result = await sql\\`SELECT current_database(), version(), now() as timestamp\\`;\n    console.log(''✅ Production database connection successful!'');\n    console.log(''Database:'', result[0].current_database);\n    console.log(''PostgreSQL Version:'', result[0].version.split('' '')[0]);\n    console.log(''Timestamp:'', result[0].timestamp);\n    console.log('''');\n    console.log(''🚀 Ready for deployment to Railway/Vercel!'');\n  } catch (error) {\n    console.error(''❌ Production database connection failed:'', error.message);\n    console.log(''⚠️  Check Neon database status before deploying.'');\n  }\n}\n\ntestConnection();\n\")"
     ],
     "deny": []
   },
