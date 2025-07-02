@@ -604,3 +604,16 @@ Generating 352 itineraries sequentially...
 ⏳ Rate limited. Waiting 30 seconds...
 ✗ [345/352] Failed (155 total): "Museums in the morning, lunch in Brixton, theatre tonight" in london
 ⏳ Rate limited. Waiting 30 seconds...
+✓ [346/352] Success (191 total): "Breakfast in Soho, walk through Hyde Park, dinner in Chelsea" in london
+✓ [347/352] Success (192 total): "Historic sites to visit" in boston
+✓ [348/352] Success (193 total): "Breakfast in Covent Garden, walk through Regent's Park, dinner in Camden" in london
+✓ [349/352] Success (194 total): "Rooftop bars in SoHo" in nyc
+✓ [350/352] Success (195 total): "Historic sites to visit" in boston
+
+📊 Progress: 350/352 (99%) - Success: 195, Failed: 155
+
+✓ [351/352] Success (196 total): "Museums in the morning, lunch in Brixton, theatre tonight" in london
+✓ [352/352] Success (197 total): "Coffee shops in Cambridge" in boston
+
+✅ Generation complete!
+📊 Final stats: 197 successful, 155 failed out of 352 total
