@@ -102,18 +102,22 @@ if (!process.env.SESSION_SECRET) {
 // CORS configuration for production
 import cors from 'cors';
 
-// Configure CORS for production deployment
+const allowedOrigins = (process.env.CORS_ORIGIN || 'https://app.planyourperfectday.app,http://localhost:5173').split(',');
+
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' ? [
-    'https://planyourperfectday.app',
-    'https://www.planyourperfectday.app',
-    'https://app.planyourperfectday.app',
-    'https://*.wix.com'
-  ] : [
-    'http://localhost:5173',
-    'http://localhost:3000',
-    'http://localhost:8080'
-  ],
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    // For development, allow requests with no origin (like mobile apps or curl requests)
+    if (!origin && process.env.NODE_ENV !== 'production') {
+      return callback(null, true);
+    }
+    
+    if (origin && allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      logger.warn(`CORS blocked for origin: ${origin}`);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'x-requested-with']
