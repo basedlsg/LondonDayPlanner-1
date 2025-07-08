@@ -1,29 +1,27 @@
 // server/index.ts - Simplified Version from User Prompt
 
 // STEP 1: Load environment variables FIRST
-console.log('🔧 Loading environment variables...');
-
+import { logger } from './lib/logging'; 
 import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
 
 const envPath = path.resolve(process.cwd(), '.env');
-console.log('📄 .env file path:', envPath);
-console.log('📄 .env file exists:', fs.existsSync(envPath));
+logger.info(`📄 .env file path: ${envPath}`, undefined, 'STARTUP');
+logger.info(`📄 .env file exists: ${fs.existsSync(envPath)}`, undefined, 'STARTUP');
 
 const result = dotenv.config({ path: envPath });
 if (result.error) {
-  console.error('❌ Error loading .env:', result.error);
+  logger.error('❌ Error loading .env:', result.error, 'STARTUP');
 } else {
-  console.log('✅ Environment variables loaded by dotenv (keys found):', Object.keys(result.parsed || {}));
+  logger.info(`✅ Environment variables loaded by dotenv (keys found): ${Object.keys(result.parsed || {}).length}`, undefined, 'STARTUP');
 }
 
 // Verify critical environment variables on process.env
-console.log('🔍 Environment check (process.env):');
-console.log('   DATABASE_URL present:', !!process.env.DATABASE_URL);
-console.log('   GOOGLE_PLACES_API_KEY present:', !!process.env.GOOGLE_PLACES_API_KEY);
-console.log('   GOOGLE_PLACES_API_KEY length:', process.env.GOOGLE_PLACES_API_KEY?.length || 0);
-console.log('   GEMINI_API_KEY present:', !!process.env.GEMINI_API_KEY);
+logger.info('🔍 Environment check (process.env):', undefined, 'STARTUP');
+logger.info(`   DATABASE_URL present: ${!!process.env.DATABASE_URL}`, undefined, 'STARTUP');
+logger.info(`   GOOGLE_PLACES_API_KEY present: ${!!process.env.GOOGLE_PLACES_API_KEY}`, undefined, 'STARTUP');
+logger.info(`   GEMINI_API_KEY present: ${!!process.env.GEMINI_API_KEY}`, undefined, 'STARTUP');
 
 // STEP 2: Now import everything else
 import express from 'express';
@@ -65,7 +63,7 @@ import { AppError, ValidationError } from "./lib/errors"; // For global error ha
 import { config } from './config';
 
 // Force config to reload environment variables and log status
-console.log('🔧 Initializing application configuration...');
+logger.info('🔧 Initializing application configuration...', undefined, 'STARTUP');
 config.recheckEnvironment();
 config.initialize();
 
@@ -74,11 +72,11 @@ const app = express();
 // Test database connection
 async function testDatabaseConnection() {
   try {
-    console.log('🗄️  Testing database connection...');
+    logger.info('🗄️  Testing database connection...', undefined, 'DB');
     await getDb(); // This will trigger initialization and test the connection
-    console.log('✅ Database connection successful');
+    logger.info('✅ Database connection successful', undefined, 'DB');
   } catch (error) {
-    console.error('❌ Database connection failed during testDatabaseConnection:', error);
+    logger.error('❌ Database connection failed during testDatabaseConnection:', error, 'DB');
     // Allow server to continue starting to see other logs, but this is a critical failure.
     // process.exit(1); // Optionally exit if DB is absolutely required to start
   }
@@ -96,7 +94,7 @@ const sessionConfig = {
 };
 
 if (!process.env.SESSION_SECRET) {
-  console.warn('⚠️  SESSION_SECRET not set, using fallback. SET THIS FOR PRODUCTION!');
+  logger.warn('⚠️  SESSION_SECRET not set, using fallback. SET THIS FOR PRODUCTION!', undefined, 'SECURITY');
 }
 
 // CORS configuration for production
@@ -114,7 +112,7 @@ const corsOptions = {
     if (origin && allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      logger.warn(`CORS blocked for origin: ${origin}`);
+      logger.warn(`CORS blocked for origin: ${origin}`, undefined, 'API');
       callback(new Error('Not allowed by CORS'));
     }
   },
@@ -182,7 +180,7 @@ async function startServer() {
     // Add a catch-all for unmatched API routes AFTER all route registration
     // This must be LAST to avoid intercepting valid routes
     app.use('/api/*', (req, res) => {
-      console.warn(`🚫 Unmatched API route: ${req.method} ${req.path}`);
+      logger.warn(`🚫 Unmatched API route: ${req.method} ${req.path}`, undefined, 'API');
       res.status(404).json({ error: 'API endpoint not found', path: req.path });
     });
 
@@ -198,32 +196,32 @@ async function startServer() {
 
     // Initialize WebSocket service
     const realtimeService = new RealtimeService(httpServer, storage);
-    console.log('🔌 WebSocket service initialized');
+    logger.info('🔌 WebSocket service initialized', undefined, 'WEBSOCKET');
     
     const portString = process.env.PORT || '8080'; // Standard port for Railway/production
     const port = parseInt(portString, 10);
 
     httpServer.listen(port, '0.0.0.0', () => {
-      console.log(`🚀 Server running on http://localhost:${port}`);
-      console.log(`🔧 Environment: ${process.env.NODE_ENV || 'development'}`);
-      console.log(`🗄️  Database: ${process.env.DATABASE_URL ? 'Connected' : 'Not configured (check .env or platform secrets)'}`);
-      console.log(`🔑 Google Places API Key: ${process.env.GOOGLE_PLACES_API_KEY ? 'Configured' : 'MISSING (check .env)'}`);
-      console.log(`🔑 Gemini API Key: ${process.env.GEMINI_API_KEY ? 'Configured' : 'MISSING (check .env)'}`);
-      console.log(`🔌 WebSocket: Available at ws://localhost:${port}/ws`);
+      logger.info(`🚀 Server running on http://localhost:${port}`, undefined, 'STARTUP');
+      logger.info(`🔧 Environment: ${process.env.NODE_ENV || 'development'}`, undefined, 'STARTUP');
+      logger.info(`🗄️  Database: ${process.env.DATABASE_URL ? 'Connected' : 'Not configured'}`, undefined, 'STARTUP');
+      logger.info(`🔑 Google Places API Key: ${process.env.GOOGLE_PLACES_API_KEY ? 'Configured' : 'MISSING'}`, undefined, 'STARTUP');
+      logger.info(`🔑 Gemini API Key: ${process.env.GEMINI_API_KEY ? 'Configured' : 'MISSING'}`, undefined, 'STARTUP');
+      logger.info(`🔌 WebSocket: Available at ws://localhost:${port}/ws`, undefined, 'STARTUP');
     });
     
     // Graceful shutdown
     process.on('SIGTERM', () => {
-      console.log('SIGTERM received, shutting down gracefully...');
+      logger.info('SIGTERM received, shutting down gracefully...', undefined, 'SYSTEM');
       realtimeService.shutdown();
       httpServer.close(() => {
-        console.log('Server closed');
+        logger.info('Server closed', undefined, 'SYSTEM');
         process.exit(0);
       });
     });
 
   } catch (error) {
-    console.error('❌ Failed to start server:', error);
+    logger.error('❌ Failed to start server:', error, 'FATAL');
     process.exit(1);
   }
 }
