@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: london-day-planner-api
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 8080
+      - key: GOOGLE_PLACES_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: WEATHER_API_KEY
+        sync: false
+      - key: SESSION_SECRET
+        sync: false
+      - key: CORS_ORIGIN
+        value: https://app.planyourperfectday.app
+      - key: RATE_LIMIT_ENABLED
+        value: true
+      - key: HTTPS_ONLY
+        value: true
+
+databases:
+  - name: london-day-planner-db
+    plan: free
+    databaseName: london_day_planner
+    user: london_day_planner_user 

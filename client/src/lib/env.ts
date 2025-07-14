@@ -10,7 +10,20 @@ import { useState, useEffect } from 'react';
 export const BASE_URL = import.meta.env.VITE_BASE_URL || '';
 
 // API base URL utility
-export const getApiUrl = () => import.meta.env.PROD ? 'https://londondayplanner-1-production.railway.app' : '';
+export const getApiUrl = () => {
+  // Check for environment-specific API URL first
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
+  }
+  
+  // Fallback to production URL (will be updated for Render)
+  if (import.meta.env.PROD) {
+    return 'https://londondayplanner-1-production.railway.app';
+  }
+  
+  // Development: use local server
+  return '';
+};
 
 // Remote configuration values that must be fetched from server
 interface ServerConfig {
