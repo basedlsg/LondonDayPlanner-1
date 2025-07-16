@@ -1,7 +1,7 @@
 // server/index.ts - Simplified Version from User Prompt
 
 // STEP 1: Load environment variables FIRST
-import { logger } from './lib/logging'; 
+import { logger, requestLogger } from './lib/logging'; 
 import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
@@ -42,7 +42,6 @@ import { LocationResolver } from './services/LocationResolver';
 
 // Import error handling and logging
 import { globalErrorHandler } from './lib/errorHandler';
-import { logger, requestLogger } from './lib/logging';
 import { createSessionConfig } from './lib/sessionConfig';
 import { apiLimiter, authLimiter } from './lib/rateLimiter';
 
@@ -126,104 +125,25 @@ app.use(cors(corsOptions));
 // Middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: false, limit: '10mb' }));
-
-// Session middleware with enhanced security
 app.use(session(createSessionConfig()));
-
-// Performance monitoring middleware
 app.use(performanceMiddleware());
-
-// Enhanced request logging and error handling
 app.use(requestLogger);
-
-// Apply rate limiting to API routes. The limiter itself will skip if NODE_ENV is 'development'.
 app.use('/api', apiLimiter);
 
-// Routes will be registered in startServer() to ensure proper order
-
-// Register main routes with planning service
-const httpServer = createServer(app);
-// Instantiate new services
+// Register routes
 const cityConfigService = new CityConfigService();
 const locationResolver = new LocationResolver();
 const planningService = new ItineraryPlanningService(storage, cityConfigService, locationResolver);
 
-// Main /api/plan route with direct error handling and logging
-/* // REMOVED direct /api/plan definition to avoid conflict with registerRoutes
-app.post("/api/plan", async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  try {
-    console.log('📝 [/api/plan] Request received:', {
-// ... (rest of the old direct /api/plan route code commented out) ...
-  } catch (error: any) {
-    console.error('❌ [/api/plan] Unhandled error in route handler:', error.name, error.message);
-    next(error); // Pass to global error handler
-  }
-});
-*/
+app.use('/api/auth', authRoutes);
+app.use('/api/collaboration', collaborationRoutes);
+app.use('/api/export', exportRoutes);
+registerRoutes(app, planningService, cityConfigService);
 
-// Other main application routes (like those for specific itineraries, etc.)
-// registerRoutes(app, planningService); // Pass planningService if routes need it // Ensure this is active in startServer
-// For now, we'll assume /api/plan is the primary one. 
-// ... existing code ...
-async function startServer() {
-  try {
-    await testDatabaseConnection();
-    
-    // Move route registration here to ensure proper order
-    app.use('/api/auth', authRoutes);
-    app.use('/api/collaboration', collaborationRoutes);
-    app.use('/api/export', exportRoutes);
-    
-    // Register API routes FIRST (before vite middleware)
-    registerRoutes(app, planningService, cityConfigService);
+// Vercel handles serving static files and the frontend, so vite middleware is removed.
 
-    // Add a catch-all for unmatched API routes AFTER all route registration
-    // This must be LAST to avoid intercepting valid routes
-    app.use('/api/*', (req, res) => {
-      logger.warn(`🚫 Unmatched API route: ${req.method} ${req.path}`, undefined, 'API');
-      res.status(404).json({ error: 'API endpoint not found', path: req.path });
-    });
+// Global error handler - MUST be after all other middleware and routes
+app.use(globalErrorHandler);
 
-    // THEN setup vite/static serving (which has catch-all routes)
-    if (process.env.NODE_ENV === 'development') {
-      await setupVite(app, httpServer);
-    } else {
-      serveStatic(app);
-    }
-
-    // Global error handler - MUST be after all other middleware and routes
-    app.use(globalErrorHandler);
-
-    // Initialize WebSocket service
-    const realtimeService = new RealtimeService(httpServer, storage);
-    logger.info('🔌 WebSocket service initialized', undefined, 'WEBSOCKET');
-    
-    const portString = process.env.PORT || '8080'; // Standard port for Railway/production
-    const port = parseInt(portString, 10);
-
-    httpServer.listen(port, '0.0.0.0', () => {
-      logger.info(`🚀 Server running on http://localhost:${port}`, undefined, 'STARTUP');
-      logger.info(`🔧 Environment: ${process.env.NODE_ENV || 'development'}`, undefined, 'STARTUP');
-      logger.info(`🗄️  Database: ${process.env.DATABASE_URL ? 'Connected' : 'Not configured'}`, undefined, 'STARTUP');
-      logger.info(`🔑 Google Places API Key: ${process.env.GOOGLE_PLACES_API_KEY ? 'Configured' : 'MISSING'}`, undefined, 'STARTUP');
-      logger.info(`🔑 Gemini API Key: ${process.env.GEMINI_API_KEY ? 'Configured' : 'MISSING'}`, undefined, 'STARTUP');
-      logger.info(`🔌 WebSocket: Available at ws://localhost:${port}/ws`, undefined, 'STARTUP');
-    });
-    
-    // Graceful shutdown
-    process.on('SIGTERM', () => {
-      logger.info('SIGTERM received, shutting down gracefully...', undefined, 'SYSTEM');
-      realtimeService.shutdown();
-      httpServer.close(() => {
-        logger.info('Server closed', undefined, 'SYSTEM');
-        process.exit(0);
-      });
-    });
-
-  } catch (error) {
-    logger.error('❌ Failed to start server:', error, 'FATAL');
-    process.exit(1);
-  }
-}
-
-startServer();
+// Export the app for Vercel
+export default app;
