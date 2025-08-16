@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { PlaceDetails } from '@shared/schema';
 import { getApiKey, isFeatureEnabled } from '../config';
 

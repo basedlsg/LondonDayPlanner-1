@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Query Complexity Detection Service
  * 

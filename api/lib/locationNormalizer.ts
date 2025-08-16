@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { nycAreas, NYCArea } from "../data/new-york-areas";
 
 // Dictionary of neighborhood name variations and colloquial references

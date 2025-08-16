@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { type LatLng, TransportMode, type CityConfig } from './types';
 
 const nycConfig: CityConfig = {

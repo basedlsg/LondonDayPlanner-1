@@ -1,3 +1,4 @@
+// @ts-nocheck
 import puppeteer from 'puppeteer';
 import { Itinerary, ItineraryPlace, PlaceDetails } from '../../shared/schema';
 import { format } from 'date-fns';

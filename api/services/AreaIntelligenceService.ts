@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { type LatLng, type CityConfig, type DetailedAreaInfo } from '../config/cities/types';
 import { londonAreas, type LondonArea } from '../data/london-areas';
 

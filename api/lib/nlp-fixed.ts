@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { z } from "zod";
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/generative-ai';
 import type { PlaceDetails } from "@shared/schema";

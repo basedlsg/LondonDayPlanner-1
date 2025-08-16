@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "incremental": false,
+    "composite": false,
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "isolatedModules": true
+  },
+  "include": ["api/**/*", "shared/**/*"],
+  "exclude": ["client", "server"]
+}

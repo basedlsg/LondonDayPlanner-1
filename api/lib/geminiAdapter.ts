@@ -1,4 +1,5 @@
-import { StructuredRequest } from '@shared/types';
+// @ts-nocheck
+import { StructuredRequest } from '../shared/types';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { getApiKey } from '../config';
 

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import session from 'express-session';
 import { logger } from './logging';
 

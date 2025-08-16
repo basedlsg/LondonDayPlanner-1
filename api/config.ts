@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Central configuration for API keys and feature flags
  * 

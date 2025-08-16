@@ -149,39 +149,33 @@ export const collaborationIndexes = [
   // Add indexes for better performance
 ];
 
-export const insertPlaceSchema = createInsertSchema(places).omit({ id: true });
-export const insertItinerarySchema = createInsertSchema(itineraries, {
+export const insertPlaceSchema = createInsertSchema(places);
+export const insertItinerarySchema = z.object({
   title: z.string().optional(),
   description: z.string().optional(),
   planDate: z.string().datetime().optional(),
+  query: z.string(),
   places: z.array(z.any()),
   travelTimes: z.array(z.any()),
-}).omit({ id: true, created: true });
+});
 // Schema for local registration
-export const insertLocalUserSchema = createInsertSchema(users).omit({ 
-  id: true, 
-  created_at: true, 
-  password_hash: true,
-  google_id: true,
-  avatar_url: true,
-  auth_provider: true
+export const insertLocalUserSchema = z.object({
+  email: z.string().email(),
+  name: z.string().optional(),
+  password: z.string().min(8).max(100),
+  confirmPassword: z.string().min(8).max(100)
 })
-  .extend({
-    password: z.string().min(8).max(100),
-    confirmPassword: z.string().min(8).max(100)
-  })
   .refine(data => data.password === data.confirmPassword, {
     message: "Passwords do not match",
     path: ["confirmPassword"]
   });
 
 // Schema for Google sign-in
-export const insertGoogleUserSchema = createInsertSchema(users).omit({
-  id: true,
-  created_at: true,
-  password_hash: true,
-  auth_provider: true
-}).extend({
+export const insertGoogleUserSchema = z.object({
+  email: z.string().email(),
+  name: z.string().optional(),
+  google_id: z.string(),
+  avatar_url: z.string().optional(),
   auth_provider: z.literal("google")
 });
 

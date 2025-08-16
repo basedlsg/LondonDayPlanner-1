@@ -1,27 +1,19 @@
-// server/index.ts - Simplified Version from User Prompt
+// API entry point optimized for Vercel serverless deployment
 
-// STEP 1: Load environment variables FIRST
-import { logger, requestLogger } from './lib/logging'; 
-import dotenv from 'dotenv';
-import path from 'path';
-import fs from 'fs';
+// STEP 1: Validate environment variables FIRST
+import { logger, requestLogger } from './lib/logging';
+import { validateEnvironment, getEnvironmentConfig } from './lib/environment';
 
-const envPath = path.resolve(process.cwd(), '.env');
-logger.info(`📄 .env file path: ${envPath}`, undefined, 'STARTUP');
-logger.info(`📄 .env file exists: ${fs.existsSync(envPath)}`, undefined, 'STARTUP');
-
-const result = dotenv.config({ path: envPath });
-if (result.error) {
-  logger.error('❌ Error loading .env:', result.error, 'STARTUP');
-} else {
-  logger.info(`✅ Environment variables loaded by dotenv (keys found): ${Object.keys(result.parsed || {}).length}`, undefined, 'STARTUP');
+// Validate environment on startup
+let environmentConfig;
+try {
+  environmentConfig = validateEnvironment();
+  logger.info('✅ [Startup] Environment validation successful', undefined, 'STARTUP');
+} catch (error) {
+  logger.error('❌ [Startup] Environment validation failed:', error, 'STARTUP');
+  // For serverless, we need to throw here to prevent the function from starting
+  throw new Error(`Environment validation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
 }
-
-// Verify critical environment variables on process.env
-logger.info('🔍 Environment check (process.env):', undefined, 'STARTUP');
-logger.info(`   DATABASE_URL present: ${!!process.env.DATABASE_URL}`, undefined, 'STARTUP');
-logger.info(`   GOOGLE_PLACES_API_KEY present: ${!!process.env.GOOGLE_PLACES_API_KEY}`, undefined, 'STARTUP');
-logger.info(`   GEMINI_API_KEY present: ${!!process.env.GEMINI_API_KEY}`, undefined, 'STARTUP');
 
 // STEP 2: Now import everything else
 import express from 'express';
@@ -58,60 +50,66 @@ import { exportRoutes } from './routes/export';
 import { setupVite, serveStatic } from './vite';
 import { AppError, ValidationError } from "./lib/errors"; // For global error handler
 
-// Import and initialize config AFTER environment variables are loaded
+// Import and initialize config using validated environment
 import { config } from './config';
 
-// Force config to reload environment variables and log status
-logger.info('🔧 Initializing application configuration...', undefined, 'STARTUP');
-config.recheckEnvironment();
-config.initialize();
+// Initialize config with validated environment
+logger.info('🔧 [Startup] Initializing application configuration...', undefined, 'STARTUP');
+try {
+  config.recheckEnvironment();
+  config.initialize();
+  logger.info('✅ [Startup] Application configuration initialized', undefined, 'STARTUP');
+} catch (error) {
+  logger.error('❌ [Startup] Configuration initialization failed:', error, 'STARTUP');
+  throw error;
+}
 
 const app = express();
 
-// Test database connection
-async function testDatabaseConnection() {
+// Test database connection with proper error handling
+async function testDatabaseConnection(): Promise<void> {
   try {
-    logger.info('🗄️  Testing database connection...', undefined, 'DB');
+    logger.info('🗄️ [Startup] Testing database connection...', undefined, 'DB');
     await getDb(); // This will trigger initialization and test the connection
-    logger.info('✅ Database connection successful', undefined, 'DB');
+    logger.info('✅ [Startup] Database connection successful', undefined, 'DB');
   } catch (error) {
-    logger.error('❌ Database connection failed during testDatabaseConnection:', error, 'DB');
-    // Allow server to continue starting to see other logs, but this is a critical failure.
-    // process.exit(1); // Optionally exit if DB is absolutely required to start
+    logger.error('❌ [Startup] Database connection failed:', error, 'DB');
+    // In serverless environment, we should throw to prevent function from starting with broken DB
+    throw new Error(`Database connection failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 }
 
-// Session configuration
+// Session configuration using validated environment
 const sessionConfig = {
-  secret: process.env.SESSION_SECRET || 'dev-fallback-secret-CHANGE-IN-PRODUCTION',
+  secret: environmentConfig.SESSION_SECRET || 'dev-fallback-secret-CHANGE-IN-PRODUCTION',
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: process.env.NODE_ENV === 'production',
+    secure: environmentConfig.NODE_ENV === 'production',
     maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
   },
 };
 
-if (!process.env.SESSION_SECRET) {
-  logger.warn('⚠️  SESSION_SECRET not set, using fallback. SET THIS FOR PRODUCTION!', undefined, 'SECURITY');
+if (!environmentConfig.SESSION_SECRET) {
+  logger.warn('⚠️ [Security] SESSION_SECRET not set, using fallback. SET THIS FOR PRODUCTION!', undefined, 'SECURITY');
 }
 
 // CORS configuration for production
 import cors from 'cors';
 
-const allowedOrigins = (process.env.CORS_ORIGIN || 'https://app.planyourperfectday.app,http://localhost:5173').split(',');
+const allowedOrigins = (environmentConfig.CORS_ORIGIN || 'https://app.planyourperfectday.app,http://localhost:5173').split(',');
 
 const corsOptions = {
   origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
     // For development, allow requests with no origin (like mobile apps or curl requests)
-    if (!origin && process.env.NODE_ENV !== 'production') {
+    if (!origin && environmentConfig.NODE_ENV !== 'production') {
       return callback(null, true);
     }
     
     if (origin && allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      logger.warn(`CORS blocked for origin: ${origin}`, undefined, 'API');
+      logger.warn(`[CORS] Blocked request from origin: ${origin}`, undefined, 'API');
       callback(new Error('Not allowed by CORS'));
     }
   },
@@ -144,6 +142,15 @@ registerRoutes(app, planningService, cityConfigService);
 
 // Global error handler - MUST be after all other middleware and routes
 app.use(globalErrorHandler);
+
+// Initialize database connection on startup
+testDatabaseConnection().catch(error => {
+  logger.error('❌ [Startup] Failed to initialize database connection:', error, 'STARTUP');
+  // In serverless, this will prevent the function from starting
+  throw error;
+});
+
+logger.info('🚀 [Startup] API server initialized successfully', undefined, 'STARTUP');
 
 // Export the app for Vercel
 export default app;

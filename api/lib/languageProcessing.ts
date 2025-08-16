@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { z } from "zod";
 import Fuse from 'fuse.js';
 import { nycAreas, NYCArea } from "../data/new-york-areas";

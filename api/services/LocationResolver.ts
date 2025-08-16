@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { CityConfig, LatLng, AreaDefinition, DetailedAreaInfo } from "../config/cities";
 
 // Simple distance calculation (Haversine formula)

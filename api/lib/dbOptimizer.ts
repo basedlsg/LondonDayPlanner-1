@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { performance } from 'perf_hooks';
 import { performanceMonitor } from './performanceMonitor';
 

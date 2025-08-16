@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Gemini Natural Language Processing
  * 

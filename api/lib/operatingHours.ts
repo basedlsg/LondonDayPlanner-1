@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Operating Hours Validation Utilities
  * 

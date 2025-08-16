@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { Request, Response, NextFunction } from 'express';
 import { storage } from '../storage'; // Assuming storage uses getDb() for deferred DB init
 

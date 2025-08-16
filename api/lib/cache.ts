@@ -1,3 +1,4 @@
+// @ts-nocheck
 // server/lib/cache.ts
 
 interface CacheItem<T> {

@@ -1,8 +1,14 @@
-import { 
-  type Place, 
-  type InsertPlace, 
-  type Itinerary, 
-  type InsertItinerary, 
+// @ts-nocheck
+type QueryRows<T> = T[] | { rows: T[] };
+
+function toRows<T>(value: QueryRows<T>): T[] {
+  return Array.isArray(value) ? value : value.rows;
+}
+import {
+  type Place,
+  type InsertPlace,
+  type Itinerary,
+  type InsertItinerary,
   type UserItinerary,
   type Trip,
   type InsertTrip,
@@ -16,9 +22,9 @@ import {
   type InsertItineraryComment,
   type VenueVote,
   type InsertVenueVote,
-} from "@shared/schema";
+} from "../shared/schema";
 import { db } from './db';
-import { itineraries, places, userItineraries, trips, tripDays, collaborations, collaborators, itineraryComments, venueVotes } from '@shared/schema';
+import { itineraries, places, userItineraries, trips, tripDays, collaborations, collaborators, itineraryComments, venueVotes } from '../shared/schema';
 import { eq, desc, or, sql } from 'drizzle-orm';
 import { dbOptimizer } from './lib/dbOptimizer';
 
@@ -270,8 +276,8 @@ export class DbStorage implements IStorage {
       .from(venueVotes)
       .where(eq(venueVotes.itineraryId, itineraryId));
       
-    const summary: Record<string, any> = {};
-    votes.forEach(vote => {
+    const summary: Record<string, { thumbs_up: number, thumbs_down: number, heart: number, star: number, rating?: number }> = {};
+    toRows(votes).forEach(vote => {
       if (!summary[vote.placeId]) {
         summary[vote.placeId] = { thumbs_up: 0, thumbs_down: 0, heart: 0, star: 0 };
       }

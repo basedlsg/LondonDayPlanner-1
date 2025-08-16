@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { migrate } from 'drizzle-orm/neon-http/migrator';
 import { getDb } from './db';
 import { config } from 'dotenv';

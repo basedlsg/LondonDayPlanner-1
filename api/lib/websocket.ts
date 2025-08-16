@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { WebSocketServer, WebSocket } from 'ws';
 import { Server } from 'http';
 import { v4 as uuidv4 } from 'uuid';

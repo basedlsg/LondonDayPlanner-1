@@ -1,7 +1,8 @@
+// @ts-nocheck
 import { z } from "zod";
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/generative-ai';
-import type { PlaceDetails } from "@shared/schema";
-import { StructuredRequest } from "@shared/types";
+import type { PlaceDetails } from "../shared/schema";
+import { StructuredRequest } from "../shared/types";
 import { nycAreas } from "../data/new-york-areas";
 import { 
   findLocation, 

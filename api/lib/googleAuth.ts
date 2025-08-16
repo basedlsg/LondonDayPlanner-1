@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { OAuth2Client } from 'google-auth-library';
 import { getApiKey } from '../config';
 

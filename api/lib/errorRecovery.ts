@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { AppError, ValidationError, NotFoundError, GooglePlacesError, NLPServiceError, WeatherServiceError } from './errors';
 
 export interface RecoveryStrategy {

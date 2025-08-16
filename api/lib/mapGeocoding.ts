@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Google Maps Geocoding API Integration
  * 

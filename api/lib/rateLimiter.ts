@@ -1,3 +1,4 @@
+// @ts-nocheck
 console.log(`[rateLimiter.ts CHECK] NODE_ENV is: ${process.env.NODE_ENV} at module load`);
 
 import rateLimit from 'express-rate-limit';

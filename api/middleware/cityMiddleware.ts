@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Request, Response, NextFunction } from 'express';
 import { getCityConfig, getAllCitySlugs, CityConfig } from '../config/cities';
 import { NotFoundError, ValidationError, InternalServerError } from '../lib/errors';

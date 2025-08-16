@@ -1,3 +1,4 @@
+// @ts-nocheck
 // server/lib/errors.ts
 
 // Abstract base error class

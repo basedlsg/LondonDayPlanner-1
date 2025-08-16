@@ -1,193 +1,141 @@
-// server/lib/environment.ts - Robust environment setup
+import { z } from 'zod';
 
-import dotenv from 'dotenv';
-import path from 'path';
-import fs from 'fs';
+// Environment variable schema with validation
+const environmentSchema = z.object({
+  DATABASE_URL: z.string().min(1, 'DATABASE_URL is required'),
+  GOOGLE_PLACES_API_KEY: z.string().min(1, 'GOOGLE_PLACES_API_KEY is required'),
+  GEMINI_API_KEY: z.string().min(1, 'GEMINI_API_KEY is required'),
+  WEATHER_API_KEY: z.string().optional(),
+  NODE_ENV: z.enum(['development', 'production', 'test']).default('production'),
+  SESSION_SECRET: z.string().optional(),
+  CORS_ORIGIN: z.string().optional(),
+});
 
-interface EnvironmentInfo {
-  platform: 'local' | 'replit' | 'vercel' | 'railway' | 'unknown';
-  hasEnvFile: boolean;
-  databaseUrl: string | null;
-  sessionSecret: string | null;
-  openWeatherApiKey: string | null;
-  // Add other critical env vars here if needed for validation
-}
+export type EnvironmentConfig = z.infer<typeof environmentSchema>;
 
-export function setupEnvironment(): EnvironmentInfo {
-  console.log('🔧 [environment.ts] Setting up environment...');
-  
-  const platform = detectPlatform();
-  console.log(`📍 [environment.ts] Detected platform: ${platform}`);
-  
-  let hasEnvFile = false;
-  if (platform === 'local') {
-    hasEnvFile = loadLocalEnvFile();
-  }
-  
-  const databaseUrl = getDatabaseUrl(platform);
-  const sessionSecret = getSessionSecret(platform);
-  const openWeatherApiKey = getOpenWeatherApiKey();
-  
-  validateEnvironment(databaseUrl, platform); // This will throw if DATABASE_URL is missing
-  
-  const info: EnvironmentInfo = {
-    platform,
-    hasEnvFile,
-    databaseUrl,
-    sessionSecret,
-    openWeatherApiKey,
-  };
-  
-  console.log('✅ [environment.ts] Environment setup complete:', {
-    platform: info.platform,
-    hasEnvFile: info.hasEnvFile,
-    hasDatabaseUrl: !!info.databaseUrl,
-    hasSessionSecret: !!info.sessionSecret,
-    hasOpenWeatherApiKey: !!info.openWeatherApiKey,
-  });
-  
-  return info;
-}
+class EnvironmentValidator {
+  private config: EnvironmentConfig | null = null;
+  private validationErrors: string[] = [];
 
-function detectPlatform(): EnvironmentInfo['platform'] {
-  if (process.env.REPL_ID || process.env.REPLIT_DB_URL) {
-    return 'replit';
-  }
-  if (process.env.VERCEL) {
-    return 'vercel';
-  }
-  if (process.env.RAILWAY_ENVIRONMENT) {
-    return 'railway';
-  }
-  // If NODE_ENV is explicitly production but no platform detected, assume generic production
-  if (process.env.NODE_ENV === 'production') {
-    return 'unknown'; // Or 'production-generic'
-  }
-  return 'local';
-}
+  public validate(): EnvironmentConfig {
+    if (this.config) {
+      return this.config;
+    }
 
-function loadLocalEnvFile(): boolean {
-  const possiblePaths = [
-    path.resolve(process.cwd(), '.env'),
-    path.resolve(process.cwd(), '.env.local'), // Common alternative
-    // path.resolve(__dirname, '../../.env'), // This path might be if environment.ts is in server/lib/
-  ];
-  
-  for (const envPath of possiblePaths) {
-    if (fs.existsSync(envPath)) {
-      console.log(`📄 [environment.ts] Loading .env file from: ${envPath}`);
-      const result = dotenv.config({ path: envPath });
-      if (result.error) {
-        console.warn(`⚠️  [environment.ts] Error loading .env file from ${envPath}: ${result.error.message}`);
-        // continue to try other paths if preferred, or return false
-      } else {
-        console.log(`✅ [environment.ts] Loaded ${Object.keys(result.parsed || {}).length} variables from ${envPath}`);
-        return true; // Successfully loaded an .env file
+    console.log('🔍 [Environment] Validating environment variables...');
+    
+    try {
+      this.config = environmentSchema.parse(process.env);
+      console.log('✅ [Environment] All required environment variables are present');
+      
+      // Log configuration status (without sensitive values)
+      console.log('📋 [Environment] Configuration status:', {
+        DATABASE_URL: !!this.config.DATABASE_URL,
+        GOOGLE_PLACES_API_KEY: !!this.config.GOOGLE_PLACES_API_KEY,
+        GEMINI_API_KEY: !!this.config.GEMINI_API_KEY,
+        WEATHER_API_KEY: !!this.config.WEATHER_API_KEY,
+        NODE_ENV: this.config.NODE_ENV,
+        SESSION_SECRET: !!this.config.SESSION_SECRET,
+        CORS_ORIGIN: !!this.config.CORS_ORIGIN,
+      });
+
+      return this.config;
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        this.validationErrors = error.errors.map(err => 
+          `${err.path.join('.')}: ${err.message}`
+        );
+        
+        console.error('❌ [Environment] Environment validation failed:');
+        this.validationErrors.forEach(err => console.error(`   - ${err}`));
+        
+        // Provide setup instructions
+        this.logSetupInstructions();
+        
+        throw new Error(`Environment validation failed: ${this.validationErrors.join(', ')}`);
       }
+      
+      console.error('❌ [Environment] Unexpected error during validation:', error);
+      throw error;
     }
   }
-  
-  console.log('📄 [environment.ts] No .env file found in standard local paths.');
-  return false;
-}
 
-function getDatabaseUrl(platform: EnvironmentInfo['platform']): string | null {
-  const possibleNames = [
-    'DATABASE_URL',
-    'NEON_DATABASE_URL', 
-    'POSTGRES_URL',
-    'DB_URL',
-  ];
-  
-  for (const name of possibleNames) {
-    const value = process.env[name];
-    if (value) {
-      console.log(`🗄️  [environment.ts] Found database URL in env var: ${name}`);
-      return value;
+  public getConfig(): EnvironmentConfig {
+    if (!this.config) {
+      return this.validate();
+    }
+    return this.config;
+  }
+
+  public isConfigured(): boolean {
+    try {
+      this.validate();
+      return true;
+    } catch {
+      return false;
     }
   }
-  console.warn('🗄️  [environment.ts] No database URL found in common environment variables.');
-  return null;
-}
 
-function getSessionSecret(platform: EnvironmentInfo['platform']): string | null {
-  const secret = process.env.SESSION_SECRET || process.env.SECRET_KEY;
-  
-  if (!secret && platform === 'local') {
-    console.warn('⚠️  [environment.ts] SESSION_SECRET not set, will use development fallback. SET THIS FOR PRODUCTION!');
-    return 'dev-fallback-secret-please-change-in-production'; // More descriptive fallback
+  public getValidationErrors(): string[] {
+    return this.validationErrors;
   }
-  if (secret) {
-      console.log('🔑 [environment.ts] SESSION_SECRET found.')
-  } else {
-      console.warn('🔑 [environment.ts] SESSION_SECRET not found.')
-  }
-  return secret || null;
-}
 
-function validateEnvironment(databaseUrl: string | null, platform: EnvironmentInfo['platform']) {
-  if (!databaseUrl) {
-    const errorMessage = createDatabaseUrlErrorMessage(platform);
-    console.error(errorMessage); // Log the detailed message
-    // The error thrown should be generic enough for the top-level catch in server/index.ts if setupEnvironment fails
-    throw new Error(`DATABASE_URL is missing. ${getSetupInstructions(platform)}`);
-  }
-  
-  if (!databaseUrl.startsWith('postgres://') && !databaseUrl.startsWith('postgresql://')) {
-    throw new Error('DATABASE_URL must be a valid PostgreSQL connection string (e.g., postgresql://...)');
-  }
-}
+  private logSetupInstructions(): void {
+    console.error(`
+🔧 [Environment] Setup Instructions:
 
-function createDatabaseUrlErrorMessage(platform: EnvironmentInfo['platform']): string {
-  const baseMessage = '❌ CRITICAL ERROR: DATABASE_URL is not set in environment.\n';
-  // ... (same content as user provided for this function)
-  switch (platform) {
-    case 'local':
-      return baseMessage + `
+For Vercel deployment:
+1. Go to your Vercel project dashboard
+2. Navigate to Settings > Environment Variables
+3. Add the following required variables:
+   - DATABASE_URL: Your Neon database connection string
+   - GOOGLE_PLACES_API_KEY: Your Google Places API key
+   - GEMINI_API_KEY: Your Google Gemini API key
+   - WEATHER_API_KEY: Your weather API key (optional)
+
 For local development:
-1. Create a .env file in your project root: ${process.cwd()}/.env
-2. Add this line: DATABASE_URL="postgresql://user:password@host:port/database"
-3. Get your Neon connection string from: https://neon.tech/
-4. Restart your development server
-`;
-    case 'replit':
-      return baseMessage + `
-For Replit:
-1. Click the lock icon (🔒) in the left sidebar to open Secrets
-2. Add a new secret with key: DATABASE_URL  
-3. Paste your Neon PostgreSQL connection string as the value
-4. Restart your Repl
-`;
-    default:
-      return baseMessage + `
-For ${platform} deployment:
-1. Set DATABASE_URL in your deployment environment variables
-2. Use your Neon PostgreSQL connection string
-3. Redeploy your application
-`;
+1. Create a .env file in your project root
+2. Add the required environment variables
+3. Ensure .env is in your .gitignore
+
+Missing variables: ${this.validationErrors.join(', ')}
+`);
+  }
+
+  // Helper methods for specific configurations
+  public getDatabaseUrl(): string {
+    return this.getConfig().DATABASE_URL;
+  }
+
+  public getGooglePlacesApiKey(): string {
+    return this.getConfig().GOOGLE_PLACES_API_KEY;
+  }
+
+  public getGeminiApiKey(): string {
+    return this.getConfig().GEMINI_API_KEY;
+  }
+
+  public getWeatherApiKey(): string | undefined {
+    return this.getConfig().WEATHER_API_KEY;
+  }
+
+  public getNodeEnv(): string {
+    return this.getConfig().NODE_ENV;
+  }
+
+  public isProduction(): boolean {
+    return this.getNodeEnv() === 'production';
+  }
+
+  public isDevelopment(): boolean {
+    return this.getNodeEnv() === 'development';
   }
 }
 
-function getOpenWeatherApiKey(): string | null {
-  const apiKey = process.env.WEATHER_API_KEY;
-  
-  if (apiKey) {
-    console.log('🌤️  [environment.ts] OpenWeather API key found.');
-  } else {
-    console.warn('🌤️  [environment.ts] OpenWeather API key not found. Weather features will be disabled.');
-  }
-  
-  return apiKey || null;
-}
+// Export singleton instance
+export const environmentValidator = new EnvironmentValidator();
 
-function getSetupInstructions(platform: EnvironmentInfo['platform']): string {
-  // ... (same content as user provided for this function)
-  switch (platform) {
-    case 'replit':
-      return 'Please add the DATABASE_URL secret in the Deployments tab.';
-    case 'local':
-      return 'Please create a .env file with DATABASE_URL.';
-    default:
-      return 'Please set DATABASE_URL in your environment variables.';
-  }
-} 
+// Convenience exports
+export const getEnvironmentConfig = () => environmentValidator.getConfig();
+export const validateEnvironment = () => environmentValidator.validate();
+export const isEnvironmentConfigured = () => environmentValidator.isConfigured();

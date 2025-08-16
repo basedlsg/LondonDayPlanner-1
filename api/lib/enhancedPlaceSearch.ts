@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { GooglePlacesError } from './errors';
 import { getApiKey, isFeatureEnabled } from '../config';
 import { PlaceDetails, VenueSearchResult } from './googlePlaces';

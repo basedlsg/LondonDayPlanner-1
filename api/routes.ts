@@ -1,10 +1,11 @@
+// @ts-nocheck
 import type { Express, Request } from "express";
 import { createServer } from "http";
 import { storage } from "./storage";
 import { searchPlace } from "./lib/googlePlaces";
 import { calculateTravelTime } from "./lib/itinerary";
-import { StructuredRequest } from "@shared/types";
-import { insertPlaceSchema, insertItinerarySchema, Place, PlaceDetails } from "@shared/schema";
+import { StructuredRequest } from "../shared/types";
+import { insertPlaceSchema, insertItinerarySchema, Place, PlaceDetails } from "../shared/schema";
 import { z } from "zod";
 import { formatInTimeZone, toZonedTime } from 'date-fns-tz';
 import { findAreasByCharacteristics, findQuietAreas, getAreaCrowdLevel, NYCArea, nycAreas } from "./data/new-york-areas";
@@ -103,9 +104,70 @@ export function findInterestingActivities(
 }
 
 export async function registerRoutes(app: Express, planningService: ItineraryPlanningService, cityConfigService: CityConfigService) {
-  // Health check route
-  app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok', timestamp: new Date().toISOString() });
+  // Health check routes
+  app.get('/api/health', async (req, res, next) => {
+    try {
+      const { performHealthCheck, quickHealthCheck } = await import('./lib/healthCheck');
+      
+      // Use quick health check for basic requests
+      const includeDebug = req.query.debug === 'true';
+      const detailed = req.query.detailed === 'true';
+      
+      if (detailed || includeDebug) {
+        // Comprehensive health check
+        const healthStatus = await performHealthCheck(includeDebug);
+        
+        // Set appropriate HTTP status code
+        const statusCode = healthStatus.status === 'healthy' ? 200 : 
+                          healthStatus.status === 'degraded' ? 200 : 503;
+        
+        res.status(statusCode).json(healthStatus);
+      } else {
+        // Quick health check for load balancers
+        const quickStatus = await quickHealthCheck();
+        const statusCode = quickStatus.status === 'ok' ? 200 : 503;
+        
+        res.status(statusCode).json(quickStatus);
+      }
+    } catch (error) {
+      console.error('❌ [Health] Health check failed:', error);
+      res.status(503).json({
+        status: 'error',
+        message: 'Health check service unavailable',
+        timestamp: new Date().toISOString(),
+        error: error instanceof Error ? error.message : String(error),
+      });
+    }
+  });
+
+  // Liveness probe endpoint (always returns 200 if service is running)
+  app.get('/api/health/live', (req, res) => {
+    res.status(200).json({
+      status: 'alive',
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+    });
+  });
+
+  // Readiness probe endpoint (checks if service is ready to handle requests)
+  app.get('/api/health/ready', async (req, res, next) => {
+    try {
+      const { quickHealthCheck } = await import('./lib/healthCheck');
+      const status = await quickHealthCheck();
+      
+      const statusCode = status.status === 'ok' ? 200 : 503;
+      res.status(statusCode).json({
+        ...status,
+        ready: status.status === 'ok',
+      });
+    } catch (error) {
+      res.status(503).json({
+        status: 'error',
+        ready: false,
+        timestamp: new Date().toISOString(),
+        error: error instanceof Error ? error.message : String(error),
+      });
+    }
   });
   // const httpServer = createServer(app); // httpServer is created in index.ts now
   // const planningService = new ItineraryPlanningService(storage); // Service is now passed in

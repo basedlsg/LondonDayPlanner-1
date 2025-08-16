@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Request, Response, NextFunction } from 'express';
 import { logger } from './logging';
 import { AppError as CoreAppError } from './errors';

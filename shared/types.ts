@@ -33,4 +33,5 @@ export interface StructuredRequest {
     requirements: string[];
     confidence?: number;
   }>;
+  isSimplified?: boolean;
 }

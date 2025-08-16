@@ -1,97 +1,170 @@
-// server/db.ts - FIXED VERSION
+// Optimized database connection for Vercel serverless environment
 
-import { drizzle, NeonHttpDatabase } from 'drizzle-orm/neon-http'; // Ensure NeonHttpDatabase is imported if used for type
+import { drizzle, NeonHttpDatabase } from 'drizzle-orm/neon-http';
 import { neon } from '@neondatabase/serverless';
-import * as schema from '@shared/schema'; // Import your Drizzle schema
+import * as schema from '../shared/schema';
+import { environmentValidator } from './lib/environment';
 
-// Don't fail at import time - defer connection until actually used
-let dbInstance: NeonHttpDatabase<typeof schema> | null = null; // Typed instance
+// Database instance and connection state
+let dbInstance: NeonHttpDatabase<typeof schema> | null = null;
 let connectionString: string | null = null;
+let isConnecting = false;
 
+// Connection configuration optimized for serverless
+const CONNECTION_CONFIG = {
+  maxRetries: 3,
+  baseRetryDelay: 1000, // 1 second
+  maxRetryDelay: 5000,  // 5 seconds max
+  connectionTimeout: 10000, // 10 seconds
+};
+
+/**
+ * Initialize database connection with retry logic and proper error handling
+ */
 async function initializeDatabase(): Promise<NeonHttpDatabase<typeof schema>> {
+  // Return existing instance if available
   if (dbInstance) {
-    // console.log('🗄️  Database connection already initialized.');
     return dbInstance;
   }
 
-  // Correctly handle undefined from process.env
-  connectionString = process.env.DATABASE_URL || null;
-  
-  if (!connectionString) {
-    const errorMessage = `
-❌ DATABASE_URL environment variable is not set.
-
-For local development:
-1. Create a .env file in your project root (${process.cwd()}/.env)
-2. Add: DATABASE_URL="your_neon_connection_string"
-
-For Replit:
-1. Go to the Secrets tab (lock icon) in the sidebar
-2. Add DATABASE_URL with your Neon connection string
-
-For production deployment:
-1. Set DATABASE_URL in your deployment environment variables
-`;
-    console.error(errorMessage);
-    // This specific error message is from the original code, let's keep it for consistency with previous logs
-    throw new Error('DATABASE_URL not found. Please add the DATABASE_URL secret in the Deployments tab.'); 
-  }
-
-  console.log('🗄️  Initializing database instance with Neon driver...');
-  
-  const maxRetries = 3;
-  let retryCount = 0;
-  
-  while (retryCount < maxRetries) {
-    try {
-      const sql = neon(connectionString);
-      dbInstance = drizzle(sql, { schema }); // Pass the schema here
-      
-      // Test the connection with a simple query using sql from neon
-      await sql`SELECT 1 as test`;
-      
-      console.log('✅ Database instance initialized and tested successfully with Neon.');
+  // Prevent multiple concurrent initialization attempts
+  if (isConnecting) {
+    // Wait for ongoing connection attempt
+    while (isConnecting && !dbInstance) {
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    if (dbInstance) {
       return dbInstance;
-    } catch (error) {
-      retryCount++;
-      console.error(`❌ Failed to initialize database (attempt ${retryCount}/${maxRetries}):`, error);
-      
-      if (retryCount >= maxRetries) {
-        console.error('❌ Database initialization failed after all retries');
-        throw error; // Re-throw the error to be caught by startup logic
-      }
-      
-      // Wait before retrying (exponential backoff)
-      const waitTime = Math.pow(2, retryCount) * 1000; // 2s, 4s, 8s
-      console.log(`⏳ Waiting ${waitTime}ms before retry...`);
-      await new Promise(resolve => setTimeout(resolve, waitTime));
     }
   }
-  
-  throw new Error('Database initialization failed after all retries');
+
+  isConnecting = true;
+
+  try {
+    // Get validated database URL
+    connectionString = environmentValidator.getDatabaseUrl();
+    
+    console.log('🗄️ [Database] Initializing Neon database connection...');
+    
+    let retryCount = 0;
+    let lastError: Error | null = null;
+
+    while (retryCount < CONNECTION_CONFIG.maxRetries) {
+      try {
+        // Create Neon SQL client
+        const sql = neon(connectionString);
+        
+        // Create Drizzle instance
+        dbInstance = drizzle(sql, { schema });
+        
+        // Test connection with timeout
+        const testPromise = sql`SELECT 1 as test, NOW() as timestamp`;
+        const timeoutPromise = new Promise((_, reject) => 
+          setTimeout(() => reject(new Error('Connection timeout')), CONNECTION_CONFIG.connectionTimeout)
+        );
+        
+        const result = await Promise.race([testPromise, timeoutPromise]);
+        
+        console.log('✅ [Database] Connection established successfully');
+        console.log(`🕒 [Database] Server time: ${(result as any)[0]?.timestamp}`);
+        
+        isConnecting = false;
+        return dbInstance;
+        
+      } catch (error) {
+        lastError = error instanceof Error ? error : new Error(String(error));
+        retryCount++;
+        
+        console.warn(`⚠️ [Database] Connection attempt ${retryCount}/${CONNECTION_CONFIG.maxRetries} failed:`, lastError.message);
+        
+        if (retryCount < CONNECTION_CONFIG.maxRetries) {
+          // Calculate retry delay with exponential backoff
+          const delay = Math.min(
+            CONNECTION_CONFIG.baseRetryDelay * Math.pow(2, retryCount - 1),
+            CONNECTION_CONFIG.maxRetryDelay
+          );
+          
+          console.log(`⏳ [Database] Retrying in ${delay}ms...`);
+          await new Promise(resolve => setTimeout(resolve, delay));
+        }
+      }
+    }
+
+    // All retries failed
+    isConnecting = false;
+    const errorMessage = `Database connection failed after ${CONNECTION_CONFIG.maxRetries} attempts. Last error: ${lastError?.message}`;
+    console.error('❌ [Database]', errorMessage);
+    
+    throw new Error(errorMessage);
+    
+  } catch (error) {
+    isConnecting = false;
+    
+    if (error instanceof Error) {
+      console.error('❌ [Database] Initialization error:', error.message);
+      throw error;
+    }
+    
+    const unknownError = new Error(`Database initialization failed: ${String(error)}`);
+    console.error('❌ [Database] Unknown error:', unknownError.message);
+    throw unknownError;
+  }
 }
 
-// Export a getter function for explicit initialization and access
+/**
+ * Get database instance with automatic initialization
+ */
 export async function getDb(): Promise<NeonHttpDatabase<typeof schema>> {
   return await initializeDatabase();
 }
 
-// For backwards compatibility and direct usage (e.g. in storage.ts if it expects a `db` export)
-// This proxy ensures initializeDatabase() is called on first access to any property of `db`.
-export const db: NeonHttpDatabase<typeof schema> = new Proxy({} as any, {
-  get(target, prop) {
-    const actualDb = initializeDatabase();
-    // Forward the property access to the actual db instance
-    // @ts-ignore
-    return actualDb[prop as keyof typeof actualDb];
+/**
+ * Test database connectivity
+ */
+export async function testConnection(): Promise<boolean> {
+  try {
+    const db = await getDb();
+    const sql = neon(connectionString!);
+    await sql`SELECT 1`;
+    return true;
+  } catch (error) {
+    console.error('❌ [Database] Connection test failed:', error);
+    return false;
   }
-});
+}
 
-// Export connection info for debugging (optional)
+/**
+ * Get database connection information for debugging
+ */
 export function getDatabaseInfo() {
   return {
-    hasConnectionString: !!connectionString,
-    connectionStringPrefix: connectionString?.substring(0, 20) + '...',
     isInitialized: !!dbInstance,
+    isConnecting,
+    hasConnectionString: !!connectionString,
+    connectionStringPrefix: connectionString ? 
+      `${connectionString.split('@')[0].split('://')[0]}://***@${connectionString.split('@')[1]?.substring(0, 20)}...` : 
+      'Not set',
+    config: CONNECTION_CONFIG,
   };
 }
+
+/**
+ * Reset database connection (useful for testing)
+ */
+export function resetConnection(): void {
+  console.log('🔄 [Database] Resetting connection...');
+  dbInstance = null;
+  connectionString = null;
+  isConnecting = false;
+}
+
+// For backwards compatibility - direct db export
+// Note: This will throw if used before initialization
+export const db = new Proxy({} as NeonHttpDatabase<typeof schema>, {
+  get(target, prop) {
+    if (!dbInstance) {
+      throw new Error('Database not initialized. Use getDb() for async initialization.');
+    }
+    return (dbInstance as any)[prop];
+  }
+});
