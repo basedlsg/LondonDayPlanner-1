@@ -191,7 +191,7 @@ export function findInterestingActivities(
   // Check for area matches first
   const possibleArea = nycAreas.find((a: NYCArea) => 
     a.name.toLowerCase().includes(currentLocation.toLowerCase()) ||
-    a.keywords.some(k => currentLocation.toLowerCase().includes(k))
+    a.characteristics.some(c => currentLocation.toLowerCase().includes(c))
   );
   
   const areaParam = possibleArea ? possibleArea.name : undefined;
@@ -265,7 +265,7 @@ export function findInterestingActivities(
         location: area.name,
         duration: Math.round(activityLength * 60), // Convert to minutes
         type: placeType,
-        description: `${area.description || 'Interesting area to explore'} Known for ${area.knownFor.join(', ')}.`
+        description: `Interesting area to explore in ${area.name}. Known for ${area.popularFor.join(', ')}.`
       });
     }
   }

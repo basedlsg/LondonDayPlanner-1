@@ -3,7 +3,6 @@ import { Pool, neonConfig } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-serverless';
 import ws from "ws";
 import * as schema from "@shared/schema";
-import { runMigrations } from './migrations/aiLogging';
 import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 
 neonConfig.webSocketConstructor = ws;
@@ -25,6 +24,7 @@ try {
     ssl: process.env.NODE_ENV === 'production'
   });
   db = drizzle(pool, { schema });
+  console.log('Database connection initialized successfully');
 } catch (error) {
   console.error("Failed to initialize database connection:", error);
   process.exit(1);
@@ -32,15 +32,3 @@ try {
 
 // Export the initialized variables
 export { pool, db };
-
-// Run migrations in an async IIFE
-(async () => {
-  try {
-    console.log('Running database migrations...');
-    await runMigrations(db);
-    console.log('Database migrations complete.');
-  } catch (error) {
-    console.error('Error running database migrations or connecting to database:', error);
-    process.exit(1);
-  }
-})();
