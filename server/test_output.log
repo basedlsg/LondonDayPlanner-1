@@ -1,0 +1,155 @@
+=== TESTING ALL INITIAL FIXES ===
+
+TEST 1: NLP TypeError Fix
+Testing NLP parsing with minimal query...
+Raw Claude API response: {"id":"msg_015EucvCAcWc6W5A8aiVVaNR","type":"message","role":"assistant","model":"claude-3-7-sonnet-20250219","content":[{"type":"text","text":"{\n  \"startLocation\": null,\n  \"destinations\": [\"Green Park\"],\n  \"fixedTimes\": [],\n  \"preferences\": {}\n}"}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":211,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":38}}
+Cleaned JSON content: {
+  "startLocation": null,
+  "destinations": ["Green Park"],
+  "fixedTimes": [],
+  "preferences": {}
+}
+Successfully parsed Claude response: {
+  startLocation: null,
+  destinations: [ 'Green Park' ],
+  fixedTimes: [],
+  preferences: {}
+}
+Parsed request: {
+  startLocation: 'Green Park',
+  destinations: [],
+  fixedTimes: [],
+  preferences: { type: undefined, requirements: [] }
+}
+✅ NLP parsing successful!
+Result: {
+  "startLocation": "Green Park",
+  "destinations": [],
+  "fixedTimes": [],
+  "preferences": {
+    "requirements": []
+  }
+}
+
+TEST 2: Location Normalization
+"Mayfair" → "Mayfair"
+"Green Park" → "Green Park"
+❌ Error: "Green Park" was incorrectly normalized to "Green Park"
+"Liverpool Street" → "Liverpool Street Station"
+"soho" → "soho"
+❌ Error: "soho" was incorrectly normalized to "soho"
+"  Camden  " → "Camden"
+
+TEST 3: Activity Type Classification
+"meeting" → undefined ✅
+"arrive" → undefined ✅
+"explore" → undefined ✅
+"walk" → undefined ✅
+"visit" → "not found" ❌
+"lunch" → "restaurant" ✅
+"dinner" → "restaurant" ✅
+"coffee" → "cafe" ✅
+"drinks" → "bar" ✅
+"shopping" → "shopping_mall" ✅
+✅ Activity type classification works correctly!
+
+TEST 4: Complete Request Processing
+Testing complete request: "I want to have lunch in Soho at 1pm, then attend a meeting in Mayfair at 3pm, and explore Green Park afterward"
+Raw Claude API response: {"id":"msg_01QPiK7JESGeXrR3oRCLdHbM","type":"message","role":"assistant","model":"claude-3-7-sonnet-20250219","content":[{"type":"text","text":"{\n  \"startLocation\": null,\n  \"destinations\": [\"Soho\", \"Mayfair\", \"Green Park\"],\n  \"fixedTimes\": [\n    {\"location\": \"Soho\", \"time\": \"13:00\", \"type\": \"lunch\"},\n    {\"location\": \"Mayfair\", \"time\": \"15:00\", \"type\": \"meeting\"},\n    {\"location\": \"Green Park\", \"time\": null, \"type\": \"explore\"}\n  ],\n  \"preferences\": {}\n}"}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":240,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":121}}
+Cleaned JSON content: {
+  "startLocation": null,
+  "destinations": ["Soho", "Mayfair", "Green Park"],
+  "fixedTimes": [
+    {"location": "Soho", "time": "13:00", "type": "lunch"},
+    {"location": "Mayfair", "time": "15:00", "type": "meeting"},
+    {"location": "Green Park", "time": null, "type": "explore"}
+  ],
+  "preferences": {}
+}
+Successfully parsed Claude response: {
+  startLocation: null,
+  destinations: [ 'Soho', 'Mayfair', 'Green Park' ],
+  fixedTimes: [
+    { location: 'Soho', time: '13:00', type: 'lunch' },
+    { location: 'Mayfair', time: '15:00', type: 'meeting' },
+    { location: 'Green Park', time: null, type: 'explore' }
+  ],
+  preferences: {}
+}
+Parsed request: {
+  startLocation: 'Fitzrovia',
+  destinations: [ 'Mayfair', 'Fitzrovia', 'Green Park' ],
+  fixedTimes: [
+    { location: 'Fitzrovia', time: '12:30', type: 'restaurant' },
+    { location: 'Fitzrovia', time: '13:00', type: 'lunch' },
+    { location: 'Mayfair', time: '15:00', type: 'meeting' },
+    { location: 'Green Park', time: '20:00', type: 'explore' }
+  ],
+  preferences: { type: undefined, requirements: [] }
+}
+✅ Request parsed successfully!
+Results: {
+  "startLocation": "Fitzrovia",
+  "destinations": [
+    "Mayfair",
+    "Fitzrovia",
+    "Green Park"
+  ],
+  "fixedTimes": [
+    {
+      "location": "Fitzrovia",
+      "time": "12:30",
+      "type": "restaurant"
+    },
+    {
+      "location": "Fitzrovia",
+      "time": "13:00",
+      "type": "lunch"
+    },
+    {
+      "location": "Mayfair",
+      "time": "15:00",
+      "type": "meeting"
+    },
+    {
+      "location": "Green Park",
+      "time": "20:00",
+      "type": "explore"
+    }
+  ],
+  "preferences": {
+    "requirements": []
+  }
+}
+❌ Locations not preserved correctly!
+❌ Times or activities not parsed correctly!
+
+TEST 5: Enhanced Activity Parsing
+
+Activity: "meeting with colleagues for coffee"
+- Type: meeting
+- Venue Type: cafe
+- Requirements: none
+
+Activity: "explore museums in London"
+- Type: explore
+- Venue Type: museum
+- Requirements: none
+
+Activity: "walk through the park"
+- Type: walk
+- Venue Type: park
+- Requirements: none
+
+Activity: "relax at a spa"
+- Type: relax
+- Venue Type: spa
+- Requirements: none
+
+Activity: "have dinner at a fancy restaurant"
+- Type: relax
+- Venue Type: none
+- Requirements: upscale
+
+=== TEST SUMMARY ===
+Check the results above to verify all three fixes are working correctly.

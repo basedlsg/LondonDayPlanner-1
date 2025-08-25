@@ -1,7 +1,13 @@
 import { PlaceDetails } from '@shared/schema';
 import { getApiKey, isFeatureEnabled } from '../config';
+import {
+  getGoogleWeatherForecast,
+  getGoogleWeatherAwareVenue,
+  convertGoogleWeatherToOpenWeatherFormat,
+  isGoogleWeatherSuitableForOutdoor
+} from './googleWeatherService';
 
-// API configuration
+// API configuration - keeping OpenWeatherMap as fallback
 const WEATHER_API_URL = 'https://api.openweathermap.org/data/2.5/forecast';
 
 // Set up a cache to avoid redundant API calls
@@ -26,56 +32,88 @@ function getCacheKey(lat: number, lng: number): string {
 
 /**
  * Fetch weather forecast for a location
+ * Uses Google Weather API as primary, falls back to OpenWeatherMap
  * Uses caching to reduce API calls
- * 
+ *
  * @param latitude Location latitude
  * @param longitude Location longitude
- * @returns Weather forecast data
+ * @returns Weather forecast data in OpenWeatherMap format for UI compatibility
  */
 export async function getWeatherForecast(latitude: number, longitude: number): Promise<any> {
   const cacheKey = getCacheKey(latitude, longitude);
   const cachedData = weatherCache.get(cacheKey);
-  
+
   // Return cached data if it exists and is recent
   if (cachedData && (Date.now() - cachedData.timestamp < CACHE_DURATION)) {
     console.log(`Using cached weather data for ${cacheKey}`);
     return cachedData.data;
   }
-  
+
   // No valid cache entry, fetch from API
   console.log(`Fetching weather data for ${cacheKey}`);
-  
+
   // Check if weather feature is enabled
-  if (!isFeatureEnabled("WEATHER_AWARENESS")) {
+  if (!isFeatureEnabled("WEATHER_AWARENESS") && !isFeatureEnabled("GOOGLE_WEATHER")) {
     throw new Error('Weather API feature is disabled - missing API key');
   }
-  
-  // Construct API URL with params
+
+  // Try Google Weather API first
+  if (isFeatureEnabled("GOOGLE_WEATHER")) {
+    try {
+      console.log("Trying Google Weather API...");
+      const googleWeatherData = await getGoogleWeatherForecast(latitude, longitude);
+
+      // Convert to OpenWeatherMap format for UI compatibility
+      const convertedData = convertGoogleWeatherToOpenWeatherFormat(googleWeatherData);
+
+      // Add location info to the converted data
+      if (convertedData) {
+        convertedData.city.coord.lat = latitude;
+        convertedData.city.coord.lon = longitude;
+        convertedData.city.name = `Location (${latitude.toFixed(2)}, ${longitude.toFixed(2)})`;
+      }
+
+      // Cache the result
+      weatherCache.set(cacheKey, {
+        data: convertedData,
+        timestamp: Date.now()
+      });
+
+      console.log("✅ Successfully fetched Google weather data");
+      return convertedData;
+    } catch (googleError) {
+      console.warn("Google Weather API failed, trying OpenWeatherMap:", googleError);
+    }
+  }
+
+  // Fallback to OpenWeatherMap
+  console.log("Falling back to OpenWeatherMap API...");
   const url = new URL(WEATHER_API_URL);
   url.searchParams.append('lat', latitude.toString());
   url.searchParams.append('lon', longitude.toString());
   url.searchParams.append('units', 'metric'); // Use Celsius
   url.searchParams.append('cnt', '24'); // 24 forecasts (3-hour intervals for 3 days)
-  url.searchParams.append('appid', getApiKey("WEATHER", true)); // Will throw if key missing
-  
+  url.searchParams.append('appid', getApiKey("WEATHER_API_KEY") || '');
+
   try {
     const response = await fetch(url.toString());
-    
+
     if (!response.ok) {
-      throw new Error(`Weather API error: ${response.status} ${response.statusText}`);
+      throw new Error(`OpenWeatherMap API error: ${response.status} ${response.statusText}`);
     }
-    
+
     const data = await response.json();
-    
+
     // Cache the result
     weatherCache.set(cacheKey, {
       data,
       timestamp: Date.now()
     });
-    
+
+    console.log("✅ Successfully fetched OpenWeatherMap data");
     return data;
   } catch (error) {
-    console.error('Error fetching weather data:', error);
+    console.error('Error fetching weather data from both services:', error);
     throw error;
   }
 }
@@ -119,24 +157,30 @@ export function isVenueOutdoor(types: string[]): boolean {
 
 /**
  * Check if the weather is suitable for outdoor activities at a given time
- * 
+ * Uses Google Weather API when available, falls back to OpenWeatherMap format
+ *
  * @param weatherData Weather forecast data
  * @param dateTime Date and time to check weather for
  * @returns boolean indicating if weather is suitable for outdoor activities
  */
 export function isWeatherSuitableForOutdoor(weatherData: any, dateTime: Date): boolean {
-  // Find the closest forecast to the given time
+  // Check if this is Google Weather API data (has forecasts array instead of list)
+  if (weatherData?.forecasts && Array.isArray(weatherData.forecasts)) {
+    return isGoogleWeatherSuitableForOutdoor(weatherData, dateTime);
+  }
+
+  // Handle OpenWeatherMap format
   const targetTimestamp = Math.floor(dateTime.getTime() / 1000);
-  
+
   if (!weatherData.list || !Array.isArray(weatherData.list)) {
     console.warn('No forecast data available');
     return true; // Default to true if no data
   }
-  
+
   // Find the closest forecast to the target time
   let closestForecast = weatherData.list[0];
   let minTimeDiff = Math.abs(targetTimestamp - closestForecast.dt);
-  
+
   for (const forecast of weatherData.list) {
     const timeDiff = Math.abs(targetTimestamp - forecast.dt);
     if (timeDiff < minTimeDiff) {
@@ -144,28 +188,29 @@ export function isWeatherSuitableForOutdoor(weatherData: any, dateTime: Date): b
       minTimeDiff = timeDiff;
     }
   }
-  
+
   // Define conditions that make outdoor activities less enjoyable
   const badWeatherConditions = [
     'Rain', 'Thunderstorm', 'Snow', 'Drizzle'
   ];
-  
+
   const weatherMain = closestForecast.weather[0].main;
   const temperature = closestForecast.main.temp;
-  
+
   // Check if weather conditions are unfavorable
   const isBadWeather = badWeatherConditions.includes(weatherMain);
   const isTooHot = temperature > 30; // Too hot (above 30°C)
   const isTooCold = temperature < 5;  // Too cold (below 5°C)
-  
+
   return !isBadWeather && !isTooHot && !isTooCold;
 }
 
 /**
  * Get a weather-aware venue recommendation
+ * Uses Google Weather API when available, falls back to OpenWeatherMap
  * If the original venue is outdoor and weather is bad, it will
  * try to provide an indoor alternative
- * 
+ *
  * @param place Original place
  * @param alternatives Alternative places
  * @param latitude Location latitude
@@ -182,30 +227,44 @@ export async function getWeatherAwareVenue(
   // Default to the original place if anything fails
   let bestVenue = place;
   let isWeatherSuitable = true;
-  
+
   try {
     // Skip weather check if there are no alternatives or weather feature is disabled
-    if (!alternatives || alternatives.length === 0 || !isFeatureEnabled("WEATHER_AWARENESS")) {
+    if (!alternatives || alternatives.length === 0 ||
+        (!isFeatureEnabled("WEATHER_AWARENESS") && !isFeatureEnabled("GOOGLE_WEATHER"))) {
       console.log("Skipping weather check - no alternatives or weather feature disabled");
       return { venue: place, weatherSuitable: true };
     }
-    
+
+    // Try Google Weather API first if available
+    if (isFeatureEnabled("GOOGLE_WEATHER")) {
+      try {
+        console.log("Using Google Weather API for venue recommendation");
+        return await getGoogleWeatherAwareVenue(place, alternatives, latitude, longitude, visitTime);
+      } catch (googleError) {
+        console.warn("Google Weather API failed for venue recommendation:", googleError);
+      }
+    }
+
+    // Fallback to original OpenWeatherMap-based logic
+    console.log("Using OpenWeatherMap for venue recommendation");
+
     // Check if original place is outdoors
     if (place.types && isVenueOutdoor(place.types)) {
       // Try to fetch weather data
       try {
         const weatherData = await getWeatherForecast(latitude, longitude);
-        
+
         // Check if weather is suitable for outdoor activities
         isWeatherSuitable = isWeatherSuitableForOutdoor(weatherData, visitTime);
-        
+
         // If weather is bad for outdoor activities, recommend an indoor alternative
         if (!isWeatherSuitable) {
           // Find indoor alternatives
-          const indoorAlternatives = alternatives.filter(alt => 
+          const indoorAlternatives = alternatives.filter(alt =>
             alt.types && !isVenueOutdoor(alt.types)
           );
-          
+
           // Use the first indoor alternative if available
           if (indoorAlternatives.length > 0) {
             bestVenue = indoorAlternatives[0];
@@ -220,13 +279,13 @@ export async function getWeatherAwareVenue(
         // If we can't get weather data, use a simple fallback based on venue type
         console.warn("Could not fetch weather data:", weatherError);
         console.log("Using fallback venue selection based on venue types only");
-        
+
         // Even without weather data, we can provide an indoor alternative
         // Just to give options if the primary venue is outdoor
-        const indoorAlternatives = alternatives.filter(alt => 
+        const indoorAlternatives = alternatives.filter(alt =>
           alt.types && !isVenueOutdoor(alt.types)
         );
-        
+
         if (indoorAlternatives.length > 0) {
           // We don't switch automatically without weather data
           // But provide the information for the client to display
@@ -237,7 +296,7 @@ export async function getWeatherAwareVenue(
       // Primary venue is already indoor, no need for weather check
       console.log(`Primary venue is indoor: ${place.name}`);
     }
-    
+
     return { venue: bestVenue, weatherSuitable: isWeatherSuitable };
   } catch (error) {
     console.error('Error in weather-aware venue selection:', error);

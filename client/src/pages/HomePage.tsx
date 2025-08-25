@@ -11,6 +11,7 @@ interface PlanFormData {
   date: string;
   time: string;
   plans: string;
+  weatherAware?: boolean;
 }
 
 interface Venue {

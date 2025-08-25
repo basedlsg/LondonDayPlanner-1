@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'wouter';
 import { AuthProvider } from './hooks/useAuth';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
-import TopNav from './components/TopNav';
+// import TopNav from './components/TopNav'; // Temporarily commented out
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -14,7 +14,7 @@ function App() {
   return (
     <AuthProvider>
       <div className="min-h-screen flex flex-col">
-        <TopNav />
+        {/* <TopNav /> */} {/* Temporarily commented out */}
         <main className="flex-1">
           <Switch>
             <Route path="/login" component={LoginPage} />

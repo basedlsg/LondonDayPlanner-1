@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Logo from './Logo';
+import { Cloud, CloudOff } from 'lucide-react';
 
 interface InputScreenProps {
-  onSubmit: (data: { date: string; time: string; plans: string }) => void;
+  onSubmit: (data: { date: string; time: string; plans: string; weatherAware?: boolean }) => void;
   isLoading?: boolean;
 }
 
@@ -11,6 +12,7 @@ const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading }) => {
   const [date, setDate] = useState(formatDateForInput(new Date()));
   const [time, setTime] = useState(formatTimeForInput(new Date()));
   const [plans, setPlans] = useState('');
+  const [weatherAware, setWeatherAware] = useState(true); // Default to enabled
 
   // Format date for date input (YYYY-MM-DD)
   function formatDateForInput(date: Date): string {
@@ -36,7 +38,7 @@ const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit({ date, time, plans });
+    onSubmit({ date, time, plans, weatherAware });
   };
 
   // Mobile-first design based on the mockup
@@ -46,7 +48,7 @@ const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading }) => {
     }}>
       <div className="w-full max-w-md px-4 py-6 flex flex-col items-center">
         {/* Logo */}
-        <div className="mb-8 mt-4">
+        <div className="mb-8 mt-0">
           <Logo className="w-full" style={{ transform: 'scale(1.5)' }} />
         </div>
         
@@ -132,6 +134,54 @@ const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading }) => {
               placeholder="e.g. 12pm lunch in Mayfair, then grab a coffee and have a walk"
               required
             />
+          </div>
+
+          {/* Weather Awareness Toggle */}
+          <div className="mb-6">
+            <button
+              type="button"
+              onClick={() => setWeatherAware(!weatherAware)}
+              className="w-full py-4 px-5 rounded-2xl flex items-center justify-between transition-all duration-200"
+              style={{
+                background: weatherAware
+                  ? 'linear-gradient(135deg, #17B9E6 0%, #1D8BC4 100%)'
+                  : 'linear-gradient(135deg, #F3F4F6 0%, #E5E7EB 100%)',
+                color: weatherAware ? 'white' : '#6B7280',
+                border: weatherAware ? 'none' : '2px solid #E5E7EB',
+                fontWeight: 600,
+                fontSize: '1rem',
+              }}
+            >
+              <div className="flex items-center gap-3">
+                {weatherAware ? (
+                  <Cloud className="h-5 w-5" />
+                ) : (
+                  <CloudOff className="h-5 w-5" />
+                )}
+                <div className="text-left">
+                  <div className="font-bold text-lg">
+                    {weatherAware ? 'Weather Aware' : 'Weather Off'}
+                  </div>
+                  <div className="text-sm opacity-80">
+                    {weatherAware
+                      ? 'Get weather-smart venue recommendations'
+                      : 'Use standard venue recommendations'
+                    }
+                  </div>
+                </div>
+              </div>
+              <div
+                className="w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-200"
+                style={{
+                  borderColor: weatherAware ? 'white' : '#D1D5DB',
+                  backgroundColor: weatherAware ? 'white' : 'transparent',
+                }}
+              >
+                {weatherAware && (
+                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#17B9E6' }} />
+                )}
+              </div>
+            </button>
           </div>
 
           {/* Submit Button */}

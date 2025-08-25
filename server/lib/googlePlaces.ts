@@ -3,7 +3,7 @@ import { normalizeLocationName, verifyPlaceMatch, suggestSimilarLocations } from
 import { nycAreas, findAreasByCharacteristics } from "../data/new-york-areas";
 
 const GOOGLE_PLACES_API_KEY = process.env.GOOGLE_PLACES_API_KEY;
-const PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";
+const PLACES_API_BASE = "https://places.googleapis.com";
 const MAX_ALTERNATIVES = 3; // Maximum number of alternative venues to return
 
 interface SearchOptions {
@@ -31,22 +31,87 @@ function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: numbe
   return Math.round(distance * 1000) / 1000; // Round to 3 decimal places
 }
 
+// Helper function to convert new Places API format to legacy format
+function convertNewPlaceToLegacy(newPlaceData: any): any {
+  return {
+    name: newPlaceData.displayName?.text || '',
+    formatted_address: newPlaceData.formattedAddress || '',
+    geometry: {
+      location: {
+        lat: newPlaceData.location?.latitude || 0,
+        lng: newPlaceData.location?.longitude || 0
+      }
+    },
+    opening_hours: newPlaceData.regularOpeningHours ? {
+      open_now: true, // Simplified - would need more logic for actual status
+      periods: newPlaceData.regularOpeningHours.periods || []
+    } : undefined,
+    business_status: newPlaceData.businessStatus || 'OPERATIONAL',
+    rating: newPlaceData.rating || 0,
+    price_level: newPlaceData.priceLevel || 0,
+    types: newPlaceData.types || [],
+    reviews: newPlaceData.reviews || []
+  };
+}
+
+// Helper function to convert new search results to legacy format
+function convertNewSearchResultsToLegacy(searchResponse: any): any {
+  if (!searchResponse.places || !Array.isArray(searchResponse.places)) {
+    return { results: [], status: "ZERO_RESULTS" };
+  }
+
+  const results = searchResponse.places.map((place: any) => ({
+    place_id: place.id || '',
+    name: place.displayName?.text || '',
+    formatted_address: place.formattedAddress || '',
+    geometry: {
+      location: {
+        lat: place.location?.latitude || 0,
+        lng: place.location?.longitude || 0
+      }
+    },
+    opening_hours: place.regularOpeningHours ? {
+      open_now: true,
+      periods: place.regularOpeningHours.periods || []
+    } : undefined,
+    business_status: place.businessStatus || 'OPERATIONAL',
+    rating: place.rating || 0,
+    price_level: place.priceLevel || 0,
+    types: place.types || [],
+    photos: place.photos || []
+  }));
+
+  return {
+    results,
+    status: results.length > 0 ? "OK" : "ZERO_RESULTS"
+  };
+}
+
 // Helper function to fetch place details
 async function fetchPlaceDetails(placeId: string, includeReviews: boolean = false): Promise<any> {
   // Add reviews field if requested
-  const fields = includeReviews 
-    ? "name,formatted_address,geometry,opening_hours,business_status,rating,price_level,types,reviews" 
-    : "name,formatted_address,geometry,opening_hours,business_status,rating,price_level,types";
-  
-  const detailsUrl = `${PLACES_API_BASE}/details/json?place_id=${placeId}&fields=${fields}&key=${GOOGLE_PLACES_API_KEY}`;
-  const detailsRes = await fetch(detailsUrl);
+  const fields = includeReviews
+    ? "displayName,formattedAddress,location,regularOpeningHours,businessStatus,rating,priceLevel,types,reviews"
+    : "displayName,formattedAddress,location,regularOpeningHours,businessStatus,rating,priceLevel,types";
+
+  const detailsUrl = `${PLACES_API_BASE}/v1/places/${placeId}?key=${GOOGLE_PLACES_API_KEY}`;
+
+  const detailsRes = await fetch(detailsUrl, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Goog-FieldMask': fields
+    }
+  });
+
   const detailsData = await detailsRes.json();
-  
-  if (detailsData.status !== "OK") {
+
+  if (!detailsData.displayName) {
     throw new Error(`Error fetching details for place ${placeId}.`);
   }
-  
-  return detailsData.result;
+
+  // Convert new API format to legacy format for compatibility
+  return convertNewPlaceToLegacy(detailsData);
 }
 
 /**
@@ -158,20 +223,32 @@ export async function searchPlace(
     if (options.type && options.type !== "landmark") {
       console.log(`Searching for ${options.type} near ${searchQuery} (using searchType: ${searchType}, searchKeyword: ${searchKeyword})`);
 
-      // First find the landmark
-      const landmarkParams = new URLSearchParams({
-        query: searchQuery,
-        region: "us",
-        key: GOOGLE_PLACES_API_KEY || "",
-        language: "en",
-        radius: "5000"
+      // First find the landmark using new Places API
+      const landmarkRequestBody = {
+        textQuery: searchQuery,
+        locationBias: {
+          rectangle: {
+            low: { latitude: 40.4774, longitude: -74.2591 },
+            high: { latitude: 40.9176, longitude: -73.7004 }
+          }
+        },
+        languageCode: "en",
+        maxResultCount: 1
+      };
+
+      const landmarkUrl = `${PLACES_API_BASE}/v1/places:searchText?key=${GOOGLE_PLACES_API_KEY}`;
+      const landmarkRes = await fetch(landmarkUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Goog-FieldMask': 'places.displayName,places.formattedAddress,places.location,places.rating,places.priceLevel,places.types,places.businessStatus,places.regularOpeningHours,places.id'
+        },
+        body: JSON.stringify(landmarkRequestBody)
       });
-
-      const landmarkUrl = `${PLACES_API_BASE}/textsearch/json?${landmarkParams.toString()}`;
-      const landmarkRes = await fetch(landmarkUrl);
       const landmarkData = await landmarkRes.json();
+      const convertedLandmarkData = convertNewSearchResultsToLegacy(landmarkData);
 
-      if (landmarkData.status !== "OK" || !landmarkData.results?.length) {
+      if (convertedLandmarkData.status !== "OK" || !convertedLandmarkData.results?.length) {
         const suggestions = suggestSimilarLocations(query);
         throw new Error(
           `Could not find "${query}"${suggestions.length ? `. Did you mean: ${suggestions.join(", ")}?` : ""}. ` +
@@ -180,74 +257,62 @@ export async function searchPlace(
       }
 
       // Get the landmark's location
-      const landmark = landmarkData.results[0];
+      const landmark = convertedLandmarkData.results[0];
       const { lat, lng } = landmark.geometry.location;
 
-      // Now search for the activity type near this landmark
-      const nearbyParams = new URLSearchParams({
-        location: `${lat},${lng}`,
-        radius: "2000", // 2km radius
-        key: GOOGLE_PLACES_API_KEY || "",
-        language: "en"
+      // Now search for the activity type near this landmark using new Places API
+      // Use a combined text query that includes both the activity type and location
+      const combinedQuery = searchKeyword
+        ? `${searchKeyword} near ${searchQuery}`
+        : `${options.type || query} near ${searchQuery}`;
+
+      const nearbyRequestBody = {
+        textQuery: combinedQuery,
+        languageCode: "en",
+        maxResultCount: 20, // Get more results to filter
+      };
+
+      const nearbyUrl = `${PLACES_API_BASE}/v1/places:searchText?key=${GOOGLE_PLACES_API_KEY}`;
+      const nearbyRes = await fetch(nearbyUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Goog-FieldMask': 'places.displayName,places.formattedAddress,places.location,places.rating,places.priceLevel,places.types,places.businessStatus,places.regularOpeningHours,places.id'
+        },
+        body: JSON.stringify(nearbyRequestBody)
       });
-
-      // Add proper search parameters
-      if (searchType && searchType !== "landmark") {
-        nearbyParams.append("type", searchType);
-      } else if (options.type && options.type !== "landmark") {
-        // Fallback to original type if no improved searchType was extracted
-        nearbyParams.append("type", options.type);
-      }
-      
-      // Add keyword for better results
-      if (searchKeyword) {
-        nearbyParams.append("keyword", searchKeyword);
-      }
-      
-      // Use the enhanced keywords list if available
-      if (keywordsList.length > 0) {
-        const combinedKeywords = keywordsList.join(' ');
-        // If we already have a keyword, add the additional keywords with a space
-        if (searchKeyword) {
-          nearbyParams.set("keyword", `${searchKeyword} ${combinedKeywords}`);
-        } else {
-          nearbyParams.append("keyword", combinedKeywords);
-        }
-      }
-
-      // Handle OpenNow parameter - prefer the enhanced requireOpenNow if available
-      if (options.requireOpenNow || options.openNow) {
-        nearbyParams.append("opennow", "true");
-      }
-      
-      // Use the enhanced minRating parameter if available
-      if (options.minRating) {
-        nearbyParams.append("minRating", options.minRating.toString());
-      }
-
-      const nearbyUrl = `${PLACES_API_BASE}/nearbysearch/json?${nearbyParams.toString()}`;
-      const nearbyRes = await fetch(nearbyUrl);
       const nearbyData = await nearbyRes.json();
+      const convertedNearbyData = convertNewSearchResultsToLegacy(nearbyData);
 
-      if (nearbyData.status !== "OK" || !nearbyData.results?.length) {
+      if (convertedNearbyData.status !== "OK" || !convertedNearbyData.results?.length) {
         console.log(`No results found for ${options.type} near ${normalizedLocation}. Trying a more generic search...`);
         
         // Try a more generic search without the type restriction
-        const fallbackParams = new URLSearchParams({
-          location: `${lat},${lng}`,
-          radius: "2000", // 2km radius
-          keyword: searchKeyword || query,
-          key: GOOGLE_PLACES_API_KEY || "",
-          language: "en"
+        const fallbackQuery = searchKeyword
+          ? `${searchKeyword} near ${searchQuery}`
+          : `${query} near ${searchQuery}`;
+
+        const fallbackRequestBody = {
+          textQuery: fallbackQuery,
+          languageCode: "en",
+          maxResultCount: 20,
+        };
+
+        const fallbackUrl = `${PLACES_API_BASE}/v1/places:searchText?key=${GOOGLE_PLACES_API_KEY}`;
+        const fallbackRes = await fetch(fallbackUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Goog-FieldMask': 'places.displayName,places.formattedAddress,places.location,places.rating,places.priceLevel,places.types,places.businessStatus,places.regularOpeningHours,places.id'
+          },
+          body: JSON.stringify(fallbackRequestBody)
         });
-        
-        const fallbackUrl = `${PLACES_API_BASE}/nearbysearch/json?${fallbackParams.toString()}`;
-        const fallbackRes = await fetch(fallbackUrl);
         const fallbackData = await fallbackRes.json();
-        
-        if (fallbackData.status === "OK" && fallbackData.results?.length > 0) {
-          console.log(`Fallback search successful, found ${fallbackData.results.length} results`);
-          nearbyData.results = fallbackData.results;
+        const convertedFallbackData = convertNewSearchResultsToLegacy(fallbackData);
+
+        if (convertedFallbackData.status === "OK" && convertedFallbackData.results?.length > 0) {
+          console.log(`Fallback search successful, found ${convertedFallbackData.results.length} results`);
+          Object.assign(convertedNearbyData, convertedFallbackData);
         } else {
           // If we still couldn't find anything, throw an error
           throw new Error(`No ${options.type || 'venues'} found near ${normalizedLocation}. Try a different location or activity type.`);
@@ -255,7 +320,7 @@ export async function searchPlace(
       }
 
       // Filter results by rating if specified
-      let results = [...nearbyData.results];
+      let results = [...convertedNearbyData.results];
       if (options.minRating !== undefined) {
         const minRating = options.minRating; // Store in a constant to avoid the "possibly undefined" error
         const qualifiedResults = results.filter(
@@ -485,20 +550,33 @@ export async function searchPlace(
       };
 
     } else {
-      // Regular landmark search
-      const params = new URLSearchParams({
-        query: searchQuery,
-        region: "us",
-        key: GOOGLE_PLACES_API_KEY || "",
-        language: "en",
-        radius: "50000" // 50km radius from London center
+      // Regular landmark search using new Places API
+      const searchRequestBody = {
+        textQuery: searchQuery,
+        locationBias: {
+          rectangle: {
+            low: { latitude: 40.4774, longitude: -74.2591 },
+            high: { latitude: 40.9176, longitude: -73.7004 }
+          }
+        },
+        languageCode: "en",
+        maxResultCount: 1 + MAX_ALTERNATIVES,
+
+      };
+
+      const searchUrl = `${PLACES_API_BASE}/v1/places:searchText?key=${GOOGLE_PLACES_API_KEY}`;
+      const searchRes = await fetch(searchUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Goog-FieldMask': 'places.displayName,places.formattedAddress,places.location,places.rating,places.priceLevel,places.types,places.businessStatus,places.regularOpeningHours,places.id'
+        },
+        body: JSON.stringify(searchRequestBody)
       });
-
-      const searchUrl = `${PLACES_API_BASE}/textsearch/json?${params.toString()}`;
-      const searchRes = await fetch(searchUrl);
       const searchData = await searchRes.json();
+      const convertedSearchData = convertNewSearchResultsToLegacy(searchData);
 
-      if (searchData.status !== "OK" || !searchData.results?.length) {
+      if (convertedSearchData.status !== "OK" || !convertedSearchData.results?.length) {
         const suggestions = suggestSimilarLocations(query);
         throw new Error(
           `Could not find "${query}"${suggestions.length ? `. Did you mean: ${suggestions.join(", ")}?` : ""}. ` +
@@ -507,7 +585,7 @@ export async function searchPlace(
       }
 
       // Get up to MAX_ALTERNATIVES + 1 results, but handle cases where there are few or no similar alternatives
-      const results = searchData.results.slice(0, 1 + MAX_ALTERNATIVES);
+      const results = convertedSearchData.results.slice(0, 1 + MAX_ALTERNATIVES);
       // There should always be at least one result if we reach here
       const primaryResult = results[0];
       

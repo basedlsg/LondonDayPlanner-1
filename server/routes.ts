@@ -293,10 +293,11 @@ export async function registerRoutes(app: Express) {
       const requestSchema = z.object({
         query: z.string(),
         date: z.string().optional(),
-        startTime: z.string().optional()
+        startTime: z.string().optional(),
+        weatherAware: z.boolean().optional().default(true)
       });
 
-      const { query, date, startTime } = requestSchema.parse(req.body);
+      const { query, date, startTime, weatherAware } = requestSchema.parse(req.body);
 
       // Parse the request using NLP
       const parsed = await parseItineraryRequest(query);
@@ -352,8 +353,8 @@ export async function registerRoutes(app: Express) {
             // Use the primary venue from the result
             let lunchPlace = venueResult.primary;
 
-            // Apply weather-aware venue selection for lunch
-            if (process.env.WEATHER_API_KEY && lunchPlace.types) {
+            // Apply weather-aware venue selection for lunch (only if weather aware is enabled)
+            if (weatherAware && process.env.WEATHER_API_KEY && lunchPlace.types) {
               try {
                 const lunchTime = parseTimeString('14:00', baseDate);
                 console.log("Checking weather conditions for lunch venue...");

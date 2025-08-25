@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
@@ -5,6 +6,14 @@ import session from 'express-session';
 import MemoryStore from 'memorystore';
 import authRoutes from './routes/auth';
 import configRoutes from './routes/config';
+
+// Load environment variables
+dotenv.config();
+
+// Debug: Check environment variables
+console.log('Environment variables loaded:');
+console.log('DATABASE_URL:', process.env.DATABASE_URL ? 'Found' : 'NOT FOUND');
+console.log('SESSION_SECRET:', process.env.SESSION_SECRET ? 'Found' : 'NOT FOUND');
 
 // Import config module
 import './config';
@@ -98,9 +107,9 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // ALWAYS serve the app on port 5000
+  // Serve the app on port 3000 (port 5000 is occupied by Adobe Creative Cloud)
   // this serves both the API and the client
-  const port = 5000;
+  const port = 3000;
   server.listen({
     port,
     host: "0.0.0.0",

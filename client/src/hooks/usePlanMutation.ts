@@ -7,6 +7,7 @@ interface PlanFormData {
   date: string;
   time: string;
   plans: string;
+  weatherAware?: boolean;
 }
 
 export function usePlanMutation() {
@@ -18,7 +19,8 @@ export function usePlanMutation() {
       const apiData = {
         date: data.date,
         startTime: data.time,
-        query: data.plans
+        query: data.plans,
+        weatherAware: data.weatherAware ?? true // Default to true if not specified
       };
       
       console.log("Sending API request:", apiData);

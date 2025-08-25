@@ -11,7 +11,8 @@ import { z } from "zod";
 const apiKeySchemas = {
   GEMINI_API_KEY: z.string().min(1),  // Always accept key if present, validation patterns will be checked later
   GOOGLE_PLACES_API_KEY: z.string().min(1),  // Always accept key if present, validation patterns will be checked later
-  WEATHER_API_KEY: z.string().optional(),
+  WEATHER_API_KEY: z.string().optional(),  // OpenWeatherMap API key (legacy)
+  GOOGLE_WEATHER_API_KEY: z.string().optional(),  // Google Weather API key
   GOOGLE_CLIENT_ID: z.string().optional()  // OAuth Client ID for Google authentication
 };
 
@@ -38,9 +39,15 @@ const featureFlags = {
   },
   WEATHER_AWARE: {
     enabled: true,
-    required: ["WEATHER_API_KEY"],
+    required: ["WEATHER_API_KEY", "GOOGLE_WEATHER_API_KEY"],  // Support both APIs
     fallback: false,
     description: "Use weather data to adjust recommendations"
+  },
+  GOOGLE_WEATHER: {
+    enabled: true,
+    required: ["GOOGLE_WEATHER_API_KEY"],
+    fallback: false,
+    description: "Use Google Weather API for weather-aware planning"
   },
   PLACES_API: {
     enabled: true,
@@ -55,7 +62,8 @@ const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   GEMINI_API_KEY: z.string().optional(),
   GOOGLE_PLACES_API_KEY: z.string().optional(),
-  WEATHER_API_KEY: z.string().optional(),
+  WEATHER_API_KEY: z.string().optional(),  // OpenWeatherMap API key (legacy)
+  GOOGLE_WEATHER_API_KEY: z.string().optional(),  // Google Weather API key
   GOOGLE_CLIENT_ID: z.string().optional(),
   LOG_LEVEL: z.enum(['error', 'warn', 'info', 'debug']).default('info'),
   FEATURE_FLAGS: z.record(z.boolean()).optional(),
@@ -194,6 +202,7 @@ class Config {
     this.apiKeys["GEMINI_API_KEY"] = process.env.GEMINI_API_KEY;
     this.apiKeys["GOOGLE_PLACES_API_KEY"] = process.env.GOOGLE_PLACES_API_KEY;
     this.apiKeys["WEATHER_API_KEY"] = process.env.WEATHER_API_KEY;
+    this.apiKeys["GOOGLE_WEATHER_API_KEY"] = process.env.GOOGLE_WEATHER_API_KEY;
     this.apiKeys["GOOGLE_CLIENT_ID"] = process.env.GOOGLE_CLIENT_ID;
     
     // Debug log the API keys without revealing their values
