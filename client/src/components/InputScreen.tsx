@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Logo from './Logo';
 import { Cloud, CloudOff } from 'lucide-react';
+import { City } from '@/data/cities';
 
 interface InputScreenProps {
   onSubmit: (data: { date: string; time: string; plans: string; weatherAware?: boolean }) => void;
   isLoading?: boolean;
+  selectedCity: City;
 }
 
-const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading }) => {
+const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading, selectedCity }) => {
   // Initialize with current date and time
   const [date, setDate] = useState(formatDateForInput(new Date()));
   const [time, setTime] = useState(formatTimeForInput(new Date()));

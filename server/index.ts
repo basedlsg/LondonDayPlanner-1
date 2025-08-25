@@ -107,9 +107,9 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // Serve the app on port 3000 (port 5000 is occupied by Adobe Creative Cloud)
+  // Serve the app on the port specified by the PORT environment variable, or 8080 for local development
   // this serves both the API and the client
-  const port = 3000;
+  const port = process.env.PORT || 8080;
   server.listen({
     port,
     host: "0.0.0.0",

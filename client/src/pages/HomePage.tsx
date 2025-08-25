@@ -6,12 +6,14 @@ import { exportToCalendar } from '../lib/calendar';
 import { useAuth } from '../hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { useLocation } from 'wouter';
+import { City } from '@/data/cities';
 
 interface PlanFormData {
   date: string;
   time: string;
   plans: string;
   weatherAware?: boolean;
+  city: string;
 }
 
 interface Venue {
@@ -32,7 +34,11 @@ interface ItineraryData {
   travelInfo: TravelInfo[];
 }
 
-export default function HomePage() {
+interface HomePageProps {
+  selectedCity: City;
+}
+
+export default function HomePage({ selectedCity }: HomePageProps) {
   const [itineraryData, setItineraryData] = useState<ItineraryData | null>(null);
   const planMutation = usePlanMutation();
   const { user, logout } = useAuth();
@@ -43,10 +49,11 @@ export default function HomePage() {
     console.log("HomePage itineraryData state:", itineraryData);
   }, [itineraryData]);
 
-  const handlePlanSubmit = async (formData: PlanFormData) => {
+  const handlePlanSubmit = async (formData: Omit<PlanFormData, 'city'>) => {
     try {
-      console.log("Submitting plan:", formData);
-      const result = await planMutation.mutateAsync(formData);
+      const dataWithCity = { ...formData, city: selectedCity.name };
+      console.log("Submitting plan:", dataWithCity);
+      const result = await planMutation.mutateAsync(dataWithCity);
       console.log("Plan creation result:", result);
       setItineraryData(result);
 
@@ -84,9 +91,10 @@ export default function HomePage() {
 
           {/* Input Section */}
           <section className="py-4">
-            <InputScreen 
+            <InputScreen
               onSubmit={handlePlanSubmit}
               isLoading={planMutation.isPending}
+              selectedCity={selectedCity}
             />
           </section>
 

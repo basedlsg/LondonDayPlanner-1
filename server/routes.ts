@@ -294,13 +294,14 @@ export async function registerRoutes(app: Express) {
         query: z.string(),
         date: z.string().optional(),
         startTime: z.string().optional(),
-        weatherAware: z.boolean().optional().default(true)
+        weatherAware: z.boolean().optional().default(true),
+        city: z.string().optional().default('New York')
       });
 
-      const { query, date, startTime, weatherAware } = requestSchema.parse(req.body);
+      const { query, date, startTime, weatherAware, city } = requestSchema.parse(req.body);
 
       // Parse the request using NLP
-      const parsed = await parseItineraryRequest(query);
+      const parsed = await parseItineraryRequest(query, city);
       console.log("Parsed request:", parsed);
       
       // Flag to control automatic gap-filling (set to false to only use explicitly requested activities)
