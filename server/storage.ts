@@ -537,5 +537,5 @@ export class DbStorageWithLogging extends DbStorage {
   }
 }
 
-// Use the database storage implementation
-export const storage = new DbStorageWithLogging();
+// Use in-memory storage implementation for development
+export const storage = new MemStorage();
