@@ -52,28 +52,15 @@ if [ -z "$ACCESS_TOKEN" ]; then
   exit 1
 fi
 
-# Ensure site exists
-say_ok "Checking/creating Hosting site: $SITE_ID"
-SITE_LIST=$(curl -s -H "Authorization: Bearer $ACCESS_TOKEN" \
-  "https://firebasehosting.googleapis.com/v1beta1/projects/$PROJECT_ID/sites")
-
-if ! echo "$SITE_LIST" | grep -q "$SITE_ID"; then
-  CREATE_SITE=$(curl -s -X POST -H "Authorization: Bearer $ACCESS_TOKEN" \
-    -H "Content-Type: application/json" \
-    -d "{\"siteId\":\"$SITE_ID\"}" \
-    "https://firebasehosting.googleapis.com/v1beta1/projects/$PROJECT_ID/sites")
-  echo "$CREATE_SITE" | grep -q '"name"' || { say_err "Failed to create site: $CREATE_SITE"; exit 1; }
-  say_ok "Site created"
-else
-  say_ok "Site exists"
-fi
+say_ok "Assuming Hosting site exists: $SITE_ID (skipping site check)"
 
 # Create new version
 say_ok "Creating version"
-VERSION_JSON=$(curl -s -X POST -H "Authorization: Bearer $ACCESS_TOKEN" \
+VERSION_JSON=$(curl -sS --connect-timeout 15 --max-time 120 --retry 3 --retry-all-errors \
+  -X POST -H "Authorization: Bearer $ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"status":"CREATED"}' \
-  "https://firebasehosting.googleapis.com/v1beta1/sites/$SITE_ID/versions")
+  "https://firebasehosting.googleapis.com/v1/sites/$SITE_ID/versions")
 
 VERSION_NAME=$(node -e "const r=JSON.parse(process.argv[1]);if(!r.name)process.exit(2);console.log(r.name)" "$VERSION_JSON") || { say_err "Failed to parse version: $VERSION_JSON"; exit 1; }
 VERSION_ID=${VERSION_NAME##*/}
@@ -107,10 +94,11 @@ NODE
 export MANIFEST="$TMP_MANIFEST"
 
 say_ok "Populate files"
-POPULATE_JSON=$(curl -s -X POST -H "Authorization: Bearer $ACCESS_TOKEN" \
+POPULATE_JSON=$(curl -sS --connect-timeout 15 --max-time 300 --retry 3 --retry-all-errors \
+  -X POST -H "Authorization: Bearer $ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d "$POPULATE_REQ" \
-  "https://firebasehosting.googleapis.com/v1beta1/sites/$SITE_ID/versions/$VERSION_ID:populateFiles")
+  "https://firebasehosting.googleapis.com/v1/sites/$SITE_ID/versions/$VERSION_ID:populateFiles")
 
 # Parse uploadUrl and uploadRequiredHashes
 UPLOAD_URL=$(node -e "const r=JSON.parse(process.argv[1]);if(!r.uploadUrl)process.exit(2);console.log(r.uploadUrl)" "$POPULATE_JSON") || { say_err "Failed to parse populateFiles: $POPULATE_JSON"; exit 1; }
@@ -142,7 +130,7 @@ while IFS= read -r h; do
     continue
   fi
   echo "   Uploading: $f"
-  curl -s -X PUT -H "Content-Type: application/octet-stream" \
+  curl -sS --connect-timeout 15 --max-time 300 --retry 3 --retry-all-errors -X PUT -H "Content-Type: application/octet-stream" \
     --data-binary "@$f" \
     "$UPLOAD_URL/$h" >/dev/null
   UPLOADED=$((UPLOADED+1))
@@ -152,20 +140,21 @@ say_ok "Uploaded $UPLOADED blobs"
 
 # Finalize version
 say_ok "Finalizing version"
-FINALIZE=$(curl -s -X PATCH -H "Authorization: Bearer $ACCESS_TOKEN" \
+FINALIZE=$(curl -sS --connect-timeout 15 --max-time 120 --retry 3 --retry-all-errors \
+  -X PATCH -H "Authorization: Bearer $ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"status":"FINALIZED"}' \
-  "https://firebasehosting.googleapis.com/v1beta1/sites/$SITE_ID/versions/$VERSION_ID")
+  "https://firebasehosting.googleapis.com/v1/sites/$SITE_ID/versions/$VERSION_ID")
 echo "$FINALIZE" | grep -q '"status": "FINALIZED"' || say_warn "Finalize response: $FINALIZE"
 
 # Release version
 say_ok "Releasing version"
-RELEASE=$(curl -s -X POST -H "Authorization: Bearer $ACCESS_TOKEN" \
+RELEASE=$(curl -sS --connect-timeout 15 --max-time 120 --retry 3 --retry-all-errors \
+  -X POST -H "Authorization: Bearer $ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d "{\"versionName\":\"sites/$SITE_ID/versions/$VERSION_ID\"}" \
-  "https://firebasehosting.googleapis.com/v1beta1/sites/$SITE_ID/releases")
+  "https://firebasehosting.googleapis.com/v1/sites/$SITE_ID/releases")
 echo "$RELEASE" | grep -q '"type": "DEPLOY"' || say_warn "Release response: $RELEASE"
 
 say_ok "Deployment complete"
 echo "🌐 https://$SITE_ID.web.app"
-
