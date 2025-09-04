@@ -6,7 +6,7 @@ This runbook provides the steps to resolve the "Failed to get Firebase project" 
 
 1.  **Navigate to the Service Accounts page in Google Cloud Console:**
     *   Open the [Service Accounts page](https://console.cloud.google.com/iam-admin/serviceaccounts).
-    *   Ensure you have selected the correct project (`plannyc-12345`).
+    *   Ensure you have selected the correct project (`day-planner-london-mvp`).
 
 2.  **Create a new Service Account:**
     *   Click on **"+ CREATE SERVICE ACCOUNT"**.
@@ -15,9 +15,9 @@ This runbook provides the steps to resolve the "Failed to get Firebase project" 
     *   Click **"CREATE AND CONTINUE"**.
 
 3.  **Grant Permissions:**
-    *   In the "Grant this service account access to project" step, add the following roles:
-        *   `Firebase Admin`
-        *   `Editor`
+    *   In the "Grant this service account access to project" step, add at minimum:
+        *   `Firebase Hosting Admin` (roles/firebasehosting.admin)
+        *   Optional for broader control: `Firebase Admin` (roles/firebase.admin)
     *   Click **"CONTINUE"**.
     *   Click **"DONE"**.
 
@@ -28,23 +28,23 @@ This runbook provides the steps to resolve the "Failed to get Firebase project" 
     *   Select **"JSON"** as the key type and click **"CREATE"**.
     *   A JSON file will be downloaded to your computer. **Keep this file secure.**
 
-5.  **Set the Environment Variable:**
-    *   Move the downloaded JSON key file to a secure location in your project, for example, a `.secrets` directory that is included in your `.gitignore` file.
-    *   Set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to the absolute path of this JSON file.
-        *   **macOS/Linux:**
-            ```bash
-            export GOOGLE_APPLICATION_CREDENTIALS="/path/to/your/keyfile.json"
-            ```
-        *   **Windows:**
-            ```powershell
-            $env:GOOGLE_APPLICATION_CREDENTIALS="C:\path\to\your\keyfile.json"
-            ```
-    *   To make this permanent, add the `export` command to your shell profile file (e.g., `~/.zshrc`, `~/.bash_profile`).
+5.  **Use it in GitHub Actions (recommended):**
+    *   In GitHub, go to Settings → Secrets and variables → Actions → New repository secret
+    *   Name: `FIREBASE_SERVICE_ACCOUNT` and paste the full JSON key as the value
+    *   The workflow `.github/workflows/deploy-firebase.yml` already consumes this secret
+    *   Push to `main` to deploy automatically
 
-6.  **Re-run the deployment script:**
-    *   Once the environment variable is set, you can run the deployment script again.
-    ```bash
-    sh infra/scripts/02-deploy-firebase.sh
-    ```
+6.  **Local deploy without login (optional):**
+    *   Generate a CI token once on any machine:
+      ```bash
+      firebase login:ci
+      ```
+    *   On your local machine, set the token and deploy:
+      ```bash
+      export FIREBASE_TOKEN="<token>"
+      firebase deploy --non-interactive --project day-planner-london-mvp
+      ```
 
-This should resolve the authentication issue and allow the deployment to proceed.
+Notes:
+- The Firebase CLI does not authenticate via `GOOGLE_APPLICATION_CREDENTIALS`. Prefer GitHub Actions with a service account or use a `FIREBASE_TOKEN` locally.
+/- If using Hosting rewrites to Cloud Run, ensure your Cloud Run service has `roles/run.invoker` granted (Invoker) to the appropriate principal as configured in `firebase.json` rewrites.
