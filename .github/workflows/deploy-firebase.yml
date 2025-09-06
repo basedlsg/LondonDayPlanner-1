@@ -25,11 +25,10 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy to Firebase
+      - name: Deploy to Firebase (plannyc-12345)
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
           channelId: live
-          projectId: day-planner-london-mvp
-
+          projectId: plannyc-12345
