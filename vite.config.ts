@@ -9,7 +9,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default defineConfig({
-  base: '/NYC/',
+  // Use root base so assets are served at /assets on Firebase Hosting
+  base: '/',
   plugins: [
     react(),
     runtimeErrorOverlay(),
