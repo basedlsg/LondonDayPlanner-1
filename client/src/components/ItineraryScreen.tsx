@@ -18,18 +18,51 @@ interface ItineraryScreenProps {
   venues: Venue[];
   travelInfo: TravelInfo[];
   onExport: () => void;
+  cityName: string;
 }
 
 const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
   venues,
   travelInfo,
-  onExport
+  onExport,
+  cityName
 }) => {
   // Add debug logging to track the data flow
   useEffect(() => {
     console.log("ItineraryScreen received venues:", venues);
     console.log("ItineraryScreen received travelInfo:", travelInfo);
-  }, [venues, travelInfo]);
+    console.log("ItineraryScreen received cityName:", cityName);
+  }, [venues, travelInfo, cityName]);
+
+  // Format city name for display
+  const formatCityName = (city: string): string => {
+    switch (city.toLowerCase()) {
+      case 'new york':
+        return 'New York City';
+      case 'london':
+        return 'London';
+      case 'paris':
+        return 'Paris';
+      case 'tokyo':
+        return 'Tokyo';
+      case 'rome':
+        return 'Rome';
+      case 'barcelona':
+        return 'Barcelona';
+      case 'sydney':
+        return 'Sydney';
+      case 'dubai':
+        return 'Dubai';
+      case 'singapore':
+        return 'Singapore';
+      case 'istanbul':
+        return 'Istanbul';
+      case 'texas':
+        return 'Texas';
+      default:
+        return city;
+    }
+  };
 
   const hasVenues = venues && Array.isArray(venues) && venues.length > 0;
   const hasTravelInfo = travelInfo && Array.isArray(travelInfo);
@@ -44,14 +77,6 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
       <div className="w-full max-w-md px-4 pb-12">
         {/* Header - only shown when we have venues */}
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold mb-8 itinerary-title" style={{ 
-            fontFamily: "'Rozha One', serif", /* Keep this font for the title to match the app's branding */
-            color: 'var(--color-text-black)',
-            fontSize: '1.875rem' // text-3xl is 1.875rem, which is ~20% bigger than text-2xl (1.5rem)
-          }}>
-            Your NYC Itinerary
-          </h1>
-
           <button
             onClick={onExport}
             className="w-full py-4 rounded-2xl text-white export-button"
