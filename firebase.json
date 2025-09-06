@@ -10,7 +10,7 @@
       {
         "source": "/api/**",
         "run": {
-          "serviceId": "api",
+          "serviceId": "plannyc-api",
           "region": "us-central1"
         }
       },
