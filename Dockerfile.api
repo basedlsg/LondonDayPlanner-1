@@ -1,0 +1,27 @@
+# Use an official Node.js runtime as a parent image
+FROM node:18-slim
+
+# Set the working directory in the container
+WORKDIR /usr/src/app
+
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
+
+# Install any needed packages
+RUN npm install
+
+# Copy the new tsconfig and the api source code
+COPY tsconfig.api.json .
+COPY api ./api
+
+# Build the TypeScript code
+RUN npm run tsc -- -p tsconfig.api.json
+
+# Make port 8080 available to the world outside this container
+EXPOSE 8080
+
+# Define environment variable
+ENV NODE_ENV production
+
+# Run the app when the container launches
+CMD ["node", "dist/api/index.js"]

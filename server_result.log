@@ -1,0 +1,339 @@
+
+> rest-express@1.0.0 dev
+> NODE_ENV=development tsx functions/dev-server.ts
+
+[CityRegistry] Registered city: London (slug: london)
+[CityRegistry] Registered city: New York City (slug: nyc)
+[CityRegistry] Registered city: Boston (slug: boston)
+[CityRegistry] Registered city: Austin (slug: austin)
+[CityRegistry] City configurations loading process completed. Registry size: 4
+[CityRegistry] Registered slugs: london, nyc, boston, austin
+🔧 [config.ts] Creating new Config instance.
+🔧 [config.ts] Config constructor starting...
+🔧 [config.ts] process.env.GOOGLE_PLACES_API_KEY at constructor start: SET (len: 39)
+🔧 [config.ts] process.env.GEMINI_API_KEY at constructor start: SET (len: 39)
+🔧 [config.ts] loadApiKeys() starting...
+🔧 [config.ts] Loading GEMINI_API_KEY from process.env: SET (length: 39)
+🔧 [config.ts] Stored GEMINI_API_KEY in this.apiKeys: SET (length: 39)
+🔧 [config.ts] Loading GOOGLE_PLACES_API_KEY from process.env: SET (length: 39)
+🔧 [config.ts] Stored GOOGLE_PLACES_API_KEY in this.apiKeys: SET (length: 39)
+🔧 [config.ts] Loading WEATHER_API_KEY from process.env: SET (length: 32)
+🔧 [config.ts] Stored WEATHER_API_KEY in this.apiKeys: SET (length: 32)
+🔧 [config.ts] Loading GOOGLE_CLIENT_ID from process.env: NOT SET
+🔧 [config.ts] Stored GOOGLE_CLIENT_ID in this.apiKeys: NOT SET (stored as empty string)
+🔧 [config.ts] loadApiKeys() finished.
+🔧 [config.ts] initializeFeatureFlags() starting...
+[config.ts isApiKeyValid] Key: GEMINI_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] AI_PROCESSING feature flag ENABLED.
+[config.ts isApiKeyValid] Key: GEMINI_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] USE_GEMINI feature flag ENABLED.
+[config.ts isApiKeyValid] Key: WEATHER_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] WEATHER_AWARE feature flag ENABLED.
+[config.ts isApiKeyValid] Key: GOOGLE_PLACES_API_KEY, Present in this.apiKeys: true, Valid (has length): true
+✨ [config.ts] PLACES_API feature flag ENABLED.
+🔧 [config.ts] initializeFeatureFlags() finished.
+🔧 [config.ts] Config constructor finished.
+AI_PROCESSING feature flag status: true
+GEMINI_API_KEY validation: true
+Initializing Gemini API with valid API key
+Gemini API successfully initialized
+
+🚀 Local server running at http://0.0.0.0:3000
+   Health check: http://localhost:3000/api/health
+   Plan endpoint: http://localhost:3000/api/:city/plan
+📝 [/:city/plan] City-specific plan request for: London
+Query: Coffee in Shoreditch
+🔍 [Complexity] Query analysis for London: { level: 'simple', score: 0, estimatedTime: 2, factors: [] }
+🚀 [/:city/plan] Creating city-aware plan for London
+🏙️ Creating plan for city: london
+🚀 Creating plan for query: Coffee in Shoreditch
+[NLP] Processing query with context for city: London
+🔄 [nlp-fixed] Attempting lazy AI initialization for new Gemini processor...
+🤖 [nlp-fixed] Checking AI_PROCESSING feature flag status: true
+🔑 [nlp-fixed] GEMINI_API_KEY validation: true
+✅ [nlp-fixed] Initializing Gemini API with valid API key
+✅ [nlp-fixed] Gemini API successfully initialized
+🚀 [nlp-fixed] Attempting to process query with new Gemini processor
+🚀 [nlp-fixed] Query: Coffee in Shoreditch
+🚀 [nlp-fixed] CityContext: { name: 'London', slug: 'london', timezone: 'Europe/London' }
+[32minfo[39m: AI Interaction {"errorDetails":"API or processing error: Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-001:generateContent: [404 Not Found] models/gemini-1.5-flash-001 is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.","modelName":"gemini-1.5-pro","processingTimeMs":1726,"rawRequest":{"temperature":0.2},"service":"ai-interaction-logger","sessionId":"bc15fd22-aedd-4f93-b195-e739243d37c4","status":"error","timestamp":"2026-01-25T14:05:36.885Z","userQuery":"Coffee in Shoreditch"}
+Failed to log AI interaction to database: NeonDbError: relation "ai_interactions" does not exist
+    at execute (/Users/carlos/LondonDayPlanner-1/functions/node_modules/@neondatabase/serverless/index.js:1559:55)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at logAiInteraction (/Users/carlos/LondonDayPlanner-1/functions/lib/aiLogging.ts:93:7)
+    at attemptGeminiProcessing (/Users/carlos/LondonDayPlanner-1/functions/lib/geminiProcessor.ts:507:5)
+    at processWithGemini (/Users/carlos/LondonDayPlanner-1/functions/lib/geminiProcessor.ts:176:22)
+    at parseItineraryRequest (/Users/carlos/LondonDayPlanner-1/functions/lib/nlp-fixed.ts:526:25)
+    at CircuitBreaker.execute (/Users/carlos/LondonDayPlanner-1/functions/lib/errorRecovery.ts:268:22)
+    at MemoryCache.getOrSet (/Users/carlos/LondonDayPlanner-1/functions/lib/cache.ts:84:23)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/functions/services/ItineraryPlanningService.ts:108:37)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/functions/routes.ts:446:27) {
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '13',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable',
+  sourceError: undefined
+}
+Gemini processing attempt failed at temperature 0.2: GoogleGenerativeAIFetchError: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-001:generateContent: [404 Not Found] models/gemini-1.5-flash-001 is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+    at handleResponseNotOk (/Users/carlos/LondonDayPlanner-1/functions/node_modules/@google/generative-ai/dist/index.js:434:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async makeRequest (/Users/carlos/LondonDayPlanner-1/functions/node_modules/@google/generative-ai/dist/index.js:403:9)
+    at async generateContent (/Users/carlos/LondonDayPlanner-1/functions/node_modules/@google/generative-ai/dist/index.js:867:22)
+    at attemptGeminiProcessing (/Users/carlos/LondonDayPlanner-1/functions/lib/geminiProcessor.ts:422:20)
+    at processWithGemini (/Users/carlos/LondonDayPlanner-1/functions/lib/geminiProcessor.ts:176:22)
+    at parseItineraryRequest (/Users/carlos/LondonDayPlanner-1/functions/lib/nlp-fixed.ts:526:25)
+    at CircuitBreaker.execute (/Users/carlos/LondonDayPlanner-1/functions/lib/errorRecovery.ts:268:22)
+    at MemoryCache.getOrSet (/Users/carlos/LondonDayPlanner-1/functions/lib/cache.ts:84:23)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/functions/services/ItineraryPlanningService.ts:108:37) {
+  status: 404,
+  statusText: 'Not Found',
+  errorDetails: undefined
+}
+[32minfo[39m: AI Interaction {"errorDetails":"API or processing error: Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-001:generateContent: [404 Not Found] models/gemini-1.5-flash-001 is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.","modelName":"gemini-1.5-pro","processingTimeMs":268,"rawRequest":{"temperature":0.4},"service":"ai-interaction-logger","sessionId":"bc15fd22-aedd-4f93-b195-e739243d37c4","status":"error","timestamp":"2026-01-25T14:05:38.472Z","userQuery":"Coffee in Shoreditch"}
+Failed to log AI interaction to database: NeonDbError: relation "ai_interactions" does not exist
+    at execute (/Users/carlos/LondonDayPlanner-1/functions/node_modules/@neondatabase/serverless/index.js:1559:55)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at logAiInteraction (/Users/carlos/LondonDayPlanner-1/functions/lib/aiLogging.ts:93:7)
+    at attemptGeminiProcessing (/Users/carlos/LondonDayPlanner-1/functions/lib/geminiProcessor.ts:507:5)
+    at processWithGemini (/Users/carlos/LondonDayPlanner-1/functions/lib/geminiProcessor.ts:176:22)
+    at parseItineraryRequest (/Users/carlos/LondonDayPlanner-1/functions/lib/nlp-fixed.ts:526:25)
+    at CircuitBreaker.execute (/Users/carlos/LondonDayPlanner-1/functions/lib/errorRecovery.ts:268:22)
+    at MemoryCache.getOrSet (/Users/carlos/LondonDayPlanner-1/functions/lib/cache.ts:84:23)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/functions/services/ItineraryPlanningService.ts:108:37)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/functions/routes.ts:446:27) {
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '13',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable',
+  sourceError: undefined
+}
+Gemini processing attempt failed at temperature 0.4: GoogleGenerativeAIFetchError: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-001:generateContent: [404 Not Found] models/gemini-1.5-flash-001 is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+    at handleResponseNotOk (/Users/carlos/LondonDayPlanner-1/functions/node_modules/@google/generative-ai/dist/index.js:434:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async makeRequest (/Users/carlos/LondonDayPlanner-1/functions/node_modules/@google/generative-ai/dist/index.js:403:9)
+    at async generateContent (/Users/carlos/LondonDayPlanner-1/functions/node_modules/@google/generative-ai/dist/index.js:867:22)
+    at attemptGeminiProcessing (/Users/carlos/LondonDayPlanner-1/functions/lib/geminiProcessor.ts:422:20)
+    at processWithGemini (/Users/carlos/LondonDayPlanner-1/functions/lib/geminiProcessor.ts:176:22)
+    at parseItineraryRequest (/Users/carlos/LondonDayPlanner-1/functions/lib/nlp-fixed.ts:526:25)
+    at CircuitBreaker.execute (/Users/carlos/LondonDayPlanner-1/functions/lib/errorRecovery.ts:268:22)
+    at MemoryCache.getOrSet (/Users/carlos/LondonDayPlanner-1/functions/lib/cache.ts:84:23)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/functions/services/ItineraryPlanningService.ts:108:37) {
+  status: 404,
+  statusText: 'Not Found',
+  errorDetails: undefined
+}
+[32minfo[39m: AI Interaction {"errorDetails":"API or processing error: Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-001:generateContent: [404 Not Found] models/gemini-1.5-flash-001 is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.","modelName":"gemini-1.5-pro","processingTimeMs":254,"rawRequest":{"temperature":0.7},"service":"ai-interaction-logger","sessionId":"bc15fd22-aedd-4f93-b195-e739243d37c4","status":"error","timestamp":"2026-01-25T14:05:38.996Z","userQuery":"Coffee in Shoreditch"}
+Failed to log AI interaction to database: NeonDbError: relation "ai_interactions" does not exist
+    at execute (/Users/carlos/LondonDayPlanner-1/functions/node_modules/@neondatabase/serverless/index.js:1559:55)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at logAiInteraction (/Users/carlos/LondonDayPlanner-1/functions/lib/aiLogging.ts:93:7)
+    at attemptGeminiProcessing (/Users/carlos/LondonDayPlanner-1/functions/lib/geminiProcessor.ts:507:5)
+    at processWithGemini (/Users/carlos/LondonDayPlanner-1/functions/lib/geminiProcessor.ts:176:22)
+    at parseItineraryRequest (/Users/carlos/LondonDayPlanner-1/functions/lib/nlp-fixed.ts:526:25)
+    at CircuitBreaker.execute (/Users/carlos/LondonDayPlanner-1/functions/lib/errorRecovery.ts:268:22)
+    at MemoryCache.getOrSet (/Users/carlos/LondonDayPlanner-1/functions/lib/cache.ts:84:23)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/functions/services/ItineraryPlanningService.ts:108:37)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/functions/routes.ts:446:27) {
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '13',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable',
+  sourceError: undefined
+}
+Gemini processing attempt failed at temperature 0.7: GoogleGenerativeAIFetchError: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-001:generateContent: [404 Not Found] models/gemini-1.5-flash-001 is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+    at handleResponseNotOk (/Users/carlos/LondonDayPlanner-1/functions/node_modules/@google/generative-ai/dist/index.js:434:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async makeRequest (/Users/carlos/LondonDayPlanner-1/functions/node_modules/@google/generative-ai/dist/index.js:403:9)
+    at async generateContent (/Users/carlos/LondonDayPlanner-1/functions/node_modules/@google/generative-ai/dist/index.js:867:22)
+    at attemptGeminiProcessing (/Users/carlos/LondonDayPlanner-1/functions/lib/geminiProcessor.ts:422:20)
+    at processWithGemini (/Users/carlos/LondonDayPlanner-1/functions/lib/geminiProcessor.ts:176:22)
+    at parseItineraryRequest (/Users/carlos/LondonDayPlanner-1/functions/lib/nlp-fixed.ts:526:25)
+    at CircuitBreaker.execute (/Users/carlos/LondonDayPlanner-1/functions/lib/errorRecovery.ts:268:22)
+    at MemoryCache.getOrSet (/Users/carlos/LondonDayPlanner-1/functions/lib/cache.ts:84:23)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/functions/services/ItineraryPlanningService.ts:108:37) {
+  status: 404,
+  statusText: 'Not Found',
+  errorDetails: undefined
+}
+[32minfo[39m: AI Interaction {"errorDetails":"Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-001:generateContent: [404 Not Found] models/gemini-1.5-flash-001 is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.","modelName":"gemini-1.5-pro","service":"ai-interaction-logger","sessionId":"bc15fd22-aedd-4f93-b195-e739243d37c4","status":"error","timestamp":"2026-01-25T14:05:39.266Z","userQuery":"Coffee in Shoreditch"}
+Failed to log AI interaction to database: NeonDbError: relation "ai_interactions" does not exist
+    at execute (/Users/carlos/LondonDayPlanner-1/functions/node_modules/@neondatabase/serverless/index.js:1559:55)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at logAiInteraction (/Users/carlos/LondonDayPlanner-1/functions/lib/aiLogging.ts:93:7)
+    at processWithGemini (/Users/carlos/LondonDayPlanner-1/functions/lib/geminiProcessor.ts:186:3)
+    at parseItineraryRequest (/Users/carlos/LondonDayPlanner-1/functions/lib/nlp-fixed.ts:526:25)
+    at CircuitBreaker.execute (/Users/carlos/LondonDayPlanner-1/functions/lib/errorRecovery.ts:268:22)
+    at MemoryCache.getOrSet (/Users/carlos/LondonDayPlanner-1/functions/lib/cache.ts:84:23)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/functions/services/ItineraryPlanningService.ts:108:37)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/functions/routes.ts:446:27) {
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '13',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable',
+  sourceError: undefined
+}
+✅ [nlp-fixed] processWithGemini completed successfully, result: NULL
+New Gemini processor unavailable or failed, falling back to original method
+Converting Gemini result to app format: null
+📝 Parsed request from cache/fetch: {
+  startLocation: 'London',
+  destinations: [],
+  fixedTimes: [],
+  preferences: { type: undefined, requirements: [] }
+}
+📍 Using explicit start location from NLP: London
+📍 Determined initial search/start location: London
+🔧 NLP returned empty fixedTimes and activities, creating fallback activity based on original query.
+🔧 Fallback activity created: [
+  {
+    description: 'Coffee in Shoreditch',
+    location: 'London',
+    time: '10:00',
+    searchParameters: {
+      type: 'pub',
+      searchTerm: 'Coffee in Shoreditch',
+      keywords: [],
+      minRating: 0,
+      requireOpenNow: true
+    },
+    requirements: []
+  }
+]
+Parsed time "10:00" to normalized time "10:00" and Europe/London time: 10:00 AM (2026-01-25 10:00:00 GMT)
+[SERVICE DEBUG _processGeneralActivities] Called with 1 activities.
+Processing 1 general activities (no fixed times)
+Processing general activity: Coffee in Shoreditch
+Search options for general activity at "London": {
+  type: 'pub',
+  keywords: [],
+  searchTerm: 'Coffee in Shoreditch',
+  minRating: 0,
+  requireOpenNow: true,
+  citySlug: 'london'
+}
+🔍 [enhancedPlaceSearch] Starting enhanced search with options: {
+  query: 'Coffee in Shoreditch',
+  location: 'London',
+  keywords: [],
+  type: 'pub',
+  preferences: {
+    type: 'pub',
+    searchTerm: 'Coffee in Shoreditch',
+    keywords: [],
+    minRating: 0,
+    requireOpenNow: true,
+    venuePreference: undefined
+  },
+  scheduledDateTime: 2026-01-25T02:00:00.000Z,
+  cityContext: { name: 'London', slug: 'london', timezone: 'Europe/London' }
+}
+🏙️ [Area Intelligence] Recommending Fitzrovia for pub (score: 40)
+   Reasons: Known for pub, Nearby
+Gemini generation error: GoogleGenerativeAIFetchError: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-001:generateContent: [404 Not Found] models/gemini-1.5-flash-001 is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+    at handleResponseNotOk (/Users/carlos/LondonDayPlanner-1/functions/node_modules/@google/generative-ai/dist/index.js:434:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async makeRequest (/Users/carlos/LondonDayPlanner-1/functions/node_modules/@google/generative-ai/dist/index.js:403:9)
+    at async generateContent (/Users/carlos/LondonDayPlanner-1/functions/node_modules/@google/generative-ai/dist/index.js:867:22)
+    at geminiGenerate (/Users/carlos/LondonDayPlanner-1/functions/lib/geminiAdapter.ts:116:20)
+    at enhanceQueryWithGemini (/Users/carlos/LondonDayPlanner-1/functions/lib/enhancedPlaceSearch.ts:58:22)
+    at enhancedPlaceSearch (/Users/carlos/LondonDayPlanner-1/functions/lib/enhancedPlaceSearch.ts:259:27)
+    at MemoryCache.getOrSet (/Users/carlos/LondonDayPlanner-1/functions/lib/cache.ts:84:23)
+    at ItineraryPlanningService._processGeneralActivities (/Users/carlos/LondonDayPlanner-1/functions/services/ItineraryPlanningService.ts:754:25)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/functions/services/ItineraryPlanningService.ts:311:7) {
+  status: 404,
+  statusText: 'Not Found',
+  errorDetails: undefined
+}
+Failed to enhance query with Gemini: Error: Gemini generation failed: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-001:generateContent: [404 Not Found] models/gemini-1.5-flash-001 is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+    at geminiGenerate (/Users/carlos/LondonDayPlanner-1/functions/lib/geminiAdapter.ts:127:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at enhanceQueryWithGemini (/Users/carlos/LondonDayPlanner-1/functions/lib/enhancedPlaceSearch.ts:58:22)
+    at enhancedPlaceSearch (/Users/carlos/LondonDayPlanner-1/functions/lib/enhancedPlaceSearch.ts:259:27)
+    at MemoryCache.getOrSet (/Users/carlos/LondonDayPlanner-1/functions/lib/cache.ts:84:23)
+    at ItineraryPlanningService._processGeneralActivities (/Users/carlos/LondonDayPlanner-1/functions/services/ItineraryPlanningService.ts:754:25)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/functions/services/ItineraryPlanningService.ts:311:7)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/functions/routes.ts:446:27)
+📍 [enhancedPlaceSearch] Using city center for "london"
+🎯 [enhancedPlaceSearch] Using location bias: 51.5074,-0.1278 with radius 25000m
+🌐 [enhancedPlaceSearch] Searching with query: Coffee in Shoreditch in Fitzrovia
+📍 [enhancedPlaceSearch] No results found
+No places found for general activity: Coffee in Shoreditch at London
+DbStorage (with logging): Creating itinerary (anonymous)
+DbStorage (with logging): Error creating itinerary: NeonDbError: relation "itineraries" does not exist
+    at execute (/Users/carlos/LondonDayPlanner-1/functions/node_modules/@neondatabase/serverless/index.js:1559:55)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at NeonHttpPreparedQuery.execute (/Users/carlos/LondonDayPlanner-1/functions/node_modules/src/neon-http/session.ts:68:18)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/functions/storage.ts:144:27)
+    at DbStorageWithLogging.createItinerary (/Users/carlos/LondonDayPlanner-1/functions/storage.ts:642:22)
+    at ItineraryPlanningService.createPlan (/Users/carlos/LondonDayPlanner-1/functions/services/ItineraryPlanningService.ts:384:32)
+    at <anonymous> (/Users/carlos/LondonDayPlanner-1/functions/routes.ts:446:27) {
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '13',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable',
+  sourceError: undefined
+}
+Using in-memory fallback for createItinerary due to database error
+Successfully created itinerary "Coffee in Shoreditch in London" for London with ID: 1
+🐌 [Performance] Slow operation detected: ItineraryPlanningService.createPlan took 6540.49ms
+📤 [/:city/plan] Sending response with 0 venues

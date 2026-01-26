@@ -1,4 +1,5 @@
 steps:
+<<<<<<< HEAD
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/day-planner-london-mvp/api', '.']
@@ -24,3 +25,23 @@ steps:
 
 images:
   - 'gcr.io/day-planner-london-mvp/api'
+=======
+- name: 'gcr.io/k8s-skaffold/pack'
+  entrypoint: 'pack'
+  args: ['build', '--builder=gcr.io/buildpacks/builder:v1', '--publish', 'gcr.io/$PROJECT_ID/london-day-planner-server']
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+  - 'run'
+  - 'deploy'
+  - 'london-day-planner-server'
+  - '--image'
+  - 'gcr.io/$PROJECT_ID/london-day-planner-server'
+  - '--region'
+  - 'us-central1'
+  - '--platform'
+  - 'managed'
+  - '--allow-unauthenticated'
+images:
+- 'gcr.io/$PROJECT_ID/london-day-planner-server'
+>>>>>>> 42cdf3c (Refine aesthetics: Liquid Glass design system, Crystalline inputs, Rozha One typography, and high-quality assets)

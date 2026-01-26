@@ -1,0 +1,30 @@
+{
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/SourcePackages/checkouts/Alamofire/Source/Extensions/URLRequest+Alamofire.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/URLRequest+Alamofire.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/URLRequest+Alamofire.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/URLRequest+Alamofire.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/URLRequest+Alamofire.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/URLRequest+Alamofire.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/SourcePackages/checkouts/Alamofire/Source/Extensions/URLSessionConfiguration+Alamofire.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/URLSessionConfiguration+Alamofire.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/URLSessionConfiguration+Alamofire.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/URLSessionConfiguration+Alamofire.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/URLSessionConfiguration+Alamofire.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/URLSessionConfiguration+Alamofire.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/SourcePackages/checkouts/Alamofire/Source/Features/AlamofireExtended.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/AlamofireExtended.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/AlamofireExtended.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/AlamofireExtended.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/AlamofireExtended.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/AlamofireExtended.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/SourcePackages/checkouts/Alamofire/Source/Features/AuthenticationInterceptor.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/AuthenticationInterceptor.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/AuthenticationInterceptor.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/AuthenticationInterceptor.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/AuthenticationInterceptor.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/AuthenticationInterceptor.swiftdeps"
+  }
+}

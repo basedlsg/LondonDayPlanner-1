@@ -1,0 +1,72 @@
+# Future Expansion Plan
+
+## 1. Top 15 Western Cities Expansion
+
+### Goal
+Expand from the current 4 cities (NYC, London, Boston, Austin) to the top 15 destinations for travelers, coffee lovers, and digital nomads.
+
+### Candidate Cities
+1.  **San Francisco, USA** (Tech/Coffee)
+2.  **Los Angeles, USA** (Lifestyle/Travel)
+3.  **Paris, France** (Travel/Culture)
+4.  **Berlin, Germany** (Nomad/Nightlife)
+5.  **Lisbon, Portugal** (Nomad Hub)
+6.  **Barcelona, Spain** (Travel/Lifestyle)
+7.  **Amsterdam, Netherlands** (Culture/Coffee)
+8.  **Copenhagen, Denmark** (Design/Coffee)
+9.  **Melbourne, Australia** (Coffee Capital)
+10. **Tokyo, Japan** (Travel/Culture) - *Bridge to Asia*
+11. **Vancouver, Canada** (Lifestyle/Nature)
+12. **Chicago, USA** (Architecture/Food)
+13. **Miami, USA** (Lifestyle/Nightlife)
+14. **Rome, Italy** (History/Food)
+15. **Mexico City, Mexico** (Nomad/Food)
+
+### Implementation Strategy
+With the recent refactor, adding these is purely configuration:
+1.  Create `server/config/cities/{slug}.ts` for each city.
+2.  Define `majorAreas` (neighborhoods) and `aliases`.
+3.  Register them in [server/config/cities/index.ts](file:///Users/carlos/Plan-Swift-Native/server/config/cities/index.ts).
+
+---
+
+## 2. "China Side" (Tier 1 Cities)
+
+### Goal
+Support major Chinese hubs for seamless travel planning.
+
+### Target Cities (Tier 1)
+1.  **Beijing** (Capital/Culture)
+2.  **Shanghai** (Finance/Lifestyle)
+3.  **Shenzhen** (Tech/Innovation)
+4.  **Guangzhou** (Trade/Food)
+
+### Implementation Nuances
+*   **Language Support**: Add `language: 'zh-CN'` to the CityConfig.
+*   **NLP Prompts**: When the active city is Chinese, the Backend should prompt Gemini/LLM to "Answer in Chinese" or "Prioritize Chinese venue names".
+*   **Map Data**: Google Places works but can be spotty for some local POV data. It is sufficient for international travelers.
+*   **VPN/Access**: Ensure the API server (hosting the app) has access to Google APIs (which it does if hosted in US/Cloud).
+
+---
+
+## 3. Custom Location Logic ("Use My Location")
+
+### Goal
+Allow users to plan a day *anywhere*, not just in supported cities.
+
+### Technical Design
+1.  **Frontend**:
+    *   Add "Current Location" button.
+    *   Use browser Geolocation API to get `lat, lng`.
+2.  **Backend ([ItineraryPlanningService](file:///Users/carlos/Plan-Swift-Native/server/services/ItineraryPlanningService.ts#50-1173))**:
+    *   **Dynamic City Config**: If no matching `citySlug` is found, create an **Ephemeral City Config** on the fly.
+    *   **Reverse Geocoding**: Use Google Geocoding API to get the "City Name" from `lat, lng` to populate the ephemeral config.
+3.  **Workflow**:
+    *   User sends `lat: 34.05, lng: -118.24` (LA).
+    *   Server sees no "la.ts" (hypothetically).
+    *   Server generates a "Custom City" config context.
+    *   Server runs standard itinerary flow (Search -> Schedule -> optimize).
+
+### Risk Mitigation
+*   **Quality**: Major cities have curated "Major Areas". Custom locations won't have this "Best Areas" knowledge unless we ask the LLM to "Identitfy best neighborhoods in {City}" first.
+*   **Proposal**: For Custom Locations, add a "Pre-analysis" step where the LLM defines the `majorAreas` dynamically before planning.

@@ -1,0 +1,173 @@
+{
+  "": {
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/master.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/App/ContentView.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/ContentView.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/ContentView.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/ContentView~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/ContentView.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/ContentView.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/App/main.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/main.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/main.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/main~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/main.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/main.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/DesignSystem/Components/GlassButton.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/GlassButton.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/GlassButton.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/GlassButton~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/GlassButton.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/GlassButton.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/DesignSystem/Components/GlassCard.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/GlassCard.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/GlassCard.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/GlassCard~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/GlassCard.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/GlassCard.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/DesignSystem/Components/GlassTextField.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/GlassTextField.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/GlassTextField.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/GlassTextField~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/GlassTextField.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/GlassTextField.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/DesignSystem/Components/LiquidBackground.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/LiquidBackground.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/LiquidBackground.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/LiquidBackground~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/LiquidBackground.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/LiquidBackground.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/DesignSystem/DesignTokens.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/DesignTokens.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/DesignTokens.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/DesignTokens~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/DesignTokens.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/DesignTokens.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Models/Models.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/Models.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/Models.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/Models~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/Models.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/Models.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Services/APIClient.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/APIClient.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/APIClient.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/APIClient~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/APIClient.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/APIClient.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Services/CalendarService.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/CalendarService.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/CalendarService.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/CalendarService~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/CalendarService.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/CalendarService.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Services/CityManager.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/CityManager.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/CityManager.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/CityManager~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/CityManager.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/CityManager.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Services/LocationManager.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/LocationManager.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/LocationManager.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/LocationManager~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/LocationManager.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/LocationManager.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Services/NetworkMonitor.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/NetworkMonitor.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/NetworkMonitor.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/NetworkMonitor~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/NetworkMonitor.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/NetworkMonitor.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Services/PDFService.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/PDFService.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/PDFService.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/PDFService~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/PDFService.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/PDFService.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Services/WeatherService.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/WeatherService.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/WeatherService.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/WeatherService~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/WeatherService.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/WeatherService.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/Components/ActivityViewController.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/ActivityViewController.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/ActivityViewController.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/ActivityViewController~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/ActivityViewController.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/ActivityViewController.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/ExploreView.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/ExploreView.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/ExploreView.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/ExploreView~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/ExploreView.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/ExploreView.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/HomeView.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/HomeView.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/HomeView.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/HomeView~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/HomeView.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/HomeView.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/ItineraryView.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/ItineraryView.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/ItineraryView.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/ItineraryView~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/ItineraryView.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/ItineraryView.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/MapView.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/MapView.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/MapView.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/MapView~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/MapView.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/MapView.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/SettingsView.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/SettingsView.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/SettingsView.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/SettingsView~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/SettingsView.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/SettingsView.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/SplashScreenView.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/SplashScreenView.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/SplashScreenView.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/SplashScreenView~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/SplashScreenView.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/SplashScreenView.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/TripsView.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/TripsView.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/TripsView.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/TripsView~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/TripsView.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/TripsView.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/DerivedSources/resource_bundle_accessor.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/resource_bundle_accessor.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/resource_bundle_accessor.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/resource_bundle_accessor~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/resource_bundle_accessor.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDay.build/resource_bundle_accessor.dia"
+  }
+}

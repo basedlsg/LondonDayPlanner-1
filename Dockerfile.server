@@ -1,0 +1,34 @@
+# Stage 1: Build the server application
+FROM node:20-slim AS builder
+
+WORKDIR /app
+
+# Copy package files
+COPY package.json package-lock.json* ./
+
+# Install dependencies
+RUN npm install --production
+
+# Copy the rest of the application source code
+COPY . .
+
+# Build the server
+RUN npm run build:server
+
+# Stage 2: Run the server application
+FROM node:20-slim
+
+WORKDIR /app
+
+# Copy the built server application from the builder stage
+COPY --from=builder /app/dist/server .
+
+# Copy the package.json and node_modules from the builder stage
+COPY --from=builder /app/package.json .
+COPY --from=builder /app/node_modules ./node_modules
+
+# Expose the port the server will run on
+EXPOSE 8080
+
+# Start the server
+CMD ["node", "index.js"]

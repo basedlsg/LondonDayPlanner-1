@@ -1,0 +1,51 @@
+{
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/DerivedSources/resource_bundle_accessor.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/resource_bundle_accessor.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/resource_bundle_accessor.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/resource_bundle_accessor.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/resource_bundle_accessor.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/resource_bundle_accessor.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/SourcePackages/checkouts/Kingfisher/Sources/Cache/CacheSerializer.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/CacheSerializer.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/CacheSerializer.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/CacheSerializer.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/CacheSerializer.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/CacheSerializer.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/SourcePackages/checkouts/Kingfisher/Sources/Cache/DiskStorage.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/DiskStorage.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/DiskStorage.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/DiskStorage.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/DiskStorage.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/DiskStorage.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/SourcePackages/checkouts/Kingfisher/Sources/Cache/FormatIndicatedCacheSerializer.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/FormatIndicatedCacheSerializer.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/FormatIndicatedCacheSerializer.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/FormatIndicatedCacheSerializer.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/FormatIndicatedCacheSerializer.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/FormatIndicatedCacheSerializer.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/SourcePackages/checkouts/Kingfisher/Sources/Cache/ImageCache.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/ImageCache.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/ImageCache.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/ImageCache.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/ImageCache.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/ImageCache.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/SourcePackages/checkouts/Kingfisher/Sources/Cache/MemoryStorage.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/MemoryStorage.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/MemoryStorage.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/MemoryStorage.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/MemoryStorage.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/MemoryStorage.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/SourcePackages/checkouts/Kingfisher/Sources/Cache/Storage.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Storage.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Storage.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Storage.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Storage.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build_xcode/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Storage.swiftdeps"
+  }
+}

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>logFormatVersion</key>
+	<integer>12</integer>
+	<key>logs</key>
+	<dict>
+		<key>195CB6A0-0A65-449A-B270-C2A425929F47</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>195CB6A0-0A65-449A-B270-C2A425929F47.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>0</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>0</integer>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>ios-native</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>PlanYourPerfectDay</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Cleaning workspace ios-native with scheme PlanYourPerfectDay</string>
+			<key>timeStartedRecording</key>
+			<real>790998478.99237001</real>
+			<key>timeStoppedRecording</key>
+			<real>790998479.55847704</real>
+			<key>title</key>
+			<string>Cleaning workspace ios-native with scheme PlanYourPerfectDay</string>
+			<key>uniqueIdentifier</key>
+			<string>195CB6A0-0A65-449A-B270-C2A425929F47</string>
+		</dict>
+		<key>90C54542-3C0A-4110-8EA3-01A793031091</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>90C54542-3C0A-4110-8EA3-01A793031091.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>0</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>0</integer>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>ios-native</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>PlanYourPerfectDay</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Cleaning workspace ios-native with scheme PlanYourPerfectDay</string>
+			<key>timeStartedRecording</key>
+			<real>790998863.05809796</real>
+			<key>timeStoppedRecording</key>
+			<real>790998863.67080998</real>
+			<key>title</key>
+			<string>Cleaning workspace ios-native with scheme PlanYourPerfectDay</string>
+			<key>uniqueIdentifier</key>
+			<string>90C54542-3C0A-4110-8EA3-01A793031091</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style data-vite-theme="" data-inject-first="">:root {
+      --background: 333 71% 79%;
+--foreground: 325 100% 9%;
+--muted: 331 66% 67%;
+--muted-foreground: 325 100% 9%;
+--popover: 336 100% 99%;
+--popover-foreground: 325 100% 9%;
+--card: 336 100% 99%;
+--card-foreground: 325 100% 9%;
+--border: 331 66% 67%;
+--input: 331 66% 67%;
+--primary: 329 88% 67%;
+--primary-foreground: 336 100% 99%;
+--secondary: 333 100% 85%;
+--secondary-foreground: 325 100% 9%;
+--accent: 333 100% 85%;
+--accent-foreground: 325 100% 9%;
+--destructive: 0 84.2% 60.2%;
+--destructive-foreground: 60 9.1% 97.8%;
+--ring: 329 88% 67%;
+--radius: 0.5rem;
+  }
+  .dark {
+      --background: 338 100% 0%;
+--foreground: 335 100% 96%;
+--muted: 325 73% 28%;
+--muted-foreground: 335 100% 96%;
+--popover: 326 95% 9%;
+--popover-foreground: 335 100% 96%;
+--card: 326 95% 9%;
+--card-foreground: 335 100% 96%;
+--border: 325 73% 28%;
+--input: 325 73% 28%;
+--primary: 327 62% 53%;
+--primary-foreground: 336 85% 99%;
+--secondary: 325 73% 28%;
+--secondary-foreground: 335 100% 96%;
+--accent: 325 73% 28%;
+--accent-foreground: 335 100% 96%;
+--destructive: 0 62.8% 30.6%;
+--destructive-foreground: 0 0% 98%;
+--ring: 327 62% 53%;
+--radius: 0.5rem;
+  }</style>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Plan Perfect Day" />
+    <title>Plan Your Perfect Day</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+    <script type="module" crossorigin src="/assets/index-C5ECzRio.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DhuzbrKb.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      // Register service worker for PWA functionality
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
+  </body>
+</html>

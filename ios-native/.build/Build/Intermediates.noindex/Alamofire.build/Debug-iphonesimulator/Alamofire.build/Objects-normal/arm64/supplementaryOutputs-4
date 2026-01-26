@@ -1,0 +1,37 @@
+{
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/SourcePackages/checkouts/Alamofire/Source/Core/Session.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Session.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Session.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Session.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Session.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Session.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/SourcePackages/checkouts/Alamofire/Source/Core/SessionDelegate.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/SessionDelegate.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/SessionDelegate.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/SessionDelegate.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/SessionDelegate.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/SessionDelegate.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/SourcePackages/checkouts/Alamofire/Source/Core/URLConvertible+URLRequestConvertible.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/URLConvertible+URLRequestConvertible.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/URLConvertible+URLRequestConvertible.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/URLConvertible+URLRequestConvertible.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/URLConvertible+URLRequestConvertible.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/URLConvertible+URLRequestConvertible.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/SourcePackages/checkouts/Alamofire/Source/Core/UploadRequest.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/UploadRequest.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/UploadRequest.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/UploadRequest.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/UploadRequest.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/UploadRequest.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/SourcePackages/checkouts/Alamofire/Source/Core/WebSocketRequest.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/WebSocketRequest.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/WebSocketRequest.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/WebSocketRequest.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/WebSocketRequest.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/WebSocketRequest.swiftdeps"
+  }
+}

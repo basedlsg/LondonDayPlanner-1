@@ -1,0 +1,51 @@
+{
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/ImageSource/AVAssetImageDataProvider.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/AVAssetImageDataProvider.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/AVAssetImageDataProvider.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/AVAssetImageDataProvider.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/AVAssetImageDataProvider.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/AVAssetImageDataProvider.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/ImageSource/ImageDataProvider.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/ImageDataProvider.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/ImageDataProvider.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/ImageDataProvider.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/ImageDataProvider.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/ImageDataProvider.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/ImageSource/PHPickerResultImageDataProvider.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/PHPickerResultImageDataProvider.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/PHPickerResultImageDataProvider.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/PHPickerResultImageDataProvider.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/PHPickerResultImageDataProvider.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/PHPickerResultImageDataProvider.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/ImageSource/Resource.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Resource.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Resource.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Resource.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Resource.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Resource.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/ImageSource/Source.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Source.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Source.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Source.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Source.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Source.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/KF.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/KF.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/KF.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/KF.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/KF.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/KF.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/KFOptionsSetter.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/KFOptionsSetter.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/KFOptionsSetter.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/KFOptionsSetter.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/KFOptionsSetter.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/KFOptionsSetter.swiftdeps"
+  }
+}

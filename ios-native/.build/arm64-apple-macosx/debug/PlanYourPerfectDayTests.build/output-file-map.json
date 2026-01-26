@@ -1,0 +1,19 @@
+{
+  "": {
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDayTests.build/master.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Tests/APIClientTests.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDayTests.build/APIClientTests.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDayTests.build/APIClientTests.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDayTests.build/APIClientTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDayTests.build/APIClientTests.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDayTests.build/APIClientTests.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Tests/UITests.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDayTests.build/UITests.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDayTests.build/UITests.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDayTests.build/UITests~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDayTests.build/UITests.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/PlanYourPerfectDayTests.build/UITests.dia"
+  }
+}

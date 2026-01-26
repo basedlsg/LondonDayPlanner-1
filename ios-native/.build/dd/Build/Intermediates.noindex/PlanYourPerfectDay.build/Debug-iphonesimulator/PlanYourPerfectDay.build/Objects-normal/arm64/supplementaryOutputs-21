@@ -1,0 +1,23 @@
+{
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/DerivedSources/resource_bundle_accessor.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/resource_bundle_accessor.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/resource_bundle_accessor.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/resource_bundle_accessor.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/resource_bundle_accessor.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/resource_bundle_accessor.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/App/ContentView.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/ContentView.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/ContentView.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/ContentView.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/ContentView.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/ContentView.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/Sources/App/main.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/main.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/main.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/main.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/main.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/main.swiftdeps"
+  }
+}

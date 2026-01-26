@@ -1,0 +1,938 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -scheme PlanYourPerfectDay -destination id=DEE44FFC-4BFF-4700-9C02-89B1C5FC3D3B -derivedDataPath .build/dd clean build
+
+Resolve Package Graph
+2026-01-24 22:18:37.269 xcodebuild[83747:2676455] [MT] IDERunDestination: Supported platforms for the buildables in the current scheme is empty.
+
+
+Resolved source packages:
+  Alamofire: https://github.com/Alamofire/Alamofire.git @ 5.11.0
+  Kingfisher: https://github.com/onevcat/Kingfisher.git @ 7.12.0
+  PlanYourPerfectDay: /Users/carlos/LondonDayPlanner-1/ios-native
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+** CLEAN SUCCEEDED **
+
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (8 targets)
+    Target 'PlanYourPerfectDay' in project 'PlanYourPerfectDay'
+        ➜ Explicit dependency on target 'PlanYourPerfectDay_PlanYourPerfectDay' in project 'PlanYourPerfectDay'
+        ➜ Explicit dependency on target 'Alamofire' in project 'Alamofire'
+        ➜ Explicit dependency on target 'Kingfisher' in project 'Kingfisher'
+    Target 'Kingfisher' in project 'Kingfisher'
+        ➜ Explicit dependency on target 'Kingfisher' in project 'Kingfisher'
+        ➜ Explicit dependency on target 'Kingfisher_Kingfisher' in project 'Kingfisher'
+    Target 'Kingfisher' in project 'Kingfisher'
+        ➜ Explicit dependency on target 'Kingfisher_Kingfisher' in project 'Kingfisher'
+    Target 'Kingfisher_Kingfisher' in project 'Kingfisher' (no dependencies)
+    Target 'Alamofire' in project 'Alamofire'
+        ➜ Explicit dependency on target 'Alamofire' in project 'Alamofire'
+        ➜ Explicit dependency on target 'Alamofire_Alamofire' in project 'Alamofire'
+    Target 'Alamofire' in project 'Alamofire'
+        ➜ Explicit dependency on target 'Alamofire_Alamofire' in project 'Alamofire'
+    Target 'Alamofire_Alamofire' in project 'Alamofire' (no dependencies)
+    Target 'PlanYourPerfectDay_PlanYourPerfectDay' in project 'PlanYourPerfectDay' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+Build description signature: a1a30ec8f42e3716b34aa940751b5f8d
+Build description path: /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/XCBuildData/a1a30ec8f42e3716b34aa940751b5f8d.xcbuilddata
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SDKStatCaches.noindex/iphonesimulator26.2-23C53-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -o /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SDKStatCaches.noindex/iphonesimulator26.2-23C53-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache
+
+CreateBuildDirectory /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    builtin-create-build-directory /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products
+
+CreateBuildDirectory /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    builtin-create-build-directory /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex
+
+CreateBuildDirectory /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    builtin-create-build-directory /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator
+
+CreateBuildDirectory /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    builtin-create-build-directory /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+
+CreateBuildDirectory /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/ExplicitPrecompiledModules
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    builtin-create-build-directory /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/ExplicitPrecompiledModules
+
+CreateBuildDirectory /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    builtin-create-build-directory /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator
+
+CreateBuildDirectory /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/PackageFrameworks
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    builtin-create-build-directory /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/PackageFrameworks
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay_PlanYourPerfectDay.build/empty-PlanYourPerfectDay_PlanYourPerfectDay.plist (in target 'PlanYourPerfectDay_PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay_PlanYourPerfectDay.build/empty-PlanYourPerfectDay_PlanYourPerfectDay.plist
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay_PlanYourPerfectDay.build/PlanYourPerfectDay_PlanYourPerfectDay.DependencyStaticMetadataFileList (in target 'PlanYourPerfectDay_PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay_PlanYourPerfectDay.build/PlanYourPerfectDay_PlanYourPerfectDay.DependencyStaticMetadataFileList
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay_PlanYourPerfectDay.build/PlanYourPerfectDay_PlanYourPerfectDay.DependencyMetadataFileList (in target 'PlanYourPerfectDay_PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay_PlanYourPerfectDay.build/PlanYourPerfectDay_PlanYourPerfectDay.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/PlanYourPerfectDay.DependencyStaticMetadataFileList (in target 'PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/PlanYourPerfectDay.DependencyStaticMetadataFileList
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/PlanYourPerfectDay.DependencyMetadataFileList (in target 'PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/PlanYourPerfectDay.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/PlanYourPerfectDay.SwiftFileList (in target 'PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/PlanYourPerfectDay.SwiftFileList
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/PlanYourPerfectDay_const_extract_protocols.json (in target 'PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/PlanYourPerfectDay_const_extract_protocols.json
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/PlanYourPerfectDay.LinkFileList (in target 'PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/PlanYourPerfectDay.LinkFileList
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/PlanYourPerfectDay-OutputFileMap.json (in target 'PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/PlanYourPerfectDay-OutputFileMap.json
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/DerivedSources/resource_bundle_accessor.swift (in target 'PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/DerivedSources/resource_bundle_accessor.swift
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/DerivedSources/Entitlements-Simulated.plist (in target 'PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/DerivedSources/Entitlements-Simulated.plist
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher_Kingfisher.build/empty-Kingfisher_Kingfisher.plist (in target 'Kingfisher_Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher_Kingfisher.build/empty-Kingfisher_Kingfisher.plist
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher_Kingfisher.build/Kingfisher_Kingfisher.DependencyStaticMetadataFileList (in target 'Kingfisher_Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher_Kingfisher.build/Kingfisher_Kingfisher.DependencyStaticMetadataFileList
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher_Kingfisher.build/Kingfisher_Kingfisher.DependencyMetadataFileList (in target 'Kingfisher_Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher_Kingfisher.build/Kingfisher_Kingfisher.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher.SwiftConstValuesFileList (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher.SwiftConstValuesFileList
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher.SwiftFileList (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher.SwiftFileList
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher_const_extract_protocols.json (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher_const_extract_protocols.json
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher.LinkFileList (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher.LinkFileList
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Kingfisher.modulemap (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Kingfisher.modulemap
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher-OutputFileMap.json (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher-OutputFileMap.json
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Kingfisher.DependencyMetadataFileList (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Kingfisher.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Kingfisher.DependencyStaticMetadataFileList (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Kingfisher.DependencyStaticMetadataFileList
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/DerivedSources/resource_bundle_accessor.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/DerivedSources/resource_bundle_accessor.swift
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire_Alamofire.build/Alamofire_Alamofire.DependencyMetadataFileList (in target 'Alamofire_Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire_Alamofire.build/Alamofire_Alamofire.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire_Alamofire.build/Alamofire_Alamofire.DependencyStaticMetadataFileList (in target 'Alamofire_Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire_Alamofire.build/Alamofire_Alamofire.DependencyStaticMetadataFileList
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire_Alamofire.build/empty-Alamofire_Alamofire.plist (in target 'Alamofire_Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire_Alamofire.build/empty-Alamofire_Alamofire.plist
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire_const_extract_protocols.json (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire_const_extract_protocols.json
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire.SwiftFileList (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire.SwiftFileList
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire.SwiftConstValuesFileList (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire.SwiftConstValuesFileList
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire.LinkFileList (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire.LinkFileList
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire-OutputFileMap.json (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire-OutputFileMap.json
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Alamofire.modulemap (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Alamofire.modulemap
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Alamofire.DependencyStaticMetadataFileList (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Alamofire.DependencyStaticMetadataFileList
+
+Copy /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/Kingfisher.modulemap /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Kingfisher.modulemap (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Kingfisher.modulemap /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Alamofire.DependencyMetadataFileList (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Alamofire.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/DerivedSources/resource_bundle_accessor.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    write-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/DerivedSources/resource_bundle_accessor.swift
+
+MkDir /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/PlanYourPerfectDay_PlanYourPerfectDay.bundle (in target 'PlanYourPerfectDay_PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native
+    /bin/mkdir -p /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/PlanYourPerfectDay_PlanYourPerfectDay.bundle
+
+MkDir /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Kingfisher_Kingfisher.bundle (in target 'Kingfisher_Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    /bin/mkdir -p /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Kingfisher_Kingfisher.bundle
+
+MkDir /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Alamofire_Alamofire.bundle (in target 'Alamofire_Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    /bin/mkdir -p /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Alamofire_Alamofire.bundle
+
+Copy /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/Alamofire.modulemap /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Alamofire.modulemap (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Alamofire.modulemap /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator
+
+ProcessInfoPlistFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Kingfisher_Kingfisher.bundle/Info.plist /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher_Kingfisher.build/empty-Kingfisher_Kingfisher.plist (in target 'Kingfisher_Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    builtin-infoPlistUtility /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher_Kingfisher.build/empty-Kingfisher_Kingfisher.plist -producttype com.apple.product-type.bundle -expandbuildsettings -format binary -platform iphonesimulator -o /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Kingfisher_Kingfisher.bundle/Info.plist
+
+CpResource /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Kingfisher_Kingfisher.bundle/PrivacyInfo.xcprivacy /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/PrivacyInfo.xcprivacy (in target 'Kingfisher_Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/PrivacyInfo.xcprivacy /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Kingfisher_Kingfisher.bundle
+
+ProcessInfoPlistFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/PlanYourPerfectDay_PlanYourPerfectDay.bundle/Info.plist /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay_PlanYourPerfectDay.build/empty-PlanYourPerfectDay_PlanYourPerfectDay.plist (in target 'PlanYourPerfectDay_PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native
+    builtin-infoPlistUtility /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay_PlanYourPerfectDay.build/empty-PlanYourPerfectDay_PlanYourPerfectDay.plist -producttype com.apple.product-type.bundle -expandbuildsettings -format binary -platform iphonesimulator -o /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/PlanYourPerfectDay_PlanYourPerfectDay.bundle/Info.plist
+
+CpResource /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/PlanYourPerfectDay_PlanYourPerfectDay.bundle/RozhaOne-Regular.ttf /Users/carlos/LondonDayPlanner-1/ios-native/Sources/Resources/RozhaOne-Regular.ttf (in target 'PlanYourPerfectDay_PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/carlos/LondonDayPlanner-1/ios-native/Sources/Resources/RozhaOne-Regular.ttf /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/PlanYourPerfectDay_PlanYourPerfectDay.bundle
+
+ProcessInfoPlistFile /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Alamofire_Alamofire.bundle/Info.plist /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire_Alamofire.build/empty-Alamofire_Alamofire.plist (in target 'Alamofire_Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    builtin-infoPlistUtility /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire_Alamofire.build/empty-Alamofire_Alamofire.plist -producttype com.apple.product-type.bundle -expandbuildsettings -format binary -platform iphonesimulator -o /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Alamofire_Alamofire.bundle/Info.plist
+
+CpResource /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Alamofire_Alamofire.bundle/PrivacyInfo.xcprivacy /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/PrivacyInfo.xcprivacy (in target 'Alamofire_Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/PrivacyInfo.xcprivacy /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Alamofire_Alamofire.bundle
+
+CodeSign /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/PlanYourPerfectDay_PlanYourPerfectDay.bundle (in target 'PlanYourPerfectDay_PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/PlanYourPerfectDay_PlanYourPerfectDay.bundle
+
+CodeSign /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Kingfisher_Kingfisher.bundle (in target 'Kingfisher_Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Kingfisher_Kingfisher.bundle
+
+CodeSign /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Alamofire_Alamofire.bundle (in target 'Alamofire_Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Alamofire_Alamofire.bundle
+
+RegisterExecutionPolicyException /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Alamofire_Alamofire.bundle (in target 'Alamofire_Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    builtin-RegisterExecutionPolicyException /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Alamofire_Alamofire.bundle
+
+RegisterExecutionPolicyException /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Kingfisher_Kingfisher.bundle (in target 'Kingfisher_Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    builtin-RegisterExecutionPolicyException /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Kingfisher_Kingfisher.bundle
+
+RegisterExecutionPolicyException /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/PlanYourPerfectDay_PlanYourPerfectDay.bundle (in target 'PlanYourPerfectDay_PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native
+    builtin-RegisterExecutionPolicyException /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/PlanYourPerfectDay_PlanYourPerfectDay.bundle
+
+Touch /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Alamofire_Alamofire.bundle (in target 'Alamofire_Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    /usr/bin/touch -c /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Alamofire_Alamofire.bundle
+
+Touch /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/PlanYourPerfectDay_PlanYourPerfectDay.bundle (in target 'PlanYourPerfectDay_PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native
+    /usr/bin/touch -c /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/PlanYourPerfectDay_PlanYourPerfectDay.bundle
+
+Touch /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Kingfisher_Kingfisher.bundle (in target 'Kingfisher_Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    /usr/bin/touch -c /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Kingfisher_Kingfisher.bundle
+
+SwiftDriver Kingfisher normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Kingfisher -Onone -enforce-exclusivity\=checked @/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher.SwiftFileList -DSWIFT_PACKAGE -DDEBUG -DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE -DXcode -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target arm64-apple-ios12.0-simulator -g -module-cache-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -suppress-warnings -index-store-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk/Developer/Library/Frameworks -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SDKStatCaches.noindex/iphonesimulator26.2-23C53-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -output-file-map /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/ModuleCache.noindex -sdk-module-cache-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/ModuleCache.noindex/Session.modulevalidation -package-name kingfisher -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher_const_extract_protocols.json -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/DerivedSources-normal/arm64 -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/DerivedSources/arm64 -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher-Swift.h -working-directory /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode -experimental-emit-module-separately -disable-cmo
+
+SwiftDriver Alamofire normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Alamofire -Onone -enforce-exclusivity\=checked @/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire.SwiftFileList -DSWIFT_PACKAGE -DDEBUG -DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE -DXcode -enable-upcoming-feature ExistentialAny -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target arm64-apple-ios12.0-simulator -g -module-cache-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -suppress-warnings -index-store-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk/Developer/Library/Frameworks -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SDKStatCaches.noindex/iphonesimulator26.2-23C53-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -output-file-map /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/ModuleCache.noindex -sdk-module-cache-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire.swiftmodule -user-module-version 5.11.0 -validate-clang-modules-once -clang-build-session-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/ModuleCache.noindex/Session.modulevalidation -package-name alamofire -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire_const_extract_protocols.json -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/DerivedSources-normal/arm64 -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/DerivedSources/arm64 -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire-Swift.h -working-directory /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode -experimental-emit-module-separately -disable-cmo
+
+SwiftCompile normal arm64 Compiling\ resource_bundle_accessor.swift,\ Alamofire.swift,\ AFError.swift,\ DataRequest.swift,\ DataStreamRequest.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/DerivedSources/resource_bundle_accessor.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Alamofire.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/AFError.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/DataRequest.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/DataStreamRequest.swift (in target 'Alamofire' from project 'Alamofire')
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/DerivedSources/resource_bundle_accessor.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Alamofire.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/AFError.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/DataRequest.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/DataStreamRequest.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 Compiling\ DownloadRequest.swift,\ HTTPHeaders.swift,\ HTTPMethod.swift,\ Notifications.swift,\ ParameterEncoder.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/DownloadRequest.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/HTTPHeaders.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/HTTPMethod.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/Notifications.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/ParameterEncoder.swift (in target 'Alamofire' from project 'Alamofire')
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/DownloadRequest.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/HTTPHeaders.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/HTTPMethod.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/Notifications.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/ParameterEncoder.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 Compiling\ ParameterEncoding.swift,\ Protected.swift,\ Request.swift,\ RequestTaskMap.swift,\ Response.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/ParameterEncoding.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/Protected.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/Request.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/RequestTaskMap.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/Response.swift (in target 'Alamofire' from project 'Alamofire')
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/ParameterEncoding.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/Protected.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/Request.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/RequestTaskMap.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/Response.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ Alamofire (in target 'Alamofire' from project 'Alamofire')
+
+EmitSwiftModule normal arm64 (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 Compiling\ RetryPolicy.swift,\ ServerTrustEvaluation.swift,\ URLEncodedFormEncoder.swift,\ Validation.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/RetryPolicy.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/ServerTrustEvaluation.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/URLEncodedFormEncoder.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/Validation.swift (in target 'Alamofire' from project 'Alamofire')
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/RetryPolicy.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/ServerTrustEvaluation.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/URLEncodedFormEncoder.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/Validation.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 Compiling\ RedirectHandler.swift,\ RequestCompression.swift,\ RequestInterceptor.swift,\ ResponseSerialization.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/RedirectHandler.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/RequestCompression.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/RequestInterceptor.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/ResponseSerialization.swift (in target 'Alamofire' from project 'Alamofire')
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/RedirectHandler.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/RequestCompression.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/RequestInterceptor.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/ResponseSerialization.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 Compiling\ URLRequest+Alamofire.swift,\ URLSessionConfiguration+Alamofire.swift,\ AlamofireExtended.swift,\ AuthenticationInterceptor.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Extensions/URLRequest+Alamofire.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Extensions/URLSessionConfiguration+Alamofire.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/AlamofireExtended.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/AuthenticationInterceptor.swift (in target 'Alamofire' from project 'Alamofire')
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Extensions/URLRequest+Alamofire.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Extensions/URLSessionConfiguration+Alamofire.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/AlamofireExtended.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/AuthenticationInterceptor.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 Compiling\ Session.swift,\ SessionDelegate.swift,\ URLConvertible+URLRequestConvertible.swift,\ UploadRequest.swift,\ WebSocketRequest.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/Session.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/SessionDelegate.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/URLConvertible+URLRequestConvertible.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/UploadRequest.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/WebSocketRequest.swift (in target 'Alamofire' from project 'Alamofire')
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/Session.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/SessionDelegate.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/URLConvertible+URLRequestConvertible.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/UploadRequest.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Core/WebSocketRequest.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 Compiling\ CachedResponseHandler.swift,\ Combine.swift,\ Concurrency.swift,\ EventMonitor.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/CachedResponseHandler.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/Combine.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/Concurrency.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/EventMonitor.swift (in target 'Alamofire' from project 'Alamofire')
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/CachedResponseHandler.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/Combine.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/Concurrency.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/EventMonitor.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 Compiling\ DispatchQueue+Alamofire.swift,\ OperationQueue+Alamofire.swift,\ Result+Alamofire.swift,\ StringEncoding+Alamofire.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Extensions/DispatchQueue+Alamofire.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Extensions/OperationQueue+Alamofire.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Extensions/Result+Alamofire.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Extensions/StringEncoding+Alamofire.swift (in target 'Alamofire' from project 'Alamofire')
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Extensions/DispatchQueue+Alamofire.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Extensions/OperationQueue+Alamofire.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Extensions/Result+Alamofire.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Extensions/StringEncoding+Alamofire.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ Kingfisher (in target 'Kingfisher' from project 'Kingfisher')
+EmitSwiftModule normal arm64 (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling DispatchQueue+Alamofire.swift, OperationQueue+Alamofire.swift, Result+Alamofire.swift, StringEncoding+Alamofire.swift (in target 'Alamofire' from project 'Alamofire')
+
+SwiftCompile normal arm64 Compiling\ Placeholder.swift,\ AuthenticationChallengeResponsable.swift,\ ImageDataProcessor.swift,\ ImageDownloader.swift,\ ImageDownloaderDelegate.swift,\ ImageModifier.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Image/Placeholder.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Networking/AuthenticationChallengeResponsable.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Networking/ImageDataProcessor.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Networking/ImageDownloader.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Networking/ImageDownloaderDelegate.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Networking/ImageModifier.swift (in target 'Kingfisher' from project 'Kingfisher')
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Image/Placeholder.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Networking/AuthenticationChallengeResponsable.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Networking/ImageDataProcessor.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Networking/ImageDownloader.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Networking/ImageDownloaderDelegate.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Networking/ImageModifier.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling URLRequest+Alamofire.swift, URLSessionConfiguration+Alamofire.swift, AlamofireExtended.swift, AuthenticationInterceptor.swift (in target 'Alamofire' from project 'Alamofire')
+
+SwiftCompile normal arm64 Compiling\ ImagePrefetcher.swift,\ RedirectHandler.swift,\ RequestModifier.swift,\ RetryStrategy.swift,\ SessionDataTask.swift,\ SessionDelegate.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Networking/ImagePrefetcher.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Networking/RedirectHandler.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Networking/RequestModifier.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Networking/RetryStrategy.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Networking/SessionDataTask.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Networking/SessionDelegate.swift (in target 'Kingfisher' from project 'Kingfisher')
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Networking/ImagePrefetcher.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Networking/RedirectHandler.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Networking/RequestModifier.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Networking/RetryStrategy.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Networking/SessionDataTask.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Networking/SessionDelegate.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling RedirectHandler.swift, RequestCompression.swift, RequestInterceptor.swift, ResponseSerialization.swift (in target 'Alamofire' from project 'Alamofire')
+
+SwiftCompile normal arm64 Compiling\ KFImageRenderer.swift,\ Box.swift,\ CallbackQueue.swift,\ Delegate.swift,\ DisplayLink.swift,\ ExtensionHelpers.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/SwiftUI/KFImageRenderer.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Utility/Box.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Utility/CallbackQueue.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Utility/Delegate.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Utility/DisplayLink.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Utility/ExtensionHelpers.swift (in target 'Kingfisher' from project 'Kingfisher')
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/SwiftUI/KFImageRenderer.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Utility/Box.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Utility/CallbackQueue.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Utility/Delegate.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Utility/DisplayLink.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Utility/ExtensionHelpers.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for Alamofire (in target 'Alamofire' from project 'Alamofire')
+
+SwiftDriverJobDiscovery normal arm64 Compiling DownloadRequest.swift, HTTPHeaders.swift, HTTPMethod.swift, Notifications.swift, ParameterEncoder.swift (in target 'Alamofire' from project 'Alamofire')
+
+SwiftDriver\ Compilation\ Requirements Alamofire normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Alamofire -Onone -enforce-exclusivity\=checked @/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire.SwiftFileList -DSWIFT_PACKAGE -DDEBUG -DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE -DXcode -enable-upcoming-feature ExistentialAny -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target arm64-apple-ios12.0-simulator -g -module-cache-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -suppress-warnings -index-store-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk/Developer/Library/Frameworks -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SDKStatCaches.noindex/iphonesimulator26.2-23C53-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -output-file-map /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/ModuleCache.noindex -sdk-module-cache-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire.swiftmodule -user-module-version 5.11.0 -validate-clang-modules-once -clang-build-session-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/ModuleCache.noindex/Session.modulevalidation -package-name alamofire -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire_const_extract_protocols.json -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/DerivedSources-normal/arm64 -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/DerivedSources/arm64 -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire-Swift.h -working-directory /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode -experimental-emit-module-separately -disable-cmo
+
+SwiftCompile normal arm64 Compiling\ Result.swift,\ Runtime.swift,\ SizeExtensions.swift,\ String+MD5.swift,\ AnimatedImageView.swift,\ Indicator.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Utility/Result.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Utility/Runtime.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Utility/SizeExtensions.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Utility/String+MD5.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Views/AnimatedImageView.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Views/Indicator.swift (in target 'Kingfisher' from project 'Kingfisher')
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Utility/Result.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Utility/Runtime.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Utility/SizeExtensions.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Utility/String+MD5.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Views/AnimatedImageView.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Views/Indicator.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftMergeGeneratedHeaders /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/Alamofire-Swift.h /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire-Swift.h (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    builtin-swiftHeaderTool -arch arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire-Swift.h -o /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/Alamofire-Swift.h
+
+SwiftDriverJobDiscovery normal arm64 Compiling RetryPolicy.swift, ServerTrustEvaluation.swift, URLEncodedFormEncoder.swift, Validation.swift (in target 'Alamofire' from project 'Alamofire')
+
+Copy /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Alamofire.swiftmodule/arm64-apple-ios-simulator.swiftmodule /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire.swiftmodule (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire.swiftmodule /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Alamofire.swiftmodule/arm64-apple-ios-simulator.swiftmodule
+
+Copy /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Alamofire.swiftmodule/arm64-apple-ios-simulator.swiftdoc /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire.swiftdoc (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire.swiftdoc /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Alamofire.swiftmodule/arm64-apple-ios-simulator.swiftdoc
+
+Copy /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Alamofire.swiftmodule/arm64-apple-ios-simulator.abi.json /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire.abi.json (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire.abi.json /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Alamofire.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+Copy /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Alamofire.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire.swiftsourceinfo (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Alamofire.build/Debug-iphonesimulator/Alamofire.build/Objects-normal/arm64/Alamofire.swiftsourceinfo /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Alamofire.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+
+SwiftCompile normal arm64 Compiling\ Kingfisher.swift,\ KingfisherError.swift,\ KingfisherManager.swift,\ KingfisherOptionsInfo.swift,\ Filter.swift,\ GIFAnimatedImage.swift,\ GraphicsContext.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/Kingfisher.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/KingfisherError.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/KingfisherManager.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/KingfisherOptionsInfo.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Image/Filter.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Image/GIFAnimatedImage.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Image/GraphicsContext.swift (in target 'Kingfisher' from project 'Kingfisher')
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/Kingfisher.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/KingfisherError.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/KingfisherManager.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/KingfisherOptionsInfo.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Image/Filter.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Image/GIFAnimatedImage.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Image/GraphicsContext.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 Compiling\ resource_bundle_accessor.swift,\ CacheSerializer.swift,\ DiskStorage.swift,\ FormatIndicatedCacheSerializer.swift,\ ImageCache.swift,\ MemoryStorage.swift,\ Storage.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/DerivedSources/resource_bundle_accessor.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Cache/CacheSerializer.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Cache/DiskStorage.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Cache/FormatIndicatedCacheSerializer.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Cache/ImageCache.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Cache/MemoryStorage.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Cache/Storage.swift (in target 'Kingfisher' from project 'Kingfisher')
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/DerivedSources/resource_bundle_accessor.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Cache/CacheSerializer.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Cache/DiskStorage.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Cache/FormatIndicatedCacheSerializer.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Cache/ImageCache.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Cache/MemoryStorage.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Cache/Storage.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling resource_bundle_accessor.swift, Alamofire.swift, AFError.swift, DataRequest.swift, DataStreamRequest.swift (in target 'Alamofire' from project 'Alamofire')
+
+SwiftCompile normal arm64 Compiling\ CPListItem+Kingfisher.swift,\ ImageView+Kingfisher.swift,\ NSButton+Kingfisher.swift,\ NSTextAttachment+Kingfisher.swift,\ TVMonogramView+Kingfisher.swift,\ UIButton+Kingfisher.swift,\ WKInterfaceImage+Kingfisher.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Extensions/CPListItem+Kingfisher.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Extensions/ImageView+Kingfisher.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Extensions/NSButton+Kingfisher.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Extensions/NSTextAttachment+Kingfisher.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Extensions/TVMonogramView+Kingfisher.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Extensions/UIButton+Kingfisher.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Extensions/WKInterfaceImage+Kingfisher.swift (in target 'Kingfisher' from project 'Kingfisher')
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Extensions/CPListItem+Kingfisher.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Extensions/ImageView+Kingfisher.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Extensions/NSButton+Kingfisher.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Extensions/NSTextAttachment+Kingfisher.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Extensions/TVMonogramView+Kingfisher.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Extensions/UIButton+Kingfisher.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Extensions/WKInterfaceImage+Kingfisher.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling ParameterEncoding.swift, Protected.swift, Request.swift, RequestTaskMap.swift, Response.swift (in target 'Alamofire' from project 'Alamofire')
+
+SwiftCompile normal arm64 Compiling\ Image.swift,\ ImageDrawing.swift,\ ImageFormat.swift,\ ImageProcessor.swift,\ ImageProgressive.swift,\ ImageTransition.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Image/Image.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Image/ImageDrawing.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Image/ImageFormat.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Image/ImageProcessor.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Image/ImageProgressive.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Image/ImageTransition.swift (in target 'Kingfisher' from project 'Kingfisher')
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Image/Image.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Image/ImageDrawing.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Image/ImageFormat.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Image/ImageProcessor.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Image/ImageProgressive.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/Image/ImageTransition.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling CachedResponseHandler.swift, Combine.swift, Concurrency.swift, EventMonitor.swift (in target 'Alamofire' from project 'Alamofire')
+
+SwiftCompile normal arm64 Compiling\ AVAssetImageDataProvider.swift,\ ImageDataProvider.swift,\ PHPickerResultImageDataProvider.swift,\ Resource.swift,\ Source.swift,\ KF.swift,\ KFOptionsSetter.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/ImageSource/AVAssetImageDataProvider.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/ImageSource/ImageDataProvider.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/ImageSource/PHPickerResultImageDataProvider.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/ImageSource/Resource.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/ImageSource/Source.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/KF.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/KFOptionsSetter.swift (in target 'Kingfisher' from project 'Kingfisher')
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/ImageSource/AVAssetImageDataProvider.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/ImageSource/ImageDataProvider.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/ImageSource/PHPickerResultImageDataProvider.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/ImageSource/Resource.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/ImageSource/Source.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/KF.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/General/KFOptionsSetter.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling Session.swift, SessionDelegate.swift, URLConvertible+URLRequestConvertible.swift, UploadRequest.swift, WebSocketRequest.swift (in target 'Alamofire' from project 'Alamofire')
+
+SwiftCompile normal arm64 Compiling\ ImageBinder.swift,\ ImageContext.swift,\ KFAnimatedImage.swift,\ KFImage.swift,\ KFImageOptions.swift,\ KFImageProtocol.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/SwiftUI/ImageBinder.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/SwiftUI/ImageContext.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/SwiftUI/KFAnimatedImage.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/SwiftUI/KFImage.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/SwiftUI/KFImageOptions.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/SwiftUI/KFImageProtocol.swift (in target 'Kingfisher' from project 'Kingfisher')
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/SwiftUI/ImageBinder.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/HomeView.swift:77:9: error: expected declaration
+        .padding(.bottom, DesignTokens.Spacing.md)
+        ^
+/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/HomeView.swift:4:8: note: in declaration of 'HomeView'
+struct HomeView: View {
+       ^
+/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/HomeView.swift:273:1: error: extraneous '}' at top level
+}
+^
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/SwiftUI/ImageContext.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/SwiftUI/KFAnimatedImage.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/SwiftUI/KFImage.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/SwiftUI/KFImageOptions.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher/Sources/SwiftUI/KFImageProtocol.swift (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling KFImageRenderer.swift, Box.swift, CallbackQueue.swift, Delegate.swift, DisplayLink.swift, ExtensionHelpers.swift (in target 'Kingfisher' from project 'Kingfisher')
+
+SwiftCompile normal arm64 Compiling\ MultipartFormData.swift,\ MultipartUpload.swift,\ NetworkReachabilityManager.swift,\ OfflineRetrier.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/MultipartFormData.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/MultipartUpload.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/NetworkReachabilityManager.swift /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/OfflineRetrier.swift (in target 'Alamofire' from project 'Alamofire')
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/MultipartFormData.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/MultipartUpload.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/NetworkReachabilityManager.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Alamofire/Source/Features/OfflineRetrier.swift (in target 'Alamofire' from project 'Alamofire')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for Kingfisher (in target 'Kingfisher' from project 'Kingfisher')
+
+SwiftDriver\ Compilation\ Requirements Kingfisher normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Kingfisher -Onone -enforce-exclusivity\=checked @/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher.SwiftFileList -DSWIFT_PACKAGE -DDEBUG -DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE -DXcode -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target arm64-apple-ios12.0-simulator -g -module-cache-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -suppress-warnings -index-store-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk/Developer/Library/Frameworks -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SDKStatCaches.noindex/iphonesimulator26.2-23C53-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -output-file-map /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/ModuleCache.noindex -sdk-module-cache-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/ModuleCache.noindex/Session.modulevalidation -package-name kingfisher -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher_const_extract_protocols.json -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/DerivedSources-normal/arm64 -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/DerivedSources/arm64 -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher-Swift.h -working-directory /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode -experimental-emit-module-separately -disable-cmo
+
+SwiftDriverJobDiscovery normal arm64 Compiling Placeholder.swift, AuthenticationChallengeResponsable.swift, ImageDataProcessor.swift, ImageDownloader.swift, ImageDownloaderDelegate.swift, ImageModifier.swift (in target 'Kingfisher' from project 'Kingfisher')
+
+SwiftMergeGeneratedHeaders /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/Kingfisher-Swift.h /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher-Swift.h (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    builtin-swiftHeaderTool -arch arm64 /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher-Swift.h -o /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/Kingfisher-Swift.h
+
+Copy /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Kingfisher.swiftmodule/arm64-apple-ios-simulator.swiftmodule /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher.swiftmodule (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher.swiftmodule /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Kingfisher.swiftmodule/arm64-apple-ios-simulator.swiftmodule
+
+Copy /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Kingfisher.swiftmodule/arm64-apple-ios-simulator.swiftdoc /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher.swiftdoc (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher.swiftdoc /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Kingfisher.swiftmodule/arm64-apple-ios-simulator.swiftdoc
+
+Copy /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Kingfisher.swiftmodule/arm64-apple-ios-simulator.abi.json /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher.abi.json (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher.abi.json /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Kingfisher.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+Copy /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Kingfisher.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher.swiftsourceinfo (in target 'Kingfisher' from project 'Kingfisher')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SourcePackages/checkouts/Kingfisher
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Kingfisher.swiftsourceinfo /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/Kingfisher.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+
+SwiftDriverJobDiscovery normal arm64 Compiling ImagePrefetcher.swift, RedirectHandler.swift, RequestModifier.swift, RetryStrategy.swift, SessionDataTask.swift, SessionDelegate.swift (in target 'Kingfisher' from project 'Kingfisher')
+
+ProcessProductPackaging "" /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/PlanYourPerfectDay-Simulated.xcent (in target 'PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native
+    
+    Entitlements:
+    
+    {
+    "application-identifier" = "S9X3N4KYL4.ios-native.PlanYourPerfectDay";
+}
+    
+    builtin-productPackagingUtility -entitlements -format xml -o /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/PlanYourPerfectDay-Simulated.xcent
+
+ProcessProductPackagingDER /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/PlanYourPerfectDay-Simulated.xcent /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/PlanYourPerfectDay-Simulated.xcent.der (in target 'PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native
+    /usr/bin/derq query -f xml -i /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/PlanYourPerfectDay-Simulated.xcent -o /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/PlanYourPerfectDay-Simulated.xcent.der --raw
+
+SwiftDriver PlanYourPerfectDay normal arm64 com.apple.xcode.tools.swift.compiler (in target 'PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+    cd /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name PlanYourPerfectDay -Onone -enforce-exclusivity\=checked @/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/PlanYourPerfectDay.SwiftFileList -DSWIFT_PACKAGE -DDEBUG -DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE -DXcode -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target arm64-apple-ios26.0-simulator -g -module-cache-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 6 -I /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk/Developer/Library/Frameworks -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/SDKStatCaches.noindex/iphonesimulator26.2-23C53-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -output-file-map /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/PlanYourPerfectDay-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/ModuleCache.noindex -sdk-module-cache-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/PlanYourPerfectDay.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/ModuleCache.noindex/Session.modulevalidation -package-name ios_native -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/Objects-normal/arm64/PlanYourPerfectDay_const_extract_protocols.json -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/DerivedSources-normal/arm64 -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/DerivedSources/arm64 -Xcc -I/Users/carlos/LondonDayPlanner-1/ios-native/.build/dd/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -working-directory /Users/carlos/LondonDayPlanner-1/ios-native/.swiftpm/xcode -experimental-emit-module-separately -disable-cmo
+/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/HomeView.swift:77:9: error: Expected declaration
+        .padding(.bottom, DesignTokens.Spacing.md)
+        ^ (in target 'PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/HomeView.swift:4:8: note: In declaration of 'HomeView'
+struct HomeView: View {
+       ^ (in target 'PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/HomeView.swift:273:1: error: Extraneous '}' at top level
+}
+^ (in target 'PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+
+SwiftDriverJobDiscovery normal arm64 Compiling CPListItem+Kingfisher.swift, ImageView+Kingfisher.swift, NSButton+Kingfisher.swift, NSTextAttachment+Kingfisher.swift, TVMonogramView+Kingfisher.swift, UIButton+Kingfisher.swift, WKInterfaceImage+Kingfisher.swift (in target 'Kingfisher' from project 'Kingfisher')
+
+SwiftDriverJobDiscovery normal arm64 Compiling Result.swift, Runtime.swift, SizeExtensions.swift, String+MD5.swift, AnimatedImageView.swift, Indicator.swift (in target 'Kingfisher' from project 'Kingfisher')
+
+SwiftDriverJobDiscovery normal arm64 Compiling AVAssetImageDataProvider.swift, ImageDataProvider.swift, PHPickerResultImageDataProvider.swift, Resource.swift, Source.swift, KF.swift, KFOptionsSetter.swift (in target 'Kingfisher' from project 'Kingfisher')
+
+SwiftDriverJobDiscovery normal arm64 Compiling resource_bundle_accessor.swift, CacheSerializer.swift, DiskStorage.swift, FormatIndicatedCacheSerializer.swift, ImageCache.swift, MemoryStorage.swift, Storage.swift (in target 'Kingfisher' from project 'Kingfisher')
+
+SwiftDriverJobDiscovery normal arm64 Compiling Kingfisher.swift, KingfisherError.swift, KingfisherManager.swift, KingfisherOptionsInfo.swift, Filter.swift, GIFAnimatedImage.swift, GraphicsContext.swift (in target 'Kingfisher' from project 'Kingfisher')
+
+SwiftDriverJobDiscovery normal arm64 Compiling Image.swift, ImageDrawing.swift, ImageFormat.swift, ImageProcessor.swift, ImageProgressive.swift, ImageTransition.swift (in target 'Kingfisher' from project 'Kingfisher')
+
+** BUILD FAILED **
+
+
+The following build commands failed:
+	SwiftDriver PlanYourPerfectDay normal arm64 com.apple.xcode.tools.swift.compiler (in target 'PlanYourPerfectDay' from project 'PlanYourPerfectDay')
+	Building workspace ios-native with scheme PlanYourPerfectDay
+(2 failures)

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>colors</key>
+	<array/>
+	<key>images</key>
+	<array>
+		<dict>
+			<key>catalogPath</key>
+			<string>/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Resources/Media.xcassets</string>
+			<key>objcSymbol</key>
+			<string>ACImageNameCityAustin</string>
+			<key>relativePath</key>
+			<string>./city_austin.imageset</string>
+			<key>swiftSymbol</key>
+			<string>cityAustin</string>
+		</dict>
+		<dict>
+			<key>catalogPath</key>
+			<string>/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Resources/Media.xcassets</string>
+			<key>objcSymbol</key>
+			<string>ACImageNameCityBoston</string>
+			<key>relativePath</key>
+			<string>./city_boston.imageset</string>
+			<key>swiftSymbol</key>
+			<string>cityBoston</string>
+		</dict>
+		<dict>
+			<key>catalogPath</key>
+			<string>/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Resources/Media.xcassets</string>
+			<key>objcSymbol</key>
+			<string>ACImageNameCityLondon</string>
+			<key>relativePath</key>
+			<string>./city_london.imageset</string>
+			<key>swiftSymbol</key>
+			<string>cityLondon</string>
+		</dict>
+		<dict>
+			<key>catalogPath</key>
+			<string>/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Resources/Media.xcassets</string>
+			<key>objcSymbol</key>
+			<string>ACImageNameCityNyc</string>
+			<key>relativePath</key>
+			<string>./city_nyc.imageset</string>
+			<key>swiftSymbol</key>
+			<string>cityNyc</string>
+		</dict>
+	</array>
+	<key>symbols</key>
+	<array/>
+</dict>
+</plist>

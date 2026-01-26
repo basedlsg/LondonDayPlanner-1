@@ -1,0 +1,28 @@
+# This file is used by gcloud to ignore files when deploying.
+# See https://cloud.google.com/sdk/gcloud/reference/topic/gcloudignore
+
+# Default ignores
+.gcloudignore
+.git
+.gitignore
+
+# Node.js
+node_modules/
+
+# Build artifacts
+dist/
+build/
+
+# Logs
+logs/
+*.log
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.*.local
+
+# Misc
+.DS_Store
+*.tar.gz

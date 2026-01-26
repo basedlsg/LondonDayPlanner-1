@@ -1,0 +1,3 @@
+module Alamofire {
+    header "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Alamofire.build/include/Alamofire-Swift.h"
+}

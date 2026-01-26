@@ -1,0 +1,41 @@
+{
+  "name": "Plan Your Perfect Day",
+  "short_name": "Perfect Day",
+  "description": "AI-powered day planner for London, NYC, Boston & Austin",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "categories": ["travel", "lifestyle", "productivity"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Plan London Day",
+      "short_name": "London",
+      "description": "Plan your perfect day in London",
+      "url": "/?city=london",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Plan NYC Day", 
+      "short_name": "NYC",
+      "description": "Plan your perfect day in New York",
+      "url": "/?city=nyc",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

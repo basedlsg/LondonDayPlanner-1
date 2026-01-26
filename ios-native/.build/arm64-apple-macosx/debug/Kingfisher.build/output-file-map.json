@@ -1,0 +1,453 @@
+{
+  "": {
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/master.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Cache/CacheSerializer.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/CacheSerializer.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/CacheSerializer.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/CacheSerializer~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/CacheSerializer.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/CacheSerializer.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Cache/DiskStorage.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/DiskStorage.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/DiskStorage.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/DiskStorage~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/DiskStorage.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/DiskStorage.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Cache/FormatIndicatedCacheSerializer.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/FormatIndicatedCacheSerializer.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/FormatIndicatedCacheSerializer.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/FormatIndicatedCacheSerializer~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/FormatIndicatedCacheSerializer.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/FormatIndicatedCacheSerializer.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Cache/ImageCache.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageCache.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageCache.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageCache~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageCache.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageCache.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Cache/MemoryStorage.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/MemoryStorage.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/MemoryStorage.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/MemoryStorage~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/MemoryStorage.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/MemoryStorage.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Cache/Storage.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Storage.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Storage.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Storage~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Storage.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Storage.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Extensions/CPListItem+Kingfisher.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/CPListItem+Kingfisher.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/CPListItem+Kingfisher.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/CPListItem+Kingfisher~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/CPListItem+Kingfisher.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/CPListItem+Kingfisher.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Extensions/ImageView+Kingfisher.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageView+Kingfisher.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageView+Kingfisher.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageView+Kingfisher~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageView+Kingfisher.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageView+Kingfisher.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Extensions/NSButton+Kingfisher.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/NSButton+Kingfisher.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/NSButton+Kingfisher.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/NSButton+Kingfisher~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/NSButton+Kingfisher.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/NSButton+Kingfisher.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Extensions/NSTextAttachment+Kingfisher.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/NSTextAttachment+Kingfisher.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/NSTextAttachment+Kingfisher.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/NSTextAttachment+Kingfisher~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/NSTextAttachment+Kingfisher.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/NSTextAttachment+Kingfisher.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Extensions/TVMonogramView+Kingfisher.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/TVMonogramView+Kingfisher.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/TVMonogramView+Kingfisher.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/TVMonogramView+Kingfisher~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/TVMonogramView+Kingfisher.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/TVMonogramView+Kingfisher.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Extensions/UIButton+Kingfisher.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/UIButton+Kingfisher.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/UIButton+Kingfisher.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/UIButton+Kingfisher~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/UIButton+Kingfisher.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/UIButton+Kingfisher.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Extensions/WKInterfaceImage+Kingfisher.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/WKInterfaceImage+Kingfisher.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/WKInterfaceImage+Kingfisher.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/WKInterfaceImage+Kingfisher~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/WKInterfaceImage+Kingfisher.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/WKInterfaceImage+Kingfisher.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/General/ImageSource/AVAssetImageDataProvider.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/AVAssetImageDataProvider.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/AVAssetImageDataProvider.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/AVAssetImageDataProvider~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/AVAssetImageDataProvider.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/AVAssetImageDataProvider.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/General/ImageSource/ImageDataProvider.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDataProvider.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDataProvider.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDataProvider~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDataProvider.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDataProvider.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/General/ImageSource/PHPickerResultImageDataProvider.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/PHPickerResultImageDataProvider.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/PHPickerResultImageDataProvider.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/PHPickerResultImageDataProvider~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/PHPickerResultImageDataProvider.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/PHPickerResultImageDataProvider.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/General/ImageSource/Resource.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Resource.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Resource.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Resource~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Resource.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Resource.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/General/ImageSource/Source.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Source.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Source.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Source~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Source.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Source.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/General/KF.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KF.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KF.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KF~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KF.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KF.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/General/KFOptionsSetter.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFOptionsSetter.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFOptionsSetter.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFOptionsSetter~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFOptionsSetter.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFOptionsSetter.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/General/Kingfisher.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Kingfisher.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Kingfisher.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Kingfisher~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Kingfisher.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Kingfisher.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/General/KingfisherError.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KingfisherError.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KingfisherError.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KingfisherError~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KingfisherError.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KingfisherError.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/General/KingfisherManager.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KingfisherManager.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KingfisherManager.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KingfisherManager~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KingfisherManager.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KingfisherManager.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/General/KingfisherOptionsInfo.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KingfisherOptionsInfo.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KingfisherOptionsInfo.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KingfisherOptionsInfo~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KingfisherOptionsInfo.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KingfisherOptionsInfo.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Image/Filter.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Filter.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Filter.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Filter~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Filter.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Filter.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Image/GIFAnimatedImage.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/GIFAnimatedImage.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/GIFAnimatedImage.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/GIFAnimatedImage~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/GIFAnimatedImage.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/GIFAnimatedImage.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Image/GraphicsContext.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/GraphicsContext.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/GraphicsContext.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/GraphicsContext~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/GraphicsContext.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/GraphicsContext.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Image/Image.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Image.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Image.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Image~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Image.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Image.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Image/ImageDrawing.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDrawing.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDrawing.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDrawing~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDrawing.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDrawing.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Image/ImageFormat.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageFormat.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageFormat.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageFormat~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageFormat.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageFormat.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Image/ImageProcessor.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageProcessor.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageProcessor.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageProcessor~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageProcessor.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageProcessor.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Image/ImageProgressive.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageProgressive.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageProgressive.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageProgressive~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageProgressive.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageProgressive.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Image/ImageTransition.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageTransition.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageTransition.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageTransition~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageTransition.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageTransition.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Image/Placeholder.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Placeholder.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Placeholder.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Placeholder~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Placeholder.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Placeholder.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Networking/AuthenticationChallengeResponsable.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/AuthenticationChallengeResponsable.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/AuthenticationChallengeResponsable.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/AuthenticationChallengeResponsable~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/AuthenticationChallengeResponsable.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/AuthenticationChallengeResponsable.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Networking/ImageDataProcessor.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDataProcessor.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDataProcessor.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDataProcessor~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDataProcessor.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDataProcessor.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Networking/ImageDownloader.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDownloader.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDownloader.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDownloader~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDownloader.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDownloader.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Networking/ImageDownloaderDelegate.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDownloaderDelegate.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDownloaderDelegate.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDownloaderDelegate~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDownloaderDelegate.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageDownloaderDelegate.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Networking/ImageModifier.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageModifier.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageModifier.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageModifier~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageModifier.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageModifier.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Networking/ImagePrefetcher.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImagePrefetcher.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImagePrefetcher.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImagePrefetcher~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImagePrefetcher.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImagePrefetcher.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Networking/RedirectHandler.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/RedirectHandler.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/RedirectHandler.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/RedirectHandler~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/RedirectHandler.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/RedirectHandler.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Networking/RequestModifier.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/RequestModifier.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/RequestModifier.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/RequestModifier~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/RequestModifier.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/RequestModifier.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Networking/RetryStrategy.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/RetryStrategy.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/RetryStrategy.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/RetryStrategy~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/RetryStrategy.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/RetryStrategy.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Networking/SessionDataTask.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/SessionDataTask.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/SessionDataTask.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/SessionDataTask~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/SessionDataTask.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/SessionDataTask.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Networking/SessionDelegate.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/SessionDelegate.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/SessionDelegate.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/SessionDelegate~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/SessionDelegate.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/SessionDelegate.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/SwiftUI/ImageBinder.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageBinder.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageBinder.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageBinder~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageBinder.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageBinder.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/SwiftUI/ImageContext.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageContext.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageContext.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageContext~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageContext.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ImageContext.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/SwiftUI/KFAnimatedImage.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFAnimatedImage.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFAnimatedImage.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFAnimatedImage~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFAnimatedImage.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFAnimatedImage.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/SwiftUI/KFImage.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFImage.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFImage.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFImage~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFImage.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFImage.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/SwiftUI/KFImageOptions.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFImageOptions.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFImageOptions.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFImageOptions~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFImageOptions.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFImageOptions.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/SwiftUI/KFImageProtocol.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFImageProtocol.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFImageProtocol.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFImageProtocol~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFImageProtocol.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFImageProtocol.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/SwiftUI/KFImageRenderer.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFImageRenderer.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFImageRenderer.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFImageRenderer~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFImageRenderer.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/KFImageRenderer.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Utility/Box.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Box.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Box.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Box~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Box.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Box.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Utility/CallbackQueue.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/CallbackQueue.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/CallbackQueue.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/CallbackQueue~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/CallbackQueue.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/CallbackQueue.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Utility/Delegate.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Delegate.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Delegate.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Delegate~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Delegate.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Delegate.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Utility/DisplayLink.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/DisplayLink.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/DisplayLink.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/DisplayLink~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/DisplayLink.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/DisplayLink.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Utility/ExtensionHelpers.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ExtensionHelpers.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ExtensionHelpers.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ExtensionHelpers~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ExtensionHelpers.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/ExtensionHelpers.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Utility/Result.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Result.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Result.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Result~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Result.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Result.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Utility/Runtime.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Runtime.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Runtime.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Runtime~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Runtime.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Runtime.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Utility/SizeExtensions.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/SizeExtensions.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/SizeExtensions.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/SizeExtensions~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/SizeExtensions.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/SizeExtensions.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Utility/String+MD5.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/String+MD5.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/String+MD5.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/String+MD5~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/String+MD5.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/String+MD5.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Views/AnimatedImageView.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/AnimatedImageView.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/AnimatedImageView.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/AnimatedImageView~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/AnimatedImageView.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/AnimatedImageView.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/checkouts/Kingfisher/Sources/Views/Indicator.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Indicator.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Indicator.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Indicator~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Indicator.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/Indicator.dia"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/DerivedSources/resource_bundle_accessor.swift": {
+    "dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/resource_bundle_accessor.d",
+    "object": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/resource_bundle_accessor.swift.o",
+    "swiftmodule": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/resource_bundle_accessor~partial.swiftmodule",
+    "swift-dependencies": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/resource_bundle_accessor.swiftdeps",
+    "diagnostics": "/Users/carlos/LondonDayPlanner-1/ios-native/.build/arm64-apple-macosx/debug/Kingfisher.build/resource_bundle_accessor.dia"
+  }
+}

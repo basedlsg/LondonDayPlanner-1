@@ -1,0 +1,44 @@
+{
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/SourcePackages/checkouts/Kingfisher/Sources/Utility/Result.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Result.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Result.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Result.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Result.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Result.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/SourcePackages/checkouts/Kingfisher/Sources/Utility/Runtime.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Runtime.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Runtime.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Runtime.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Runtime.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Runtime.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/SourcePackages/checkouts/Kingfisher/Sources/Utility/SizeExtensions.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/SizeExtensions.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/SizeExtensions.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/SizeExtensions.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/SizeExtensions.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/SizeExtensions.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/SourcePackages/checkouts/Kingfisher/Sources/Utility/String+MD5.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/String+MD5.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/String+MD5.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/String+MD5.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/String+MD5.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/String+MD5.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/SourcePackages/checkouts/Kingfisher/Sources/Views/AnimatedImageView.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/AnimatedImageView.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/AnimatedImageView.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/AnimatedImageView.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/AnimatedImageView.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/AnimatedImageView.swiftdeps"
+  },
+  "/Users/carlos/LondonDayPlanner-1/ios-native/.build/SourcePackages/checkouts/Kingfisher/Sources/Views/Indicator.swift" : {
+    "const-values" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Indicator.swiftconstvalues",
+    "dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Indicator.d",
+    "diagnostics" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Indicator.dia",
+    "object" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Indicator.o",
+    "swift-dependencies" : "/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/Kingfisher.build/Debug-iphonesimulator/Kingfisher.build/Objects-normal/arm64/Indicator.swiftdeps"
+  }
+}
