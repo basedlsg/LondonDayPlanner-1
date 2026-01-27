@@ -23,6 +23,23 @@
 "itinerary.alternatives" = "查看替代方案";
 "itinerary.export" = "导出至日历";
 "itinerary.travelTime" = "前往 %@ 需 %@ 分钟";
+"itinerary.share.title" = "分享行程";
+"itinerary.share.pdf" = "导出 PDF";
+"itinerary.share.calendar" = "添加到日历";
+"itinerary.share.messages" = "短信";
+"itinerary.share.more" = "更多...";
+"itinerary.share.exporting" = "正在导出...";
+"itinerary.share.text" = "我在 %@ 的一天: %@";
+"itinerary.call" = "致电";
+"itinerary.alternatives.title" = "替代方案";
+"itinerary.minutes" = "%@ 分钟";
+
+/* Explore */
+"explore.title" = "探索";
+"explore.featured" = "精选目的地";
+"explore.allCities" = "所有城市";
+"explore.popularAreas" = "热门区域";
+
 
 /* Cities */
 "cities.london" = "伦敦";
@@ -96,7 +113,7 @@
 /* Errors */
 "errors.generic" = "发生错误，请重试。";
 "errors.network" = "无法连接，请检查网络设置。";
-"errors.noResults" = "找不到结果，请尝试搜索其他关键字。";
+"errors.noResults" = "找不到结果，请尝试其他关键字。";
 "errors.locationRequired" = "请在搜索中指定地点。";
 
 /* Loading */
@@ -117,3 +134,10 @@
 "common.copied" = "已复制！";
 "common.tryAgain" = "重试";
 "common.ok" = "确定";
+"common.error" = "错误";
+"common.unknownError" = "发生未知错误";
+
+/* Legal */
+"legal.autoRenew" = "订阅将自动续期，除非在当前订阅期结束前至少 24 小时取消。";
+"legal.terms" = "使用条款";
+"legal.privacy" = "隐私政策";

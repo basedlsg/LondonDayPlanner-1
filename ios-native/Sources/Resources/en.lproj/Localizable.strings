@@ -1,12 +1,10 @@
 /* App */
 "app.title" = "Plan Your Perfect Day";
-"app.title" = "Plan Your Perfect Day";
 "app.tagline" = "AI-powered itineraries for your city";
 
 /* Home */
 "home.title" = "Plan";
 "home.subtitle" = "Enter your activities, locations and time...";
-
 
 /* Input */
 "input.placeholder" = "Where would you like to go?";
@@ -26,6 +24,24 @@
 "itinerary.alternatives" = "See alternatives";
 "itinerary.export" = "Export to Calendar";
 "itinerary.travelTime" = "%@ minutes to %@";
+"itinerary.share.title" = "Share Itinerary";
+"itinerary.share.pdf" = "Export PDF";
+"itinerary.share.calendar" = "Add to Calendar";
+"itinerary.share.messages" = "Messages";
+"itinerary.share.more" = "More...";
+"itinerary.share.exporting" = "Exporting...";
+"itinerary.share.text" = "My Day in %@: %@";
+"itinerary.call" = "Call";
+"itinerary.alternatives.title" = "Alternatives";
+"itinerary.minutes" = "%@ min";
+
+
+/* Explore */
+"explore.title" = "Explore";
+"explore.featured" = "Featured Destinations";
+"explore.allCities" = "All Cities";
+"explore.popularAreas" = "Popular Areas";
+
 
 /* Cities */
 "cities.london" = "London";
@@ -120,3 +136,10 @@
 "common.copied" = "Copied!";
 "common.tryAgain" = "Try Again";
 "common.ok" = "OK";
+"common.error" = "Error";
+"common.unknownError" = "An error occurred";
+
+/* Legal */
+"legal.autoRenew" = "Subscriptions auto-renew unless cancelled at least 24 hours before the end of the current period.";
+"legal.terms" = "Terms of Use";
+"legal.privacy" = "Privacy Policy";

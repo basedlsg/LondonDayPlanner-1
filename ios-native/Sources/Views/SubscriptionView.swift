@@ -50,10 +50,10 @@ struct SubscriptionView: View {
                     }
                 }
             }
-            .alert("Error", isPresented: $showError) {
-                Button("OK", role: .cancel) {}
+            .alert(NSLocalizedString("common.error", comment: "Error"), isPresented: $showError) {
+                Button(NSLocalizedString("common.ok", comment: "OK"), role: .cancel) {}
             } message: {
-                Text(store.errorMessage ?? "An error occurred")
+                Text(store.errorMessage ?? NSLocalizedString("common.unknownError", comment: "An error occurred"))
             }
             .onChange(of: store.errorMessage) { newValue in
                 showError = newValue != nil
@@ -189,14 +189,14 @@ struct SubscriptionView: View {
 
     private var legalSection: some View {
         VStack(spacing: 8) {
-            Text("Subscriptions auto-renew unless cancelled at least 24 hours before the end of the current period.")
+            Text(NSLocalizedString("legal.autoRenew", comment: "Subscriptions auto-renew..."))
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
 
             HStack(spacing: 16) {
-                Link("Terms of Use", destination: URL(string: "https://example.com/terms")!)
-                Link("Privacy Policy", destination: URL(string: "https://example.com/privacy")!)
+                Link(NSLocalizedString("legal.terms", comment: "Terms of Use"), destination: URL(string: "https://example.com/terms")!)
+                Link(NSLocalizedString("legal.privacy", comment: "Privacy Policy"), destination: URL(string: "https://example.com/privacy")!)
             }
             .font(.caption)
         }
@@ -278,7 +278,7 @@ struct ProductCard: View {
                             .font(.headline)
 
                         if let savings = savingsPercentage, savings > 0 {
-                            Text("Save \(savings)%")
+                            Text(String(format: NSLocalizedString("subscription.savings", comment: "Save %d%%"), savings))
                                 .font(.caption)
                                 .fontWeight(.semibold)
                                 .foregroundStyle(.white)
@@ -301,11 +301,11 @@ struct ProductCard: View {
                         .fontWeight(.bold)
 
                     if product.id.contains("monthly") {
-                        Text("/month")
+                        Text(NSLocalizedString("subscription.perMonth", comment: "/month"))
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     } else {
-                        Text("/year")
+                        Text(NSLocalizedString("subscription.perYear", comment: "/year"))
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }

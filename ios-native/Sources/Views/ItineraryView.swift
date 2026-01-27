@@ -25,7 +25,7 @@ struct ItineraryView: View {
                 .padding(DesignTokens.Spacing.md)
             }
         }
-        .navigationTitle(itinerary.title ?? "Your Itinerary")
+        .navigationTitle(itinerary.title ?? NSLocalizedString("itinerary.title", comment: "Your Itinerary"))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
@@ -156,7 +156,7 @@ struct VenueCard: View {
                                 HStack(spacing: 2) {
                                     Image(systemName: "clock")
                                         .foregroundStyle(Color.accentBlue)
-                                    Text("\(duration) min")
+                                    Text(String(format: NSLocalizedString("itinerary.minutes", comment: "%@ min"), "\(duration)"))
                                         .foregroundStyle(DesignTokens.Colors.textSecondary)
                                 }
                                 .font(.caption)
@@ -266,7 +266,7 @@ struct PlaceDetailSheet: View {
                                     .foregroundStyle(Color.accentPink)
                                 
                                 if let duration = place.duration {
-                                    Text("• \(duration) min")
+                                    Text("• " + String(format: NSLocalizedString("itinerary.minutes", comment: "%@ min"), "\(duration)"))
                                         .foregroundStyle(DesignTokens.Colors.textSecondary)
                                 }
                                 
@@ -293,7 +293,7 @@ struct PlaceDetailSheet: View {
                         // Alternatives
                         if let alternatives = place.alternatives, !alternatives.isEmpty {
                             VStack(alignment: .leading, spacing: DesignTokens.Spacing.sm) {
-                                Text("Alternatives")
+                                Text(NSLocalizedString("itinerary.alternatives.title", comment: "Alternatives"))
                                     .font(.headline)
                                     .foregroundStyle(DesignTokens.Colors.textPrimary)
                                 
@@ -327,11 +327,11 @@ struct PlaceDetailSheet: View {
                         
                         // Actions
                         HStack(spacing: DesignTokens.Spacing.md) {
-                            GlassButton("Get Directions", icon: "arrow.triangle.turn.up.right.diamond", style: .secondary) {
+                            GlassButton(NSLocalizedString("itinerary.directions", comment: "Get Directions"), icon: "arrow.triangle.turn.up.right.diamond", style: .secondary) {
                                 openInMaps()
                             }
                             
-                            GlassButton("Call", icon: "phone", style: .ghost) {
+                            GlassButton(NSLocalizedString("itinerary.call", comment: "Call"), icon: "phone", style: .ghost) {
                                 // TODO: Implement call
                             }
                         }
@@ -342,7 +342,7 @@ struct PlaceDetailSheet: View {
             }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Done") { dismiss() }
+                    Button(NSLocalizedString("common.done", comment: "Done")) { dismiss() }
                         .tint(.accentPink)
                 }
             }
@@ -375,31 +375,31 @@ struct ShareSheet: View {
                     .ignoresSafeArea()
                 
                 VStack(spacing: DesignTokens.Spacing.lg) {
-                    Text("Share Itinerary")
+                    Text(NSLocalizedString("itinerary.share.title", comment: "Share Itinerary"))
                         .font(.headline)
                         .foregroundStyle(DesignTokens.Colors.textPrimary)
                     
                     if isExporting {
                         ProgressView()
                             .tint(.accentPink)
-                        Text("Exporting...")
+                        Text(NSLocalizedString("itinerary.share.exporting", comment: "Exporting..."))
                             .foregroundStyle(DesignTokens.Colors.textSecondary)
                     } else {
                         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: DesignTokens.Spacing.md) {
-                            ShareOption(icon: "doc.richtext", title: "Export PDF") {
+                            ShareOption(icon: "doc.richtext", title: NSLocalizedString("itinerary.share.pdf", comment: "Export PDF")) {
                                 exportPDF()
                             }
                             
-                            ShareOption(icon: "calendar.badge.plus", title: "Add to Calendar") {
+                            ShareOption(icon: "calendar.badge.plus", title: NSLocalizedString("itinerary.share.calendar", comment: "Add to Calendar")) {
                                 addToCalendar()
                             }
                             
-                            ShareOption(icon: "message", title: "Messages") {
+                            ShareOption(icon: "message", title: NSLocalizedString("itinerary.share.messages", comment: "Messages")) {
                                 // TODO: Message specific formatting
                                 shareNative(items: [generateShareText()])
                             }
                             
-                            ShareOption(icon: "square.and.arrow.up", title: "More...") {
+                            ShareOption(icon: "square.and.arrow.up", title: NSLocalizedString("itinerary.share.more", comment: "More...")) {
                                 shareNative(items: [generateShareText()])
                             }
                         }
@@ -421,7 +421,7 @@ struct ShareSheet: View {
             }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Done") { dismiss() }
+                    Button(NSLocalizedString("common.done", comment: "Done")) { dismiss() }
                         .tint(.accentPink)
                 }
             }

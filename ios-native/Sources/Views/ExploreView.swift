@@ -11,7 +11,7 @@ struct ExploreView: View {
             
             VStack(spacing: 0) {
                 // Centered Header
-                Text("Explore")
+                Text(NSLocalizedString("explore.title", value: "Explore", comment: "Explore title"))
                     .font(DesignTokens.Fonts.rozhaOne(size: 48))
                     .foregroundStyle(DesignTokens.Colors.textPrimary)
                     .padding(.top, 40)
@@ -34,7 +34,7 @@ struct ExploreView: View {
     
     private var featuredSection: some View {
         VStack(alignment: .leading, spacing: DesignTokens.Spacing.sm) {
-            Text("Featured Destinations")
+            Text(NSLocalizedString("explore.featured", value: "Featured Destinations", comment: "Featured section title"))
                 .font(.headline)
                 .foregroundStyle(DesignTokens.Colors.textPrimary)
             
@@ -50,7 +50,7 @@ struct ExploreView: View {
     
     private var citiesSection: some View {
         VStack(alignment: .leading, spacing: DesignTokens.Spacing.sm) {
-            Text("All Cities")
+            Text(NSLocalizedString("explore.allCities", value: "All Cities", comment: "All cities section title"))
                 .font(.headline)
                 .foregroundStyle(DesignTokens.Colors.textPrimary)
             
@@ -206,7 +206,7 @@ struct CityDetailView: View {
                     
                     // Major areas
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.sm) {
-                        Text("Popular Areas")
+                        Text(NSLocalizedString("explore.popularAreas", value: "Popular Areas", comment: "Popular areas"))
                             .font(.headline)
                             .foregroundStyle(DesignTokens.Colors.textPrimary)
                         

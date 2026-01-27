@@ -14,7 +14,7 @@ struct SettingsView: View {
             
             VStack(spacing: 0) {
                 // Centered Header (Rozha One)
-                Text("Settings")
+                Text(NSLocalizedString("settings.title", comment: "Settings"))
                     .font(DesignTokens.Fonts.rozhaOne(size: 48))
                     .foregroundStyle(DesignTokens.Colors.textPrimary)
                     .padding(.top, 40)
@@ -54,7 +54,7 @@ struct SettingsView: View {
     
     private var accountSection: some View {
         VStack(alignment: .leading, spacing: DesignTokens.Spacing.sm) {
-            Text("Account")
+            Text(NSLocalizedString("settings.account", comment: "Account"))
                 .font(.headline)
                 .foregroundStyle(.black)
             
@@ -68,7 +68,7 @@ struct SettingsView: View {
                         
                         VStack(alignment: .leading, spacing: 2) {
                             HStack {
-                                Text("Sign In")
+                                Text(NSLocalizedString("settings.signIn", comment: "Sign In"))
                                     .font(.headline)
                                     .foregroundStyle(.black)
                                 
@@ -82,7 +82,7 @@ struct SettingsView: View {
                                         .background(Color.accentPink, in: Capsule())
                                 }
                             }
-                            Text("Sync your trips across devices")
+                            Text(NSLocalizedString("settings.syncDescription", comment: "Sync your trips"))
                                 .font(.caption)
                                 .foregroundStyle(.gray)
                         }
@@ -134,7 +134,7 @@ struct SettingsView: View {
     
     private var preferencesSection: some View {
         VStack(alignment: .leading, spacing: DesignTokens.Spacing.sm) {
-            Text("Preferences")
+            Text(NSLocalizedString("settings.preferences", comment: "Preferences"))
                 .font(.headline)
                 .foregroundStyle(.black)
             
@@ -143,7 +143,7 @@ struct SettingsView: View {
                     // Default city
                     SettingsRow(
                         icon: "globe",
-                        title: "Default City",
+                        title: NSLocalizedString("settings.defaultCity", comment: "Default City"),
                         value: cityManager.currentCity?.name ?? "Not set"
                     )
                     
@@ -151,7 +151,7 @@ struct SettingsView: View {
                         .background(Color.gray.opacity(0.2))
                     
                     // Distance unit
-                    SettingsRow(icon: "ruler", title: "Distance Unit") {
+                    SettingsRow(icon: "ruler", title: NSLocalizedString("settings.distanceUnit", comment: "Distance Unit")) {
                         Picker("", selection: $distanceUnit) {
                             Text("km").tag("km")
                             Text("mi").tag("mi")
@@ -168,7 +168,7 @@ struct SettingsView: View {
     
     private var notificationsSection: some View {
         VStack(alignment: .leading, spacing: DesignTokens.Spacing.sm) {
-            Text("Notifications")
+            Text(NSLocalizedString("settings.notifications", comment: "Notifications"))
                 .font(.headline)
                 .foregroundStyle(.black)
             
@@ -176,7 +176,7 @@ struct SettingsView: View {
                 VStack(spacing: 0) {
                     SettingsToggle(
                         icon: "bell",
-                        title: "Push Notifications",
+                        title: NSLocalizedString("settings.pushNotifications", comment: "Push Notifications"),
                         isOn: $notificationsEnabled
                     )
                     
@@ -185,7 +185,7 @@ struct SettingsView: View {
                     
                     SettingsToggle(
                         icon: "cloud.sun",
-                        title: "Weather Alerts",
+                        title: NSLocalizedString("settings.weatherAlerts", comment: "Weather Alerts"),
                         isOn: $weatherAlerts
                     )
                     .disabled(!notificationsEnabled)
@@ -199,13 +199,13 @@ struct SettingsView: View {
     
     private var aboutSection: some View {
         VStack(alignment: .leading, spacing: DesignTokens.Spacing.sm) {
-            Text("About")
+            Text(NSLocalizedString("settings.about", comment: "About"))
                 .font(.headline)
                 .foregroundStyle(.black)
             
             GlassCard(variant: .light) {
                 VStack(spacing: 0) {
-                    SettingsRow(icon: "info.circle", title: "Version", value: "1.0.0")
+                    SettingsRow(icon: "info.circle", title: NSLocalizedString("settings.version", value: "Version %@", comment: ""), value: "1.0.0")
                     
                     Divider()
                         .background(Color.gray.opacity(0.2))
@@ -215,7 +215,7 @@ struct SettingsView: View {
                     Divider()
                         .background(Color.gray.opacity(0.2))
                     
-                    SettingsRow(icon: "doc.text", title: "Terms of Service", showChevron: true)
+                    SettingsRow(icon: "doc.text", title: NSLocalizedString("settings.termsOfService", comment: "Terms of Service"), showChevron: true)
                     
                     Divider()
                         .background(Color.gray.opacity(0.2))
