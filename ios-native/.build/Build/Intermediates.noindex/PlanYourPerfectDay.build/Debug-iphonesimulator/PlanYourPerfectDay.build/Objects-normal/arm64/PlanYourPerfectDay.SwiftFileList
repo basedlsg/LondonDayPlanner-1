@@ -15,13 +15,16 @@
 /Users/carlos/LondonDayPlanner-1/ios-native/Sources/Services/LocationManager.swift
 /Users/carlos/LondonDayPlanner-1/ios-native/Sources/Services/NetworkMonitor.swift
 /Users/carlos/LondonDayPlanner-1/ios-native/Sources/Services/PDFService.swift
+/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Services/StoreManager.swift
 /Users/carlos/LondonDayPlanner-1/ios-native/Sources/Services/WeatherService.swift
 /Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/Components/ActivityViewController.swift
+/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/Components/CityPickerSheet.swift
 /Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/ExploreView.swift
 /Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/HomeView.swift
 /Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/ItineraryView.swift
 /Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/MapView.swift
 /Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/SettingsView.swift
 /Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/SplashScreenView.swift
+/Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/SubscriptionView.swift
 /Users/carlos/LondonDayPlanner-1/ios-native/Sources/Views/TripsView.swift
 /Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Intermediates.noindex/PlanYourPerfectDay.build/Debug-iphonesimulator/PlanYourPerfectDay.build/DerivedSources/GeneratedAssetSymbols.swift

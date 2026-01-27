@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { format, formatInTimeZone } from 'date-fns-tz';
 
 interface Venue {
@@ -7,6 +8,8 @@ interface Venue {
   address: string;
   rating: number;
   categories: string[];
+  whyRecommended?: string;
+  isOpenNow?: boolean;
 }
 
 interface TravelInfo {
@@ -27,6 +30,9 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
   onExport,
   cityName
 }) => {
+  const { t, i18n } = useTranslation();
+  const isZhHK = i18n.language === 'zh-HK';
+
   // Add debug logging to track the data flow
   useEffect(() => {
     console.log("ItineraryScreen received venues:", venues);
@@ -36,6 +42,23 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
 
   // Format city name for display
   const formatCityName = (city: string): string => {
+    if (isZhHK) {
+      const zhNames: Record<string, string> = {
+        'new york': '紐約',
+        'london': '倫敦',
+        'paris': '巴黎',
+        'tokyo': '東京',
+        'rome': '羅馬',
+        'barcelona': '巴塞羅那',
+        'sydney': '悉尼',
+        'dubai': '杜拜',
+        'singapore': '新加坡',
+        'istanbul': '伊斯坦堡',
+        'hong kong': '香港',
+      };
+      return zhNames[city.toLowerCase()] || city;
+    }
+
     switch (city.toLowerCase()) {
       case 'new york':
         return 'New York City';
@@ -57,8 +80,8 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
         return 'Singapore';
       case 'istanbul':
         return 'Istanbul';
-      case 'texas':
-        return 'Texas';
+      case 'hong kong':
+        return 'Hong Kong';
       default:
         return city;
     }
@@ -80,14 +103,14 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
           <button
             onClick={onExport}
             className="w-full py-4 rounded-2xl text-white export-button"
-            style={{ 
+            style={{
               background: '#17B9E6',
               fontWeight: 600,
               fontSize: '1rem',
               fontFamily: "'Inter', sans-serif"
             }}
           >
-            Export to Calendar
+            {isZhHK ? '匯出至日曆' : 'Export to Calendar'}
           </button>
         </div>
 
@@ -99,20 +122,45 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
                 <h2 className="text-xl font-bold mb-4 venue-name" style={{ fontFamily: "'Inter', sans-serif", letterSpacing: 'normal' }}>
                   {venue.name}
                 </h2>
-                
+
                 <div className="space-y-3 mb-5">
-                  <p className="text-lg font-semibold venue-time" style={{ fontFamily: "'Inter', sans-serif" }}>
-                    {/* Display time with ET (Eastern Time) suffix */}
-                    {venue.time.includes('ET') ? venue.time : `${venue.time} ET`}
-                  </p>
+                  <div className="flex items-center gap-2">
+                    <p className="text-lg font-semibold venue-time" style={{ fontFamily: "'Inter', sans-serif" }}>
+                      {venue.time}
+                    </p>
+                    {venue.isOpenNow !== undefined && (
+                      <span
+                        className="px-2 py-0.5 rounded-full text-xs font-medium"
+                        style={{
+                          background: venue.isOpenNow ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+                          color: venue.isOpenNow ? '#16a34a' : '#dc2626',
+                        }}
+                      >
+                        {venue.isOpenNow
+                          ? (isZhHK ? '營業中' : 'Open')
+                          : (isZhHK ? '已關閉' : 'Closed')
+                        }
+                      </span>
+                    )}
+                  </div>
                   <p className="text-gray-500 text-sm venue-address" style={{ fontFamily: "'Inter', sans-serif", textTransform: 'none' }}>{venue.address}</p>
-                  <p className="text-gray-500 text-sm venue-rating" style={{ fontFamily: "'Inter', sans-serif" }}>Rating: {venue.rating || 'N/A'}</p>
+                  <p className="text-gray-500 text-sm venue-rating" style={{ fontFamily: "'Inter', sans-serif" }}>
+                    {venue.rating
+                      ? (isZhHK ? `評分：${venue.rating.toFixed(1)} / 5` : `Rating: ${venue.rating.toFixed(1)} / 5`)
+                      : (isZhHK ? '評分：無' : 'Rating: N/A')
+                    }
+                  </p>
+                  {venue.whyRecommended && (
+                    <p className="text-sm italic" style={{ color: '#17B9E6', fontFamily: "'Inter', sans-serif" }}>
+                      {venue.whyRecommended}
+                    </p>
+                  )}
                 </div>
-                
+
                 <div className="flex flex-wrap gap-2">
                   {venue.categories && Array.isArray(venue.categories) && venue.categories.map((category, catIndex) => (
-                    <span 
-                      key={`${category}-${catIndex}`} 
+                    <span
+                      key={`${category}-${catIndex}`}
                       className="px-3 py-1 rounded-full text-xs venue-tag"
                       style={{
                         background: 'rgba(23, 185, 230, 0.1)',
@@ -126,7 +174,7 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
                   ))}
                 </div>
               </div>
-              
+
               {index < venues.length - 1 && hasTravelInfo && travelInfo[index] && (
                 <div className="flex items-center gap-3 px-5 py-4 mt-4 mb-4 bg-white rounded-lg text-gray-500 text-sm shadow-sm border border-gray-100 travel-info" style={{ fontFamily: "'Inter', sans-serif" }}>
                   <svg
@@ -147,7 +195,10 @@ const ItineraryScreen: React.FC<ItineraryScreenProps> = ({
                     />
                   </svg>
                   <span className="whitespace-normal overflow-visible travel-duration" style={{ fontFamily: "'Inter', sans-serif" }}>
-                    {travelInfo[index].duration} minutes to {travelInfo[index].destination}
+                    {isZhHK
+                      ? `${travelInfo[index].duration} 分鐘到 ${travelInfo[index].destination}`
+                      : `${travelInfo[index].duration} minutes to ${travelInfo[index].destination}`
+                    }
                   </span>
                 </div>
               )}

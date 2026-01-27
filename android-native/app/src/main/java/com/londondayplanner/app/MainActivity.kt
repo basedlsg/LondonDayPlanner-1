@@ -35,14 +35,37 @@ class MainActivity : ComponentActivity() {
             LondonDayPlannerTheme {
                 val navController = rememberNavController()
                 
+                val billingManager = com.londondayplanner.app.billing.BillingManager.getInstance(LocalContext.current)
+                
+                // Initialize billing connection
+                androidx.compose.runtime.LaunchedEffect(Unit) {
+                    billingManager.connect()
+                }
+
                 NavHost(navController = navController, startDestination = "home") {
                     composable("home") {
                         HomeScreen(
                             onPlanDay = { query ->
-                                // For MVP demo, navigate directly to a mock itinerary
-                                // Real app would make API call here or in ViewModel
                                 navController.navigate("itinerary/mock_id")
+                            },
+                            onSettingsClick = {
+                                navController.navigate("settings")
                             }
+                        )
+                    }
+                    
+                    composable("settings") {
+                        com.londondayplanner.app.ui.screens.SettingsScreen(
+                            billingManager = billingManager,
+                            onBack = { navController.popBackStack() },
+                            onSubscriptionClick = { navController.navigate("subscription") }
+                        )
+                    }
+
+                    composable("subscription") {
+                        com.londondayplanner.app.ui.screens.SubscriptionScreen(
+                            billingManager = billingManager,
+                            onDismiss = { navController.popBackStack() }
                         )
                     }
                     

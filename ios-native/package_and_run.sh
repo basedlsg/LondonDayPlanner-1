@@ -5,7 +5,7 @@ APP_NAME="PlanYourPerfectDay"
 BUNDLE_ID="com.carlos.PlanYourPerfectDay"
 BUILD_DIR="/Users/carlos/LondonDayPlanner-1/ios-native/.build/Build/Products/Debug-iphonesimulator"
 APP_BUNDLE="$BUILD_DIR/$APP_NAME.app"
-DEVICE_ID="4B69A9C7-12EF-4DEC-A0F6-B70219D4B20A"
+DEVICE_ID="C46E8821-174A-4A0B-B6B0-5E4D70A58F6F"
 
 echo "Building..."
 xcodebuild -scheme PlanYourPerfectDay -destination "platform=iOS Simulator,id=$DEVICE_ID" -derivedDataPath .build build
@@ -52,6 +52,17 @@ cat > "$APP_BUNDLE/Info.plist" <<EOF
     </array>
     <key>UILaunchScreen</key>
     <dict/>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>plan</string>
+            </array>
+            <key>CFBundleURLName</key>
+            <string>com.carlos.PlanYourPerfectDay</string>
+        </dict>
+    </array>
 </dict>
 </plist>
 EOF

@@ -5,6 +5,9 @@ import App from "./App";
 import "./index.css";
 import { Toaster } from '@/components/ui/toaster';
 
+// Import i18n configuration (must be imported before App)
+import './i18n';
+
 // Import custom fonts
 import '@fontsource/rozha-one';
 import '@fontsource/poppins/600.css'; // Import SemiBold variant

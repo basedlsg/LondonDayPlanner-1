@@ -1,0 +1,122 @@
+/* App */
+"app.title" = "計劃你的完美一天";
+"app.title" = "計劃你的完美一天";
+"app.tagline" = "AI智能行程規劃";
+
+/* Home */
+"home.title" = "規劃";
+"home.subtitle" = "輸入你的活動、地點和時間...";
+
+
+/* Input */
+"input.placeholder" = "你想去哪裡？";
+"input.planButton" = "規劃行程";
+"input.date" = "日期";
+"input.time" = "時間";
+"input.plans" = "你的計劃";
+"input.plansPlaceholder" = "例如：在Mayfair吃午餐、喝咖啡、觀光 - 或者留空讓我們給你驚喜！";
+"input.selectCity" = "選擇城市";
+
+
+/* Itinerary */
+"itinerary.title" = "你的行程";
+"itinerary.openNow" = "營業中";
+"itinerary.closed" = "已關閉";
+"itinerary.directions" = "導航";
+"itinerary.alternatives" = "其他選擇";
+"itinerary.export" = "匯出至日曆";
+"itinerary.travelTime" = "%@ 分鐘到 %@";
+
+/* Cities */
+"cities.london" = "倫敦";
+"cities.newYork" = "紐約";
+"cities.paris" = "巴黎";
+"cities.tokyo" = "東京";
+"cities.hongKong" = "香港";
+"cities.losAngeles" = "洛杉磯";
+"cities.sanFrancisco" = "三藩市";
+"cities.chicago" = "芝加哥";
+"cities.miami" = "邁阿密";
+"cities.barcelona" = "巴塞羅那";
+"cities.rome" = "羅馬";
+
+/* Settings */
+"settings.title" = "設定";
+"settings.language" = "語言";
+"settings.city" = "預設城市";
+"settings.theme" = "主題";
+"settings.themes.light" = "淺色";
+"settings.themes.dark" = "深色";
+"settings.themes.system" = "跟隨系統";
+"settings.subscription" = "訂閱";
+"settings.manageSubscription" = "管理訂閱";
+"settings.manage" = "升級";
+"settings.about" = "關於";
+"settings.version" = "版本 %@";
+"settings.account" = "帳戶";
+"settings.signIn" = "登入";
+"settings.syncDescription" = "在裝置之間同步你的行程";
+"settings.preferences" = "偏好設定";
+"settings.defaultCity" = "預設城市";
+"settings.distanceUnit" = "距離單位";
+"settings.notifications" = "通知";
+"settings.pushNotifications" = "推送通知";
+"settings.weatherAlerts" = "天氣提示";
+"settings.privacyPolicy" = "私隱政策";
+"settings.termsOfService" = "服務條款";
+"settings.rateApp" = "評分";
+
+
+/* Subscription */
+"subscription.active" = "已啟用";
+"subscription.premium" = "高級版";
+"subscription.tagline" = "解鎖個人化推薦功能";
+"subscription.free" = "免費版";
+"subscription.monthly" = "月費";
+"subscription.annual" = "年費";
+"subscription.perMonth" = "/月";
+"subscription.perYear" = "/年";
+"subscription.savings" = "節省 %d%%";
+"subscription.currentPlan" = "目前方案";
+"subscription.features.memory" = "個人化推薦";
+"subscription.features.memoryDescription" = "AI會學習你的偏好";
+"subscription.features.betterModel" = "進階AI回應";
+"subscription.features.betterModelDescription" = "使用最強大的AI模型";
+"subscription.features.priority" = "優先處理";
+"subscription.features.priorityDescription" = "更快的回應速度";
+"subscription.subscribe" = "訂閱";
+"subscription.restore" = "恢復購買";
+"subscription.cancel" = "取消訂閱";
+"subscription.expiresOn" = "到期日：%@";
+"subscription.renewsOn" = "續訂日：%@";
+
+/* Weather */
+"weather.aware" = "天氣感知開啟";
+"weather.off" = "天氣感知關閉";
+"weather.awareDescription" = "根據天氣推薦場所";
+"weather.offDescription" = "使用標準推薦";
+
+/* Errors */
+"errors.generic" = "發生錯誤，請再試一次。";
+"errors.network" = "無法連接網絡，請檢查你的網絡連接。";
+"errors.noResults" = "找不到結果，請嘗試其他搜尋。";
+"errors.locationRequired" = "請在搜尋中指定地點。";
+
+/* Loading */
+"loading.planning" = "正在規劃你的完美一天...";
+"loading.searching" = "正在搜尋場所...";
+"loading.optimizing" = "正在優化行程...";
+
+/* Common */
+"common.back" = "返回";
+"common.next" = "下一步";
+"common.done" = "完成";
+"common.cancel" = "取消";
+"common.save" = "儲存";
+"common.delete" = "刪除";
+"common.edit" = "編輯";
+"common.share" = "分享";
+"common.copy" = "複製";
+"common.copied" = "已複製！";
+"common.tryAgain" = "重試";
+"common.ok" = "好";

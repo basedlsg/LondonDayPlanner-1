@@ -1,0 +1,122 @@
+/* App */
+"app.title" = "Plan Your Perfect Day";
+"app.title" = "Plan Your Perfect Day";
+"app.tagline" = "AI-powered itineraries for your city";
+
+/* Home */
+"home.title" = "Plan";
+"home.subtitle" = "Enter your activities, locations and time...";
+
+
+/* Input */
+"input.placeholder" = "Where would you like to go?";
+"input.planButton" = "Plan My Day";
+"input.date" = "Date";
+"input.time" = "Time";
+"input.plans" = "Your Plans";
+"input.plansPlaceholder" = "E.g. lunch in Mayfair, coffee, and sightseeing - or just leave blank for a surprise!";
+"input.selectCity" = "Select City";
+
+
+/* Itinerary */
+"itinerary.title" = "Your Itinerary";
+"itinerary.openNow" = "Open now";
+"itinerary.closed" = "Closed";
+"itinerary.directions" = "Get directions";
+"itinerary.alternatives" = "See alternatives";
+"itinerary.export" = "Export to Calendar";
+"itinerary.travelTime" = "%@ minutes to %@";
+
+/* Cities */
+"cities.london" = "London";
+"cities.newYork" = "New York";
+"cities.paris" = "Paris";
+"cities.tokyo" = "Tokyo";
+"cities.hongKong" = "Hong Kong";
+"cities.losAngeles" = "Los Angeles";
+"cities.sanFrancisco" = "San Francisco";
+"cities.chicago" = "Chicago";
+"cities.miami" = "Miami";
+"cities.barcelona" = "Barcelona";
+"cities.rome" = "Rome";
+
+/* Settings */
+"settings.title" = "Settings";
+"settings.language" = "Language";
+"settings.city" = "Default City";
+"settings.theme" = "Theme";
+"settings.themes.light" = "Light";
+"settings.themes.dark" = "Dark";
+"settings.themes.system" = "System";
+"settings.subscription" = "Subscription";
+"settings.manageSubscription" = "Manage Subscription";
+"settings.manage" = "Upgrade";
+"settings.about" = "About";
+"settings.version" = "Version %@";
+"settings.account" = "Account";
+"settings.signIn" = "Sign In";
+"settings.syncDescription" = "Sync your trips across devices";
+"settings.preferences" = "Preferences";
+"settings.defaultCity" = "Default City";
+"settings.distanceUnit" = "Distance Unit";
+"settings.notifications" = "Notifications";
+"settings.pushNotifications" = "Push Notifications";
+"settings.weatherAlerts" = "Weather Alerts";
+"settings.privacyPolicy" = "Privacy Policy";
+"settings.termsOfService" = "Terms of Service";
+"settings.rateApp" = "Rate App";
+
+
+/* Subscription */
+"subscription.active" = "Active";
+"subscription.premium" = "Premium";
+"subscription.tagline" = "Unlock personalized recommendations";
+"subscription.free" = "Free";
+"subscription.monthly" = "Monthly";
+"subscription.annual" = "Annual";
+"subscription.perMonth" = "/month";
+"subscription.perYear" = "/year";
+"subscription.savings" = "Save %d%%";
+"subscription.currentPlan" = "Current Plan";
+"subscription.features.memory" = "Personalized recommendations";
+"subscription.features.memoryDescription" = "The AI learns your preferences over time";
+"subscription.features.betterModel" = "Enhanced AI responses";
+"subscription.features.betterModelDescription" = "Access to our most capable AI model";
+"subscription.features.priority" = "Priority processing";
+"subscription.features.priorityDescription" = "Faster response times";
+"subscription.subscribe" = "Subscribe";
+"subscription.restore" = "Restore Purchase";
+"subscription.cancel" = "Cancel Subscription";
+"subscription.expiresOn" = "Expires on %@";
+"subscription.renewsOn" = "Renews on %@";
+
+/* Weather */
+"weather.aware" = "Weather Aware";
+"weather.off" = "Weather Off";
+"weather.awareDescription" = "Get weather-smart venue recommendations";
+"weather.offDescription" = "Use standard venue recommendations";
+
+/* Errors */
+"errors.generic" = "Something went wrong. Please try again.";
+"errors.network" = "Unable to connect. Check your internet connection.";
+"errors.noResults" = "No results found. Try a different search.";
+"errors.locationRequired" = "Please specify a location in your search.";
+
+/* Loading */
+"loading.planning" = "Planning your perfect day...";
+"loading.searching" = "Searching for venues...";
+"loading.optimizing" = "Optimizing your itinerary...";
+
+/* Common */
+"common.back" = "Back";
+"common.next" = "Next";
+"common.done" = "Done";
+"common.cancel" = "Cancel";
+"common.save" = "Save";
+"common.delete" = "Delete";
+"common.edit" = "Edit";
+"common.share" = "Share";
+"common.copy" = "Copy";
+"common.copied" = "Copied!";
+"common.tryAgain" = "Try Again";
+"common.ok" = "OK";

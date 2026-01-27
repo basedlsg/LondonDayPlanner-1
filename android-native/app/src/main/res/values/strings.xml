@@ -1,3 +1,100 @@
 <resources>
     <string name="app_name">Plan Your Perfect Day</string>
+    <string name="app_tagline">AI-powered itineraries for your city</string>
+
+    <!-- Input -->
+    <string name="input_placeholder">Where would you like to go?</string>
+    <string name="input_plan_button">Plan My Day</string>
+    <string name="input_date">Date</string>
+    <string name="input_time">Time</string>
+    <string name="input_plans">Your Plans</string>
+
+    <!-- Itinerary -->
+    <string name="itinerary_title">Your Itinerary</string>
+    <string name="itinerary_open_now">Open now</string>
+    <string name="itinerary_closed">Closed</string>
+    <string name="itinerary_directions">Get directions</string>
+    <string name="itinerary_alternatives">See alternatives</string>
+    <string name="itinerary_export">Export to Calendar</string>
+    <string name="itinerary_travel_time">%1$s minutes to %2$s</string>
+
+    <!-- Cities -->
+    <string name="cities_london">London</string>
+    <string name="cities_new_york">New York</string>
+    <string name="cities_paris">Paris</string>
+    <string name="cities_tokyo">Tokyo</string>
+    <string name="cities_hong_kong">Hong Kong</string>
+    <string name="cities_los_angeles">Los Angeles</string>
+    <string name="cities_san_francisco">San Francisco</string>
+    <string name="cities_chicago">Chicago</string>
+    <string name="cities_miami">Miami</string>
+    <string name="cities_barcelona">Barcelona</string>
+    <string name="cities_rome">Rome</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_city">Default City</string>
+    <string name="settings_theme">Theme</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_theme_system">System</string>
+    <string name="settings_subscription">Subscription</string>
+    <string name="settings_manage_subscription">Manage Subscription</string>
+    <string name="settings_about">About</string>
+    <string name="settings_version">Version %1$s</string>
+
+    <!-- Subscription -->
+    <string name="subscription_premium">Premium</string>
+    <string name="subscription_tagline">Unlock personalized recommendations</string>
+    <string name="subscription_free">Free</string>
+    <string name="subscription_monthly">Monthly</string>
+    <string name="subscription_annual">Annual</string>
+    <string name="subscription_per_month">/month</string>
+    <string name="subscription_per_year">/year</string>
+    <string name="subscription_savings">Save %1$d%%</string>
+    <string name="subscription_current_plan">Current Plan</string>
+    <string name="subscription_features_memory">Personalized recommendations</string>
+    <string name="subscription_features_memory_description">The AI learns your preferences over time</string>
+    <string name="subscription_features_better_model">Enhanced AI responses</string>
+    <string name="subscription_features_better_model_description">Access to our most capable AI model</string>
+    <string name="subscription_features_priority">Priority processing</string>
+    <string name="subscription_features_priority_description">Faster response times</string>
+    <string name="subscription_subscribe">Subscribe</string>
+    <string name="subscription_restore">Restore Purchase</string>
+    <string name="subscription_cancel">Cancel Subscription</string>
+    <string name="subscription_expires_on">Expires on %1$s</string>
+    <string name="subscription_renews_on">Renews on %1$s</string>
+    <string name="subscription_active">Active</string>
+
+    <!-- Weather -->
+    <string name="weather_aware">Weather Aware</string>
+    <string name="weather_off">Weather Off</string>
+    <string name="weather_aware_description">Get weather-smart venue recommendations</string>
+    <string name="weather_off_description">Use standard venue recommendations</string>
+
+    <!-- Errors -->
+    <string name="errors_generic">Something went wrong. Please try again.</string>
+    <string name="errors_network">Unable to connect. Check your internet connection.</string>
+    <string name="errors_no_results">No results found. Try a different search.</string>
+    <string name="errors_location_required">Please specify a location in your search.</string>
+
+    <!-- Loading -->
+    <string name="loading_planning">Planning your perfect day…</string>
+    <string name="loading_searching">Searching for venues…</string>
+    <string name="loading_optimizing">Optimizing your itinerary…</string>
+
+    <!-- Common -->
+    <string name="common_back">Back</string>
+    <string name="common_next">Next</string>
+    <string name="common_done">Done</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="common_save">Save</string>
+    <string name="common_delete">Delete</string>
+    <string name="common_edit">Edit</string>
+    <string name="common_share">Share</string>
+    <string name="common_copy">Copy</string>
+    <string name="common_copied">Copied!</string>
+    <string name="common_try_again">Try Again</string>
+    <string name="common_ok">OK</string>
 </resources>

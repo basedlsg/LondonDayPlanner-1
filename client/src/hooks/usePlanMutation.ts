@@ -8,6 +8,8 @@ interface PlanFormData {
   time: string;
   plans: string;
   weatherAware?: boolean;
+  city?: string;
+  timezone?: string;
 }
 
 export function usePlanMutation() {
@@ -20,11 +22,16 @@ export function usePlanMutation() {
         date: data.date,
         startTime: data.time,
         query: data.plans,
-        weatherAware: data.weatherAware ?? true // Default to true if not specified
+        weatherAware: data.weatherAware ?? true, // Default to true if not specified
+        city: data.city || 'london'
       };
-      
+
+      // Use city-specific endpoint if city is provided
+      const endpoint = data.city ? `/api/${data.city}/plan` : '/api/plan';
+      const timezone = data.timezone || 'Europe/London';
+
       console.log("Sending API request:", apiData);
-      const response = await apiRequest('POST', '/api/plan', apiData);
+      const response = await apiRequest('POST', endpoint, apiData);
       const responseData = await response.json();
       console.log("API response:", responseData);
       
@@ -39,10 +46,10 @@ export function usePlanMutation() {
           // If displayTime is provided from the backend, use it directly
           formattedTime = place.displayTime;
         } else if (place.scheduledTime) {
-          // Otherwise, format the ISO timestamp with NYC timezone
+          // Otherwise, format the ISO timestamp with appropriate timezone
           formattedTime = formatInTimeZone(
             new Date(place.scheduledTime),
-            'America/New_York',
+            timezone,
             'h:mm a'
           );
         } else {
@@ -52,10 +59,12 @@ export function usePlanMutation() {
         
         return {
           name: place.name,
-          time: formattedTime, // This will be properly formatted for NYC timezone
+          time: formattedTime,
           address: place.address,
-          rating: venueDetails.rating || 0,
-          categories: venueDetails.types || []
+          rating: place.rating || venueDetails.rating || 0,
+          categories: place.categories || venueDetails.types || [],
+          whyRecommended: place.whyRecommended,
+          isOpenNow: place.isOpenNow
         };
       });
       

@@ -14,7 +14,7 @@ extension City {
     var symbolIcon: String {
         switch slug {
         case "london": return "building.columns.fill"
-        case "nyc": return "building.3.fill"
+        case "nyc": return "building.2.crop.circle"
         case "boston": return "sailboat.fill"
         case "austin": return "music.note"
         default: return "mappin.circle.fill"

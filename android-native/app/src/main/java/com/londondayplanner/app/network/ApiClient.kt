@@ -24,7 +24,8 @@ interface ItineraryApi {
 
 data class GenerateItineraryRequest(
     val query: String,
-    val date: String
+    val date: String,
+    val isPremium: Boolean? = false
 )
 
 object ApiClient {

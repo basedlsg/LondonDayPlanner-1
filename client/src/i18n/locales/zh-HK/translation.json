@@ -1,0 +1,113 @@
+{
+  "app": {
+    "title": "計劃你的完美一天",
+    "tagline": "AI智能行程規劃"
+  },
+  "input": {
+    "placeholder": "你想去哪裡？",
+    "planButton": "規劃行程",
+    "examples": {
+      "simple": "中環咖啡店",
+      "detailed": "安靜有WiFi的咖啡廳，工作到下午6點",
+      "complex": "早上飲咖啡 -- 中環午餐 -- 晚上去酒吧"
+    },
+    "exampleLabels": {
+      "simple": "快速搜尋",
+      "detailed": "詳細搜尋",
+      "complex": "全日行程"
+    }
+  },
+  "itinerary": {
+    "title": "你的行程",
+    "openNow": "營業中",
+    "closed": "已關閉",
+    "directions": "導航",
+    "alternatives": "其他選擇",
+    "rating": "{{rating}} ({{count}} 則評價)",
+    "whyRecommended": "推薦原因",
+    "travelTime": "步行 {{minutes}} 分鐘",
+    "arriveBy": "{{time}} 前到達",
+    "stayUntil": "停留至 {{time}}"
+  },
+  "cities": {
+    "london": "倫敦",
+    "new-york": "紐約",
+    "paris": "巴黎",
+    "tokyo": "東京",
+    "hong-kong": "香港",
+    "los-angeles": "洛杉磯",
+    "san-francisco": "三藩市",
+    "chicago": "芝加哥",
+    "miami": "邁阿密",
+    "barcelona": "巴塞羅那",
+    "rome": "羅馬"
+  },
+  "settings": {
+    "title": "設定",
+    "language": "語言",
+    "city": "預設城市",
+    "theme": "主題",
+    "themes": {
+      "light": "淺色",
+      "dark": "深色",
+      "system": "跟隨系統"
+    },
+    "subscription": "訂閱",
+    "manageSubscription": "管理訂閱",
+    "about": "關於",
+    "version": "版本 {{version}}"
+  },
+  "subscription": {
+    "premium": "高級版",
+    "tagline": "解鎖個人化推薦功能",
+    "free": "免費版",
+    "monthly": "月費",
+    "annual": "年費",
+    "perMonth": "/月",
+    "perYear": "/年",
+    "savings": "節省 {{percent}}%",
+    "currentPlan": "目前方案",
+    "features": {
+      "memory": "個人化推薦",
+      "memoryDescription": "AI會學習你的偏好",
+      "betterModel": "進階AI回應",
+      "betterModelDescription": "使用最強大的AI模型",
+      "priority": "優先處理",
+      "priorityDescription": "更快的回應速度"
+    },
+    "freeFeatures": {
+      "basic": "基本推薦",
+      "limited": "標準AI模型",
+      "ads": "標準處理速度"
+    },
+    "subscribe": "訂閱",
+    "restore": "恢復購買",
+    "cancel": "取消訂閱",
+    "expiresOn": "到期日：{{date}}",
+    "renewsOn": "續訂日：{{date}}"
+  },
+  "errors": {
+    "generic": "發生錯誤，請再試一次。",
+    "network": "無法連接網絡，請檢查你的網絡連接。",
+    "noResults": "找不到結果，請嘗試其他搜尋。",
+    "locationRequired": "請在搜尋中指定地點。"
+  },
+  "loading": {
+    "planning": "正在規劃你的完美一天...",
+    "searching": "正在搜尋場所...",
+    "optimizing": "正在優化行程..."
+  },
+  "common": {
+    "back": "返回",
+    "next": "下一步",
+    "done": "完成",
+    "cancel": "取消",
+    "save": "儲存",
+    "delete": "刪除",
+    "edit": "編輯",
+    "share": "分享",
+    "copy": "複製",
+    "copied": "已複製！",
+    "tryAgain": "重試"
+  }
+}

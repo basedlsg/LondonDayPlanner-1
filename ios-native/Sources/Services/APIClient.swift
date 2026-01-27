@@ -57,7 +57,8 @@ actor APIClient {
         citySlug: String,
         query: String,
         date: Date,
-        startTime: String? = nil
+        startTime: String? = nil,
+        isPremium: Bool = false
     ) async throws -> Itinerary {
         let url = baseURL.appendingPathComponent("/api/\(citySlug)/plan")
         
@@ -68,7 +69,8 @@ actor APIClient {
             query: query,
             date: dateFormatter.string(from: date),
             startTime: startTime,
-            preferences: nil
+            preferences: nil,
+            isPremium: isPremium
         )
         
         // Use generic request which decodes Itinerary directly (not wrapped in CreateItineraryResponse based on backend inspection)

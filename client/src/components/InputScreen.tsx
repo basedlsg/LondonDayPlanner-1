@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Logo from './Logo';
 import { Cloud, CloudOff } from 'lucide-react';
 import { City } from '@/data/cities';
+import ExamplePrompts from './ExamplePrompts';
 
 interface InputScreenProps {
   onSubmit: (data: { date: string; time: string; plans: string; weatherAware?: boolean }) => void;
@@ -10,6 +12,8 @@ interface InputScreenProps {
 }
 
 const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading, selectedCity }) => {
+  const { t, i18n } = useTranslation();
+
   // Initialize with current date and time
   const [date, setDate] = useState(formatDateForInput(new Date()));
   const [time, setTime] = useState(formatTimeForInput(new Date()));
@@ -43,6 +47,8 @@ const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading, selected
     onSubmit({ date, time, plans, weatherAware });
   };
 
+  const isZhHK = i18n.language === 'zh-HK';
+
   // Mobile-first design based on the mockup
   return (
     <div className="bg-white flex flex-col items-center min-h-screen w-full" style={{
@@ -53,10 +59,13 @@ const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading, selected
         <div className="mb-8 mt-0">
           <Logo className="w-full" style={{ transform: 'scale(1.5)' }} />
         </div>
-        
+
         {/* Instruction Text */}
         <p className="mb-6 font-bold tagline-text" style={{ color: '#17B9E6' }}>
-          Enter your activities, locations and times below, we'll create a day plan for you.
+          {isZhHK
+            ? '輸入你的活動、地點和時間，我們會為你規劃行程。'
+            : 'Enter your activities, locations and times below, we\'ll create a day plan for you.'
+          }
         </p>
 
         {/* Form */}
@@ -71,11 +80,11 @@ const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading, selected
               minHeight: '80px' // Increased height
             }}
           >
-            <label 
+            <label
               htmlFor="date"
               className="block mb-2 font-bold text-xl text-[#1C1C1C]"
             >
-              Date
+              {isZhHK ? '日期' : 'Date'}
             </label>
             <input
               type="date"
@@ -101,7 +110,7 @@ const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading, selected
               htmlFor="time"
               className="block mb-2 font-bold text-xl text-[#1C1C1C]"
             >
-              Time
+              {isZhHK ? '時間' : 'Time'}
             </label>
             <input
               type="time"
@@ -114,7 +123,7 @@ const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading, selected
           </div>
 
           {/* Plans Field */}
-          <div className="mb-8 bg-white rounded-2xl py-6 px-5 shadow-sm"
+          <div className="mb-4 bg-white rounded-2xl py-6 px-5 shadow-sm"
             style={{
               border: '1px solid transparent',
               backgroundImage: 'linear-gradient(white, white), linear-gradient(to right, #E6DBEE, #BCC6E6)',
@@ -126,15 +135,26 @@ const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading, selected
               htmlFor="plans"
               className="block mb-2 font-bold text-xl text-[#1C1C1C]"
             >
-              Your Plans
+              {isZhHK ? '你的計劃' : 'Your Plans'}
             </label>
             <textarea
               id="plans"
               value={plans}
               onChange={(e) => setPlans(e.target.value)}
               className="w-full bg-transparent text-gray-700 focus:outline-none text-lg min-h-[135px] p-3"
-              placeholder="e.g. 12pm lunch in Mayfair, then grab a coffee and have a walk"
+              placeholder={isZhHK
+                ? '例如：早上飲咖啡 -- 中環午餐12點 -- 工作到6點 -- 蘭桂坊飲嘢'
+                : 'e.g. Morning coffee for calls -- lunch meeting in Mayfair at 12 -- work until 6 -- drinks in Chelsea'
+              }
               required
+            />
+          </div>
+
+          {/* Example Prompts */}
+          <div className="mb-6">
+            <ExamplePrompts
+              onSelect={(prompt) => setPlans(prompt)}
+              cityName={selectedCity.name}
             />
           </div>
 
@@ -162,12 +182,15 @@ const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading, selected
                 )}
                 <div className="text-left">
                   <div className="font-bold text-lg">
-                    {weatherAware ? 'Weather Aware' : 'Weather Off'}
+                    {weatherAware
+                      ? (isZhHK ? '天氣感知開啟' : 'Weather Aware')
+                      : (isZhHK ? '天氣感知關閉' : 'Weather Off')
+                    }
                   </div>
                   <div className="text-sm opacity-80">
                     {weatherAware
-                      ? 'Get weather-smart venue recommendations'
-                      : 'Use standard venue recommendations'
+                      ? (isZhHK ? '根據天氣推薦場所' : 'Get weather-smart venue recommendations')
+                      : (isZhHK ? '使用標準推薦' : 'Use standard venue recommendations')
                     }
                   </div>
                 </div>
@@ -202,18 +225,18 @@ const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading, selected
           >
             {isLoading ? (
               <div className="flex items-center justify-center gap-2">
-                <div className="loading-indicator" style={{ 
-                  width: 20, 
+                <div className="loading-indicator" style={{
+                  width: 20,
                   height: 20,
                   border: '2px solid rgba(255, 255, 255, 0.3)',
                   borderTopColor: 'white',
                   borderRadius: '50%',
                   animation: 'spin 1s linear infinite'
                 }} />
-                <span>Creating Plan...</span>
+                <span>{isZhHK ? '正在規劃...' : 'Creating Plan...'}</span>
               </div>
             ) : (
-              'Create Plan'
+              isZhHK ? '規劃行程' : 'Create Plan'
             )}
           </button>
         </form>
@@ -222,4 +245,4 @@ const InputScreen: React.FC<InputScreenProps> = ({ onSubmit, isLoading, selected
   );
 };
 
-export default InputScreen; 
+export default InputScreen;

@@ -27,5 +27,16 @@
     </array>
     <key>UILaunchScreen</key>
     <dict/>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>plan</string>
+            </array>
+            <key>CFBundleURLName</key>
+            <string>com.carlos.PlanYourPerfectDay</string>
+        </dict>
+    </array>
 </dict>
 </plist>

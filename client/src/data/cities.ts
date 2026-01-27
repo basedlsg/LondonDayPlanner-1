@@ -80,4 +80,11 @@ export const cities: City[] = [
     timezone: 'Europe/Istanbul',
     coordinates: { lat: 41.0082, lng: 28.9784 },
   },
+  {
+    id: 'hong-kong',
+    name: 'Hong Kong',
+    country: 'Hong Kong',
+    timezone: 'Asia/Hong_Kong',
+    coordinates: { lat: 22.3193, lng: 114.1694 },
+  },
 ];

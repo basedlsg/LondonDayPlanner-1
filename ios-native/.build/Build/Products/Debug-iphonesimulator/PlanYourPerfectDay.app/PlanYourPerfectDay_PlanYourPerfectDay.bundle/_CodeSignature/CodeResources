@@ -6,12 +6,30 @@
 	<dict>
 		<key>Assets.car</key>
 		<data>
-		0hIA+luuN2L9qQ2i9fIwNhHFC/g=
+		piHuzX37ZhczB+oGwQCU3BQzlwM=
 		</data>
 		<key>RozhaOne-Regular.ttf</key>
 		<data>
 		84yJ7nTmMj2ddZMCNzgENTHfB0w=
 		</data>
+		<key>en.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			u4hsKYgqhrEpyp0SPAgvIdSSoao=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>zh-HK.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			kvr7GNcZok9zVH3ciguQ0pO4gec=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
 	</dict>
 	<key>files2</key>
 	<dict>
@@ -19,7 +37,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			OJEAIZuGR6O5bYZgPwSCyHcaArfXApgiDXkGQvmqPJ4=
+			js3MG0gbKNSUrTwxR1R/IUlMEL0YHcN0kzhMqKVYK/Q=
 			</data>
 		</dict>
 		<key>RozhaOne-Regular.ttf</key>
@@ -28,6 +46,24 @@
 			<data>
 			hJG4OMMfMCcqptpn5HSa+rq4KX24KgVf0tCqaJ9QDuM=
 			</data>
+		</dict>
+		<key>en.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			fdBbgX/EeThNDqhlCuQHSzqO1BpgYRYYCLn616d3ZMM=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>zh-HK.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			4Xnze5w33r6u8gjUEXP7fCMwIxFwE3B7L0dGTrZBkB0=
+			</data>
+			<key>optional</key>
+			<true/>
 		</dict>
 	</dict>
 	<key>rules</key>

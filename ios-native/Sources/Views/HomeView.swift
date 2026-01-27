@@ -42,7 +42,8 @@ struct HomeView: View {
                     showCityPicker = false
                 }
             )
-            .presentationDetents([.medium])
+            .presentationDetents([.medium, .fraction(0.75)])
+            .presentationCornerRadius(40) // iOS 26 High Radius
         }
         .task(id: cityManager.currentCity) {
             await viewModel.fetchWeather(for: cityManager.currentCity)
@@ -58,11 +59,11 @@ struct HomeView: View {
     
     private var headerSection: some View {
         VStack(spacing: 16) {
-            Text("Plan")
+            Text(NSLocalizedString("home.title", comment: "Plan"))
                 .font(DesignTokens.Fonts.rozhaOne(size: 80))
                 .foregroundStyle(DesignTokens.Colors.textPrimary)
             
-            Text("Enter your activities, locations and time...")
+            Text(NSLocalizedString("home.subtitle", comment: "Subtitle"))
                 .font(.system(size: 16, weight: .semibold))
                 .foregroundStyle(DesignTokens.Colors.textVibrantCyan)
                 .multilineTextAlignment(.center)
@@ -76,7 +77,7 @@ struct HomeView: View {
             VStack(spacing: 0) {
                 // 1. City Row
                 CitySelectorRow(
-                    city: cityManager.currentCity?.name ?? "Select City",
+                    city: cityManager.currentCity?.name ?? NSLocalizedString("input.selectCity", comment: "Select City"),
                     onTap: { showCityPicker = true }
                 )
                 
@@ -160,7 +161,7 @@ struct HomeView: View {
     
     private var planButtonSection: some View {
         GlassButton(
-            "Plan My Day",
+            NSLocalizedString("input.planButton", comment: "Plan My Day"),
             icon: "sparkles",
             style: .solidWhite,
             isLoading: viewModel.isLoading
@@ -203,7 +204,7 @@ struct CitySelectorRow: View {
                 )
             
             VStack(alignment: .leading, spacing: 4) {
-                FormSectionLabel(text: "City")
+                FormSectionLabel(text: NSLocalizedString("settings.city", comment: "City"))
                     .padding(.top, 2) // Baseline alignment correction
                 
                 Button(action: onTap) {
@@ -235,7 +236,7 @@ struct DateInputRow: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) { // Tightened spacing
-            FormSectionLabel(text: "Date")
+            FormSectionLabel(text: NSLocalizedString("input.date", comment: "Date"))
             
             HStack {
                 // Value Pill
@@ -293,7 +294,7 @@ struct TimeInputRow: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) { // Tightened spacing
-            FormSectionLabel(text: "Time")
+            FormSectionLabel(text: NSLocalizedString("input.time", comment: "Time"))
             
             HStack {
                 // Value Pill
@@ -352,11 +353,11 @@ struct PlansInputRow: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) { // Tightened spacing
-            FormSectionLabel(text: "Your Plans")
+            FormSectionLabel(text: NSLocalizedString("input.plans", comment: "Your Plans"))
             
             ZStack(alignment: .topLeading) {
                 if text.isEmpty && !isFocused {
-                    Text("E.g. lunch in Mayfair, coffee, and sightseeing - or just leave blank for a surprise!")
+                    Text(NSLocalizedString("input.plansPlaceholder", comment: "Placeholder"))
                         .font(.body)
                         .foregroundStyle(Color.gray.opacity(0.5)) // Heavier transparency
                         .padding(.horizontal, 16)
@@ -423,7 +424,8 @@ class HomeViewModel: ObservableObject {
             createdItinerary = try await apiClient.createItinerary(
                 citySlug: city.slug,
                 query: query,
-                date: selectedDate
+                date: selectedDate,
+                isPremium: StoreManager.shared.isPremium
             )
             showItinerary = true
         } catch {
@@ -448,58 +450,8 @@ class HomeViewModel: ObservableObject {
     }
 }
 
-// MARK: - City Picker Sheet (Preserved)
-struct CityPickerSheet: View {
-    let cities: [City]
-    let selectedCity: City?
-    let onSelect: (City) -> Void
-    
-    var body: some View {
-        NavigationStack {
-            ZStack {
-                LiquidBackground()
-                    .ignoresSafeArea()
-                
-                ScrollView {
-                    VStack(spacing: DesignTokens.Spacing.sm) {
-                        ForEach(cities) { city in
-                            GlassCard(
-                                variant: selectedCity?.id == city.id ? .frosted : .light,
-                                glow: selectedCity?.id == city.id ? .pink : nil
-                            ) {
-                                Button {
-                                    onSelect(city)
-                                } label: {
-                                    HStack {
-                                        VStack(alignment: .leading, spacing: 4) {
-                                            Text(city.name)
-                                                .font(.headline)
-                                                .foregroundStyle(.black)
-                                            Text(city.country)
-                                                .font(.caption)
-                                                .foregroundStyle(Color.gray)
-                                        }
-                                        
-                                        Spacer()
-                                        
-                                        if selectedCity?.id == city.id {
-                                            Image(systemName: "checkmark.circle.fill")
-                                                .foregroundStyle(Color.accentPink)
-                                        }
-                                    }
-                                    .padding(DesignTokens.Spacing.md)
-                                }
-                            }
-                        }
-                    }
-                    .padding()
-                }
-            }
-            .navigationTitle("Select City")
-            .navigationBarTitleDisplayMode(.inline)
-        }
-    }
-}
+// MARK: - City Picker Sheet
+// External component now used.
 
 #Preview {
     NavigationStack {

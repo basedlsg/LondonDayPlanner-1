@@ -1,0 +1,100 @@
+<resources>
+    <string name="app_name">規劃完美一天</string>
+    <string name="app_tagline">為您量身打造的城市行程</string>
+
+    <!-- Input -->
+    <string name="input_placeholder">您想去哪裡？</string>
+    <string name="input_plan_button">規劃行程</string>
+    <string name="input_date">日期</string>
+    <string name="input_time">時間</string>
+    <string name="input_plans">您的行程</string>
+
+    <!-- Itinerary -->
+    <string name="itinerary_title">您的行程</string>
+    <string name="itinerary_open_now">營業中</string>
+    <string name="itinerary_closed">休息中</string>
+    <string name="itinerary_directions">導航</string>
+    <string name="itinerary_alternatives">查看替代方案</string>
+    <string name="itinerary_export">匯出至行事曆</string>
+    <string name="itinerary_travel_time">前往 %2$s 需 %1$s 分鐘</string>
+
+    <!-- Cities -->
+    <string name="cities_london">倫敦</string>
+    <string name="cities_new_york">紐約</string>
+    <string name="cities_paris">巴黎</string>
+    <string name="cities_tokyo">東京</string>
+    <string name="cities_hong_kong">香港</string>
+    <string name="cities_los_angeles">洛杉磯</string>
+    <string name="cities_san_francisco">舊金山</string>
+    <string name="cities_chicago">芝加哥</string>
+    <string name="cities_miami">邁阿密</string>
+    <string name="cities_barcelona">巴塞隆納</string>
+    <string name="cities_rome">羅馬</string>
+
+    <!-- Settings -->
+    <string name="settings_title">設定</string>
+    <string name="settings_language">語言</string>
+    <string name="settings_city">預設城市</string>
+    <string name="settings_theme">外觀</string>
+    <string name="settings_theme_light">淺色</string>
+    <string name="settings_theme_dark">深色</string>
+    <string name="settings_theme_system">跟隨系統</string>
+    <string name="settings_subscription">訂閱</string>
+    <string name="settings_manage_subscription">管理訂閱</string>
+    <string name="settings_about">關於</string>
+    <string name="settings_version">版本 %1$s</string>
+
+    <!-- Subscription -->
+    <string name="subscription_premium">高級版</string>
+    <string name="subscription_tagline">解鎖個人化推薦功能</string>
+    <string name="subscription_free">免費版</string>
+    <string name="subscription_monthly">月費方案</string>
+    <string name="subscription_annual">年費方案</string>
+    <string name="subscription_per_month">/月</string>
+    <string name="subscription_per_year">/年</string>
+    <string name="subscription_savings">省下 %1$d%%</string>
+    <string name="subscription_current_plan">目前方案</string>
+    <string name="subscription_features_memory">個人化推薦</string>
+    <string name="subscription_features_memory_description">AI 會隨著時間學習您的偏好</string>
+    <string name="subscription_features_better_model">進階 AI模型</string>
+    <string name="subscription_features_better_model_description">使用最強大的 AI 模型</string>
+    <string name="subscription_features_priority">優先處理</string>
+    <string name="subscription_features_priority_description">更快速的回應時間</string>
+    <string name="subscription_subscribe">訂閱</string>
+    <string name="subscription_restore">恢復購買</string>
+    <string name="subscription_cancel">取消訂閱</string>
+    <string name="subscription_expires_on">到期日 %1$s</string>
+    <string name="subscription_renews_on">續訂日 %1$s</string>
+    <string name="subscription_active">已啟用</string>
+
+    <!-- Weather -->
+    <string name="weather_aware">氣候感知</string>
+    <string name="weather_off">關閉氣候</string>
+    <string name="weather_aware_description">獲得適合天氣的場地推薦</string>
+    <string name="weather_off_description">使用標準場地推薦</string>
+
+    <!-- Errors -->
+    <string name="errors_generic">發生錯誤，請重試。</string>
+    <string name="errors_network">無法連線，請檢查網路設定。</string>
+    <string name="errors_no_results">找不到結果，請嘗試搜尋其他關鍵字。</string>
+    <string name="errors_location_required">請在搜尋中指定地點。</string>
+
+    <!-- Loading -->
+    <string name="loading_planning">正在規劃您的完美一天…</string>
+    <string name="loading_searching">正在搜尋場地…</string>
+    <string name="loading_optimizing">正在最佳化行程…</string>
+
+    <!-- Common -->
+    <string name="common_back">返回</string>
+    <string name="common_next">下一步</string>
+    <string name="common_done">完成</string>
+    <string name="common_cancel">取消</string>
+    <string name="common_save">儲存</string>
+    <string name="common_delete">刪除</string>
+    <string name="common_edit">編輯</string>
+    <string name="common_share">分享</string>
+    <string name="common_copy">複製</string>
+    <string name="common_copied">已複製！</string>
+    <string name="common_try_again">重試</string>
+    <string name="common_ok">確定</string>
+</resources>

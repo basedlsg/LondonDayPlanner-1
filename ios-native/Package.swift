@@ -3,6 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "PlanYourPerfectDay",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v26),
         .macOS(.v10_15)

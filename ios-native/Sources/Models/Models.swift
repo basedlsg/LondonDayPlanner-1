@@ -270,6 +270,7 @@ struct CreateItineraryRequest: Codable {
     let date: String
     let startTime: String?
     let preferences: [String: String]?
+    let isPremium: Bool?
 }
 
 /// Itinerary creation response

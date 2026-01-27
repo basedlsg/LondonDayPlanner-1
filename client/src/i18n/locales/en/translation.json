@@ -1,0 +1,113 @@
+{
+  "app": {
+    "title": "Plan Your Perfect Day",
+    "tagline": "AI-powered itineraries for your city"
+  },
+  "input": {
+    "placeholder": "Where would you like to go?",
+    "planButton": "Plan My Day",
+    "examples": {
+      "simple": "Coffee shop in Shoreditch",
+      "detailed": "Quiet cafe with wifi, working until 6PM",
+      "complex": "Morning coffee -- lunch in Mayfair -- evening drinks"
+    },
+    "exampleLabels": {
+      "simple": "Quick search",
+      "detailed": "With context",
+      "complex": "Full day"
+    }
+  },
+  "itinerary": {
+    "title": "Your Itinerary",
+    "openNow": "Open now",
+    "closed": "Closed",
+    "directions": "Get directions",
+    "alternatives": "See alternatives",
+    "rating": "{{rating}} ({{count}} reviews)",
+    "whyRecommended": "Why we recommend this",
+    "travelTime": "{{minutes}} min walk",
+    "arriveBy": "Arrive by {{time}}",
+    "stayUntil": "Stay until {{time}}"
+  },
+  "cities": {
+    "london": "London",
+    "new-york": "New York",
+    "paris": "Paris",
+    "tokyo": "Tokyo",
+    "hong-kong": "Hong Kong",
+    "los-angeles": "Los Angeles",
+    "san-francisco": "San Francisco",
+    "chicago": "Chicago",
+    "miami": "Miami",
+    "barcelona": "Barcelona",
+    "rome": "Rome"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "city": "Default City",
+    "theme": "Theme",
+    "themes": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "subscription": "Subscription",
+    "manageSubscription": "Manage Subscription",
+    "about": "About",
+    "version": "Version {{version}}"
+  },
+  "subscription": {
+    "premium": "Premium",
+    "tagline": "Unlock personalized recommendations",
+    "free": "Free",
+    "monthly": "Monthly",
+    "annual": "Annual",
+    "perMonth": "/month",
+    "perYear": "/year",
+    "savings": "Save {{percent}}%",
+    "currentPlan": "Current Plan",
+    "features": {
+      "memory": "Personalized recommendations",
+      "memoryDescription": "The AI learns your preferences over time",
+      "betterModel": "Enhanced AI responses",
+      "betterModelDescription": "Access to our most capable AI model",
+      "priority": "Priority processing",
+      "priorityDescription": "Faster response times"
+    },
+    "freeFeatures": {
+      "basic": "Basic recommendations",
+      "limited": "Standard AI model",
+      "ads": "Standard processing"
+    },
+    "subscribe": "Subscribe",
+    "restore": "Restore Purchase",
+    "cancel": "Cancel Subscription",
+    "expiresOn": "Expires on {{date}}",
+    "renewsOn": "Renews on {{date}}"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "network": "Unable to connect. Check your internet connection.",
+    "noResults": "No results found. Try a different search.",
+    "locationRequired": "Please specify a location in your search."
+  },
+  "loading": {
+    "planning": "Planning your perfect day...",
+    "searching": "Searching for venues...",
+    "optimizing": "Optimizing your itinerary..."
+  },
+  "common": {
+    "back": "Back",
+    "next": "Next",
+    "done": "Done",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "share": "Share",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "tryAgain": "Try Again"
+  }
+}

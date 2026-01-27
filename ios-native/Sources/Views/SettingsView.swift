@@ -12,8 +12,16 @@ struct SettingsView: View {
             LiquidBackground()
                 .ignoresSafeArea()
             
-            ScrollView {
-                VStack(spacing: DesignTokens.Spacing.lg) {
+            VStack(spacing: 0) {
+                // Centered Header (Rozha One)
+                Text("Settings")
+                    .font(DesignTokens.Fonts.rozhaOne(size: 48))
+                    .foregroundStyle(DesignTokens.Colors.textPrimary)
+                    .padding(.top, 40)
+                    .padding(.bottom, DesignTokens.Spacing.lg)
+                
+                ScrollView {
+                    VStack(spacing: DesignTokens.Spacing.lg) {
                     // Account section
                     accountSection
                     
@@ -27,12 +35,20 @@ struct SettingsView: View {
                     aboutSection
                     
                     Spacer(minLength: 100)
+                    Spacer(minLength: 100)
                 }
                 .padding()
             }
         }
-        .navigationTitle("Settings")
+        // Hide default navigation bar to use custom header
+        .toolbar(.hidden, for: .navigationBar)
     }
+        // Hide default navigation bar to use custom header
+        .toolbar(.hidden, for: .navigationBar)
+    }
+    
+    @StateObject private var store = StoreManager.shared
+    @State private var showSubscription = false
     
     // MARK: - Account Section
     
@@ -51,9 +67,21 @@ struct SettingsView: View {
                             .foregroundStyle(Color.accentPink)
                         
                         VStack(alignment: .leading, spacing: 2) {
-                            Text("Sign In")
-                                .font(.headline)
-                                .foregroundStyle(.black)
+                            HStack {
+                                Text("Sign In")
+                                    .font(.headline)
+                                    .foregroundStyle(.black)
+                                
+                                if store.isPremium {
+                                    Text("PRO")
+                                        .font(.caption2)
+                                        .fontWeight(.bold)
+                                        .foregroundStyle(.white)
+                                        .padding(.horizontal, 6)
+                                        .padding(.vertical, 2)
+                                        .background(Color.accentPink, in: Capsule())
+                                }
+                            }
                             Text("Sync your trips across devices")
                                 .font(.caption)
                                 .foregroundStyle(.gray)
@@ -65,8 +93,40 @@ struct SettingsView: View {
                             .foregroundStyle(.gray.opacity(0.5))
                     }
                     .padding(DesignTokens.Spacing.md)
+                    
+                    Divider()
+                        .background(Color.gray.opacity(0.2))
+                        
+                    // Subscription Row
+                    Button {
+                        showSubscription = true
+                    } label: {
+                        HStack {
+                            Image(systemName: "crown.fill")
+                                .foregroundStyle(Color.yellow) // Gold for premium
+                                .frame(width: 24)
+                            
+                            Text(NSLocalizedString("settings.subscription", comment: "Subscription"))
+                                .foregroundStyle(.black)
+                            
+                            Spacer()
+                            
+                            Text(store.isPremium ? NSLocalizedString("subscription.active", value: "Active", comment: "") : NSLocalizedString("settings.manage", value: "Upgrade", comment: ""))
+                                .font(.subheadline)
+                                .foregroundStyle(store.isPremium ? .green : .gray)
+                            
+                            Image(systemName: "chevron.right")
+                                .foregroundStyle(.gray.opacity(0.5))
+                        }
+                        .padding(DesignTokens.Spacing.md)
+                    }
                 }
             }
+        }
+        .sheet(isPresented: $showSubscription) {
+            SubscriptionView()
+                .presentationDetents([.large])
+                .presentationCornerRadius(32)
         }
     }
     
