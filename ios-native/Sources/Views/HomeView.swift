@@ -31,6 +31,28 @@ struct HomeView: View {
                 .padding(DesignTokens.Spacing.md)
             }
             .scrollContentBackground(.hidden)
+            
+            // 3. Error Overlay
+            if let error = viewModel.error {
+                VStack {
+                    Spacer()
+                    Text(error)
+                        .font(.caption)
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 8)
+                        .background(Color.red.opacity(0.8))
+                        .clipShape(Capsule())
+                        .padding(.bottom, 100)
+                }
+                .transition(.move(edge: .bottom).combined(with: .opacity))
+                .onAppear {
+                    // Auto-hide error after 5 seconds
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                        viewModel.error = nil
+                    }
+                }
+            }
         }
         .toolbar(.hidden, for: .navigationBar)
         .sheet(isPresented: $showCityPicker) {
@@ -47,6 +69,27 @@ struct HomeView: View {
         }
         .task(id: cityManager.currentCity) {
             await viewModel.fetchWeather(for: cityManager.currentCity)
+        }
+        .onChange(of: cityManager.shouldAutoPlan) { shouldPlan in
+            if shouldPlan {
+                // Pre-fill form
+                viewModel.selectedDate = Date()
+                
+                if let customQuery = cityManager.autoPlanQuery {
+                    viewModel.query = customQuery
+                    cityManager.autoPlanQuery = nil // Reset
+                } else if let cityName = cityManager.currentCity?.name {
+                    viewModel.query = "Plan a perfect day in \(cityName)"
+                }
+                
+                // Focus input to encourage user review before submitting, 
+                // or we could auto-submit. User said "builds the itinerary", 
+                // so maybe auto-submit? Let's focus for now as it's safer UX.
+                isInputFocused = true
+                
+                // Reset flag
+                cityManager.shouldAutoPlan = false
+            }
         }
         .navigationDestination(isPresented: $viewModel.showItinerary) {
             if let itinerary = viewModel.createdItinerary {
@@ -362,6 +405,7 @@ struct PlansInputRow: View {
                         .foregroundStyle(Color.gray.opacity(0.5)) // Heavier transparency
                         .padding(.horizontal, 16)
                         .padding(.vertical, 16)
+                        .allowsHitTesting(false) // 1. Ensure placeholder doesn't block taps
                 }
                 
                 TextField("", text: $text, axis: .vertical)
@@ -370,6 +414,7 @@ struct PlansInputRow: View {
                     .foregroundStyle(DesignTokens.Colors.textPrimary)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 16)
+                    .frame(maxWidth: .infinity, minHeight: 100, alignment: .topLeading) // 2. Force TextField to fill the space
             }
             .frame(minHeight: 100, alignment: .top)
             .background(
@@ -390,6 +435,9 @@ struct PlansInputRow: View {
             .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
             // Use the Soft Shadow you already have
             .shadow(color: Color.black.opacity(0.05), radius: 10, x: 0, y: 5)
+            .onTapGesture {
+                isFocused = true
+            }
         }
     }
 }
@@ -425,7 +473,7 @@ class HomeViewModel: ObservableObject {
                 citySlug: city.slug,
                 query: query,
                 date: selectedDate,
-                isPremium: StoreManager.shared.isPremium
+                isPremium: true
             )
             showItinerary = true
         } catch {

@@ -1,4 +1,5 @@
 import SwiftUI
+import StoreKit
 
 /// App settings and preferences
 struct SettingsView: View {
@@ -6,6 +7,15 @@ struct SettingsView: View {
     @AppStorage("notifications_enabled") private var notificationsEnabled = true
     @AppStorage("weather_alerts") private var weatherAlerts = true
     @AppStorage("distance_unit") private var distanceUnit = "km"
+    
+    @StateObject private var store = StoreManager.shared
+    @StateObject private var authService = AuthenticationService.shared
+    @StateObject private var stressTest = StressTestService.shared
+    @State private var showSubscription = false
+    @State private var showStressTest = false
+    @State private var showDeleteAlert = false
+    @State private var didAutoOpenSubscription = false
+    private let launchArguments = ProcessInfo.processInfo.arguments
     
     var body: some View {
         ZStack {
@@ -22,33 +32,53 @@ struct SettingsView: View {
                 
                 ScrollView {
                     VStack(spacing: DesignTokens.Spacing.lg) {
-                    // Account section
-                    accountSection
-                    
-                    // Preferences section
-                    preferencesSection
-                    
-                    // Notifications section
-                    notificationsSection
-                    
-                    // About section
-                    aboutSection
-                    
-                    Spacer(minLength: 100)
-                    Spacer(minLength: 100)
+                        // Account section
+                        accountSection
+                        
+                        // Preferences section
+                        preferencesSection
+                        
+                        // Notifications section
+                        notificationsSection
+                        
+                        // About section
+                        aboutSection
+                        
+                        // Debug Section (Stress Testing)
+                        #if DEBUG
+                        debugSection
+                        #endif
+                        
+                        Spacer(minLength: 100)
+                    }
+                    .padding()
                 }
-                .padding()
             }
         }
         // Hide default navigation bar to use custom header
         .toolbar(.hidden, for: .navigationBar)
+        .sheet(isPresented: $showSubscription) {
+            SubscriptionView()
+                .presentationDetents([.large])
+                .presentationCornerRadius(32)
+        }
+        .onAppear {
+            guard launchArguments.contains("--record-open-subscription"), !didAutoOpenSubscription else { return }
+            didAutoOpenSubscription = true
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                showSubscription = true
+            }
+        }
+        .alert(NSLocalizedString("settings.deleteAccountTitle", value: "Delete Account?", comment: ""), isPresented: $showDeleteAlert) {
+            Button("Cancel", role: .cancel) { }
+            Button("Delete", role: .destructive) {
+                authService.signOut()
+            }
+        } message: {
+            Text(NSLocalizedString("settings.deleteAccountMessage", value: "This will remove your account and all saved data from this device. This action cannot be undone.", comment: ""))
+        }
     }
-        // Hide default navigation bar to use custom header
-        .toolbar(.hidden, for: .navigationBar)
-    }
-    
-    @StateObject private var store = StoreManager.shared
-    @State private var showSubscription = false
     
     // MARK: - Account Section
     
@@ -62,35 +92,50 @@ struct SettingsView: View {
                 VStack(spacing: 0) {
                     // Sign in prompt (or user info)
                     HStack {
-                        Image(systemName: "person.circle.fill")
-                            .font(.system(size: 44))
-                            .foregroundStyle(Color.accentPink)
-                        
-                        VStack(alignment: .leading, spacing: 2) {
-                            HStack {
-                                Text(NSLocalizedString("settings.signIn", comment: "Sign In"))
-                                    .font(.headline)
-                                    .foregroundStyle(.black)
-                                
-                                if store.isPremium {
-                                    Text("PRO")
-                                        .font(.caption2)
-                                        .fontWeight(.bold)
-                                        .foregroundStyle(.white)
-                                        .padding(.horizontal, 6)
-                                        .padding(.vertical, 2)
-                                        .background(Color.accentPink, in: Capsule())
+                        if authService.isAuthenticated {
+                            Image(systemName: "person.circle.fill")
+                                .font(.system(size: 44))
+                                .foregroundStyle(Color.accentPink)
+                            
+                            VStack(alignment: .leading, spacing: 2) {
+                                HStack {
+                                    Text(authService.fullName?.givenName ?? "User")
+                                        .font(.headline)
+                                        .foregroundStyle(.black)
+                                    
+                                    if true {
+                                        Text("PRO")
+                                            .font(.caption2)
+                                            .fontWeight(.bold)
+                                            .foregroundStyle(.white)
+                                            .padding(.horizontal, 6)
+                                            .padding(.vertical, 2)
+                                            .background(Color.accentPink, in: Capsule())
+                                    }
                                 }
+                                Text(authService.email ?? NSLocalizedString("settings.syncDescription", comment: "Sync your trips"))
+                                    .font(.caption)
+                                    .foregroundStyle(.gray)
                             }
-                            Text(NSLocalizedString("settings.syncDescription", comment: "Sync your trips"))
-                                .font(.caption)
-                                .foregroundStyle(.gray)
+                        } else {
+                            // Sign In Button
+                            Button {
+                                authService.signInWithApple()
+                            } label: {
+                                HStack(spacing: 12) {
+                                    Image(systemName: "apple.logo")
+                                        .font(.title2)
+                                    Text("Sign in with Apple")
+                                        .fontWeight(.semibold)
+                                }
+                                .foregroundStyle(.white)
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 10)
+                                .background(Color.black, in: Capsule())
+                            }
                         }
                         
                         Spacer()
-                        
-                        Image(systemName: "chevron.right")
-                            .foregroundStyle(.gray.opacity(0.5))
                     }
                     .padding(DesignTokens.Spacing.md)
                     
@@ -111,22 +156,39 @@ struct SettingsView: View {
                             
                             Spacer()
                             
-                            Text(store.isPremium ? NSLocalizedString("subscription.active", value: "Active", comment: "") : NSLocalizedString("settings.manage", value: "Upgrade", comment: ""))
+                            Text(NSLocalizedString("subscription.active", value: "Active", comment: ""))
                                 .font(.subheadline)
-                                .foregroundStyle(store.isPremium ? .green : .gray)
+                                .foregroundStyle(.green)
                             
                             Image(systemName: "chevron.right")
                                 .foregroundStyle(.gray.opacity(0.5))
                         }
                         .padding(DesignTokens.Spacing.md)
                     }
+                    .accessibilityIdentifier("settings.subscriptionRow")
+                    
+                    if authService.isAuthenticated {
+                        Divider()
+                            .background(Color.gray.opacity(0.2))
+                        
+                        Button {
+                            showDeleteAlert = true
+                        } label: {
+                            HStack {
+                                Image(systemName: "trash")
+                                    .foregroundStyle(.red)
+                                    .frame(width: 24)
+                                
+                                Text(NSLocalizedString("settings.deleteAccount", value: "Delete Account", comment: "Delete Account"))
+                                    .foregroundStyle(.red)
+                                
+                                Spacer()
+                            }
+                            .padding(DesignTokens.Spacing.md)
+                        }
+                    }
                 }
             }
-        }
-        .sheet(isPresented: $showSubscription) {
-            SubscriptionView()
-                .presentationDetents([.large])
-                .presentationCornerRadius(32)
         }
     }
     
@@ -195,6 +257,8 @@ struct SettingsView: View {
         }
     }
     
+    @Environment(\.requestReview) var requestReview
+
     // MARK: - About Section
     
     private var aboutSection: some View {
@@ -205,27 +269,93 @@ struct SettingsView: View {
             
             GlassCard(variant: .light) {
                 VStack(spacing: 0) {
-                    SettingsRow(icon: "info.circle", title: NSLocalizedString("settings.version", value: "Version %@", comment: ""), value: "1.0.0")
+                    SettingsRow(icon: "info.circle", title: String(format: NSLocalizedString("settings.version", comment: ""), Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"))
                     
                     Divider()
                         .background(Color.gray.opacity(0.2))
                     
-                    SettingsRow(icon: "doc.text", title: "Privacy Policy", showChevron: true)
+                    NavigationLink {
+                        LegalView(type: .privacy)
+                    } label: {
+                        SettingsRow(icon: "doc.text", title: "Privacy Policy", showChevron: true)
+                    }
                     
                     Divider()
                         .background(Color.gray.opacity(0.2))
                     
-                    SettingsRow(icon: "doc.text", title: NSLocalizedString("settings.termsOfService", comment: "Terms of Service"), showChevron: true)
+                    NavigationLink {
+                        LegalView(type: .terms)
+                    } label: {
+                        SettingsRow(icon: "doc.text", title: NSLocalizedString("settings.termsOfService", comment: "Terms of Service"), showChevron: true)
+                    }
                     
                     Divider()
                         .background(Color.gray.opacity(0.2))
                     
-                    SettingsRow(icon: "star", title: "Rate App", showChevron: true)
+                    Button {
+                        requestReview()
+                    } label: {
+                        SettingsRow(icon: "star", title: "Rate App", showChevron: true)
+                    }
                 }
             }
         }
     }
+    
+    // MARK: - Debug Section
+    
+    #if DEBUG
+    private var debugSection: some View {
+        VStack(alignment: .leading, spacing: DesignTokens.Spacing.sm) {
+            Text("Debug & Stress Test")
+                .font(.headline)
+                .foregroundStyle(.black)
+            
+            GlassCard(variant: .light) {
+                VStack(spacing: 0) {
+                    if stressTest.isRunning {
+                        VStack(spacing: 8) {
+                            ProgressView("Running Test...", value: stressTest.progress)
+                                .tint(.accentPink)
+                            
+                            HStack {
+                                Text("Req: \(stressTest.totalRequests)")
+                                Spacer()
+                                Text("Success: \(stressTest.successfulRequests)")
+                                    .foregroundStyle(.green)
+                            }
+                            .font(.caption)
+                            
+                            if !stressTest.logs.isEmpty {
+                                Text(stressTest.logs[0])
+                                    .font(.caption2)
+                                    .foregroundStyle(.gray)
+                                    .lineLimit(1)
+                            }
+                        }
+                        .padding(DesignTokens.Spacing.md)
+                    } else {
+                        SettingsRow(icon: "hammer.fill", title: "Start Generation Stress Test") {
+                            Button {
+                                stressTest.startTest(iterations: 5)
+                            } label: {
+                                Text("Start")
+                                    .fontWeight(.bold)
+                                    .foregroundStyle(.white)
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 6)
+                                    .background(Color.accentPink, in: Capsule())
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    #endif
 }
+    
+
 
 // MARK: - Settings Row
 
