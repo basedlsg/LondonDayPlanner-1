@@ -3,7 +3,7 @@ import Foundation
 // MARK: - City Models
 
 /// Represents a supported city with its configuration
-struct City: Codable, Identifiable, Hashable {
+struct City: Codable, Identifiable, Hashable, Sendable {
     let id: String
     let slug: String
     let name: String
@@ -14,13 +14,13 @@ struct City: Codable, Identifiable, Hashable {
     let majorAreas: [Area]
     let defaultCenter: Coordinate
     
-    struct Area: Codable, Hashable {
+    struct Area: Codable, Hashable, Sendable {
         let name: String
         let aliases: [String]?
         let center: Coordinate?
     }
     
-    struct Coordinate: Codable, Hashable {
+    struct Coordinate: Codable, Hashable, Sendable {
         let lat: Double
         let lng: Double
     }
@@ -29,7 +29,7 @@ struct City: Codable, Identifiable, Hashable {
 // MARK: - Place Models
 
 /// Represents a venue/place from Google Places
-struct Place: Codable, Identifiable, Hashable {
+struct Place: Codable, Identifiable, Hashable, Sendable {
     let id: String
     let placeId: String
     let name: String
@@ -46,20 +46,20 @@ struct Place: Codable, Identifiable, Hashable {
     let isOutdoorVenue: Bool?
     let weatherSuitable: Bool?
     
-    struct Location: Codable, Hashable {
+    struct Location: Codable, Hashable, Sendable {
         let lat: Double
         let lng: Double
     }
     
-    struct OpeningHours: Codable, Hashable {
+    struct OpeningHours: Codable, Hashable, Sendable {
         let openNow: Bool?
         let periods: [Period]?
         
-        struct Period: Codable, Hashable {
+        struct Period: Codable, Hashable, Sendable {
             let open: TimePoint
             let close: TimePoint?
             
-            struct TimePoint: Codable, Hashable {
+            struct TimePoint: Codable, Hashable, Sendable {
                 let time: String
                 let day: Int
             }
@@ -68,7 +68,7 @@ struct Place: Codable, Identifiable, Hashable {
 }
 
 /// Venue search result with primary and alternatives
-struct VenueSearchResult: Codable {
+struct VenueSearchResult: Codable, Sendable {
     let primary: Place
     let alternatives: [Place]
 }
@@ -76,7 +76,7 @@ struct VenueSearchResult: Codable {
 // MARK: - Itinerary Models
 
 /// A complete day itinerary
-struct Itinerary: Codable, Identifiable {
+struct Itinerary: Codable, Identifiable, Sendable {
     let id: Int
     let title: String?
     let description: String?
@@ -95,48 +95,77 @@ struct Itinerary: Codable, Identifiable {
     }
     
     /// A place with its scheduled time slot
-    struct ScheduledPlace: Codable, Identifiable, Hashable {
+    struct ScheduledPlace: Codable, Identifiable, Hashable, Sendable {
         var id: String { placeId ?? UUID().uuidString }
-        let placeId: String? // Optional because it might not be in all responses initially
+        let placeId: String?
         let name: String
         let address: String
         let location: Place.Location
         let scheduledTime: String
-        let duration: Int? // in minutes
+        let duration: Int?
         let types: [String]?
         let rating: Double?
-        let alternatives: [Place]?
+        let alternatives: [AlternativePlace]?
         let activityDescription: String?
-        
+
         enum CodingKeys: String, CodingKey {
-            case placeId
-            case name
-            case address
-            case location
+            case placeId, name, address, location
             case scheduledTime = "time"
             case duration
             case types = "categories"
-            case rating
-            case alternatives
-            case activityDescription
+            case rating, alternatives, activityDescription
+        }
+    }
+
+    /// A lightweight alternative venue suggestion from the API
+    struct AlternativePlace: Codable, Identifiable, Hashable, Sendable {
+        var id: String { placeId ?? name }
+        let placeId: String?
+        let name: String
+        let address: String
+        let rating: Double?
+        let whyRecommended: String?
+
+        private enum CodingKeys: String, CodingKey {
+            case placeId, name, address, formattedAddress, rating, whyRecommended
+        }
+
+        init(from decoder: Decoder) throws {
+            let c = try decoder.container(keyedBy: CodingKeys.self)
+            placeId = try c.decodeIfPresent(String.self, forKey: .placeId)
+            name = try c.decode(String.self, forKey: .name)
+            address = (try? c.decode(String.self, forKey: .address))
+                ?? (try? c.decode(String.self, forKey: .formattedAddress))
+                ?? ""
+            rating = try c.decodeIfPresent(Double.self, forKey: .rating)
+            whyRecommended = try c.decodeIfPresent(String.self, forKey: .whyRecommended)
+        }
+
+        func encode(to encoder: Encoder) throws {
+            var c = encoder.container(keyedBy: CodingKeys.self)
+            try c.encodeIfPresent(placeId, forKey: .placeId)
+            try c.encode(name, forKey: .name)
+            try c.encode(address, forKey: .address)
+            try c.encodeIfPresent(rating, forKey: .rating)
+            try c.encodeIfPresent(whyRecommended, forKey: .whyRecommended)
         }
     }
     
     /// Travel time between two places
-    struct TravelTime: Codable, Hashable {
+    struct TravelTime: Codable, Hashable, Sendable {
         let from: String
         let to: String
         let durationMinutes: Int
         let durationText: String
         let mode: TransportMode?
         
-        enum TransportMode: String, Codable {
+        enum TransportMode: String, Codable, Sendable {
             case walking, transit, driving
         }
     }
     
     /// Weather information for the day
-    struct WeatherInfo: Codable {
+    struct WeatherInfo: Codable, Sendable {
         let temperature: Double
         let condition: String
         let icon: String
@@ -147,14 +176,14 @@ struct Itinerary: Codable, Identifiable {
 // MARK: - Activity Models
 
 /// Parsed activity from NLP
-struct Activity: Codable {
+struct Activity: Codable, Sendable {
     let description: String
     let location: String?
     let time: String?
     let searchParameters: SearchParameters?
     let requirements: [String]?
     
-    struct SearchParameters: Codable {
+    struct SearchParameters: Codable, Sendable {
         let searchTerm: String
         let type: String?
         let keywords: [String]?
@@ -166,7 +195,7 @@ struct Activity: Codable {
 // MARK: - Trip Models
 
 /// Multi-day trip container
-struct Trip: Codable, Identifiable {
+struct Trip: Codable, Identifiable, Sendable {
     let id: Int
     let userId: String?
     let title: String
@@ -178,7 +207,7 @@ struct Trip: Codable, Identifiable {
     let accommodations: [Accommodation]?
     let created: Date
     
-    struct Accommodation: Codable {
+    struct Accommodation: Codable, Sendable {
         let name: String
         let address: String
         let checkIn: Date?
@@ -187,7 +216,7 @@ struct Trip: Codable, Identifiable {
 }
 
 /// Single day within a trip
-struct TripDay: Codable, Identifiable {
+struct TripDay: Codable, Identifiable, Sendable {
     let id: Int
     let tripId: Int
     let dayNumber: Int
@@ -204,7 +233,7 @@ struct TripDay: Codable, Identifiable {
 // MARK: - User Models
 
 /// User profile
-struct User: Codable, Identifiable {
+struct User: Codable, Identifiable, Sendable {
     let id: String
     let email: String
     let name: String?
@@ -214,15 +243,17 @@ struct User: Codable, Identifiable {
 }
 
 /// User preferences
-struct UserPreferences: Codable {
+struct UserPreferences: Codable, Sendable {
     var defaultCity: String?
     var favoriteLocations: [String]?
-    var activityPreferences: [String: Any]?
+    // activityPreferences removed for Sendability simplicity if not used, 
+    // or we'd need a Sendable dictionary. Let's keep it but mark it carefully.
+    // var activityPreferences: [String: Any]? 
     var budgetPreference: BudgetPreference?
     var weatherAware: Bool?
     var preferIndoor: Bool?
     
-    enum BudgetPreference: String, Codable {
+    enum BudgetPreference: String, Codable, Sendable {
         case budget, moderate, premium
     }
     
@@ -237,7 +268,6 @@ struct UserPreferences: Codable {
         budgetPreference = try container.decodeIfPresent(BudgetPreference.self, forKey: .budgetPreference)
         weatherAware = try container.decodeIfPresent(Bool.self, forKey: .weatherAware)
         preferIndoor = try container.decodeIfPresent(Bool.self, forKey: .preferIndoor)
-        activityPreferences = nil
     }
     
     func encode(to encoder: Encoder) throws {
@@ -253,19 +283,19 @@ struct UserPreferences: Codable {
 // MARK: - API Response Models
 
 /// Standard API response wrapper
-struct APIResponse<T: Codable>: Codable {
-    let success: Bool
+struct APIResponse<T: Codable & Sendable>: Codable, Sendable {
+    let success: Bool?
     let data: T?
     let error: APIError?
     
-    struct APIError: Codable {
+    struct APIError: Codable, Sendable {
         let message: String
         let code: String?
     }
 }
 
 /// Itinerary creation request
-struct CreateItineraryRequest: Codable {
+struct CreateItineraryRequest: Codable, Sendable {
     let query: String
     let date: String
     let startTime: String?
@@ -274,7 +304,7 @@ struct CreateItineraryRequest: Codable {
 }
 
 /// Itinerary creation response
-struct CreateItineraryResponse: Codable {
+struct CreateItineraryResponse: Codable, Sendable {
     let itinerary: Itinerary
     let processingTimeMs: Int?
 }
