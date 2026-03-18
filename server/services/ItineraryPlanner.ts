@@ -48,11 +48,26 @@ export class ItineraryPlanner {
 
     // Step 1: Classify the query
     const classification = this.classifier.classify(request.query);
+
+    // Premium Upgrade: Force Gemini 1.5 Pro (which we mapped to gemini-2.5-pro in gemini.ts) for premium users
+    if (request.isPremium) {
+      console.log(`[ItineraryPlanner] Premium user detected - Upgrading model to gemini-2.5-pro`);
+      classification.model = 'gemini-2.5-pro';
+    }
+
     console.log(`[ItineraryPlanner] Classification:`, classification);
 
     // Step 2: Parse with tier-appropriate model and prompt
-    const parsed = await this.parseQuery(request, classification, cityConfig);
-    console.log(`[ItineraryPlanner] Parsed query:`, JSON.stringify(parsed, null, 2));
+    let parsed: any;
+    try {
+      parsed = await this.parseQuery(request, classification, cityConfig);
+      console.log(`[ItineraryPlanner] Parsed query:`, JSON.stringify(parsed, null, 2));
+    } catch (error) {
+      console.warn(`[ItineraryPlanner] AI Parsing failed, using curated fallback:`, error);
+      parsed = this.getFallbackParsedQuery(request, cityConfig);
+      // Fallback returns a ParsedSimpleQuery, so override tier to match
+      classification.tier = 'simple';
+    }
 
     // Step 3: Convert parsed data to activities
     const activities = this.extractActivities(parsed, classification.tier, request.startTime);
@@ -66,9 +81,24 @@ export class ItineraryPlanner {
       classification.tier
     );
 
-    // Step 5: Build the final itinerary
-    const itinerary = this.buildItinerary(activities, venueResults, cityConfig);
-    console.log(`[ItineraryPlanner] Built itinerary with ${itinerary.places.length} places`);
+    // Step 5: Build the final itinerary with all required fields for iOS decoding
+    const itineraryData = this.buildItinerary(activities, venueResults, cityConfig);
+
+    const itinerary: Itinerary = {
+      id: Date.now(),
+      title: `${cityConfig.name} Day Plan`,
+      description: null,
+      planDate: request.date,
+      query: request.query,
+      venues: itineraryData.venues,  // iOS expects 'venues' key in JSON
+      travelTimes: itineraryData.travelTimes,
+      created: new Date().toISOString(),
+      weather: null,
+      city: cityConfig.name,
+      searchInsights: itineraryData.searchInsights,
+    };
+
+    console.log(`[ItineraryPlanner] Built itinerary with ${itinerary.venues.length} venues`);
 
     return itinerary;
   }
@@ -201,13 +231,14 @@ export class ItineraryPlanner {
 
   /**
    * Build the final itinerary from activities and discovered venues
+   * Output format matches iOS Itinerary structure exactly
    */
   private buildItinerary(
     activities: ParsedActivity[],
     venueResults: DiscoveryResult[],
     city: CityConfig
-  ): Itinerary {
-    const places: ItineraryPlace[] = [];
+  ): { venues: ItineraryPlace[]; travelTimes: TravelTime[]; searchInsights?: string[] } {
+    const venues: ItineraryPlace[] = [];
     const travelTimes: TravelTime[] = [];
     const searchInsights: string[] = [];
 
@@ -225,29 +256,30 @@ export class ItineraryPlanner {
       }
       scheduledTime = scheduledTime || '09:00';
 
-      // Build place entry
+      // Build place entry matching iOS ScheduledPlace structure
       if (venueResult.primary) {
         const venue = venueResult.primary;
-        places.push({
+        venues.push({
+          placeId: venue.placeId,
           name: venue.name,
           address: venue.formattedAddress || venue.address,
-          scheduledTime: scheduledTime,
-          displayTime: formatTime12h(scheduledTime),
+          location: city.coordinates, // Use city coordinates as fallback
+          time: scheduledTime,  // iOS expects 'time' key
+          duration: 60, // Default 1 hour
+          categories: [],
           rating: venue.rating,
-          categories: [], // Could be derived from place types
-          whyRecommended: venue.whyRecommended,
-          isOpenNow: venue.isOpenNow,
           alternatives: venueResult.alternatives,
-          placeId: venue.placeId,
+          activityDescription: venue.whyRecommended,
         });
       } else {
         // No venue found - create placeholder
-        places.push({
+        venues.push({
           name: `${activity.activity} in ${activity.location}`,
           address: `${activity.location}, ${city.name}`,
-          scheduledTime: scheduledTime,
-          displayTime: formatTime12h(scheduledTime),
-          whyRecommended: 'No specific venue found - explore the area',
+          location: city.coordinates,
+          time: scheduledTime,
+          duration: 60,
+          activityDescription: 'No specific venue found - explore the area',
           alternatives: [],
         });
       }
@@ -257,24 +289,40 @@ export class ItineraryPlanner {
         searchInsights.push(venueResult.searchInsights);
       }
 
-      // Calculate travel time to next activity
+      // Calculate travel time to next activity - match iOS TravelTime structure
       if (i < activities.length - 1) {
+        const currentLocation = activity.location;
         const nextActivity = activities[i + 1];
-        const duration = this.estimateTravelTime(
-          activity.location,
+        const durationMinutes = this.estimateTravelTime(
+          currentLocation,
           nextActivity.location
         );
         travelTimes.push({
-          duration: `${duration} min`,
+          from: currentLocation,
           to: nextActivity.location,
+          durationMinutes: durationMinutes,
+          durationText: `${durationMinutes} min`,
+          mode: 'transit',
         });
       }
     }
 
     return {
-      places,
+      venues,
       travelTimes,
       searchInsights: searchInsights.length > 0 ? searchInsights : undefined,
+    };
+  }
+
+  /**
+   * Return a curated "Best of City" parsed query when AI fails
+   */
+  private getFallbackParsedQuery(request: PlanRequest, city: CityConfig): ParsedSimpleQuery {
+    return {
+      venueType: "Best of " + city.name,
+      location: city.name,
+      searchQuery: "top points of interest and landmarks",
+      requirements: ["curated highlights", "must-see landmarks"]
     };
   }
 

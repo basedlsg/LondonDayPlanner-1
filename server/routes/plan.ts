@@ -13,14 +13,16 @@ const router = Router();
  * Create an itinerary for a generic request (uses city from body or defaults to london)
  */
 router.post('/plan', async (req: Request, res: Response) => {
+  const startProcessingTime = Date.now();
   try {
     const {
       date,
       startTime,
       query,
       weatherAware,
+      isPremium,
       city = 'london'
-    } = req.body as PlanRequest & { city?: string };
+    } = req.body as PlanRequest & { city?: string, isPremium?: boolean };
 
     // Validate required fields
     if (!query) {
@@ -41,11 +43,16 @@ router.post('/plan', async (req: Request, res: Response) => {
       startTime: startTime || new Date().toTimeString().slice(0, 5),
       query,
       weatherAware,
+      isPremium: req.body.isPremium,
     };
 
     const itinerary = await planner.createPlan(request, cityConfig);
 
-    res.json(itinerary);
+    // Wrap response in CreateItineraryResponse format for iOS compatibility
+    res.json({
+      itinerary,
+      processingTimeMs: Date.now() - startProcessingTime,
+    });
   } catch (error) {
     console.error('[/api/plan] Error:', error);
     res.status(500).json({
@@ -60,20 +67,16 @@ router.post('/plan', async (req: Request, res: Response) => {
  * Create an itinerary for a specific city
  */
 router.post('/:city/plan', async (req: Request, res: Response) => {
+  const startProcessingTime = Date.now();
   try {
     const { city } = req.params;
-    const { date, startTime, query, weatherAware } = req.body;
+    const { date, startTime, query, weatherAware, isPremium } = req.body;
 
-    // Validate required fields
-    if (!query) {
-      return res.status(400).json({
-        error: 'Missing required field: query',
-        message: 'Please provide a plans/query field with your itinerary request',
-      });
-    }
+    // Default to "surprise me" if no query provided
+    const planQuery = query || `Best of ${city} - surprise me with a great day out`;
 
     console.log(`[/api/${city}/plan] Received request`);
-    console.log(`[/api/${city}/plan] Query: ${query}`);
+    console.log(`[/api/${city}/plan] Query: ${planQuery}`);
 
     const cityConfig = getCityConfig(city);
     const planner = getItineraryPlanner();
@@ -81,13 +84,18 @@ router.post('/:city/plan', async (req: Request, res: Response) => {
     const request: PlanRequest = {
       date: date || new Date().toISOString().split('T')[0],
       startTime: startTime || new Date().toTimeString().slice(0, 5),
-      query,
+      query: planQuery,
       weatherAware,
+      isPremium,
     };
 
     const itinerary = await planner.createPlan(request, cityConfig);
 
-    res.json(itinerary);
+    // Wrap response in CreateItineraryResponse format for iOS compatibility
+    res.json({
+      itinerary,
+      processingTimeMs: Date.now() - startProcessingTime,
+    });
   } catch (error) {
     console.error(`[/api/:city/plan] Error:`, error);
     res.status(500).json({

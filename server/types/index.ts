@@ -7,7 +7,7 @@ export interface Classification {
   activityCount: number;
   hasTimeConstraints: boolean;
   hasPreferences: boolean;
-  model: 'gemini-2.0-flash' | 'gemini-1.5-pro';
+  model: 'gemini-2.5-flash' | 'gemini-2.5-flash-lite' | 'gemini-2.5-pro';
 }
 
 export interface QueryContext {
@@ -41,6 +41,7 @@ export interface PlanRequest {
   query: string;
   weatherAware?: boolean;
   city?: string;
+  isPremium?: boolean;
 }
 
 // Parsed query structures
@@ -143,27 +144,60 @@ export interface DiscoveryResult {
   searchInsights?: string;
 }
 
-// Itinerary output
+// Location coordinate for places
+export interface Location {
+  lat: number;
+  lng: number;
+}
+
+// Itinerary output - matches iOS ScheduledPlace structure
 export interface ItineraryPlace {
+  placeId?: string;
   name: string;
   address: string;
-  scheduledTime: string;
-  displayTime: string;
-  rating?: number;
+  location: Location;
+  time: string;  // iOS expects 'time', not 'scheduledTime'
+  duration?: number;  // in minutes
   categories?: string[];
-  whyRecommended?: string;
-  isOpenNow?: boolean;
+  rating?: number;
   alternatives?: ValidatedVenue[];
-  placeId?: string;
+  activityDescription?: string;
 }
 
+// TravelTime - matches iOS Itinerary.TravelTime structure
 export interface TravelTime {
-  duration: string;
+  from: string;
   to: string;
+  durationMinutes: number;
+  durationText: string;
+  mode?: 'walking' | 'transit' | 'driving';
 }
 
+// Itinerary - matches iOS Itinerary structure
+// Note: iOS maps 'venues' JSON key to 'places' property
 export interface Itinerary {
-  places: ItineraryPlace[];
+  id: number;
+  title: string;
+  description?: string | null;
+  planDate: string;
+  query: string;
+  venues: ItineraryPlace[];  // iOS expects 'venues' key in JSON
   travelTimes: TravelTime[];
+  created: string;
+  weather?: WeatherInfo | null;
+  city: string;
   searchInsights?: string[];
+}
+
+// Weather info for itinerary
+export interface WeatherInfo {
+  temperature: number;
+  condition: string;
+  icon: string;
+  description?: string;
+}
+
+export interface CreateItineraryResponse {
+  itinerary: Itinerary;
+  processingTimeMs: number;
 }

@@ -3,7 +3,7 @@
 import { GoogleGenerativeAI, GenerativeModel } from '@google/generative-ai';
 import { getConfig } from '../config';
 
-export type GeminiModelType = 'gemini-2.0-flash' | 'gemini-1.5-pro';
+export type GeminiModelType = 'gemini-2.5-flash' | 'gemini-2.5-flash-lite' | 'gemini-2.5-pro';
 
 export class GeminiClient {
   private genAI: GoogleGenerativeAI;
@@ -32,8 +32,8 @@ export class GeminiClient {
    */
   getGroundedModel(): GenerativeModel {
     return this.genAI.getGenerativeModel({
-      model: this.getModelId('gemini-2.0-flash'),
-      tools: [{ googleSearch: {} } as any] // Enable Google Search grounding
+      model: this.getModelId('gemini-2.5-flash'),
+      tools: [{ googleSearch: {} } as any]
     });
   }
 
@@ -42,12 +42,14 @@ export class GeminiClient {
    */
   private getModelId(modelType: GeminiModelType): string {
     switch (modelType) {
-      case 'gemini-2.0-flash':
-        return 'gemini-2.0-flash-exp'; // Use experimental for grounding support
-      case 'gemini-1.5-pro':
-        return 'gemini-1.5-pro';
+      case 'gemini-2.5-flash':
+        return 'gemini-2.5-flash';
+      case 'gemini-2.5-flash-lite':
+        return 'gemini-2.5-flash-lite';
+      case 'gemini-2.5-pro':
+        return 'gemini-2.5-pro';
       default:
-        return 'gemini-2.0-flash-exp';
+        return 'gemini-2.5-flash';
     }
   }
 
@@ -56,7 +58,7 @@ export class GeminiClient {
    */
   async generateContent(
     prompt: string,
-    modelType: GeminiModelType = 'gemini-2.0-flash',
+    modelType: GeminiModelType = 'gemini-2.5-flash',
     options: {
       temperature?: number;
       maxOutputTokens?: number;

@@ -4,29 +4,31 @@
 import { getConfig } from '../config';
 import { GroundedVenue, ValidatedVenue, OpeningHours, PlacePhoto } from '../types';
 
-interface PlacesApiResponse {
-  places?: Array<{
-    id: string;
-    displayName?: { text: string };
-    formattedAddress?: string;
-    rating?: number;
-    userRatingCount?: number;
-    currentOpeningHours?: {
-      openNow?: boolean;
-      periods?: Array<{
-        open: { day: number; hour: number; minute: number };
-        close?: { day: number; hour: number; minute: number };
-      }>;
-      weekdayDescriptions?: string[];
-    };
-    photos?: Array<{
-      name: string;
-      widthPx?: number;
-      heightPx?: number;
+interface Place {
+  id: string;
+  displayName?: { text: string };
+  formattedAddress?: string;
+  rating?: number;
+  userRatingCount?: number;
+  currentOpeningHours?: {
+    openNow?: boolean;
+    periods?: Array<{
+      open: { day: number; hour: number; minute: number };
+      close?: { day: number; hour: number; minute: number };
     }>;
-    priceLevel?: string;
-    types?: string[];
+    weekdayDescriptions?: string[];
+  };
+  photos?: Array<{
+    name: string;
+    widthPx?: number;
+    heightPx?: number;
   }>;
+  priceLevel?: string;
+  types?: string[];
+}
+
+interface PlacesApiResponse {
+  places?: Place[];
 }
 
 export class PlacesValidator {
@@ -98,7 +100,7 @@ export class PlacesValidator {
   /**
    * Search for a place using Google Places Text Search API
    */
-  private async searchPlace(query: string): Promise<PlacesApiResponse['places']![0] | null> {
+  private async searchPlace(query: string): Promise<Place | null> {
     try {
       const response = await fetch(this.baseUrl, {
         method: 'POST',
@@ -128,7 +130,7 @@ export class PlacesValidator {
         return null;
       }
 
-      const data: PlacesApiResponse = await response.json();
+      const data = (await response.json()) as PlacesApiResponse;
       return data.places?.[0] || null;
     } catch (error) {
       console.error('Failed to search place:', error);
@@ -172,7 +174,7 @@ export class PlacesValidator {
         return [];
       }
 
-      const data: PlacesApiResponse = await response.json();
+      const data = (await response.json()) as PlacesApiResponse;
 
       return (data.places || []).map((place) => ({
         name: place.displayName?.text || 'Unknown',
@@ -197,7 +199,7 @@ export class PlacesValidator {
    * Convert Places API opening hours to our format
    */
   private convertOpeningHours(
-    hours?: PlacesApiResponse['places']![0]['currentOpeningHours']
+    hours?: Place['currentOpeningHours']
   ): OpeningHours | undefined {
     if (!hours) return undefined;
 
@@ -210,9 +212,9 @@ export class PlacesValidator {
         },
         close: p.close
           ? {
-              day: p.close.day,
-              time: `${p.close.hour.toString().padStart(2, '0')}${p.close.minute.toString().padStart(2, '0')}`,
-            }
+            day: p.close.day,
+            time: `${p.close.hour.toString().padStart(2, '0')}${p.close.minute.toString().padStart(2, '0')}`,
+          }
           : undefined,
       })),
       weekday_text: hours.weekdayDescriptions,
@@ -223,7 +225,7 @@ export class PlacesValidator {
    * Convert Places API photos to our format
    */
   private convertPhotos(
-    photos?: PlacesApiResponse['places']![0]['photos']
+    photos?: Place['photos']
   ): PlacePhoto[] | undefined {
     if (!photos || photos.length === 0) return undefined;
 

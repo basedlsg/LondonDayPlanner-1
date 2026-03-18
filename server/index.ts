@@ -14,10 +14,8 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production'
-    ? ['https://plannyc.web.app', 'https://plannyc.firebaseapp.com']
-    : ['http://localhost:5173', 'http://localhost:3000', 'http://127.0.0.1:5173'],
-  credentials: true,
+  origin: true,
+  credentials: false,
 }));
 
 app.use(express.json());
@@ -30,7 +28,7 @@ if (process.env.NODE_ENV !== 'production') {
   });
 }
 
-// Mount routes
+// Mount API routes
 app.use('/api', planRoutes);
 
 // 404 handler
@@ -52,22 +50,24 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`
-==============================================
-  London Day Planner API Server
-==============================================
-  Environment: ${process.env.NODE_ENV || 'development'}
-  Port: ${PORT}
+// Start server only if not running in Vercel (serverless)
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`
+  ==============================================
+    London Day Planner API Server
+  ==============================================
+    Environment: ${process.env.NODE_ENV || 'development'}
+    Port: ${PORT}
 
-  Endpoints:
-    POST /api/plan          - Create itinerary
-    POST /api/:city/plan    - Create city-specific itinerary
-    GET  /api/health        - Health check
-    GET  /api/cities        - List supported cities
-==============================================
-`);
-});
+    Endpoints:
+      POST /api/plan          - Create itinerary
+      POST /api/:city/plan    - Create city-specific itinerary
+      GET  /api/health        - Health check
+      GET  /api/cities        - List supported cities
+  ==============================================
+  `);
+  });
+}
 
 export default app;

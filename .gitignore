@@ -4,11 +4,13 @@ dist
 server/public
 vite.config.ts.*
 *.tar.gz
-<<<<<<< HEAD
-# ignore secrets and logs
+
+# Secrets and logs
+.env
+.env.*
 firebase-service-key.json
 firebase-debug.log
-=======
+
 # Local Netlify folder
 .netlify
 .vercel
@@ -18,4 +20,4 @@ ios-native/.build/
 .build/
 Packages/
 DerivedData/
->>>>>>> 42cdf3c (Refine aesthetics: Liquid Glass design system, Crystalline inputs, Rozha One typography, and high-quality assets)
+*.xcarchive

@@ -30,12 +30,29 @@ export class QueryClassifier {
       tier = 'simple';
     }
 
+    // Select model based on tier (updated to Gemini 2.5 series)
+    // - Simple: gemini-2.5-flash-lite (fastest, most cost-effective)
+    // - Detailed: gemini-2.5-flash (balanced)
+    // - Complex: gemini-2.5-pro (best reasoning)
+    let model: 'gemini-2.5-flash' | 'gemini-2.5-flash-lite' | 'gemini-2.5-pro';
+    switch (tier) {
+      case 'simple':
+        model = 'gemini-2.5-flash-lite';
+        break;
+      case 'detailed':
+        model = 'gemini-2.5-flash';
+        break;
+      case 'complex':
+        model = 'gemini-2.5-pro';
+        break;
+    }
+
     return {
       tier,
       activityCount,
       hasTimeConstraints,
       hasPreferences,
-      model: tier === 'complex' ? 'gemini-1.5-pro' : 'gemini-2.0-flash'
+      model
     };
   }
 
