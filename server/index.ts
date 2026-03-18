@@ -4,7 +4,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { planRoutes } from './routes';
+import { planRoutes } from './routes/index.js';
 
 // Load environment variables
 dotenv.config();

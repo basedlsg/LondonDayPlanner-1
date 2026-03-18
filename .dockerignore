@@ -1,4 +1,5 @@
 node_modules
+functions/node_modules
 .env
 .env.local
 .env.development
@@ -27,3 +28,21 @@ test-*.ts
 dist
 build
 source.tar.gz
+.DS_Store
+.local
+.firebase
+.netlify
+android
+android-native
+ios
+ios-native
+functions
+zen-mcp-server
+AppStore_Screenshots_Final
+processed_screenshots
+attached_assets
+logs
+*.png
+*.ipa
+*.xcarchive
+*.ttf

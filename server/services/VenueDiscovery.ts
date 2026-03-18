@@ -1,15 +1,15 @@
 // Venue Discovery Service
 // Orchestrates grounded search and Places API validation for finding venues
 
-import { GroundedSearch, getGroundedSearch } from './GroundedSearch';
-import { PlacesValidator, getPlacesValidator } from './PlacesValidator';
+import { GroundedSearch, getGroundedSearch } from './GroundedSearch.js';
+import { PlacesValidator, getPlacesValidator } from './PlacesValidator.js';
 import {
   SearchContext,
   ParsedActivity,
   QueryTier,
   DiscoveryResult,
   ValidatedVenue,
-} from '../types';
+} from '../types/index.js';
 
 export class VenueDiscovery {
   private groundedSearch: GroundedSearch;

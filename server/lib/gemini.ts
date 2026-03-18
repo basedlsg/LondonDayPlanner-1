@@ -1,7 +1,7 @@
 // Gemini Client - handles model selection and API interactions
 
 import { GoogleGenerativeAI, GenerativeModel } from '@google/generative-ai';
-import { getConfig } from '../config';
+import { getConfig } from '../config/index.js';
 
 export type GeminiModelType = 'gemini-2.5-flash' | 'gemini-2.5-flash-lite' | 'gemini-2.5-pro';
 

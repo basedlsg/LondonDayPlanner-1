@@ -6,14 +6,17 @@ WORKDIR /app
 # Copy package files
 COPY package.json package-lock.json* ./
 
-# Install dependencies
-RUN npm install --production
+# Install dependencies (including devDependencies for build)
+RUN npm install
 
 # Copy the rest of the application source code
 COPY . .
 
 # Build the server
 RUN npm run build:server
+
+# Prune devDependencies to keep the image small
+RUN npm prune --omit=dev
 
 # Stage 2: Run the server application
 FROM node:20-slim
@@ -28,6 +31,8 @@ COPY --from=builder /app/package.json .
 COPY --from=builder /app/node_modules ./node_modules
 
 # Expose the port the server will run on
+ENV NODE_ENV=production
+ENV PORT=8080
 EXPOSE 8080
 
 # Start the server

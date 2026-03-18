@@ -1,6 +1,6 @@
 // Detailed query prompt - for single venue requests with specific requirements
 
-import { CityConfig, QueryContext } from '../../types';
+import { CityConfig, QueryContext } from '../../types/index.js';
 
 export function detailedPrompt(
   query: string,

@@ -2,9 +2,9 @@
 // Handles itinerary planning requests
 
 import { Router, Request, Response } from 'express';
-import { ItineraryPlanner, getItineraryPlanner } from '../services/ItineraryPlanner';
-import { getCityConfig } from '../config/cities';
-import { PlanRequest } from '../types';
+import { ItineraryPlanner, getItineraryPlanner } from '../services/ItineraryPlanner.js';
+import { getAllCities, getCityConfig } from '../config/cities.js';
+import { PlanRequest } from '../types/index.js';
 
 const router = Router();
 
@@ -122,7 +122,6 @@ router.get('/health', (req: Request, res: Response) => {
  * Get list of supported cities
  */
 router.get('/cities', (req: Request, res: Response) => {
-  const { getAllCities } = require('../config/cities');
   const cities = getAllCities();
   res.json(cities.map((c: any) => ({
     name: c.name,

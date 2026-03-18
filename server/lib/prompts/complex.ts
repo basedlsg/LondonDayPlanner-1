@@ -1,6 +1,6 @@
 // Complex itinerary prompt - for multi-stop day planning
 
-import { CityConfig, QueryContext } from '../../types';
+import { CityConfig, QueryContext } from '../../types/index.js';
 
 export function complexPrompt(
   query: string,

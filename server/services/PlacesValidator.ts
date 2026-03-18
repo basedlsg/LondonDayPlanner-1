@@ -1,8 +1,8 @@
 // Places Validator Service
 // Validates venue information from grounded search using Google Places API
 
-import { getConfig } from '../config';
-import { GroundedVenue, ValidatedVenue, OpeningHours, PlacePhoto } from '../types';
+import { getConfig } from '../config/index.js';
+import { GroundedVenue, ValidatedVenue, OpeningHours, PlacePhoto } from '../types/index.js';
 
 interface Place {
   id: string;

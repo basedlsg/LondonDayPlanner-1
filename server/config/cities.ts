@@ -1,6 +1,6 @@
 // City configurations for the day planner
 
-import { CityConfig } from '../types';
+import { CityConfig } from '../types/index.js';
 
 export const cities: Record<string, CityConfig> = {
   london: {

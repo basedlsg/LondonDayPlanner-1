@@ -17,7 +17,17 @@ firebase-debug.log
 
 # iOS Build Artifacts
 ios-native/.build/
+ios-native/.build-recordings/
 .build/
 Packages/
 DerivedData/
 *.xcarchive
+*.ipa
+
+# Screenshots and debug images
+AppStore_Screenshots_Final/
+*.png
+debug_screen*.png
+
+# Xcode user state
+*.xcuserstate

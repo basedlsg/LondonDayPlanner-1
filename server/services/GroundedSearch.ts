@@ -1,8 +1,8 @@
 // Grounded Search Service
 // Uses Gemini with Google Search grounding to find real, current venue information
 
-import { GeminiClient, getGeminiClient } from '../lib/gemini';
-import { SearchContext, GroundedResult, GroundedVenue } from '../types';
+import { GeminiClient, getGeminiClient } from '../lib/gemini.js';
+import { SearchContext, GroundedResult, GroundedVenue } from '../types/index.js';
 
 export class GroundedSearch {
   private gemini: GeminiClient;

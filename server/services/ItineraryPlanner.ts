@@ -1,13 +1,13 @@
 // Itinerary Planner Service
 // Main orchestration service for creating day plans
 
-import { QueryClassifier, queryClassifier } from './QueryClassifier';
-import { VenueDiscovery, getVenueDiscovery } from './VenueDiscovery';
-import { GeminiClient, getGeminiClient } from '../lib/gemini';
-import { simplePrompt } from '../lib/prompts/simple';
-import { detailedPrompt } from '../lib/prompts/detailed';
-import { complexPrompt } from '../lib/prompts/complex';
-import { getDayOfWeek, formatTime12h, addMinutesToTime, getArrivalTimeInWindow } from '../lib/utils/time';
+import { QueryClassifier, queryClassifier } from './QueryClassifier.js';
+import { VenueDiscovery, getVenueDiscovery } from './VenueDiscovery.js';
+import { GeminiClient, getGeminiClient } from '../lib/gemini.js';
+import { simplePrompt } from '../lib/prompts/simple.js';
+import { detailedPrompt } from '../lib/prompts/detailed.js';
+import { complexPrompt } from '../lib/prompts/complex.js';
+import { getDayOfWeek, formatTime12h, addMinutesToTime, getArrivalTimeInWindow } from '../lib/utils/time.js';
 import {
   PlanRequest,
   CityConfig,
@@ -22,7 +22,7 @@ import {
   Itinerary,
   ItineraryPlace,
   TravelTime,
-} from '../types';
+} from '../types/index.js';
 
 export class ItineraryPlanner {
   private classifier: QueryClassifier;

@@ -1,0 +1,22 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../dist/api",
+    "noEmit": false,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "allowImportingTsExtensions": false,
+    "jsx": "preserve",
+    "esModuleInterop": true
+  },
+  "include": [
+    ".",
+    "../server"
+  ],
+  "exclude": [
+    "../node_modules",
+    "../build",
+    "../dist",
+    "**/*.test.ts"
+  ]
+}

@@ -1,7 +1,7 @@
 // Query Classification Service
 // Classifies user queries into tiers (simple, detailed, complex) and selects appropriate AI model
 
-import { QueryTier, Classification } from '../types';
+import { QueryTier, Classification } from '../types/index.js';
 
 export class QueryClassifier {
   /**

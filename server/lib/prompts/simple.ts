@@ -1,6 +1,6 @@
 // Simple query prompt - for single venue requests without complex requirements
 
-import { CityConfig } from '../../types';
+import { CityConfig } from '../../types/index.js';
 
 export function simplePrompt(
   query: string,
