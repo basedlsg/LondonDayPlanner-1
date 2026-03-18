@@ -87,7 +87,7 @@ struct ItineraryView: View {
 
     
     private func travelTime(from: Itinerary.ScheduledPlace, to: Itinerary.ScheduledPlace) -> Itinerary.TravelTime? {
-        itinerary.travelTimes.first { $0.from == from.placeId && $0.to == to.placeId }
+        itinerary.travelTimes?.first { $0.from == from.placeId && $0.to == to.placeId }
     }
     
     private func weatherIcon(for condition: String) -> String {

@@ -13,9 +13,10 @@ actor APIClient {
     private init() {
         // Configure base URL based on environment
         #if DEBUG
-        self.baseURL = URL(string: "http://192.168.110.205:3000")! // Local server (LAN IP)
+        // self.baseURL = URL(string: "http://localhost:3000")! // Localhost for Simulator
+        self.baseURL = URL(string: "https://london-day-planner-1.vercel.app")!
         #else
-        self.baseURL = URL(string: "https://plan-94cee.web.app")!
+        self.baseURL = URL(string: "https://london-day-planner-1.vercel.app")!
         #endif
         
         // Configure session with retry and timeout
@@ -27,24 +28,94 @@ actor APIClient {
         
         // Configure JSON decoder
         self.decoder = JSONDecoder()
-        self.decoder.keyDecodingStrategy = .convertFromSnakeCase
-        self.decoder.dateDecodingStrategy = .iso8601
+        // Server returns camelCase keys. CodingKeys in Models.swift handle all
+        // field name mappings (venues→places, time→scheduledTime, categories→types).
+        // Do NOT use .convertFromSnakeCase — it double-converts CodingKey raw values
+        // and breaks fields like travelTimes (expects travel_times) and planDate (expects plan_date).
+        self.decoder.keyDecodingStrategy = .useDefaultKeys
+        
+        // Custom date decoder to handle both fractional ISO8601 and yyyy-MM-dd
+        let isoFormatter = ISO8601DateFormatter()
+        isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        
+        let standardIsoFormatter = ISO8601DateFormatter()
+        
+        let ymdFormatter = DateFormatter()
+        ymdFormatter.dateFormat = "yyyy-MM-dd"
+        
+        self.decoder.dateDecodingStrategy = .custom { decoder in
+            let container = try decoder.singleValueContainer()
+            let dateString = try container.decode(String.self)
+            
+            if let date = isoFormatter.date(from: dateString) {
+                return date
+            }
+            if let date = standardIsoFormatter.date(from: dateString) {
+                return date
+            }
+            if let date = ymdFormatter.date(from: dateString) {
+                return date
+            }
+            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Cannot decode date string \(dateString)")
+        }
         
         // Configure JSON encoder
+        // Server expects camelCase keys (isPremium, startTime, etc.)
+        // Do NOT use .convertToSnakeCase — server reads req.body.isPremium, not req.body.is_premium
         self.encoder = JSONEncoder()
-        self.encoder.keyEncodingStrategy = .convertToSnakeCase
+        self.encoder.keyEncodingStrategy = .useDefaultKeys
         self.encoder.dateEncodingStrategy = .iso8601
+    }
+    
+    // MARK: - Generic Request Handler
+    
+    private func request<T: Codable & Sendable>(
+        url: URL,
+        method: HTTPMethod,
+        body: (any Encodable & Sendable)? = nil
+    ) async throws -> T {
+        let afMethod: Alamofire.HTTPMethod = {
+            switch method {
+            case .get: return .get
+            case .post: return .post
+            case .put: return .put
+            case .delete: return .delete
+            }
+        }()
+        
+        var urlRequest = try URLRequest(url: url, method: afMethod)
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        if let body = body {
+            urlRequest.httpBody = try encoder.encode(body)
+        }
+        
+        // Wrap request in Alamofire for proper session management and retries
+        let response = await session.request(urlRequest, interceptor: RetryInterceptor())
+            .validate(statusCode: 200...299)
+            .serializingDecodable(T.self, decoder: decoder)
+            .response
+        
+        switch response.result {
+        case .success(let value):
+            return value
+        case .failure(let error):
+            if let responseData = response.data,
+               let errorResponse = try? decoder.decode(APIResponse<EmptyResponse>.self, from: responseData) {
+                throw APIError.serverError(errorResponse.error?.message ?? error.localizedDescription)
+            }
+            throw APIError.networkError(error)
+        }
     }
     
     // MARK: - Cities API
     
-    /// Fetch all available cities
     func fetchCities() async throws -> [City] {
         let url = baseURL.appendingPathComponent("/api/cities")
         return try await request(url: url, method: .get)
     }
     
-    /// Get city configuration by slug
     func fetchCity(slug: String) async throws -> City {
         let url = baseURL.appendingPathComponent("/api/cities/\(slug)")
         return try await request(url: url, method: .get)
@@ -52,7 +123,6 @@ actor APIClient {
     
     // MARK: - Itinerary API
     
-    /// Create a new itinerary
     func createItinerary(
         citySlug: String,
         query: String,
@@ -73,79 +143,15 @@ actor APIClient {
             isPremium: isPremium
         )
         
-        // Use generic request which decodes Itinerary directly (not wrapped in CreateItineraryResponse based on backend inspection)
-        // Backend returns the Itinerary object directly with enriched fields
-        let itinerary: Itinerary = try await request(
+        let response: CreateItineraryResponse = try await request(
             url: url,
             method: .post,
             body: body
         )
         
-        return itinerary
+        return response.itinerary
     }
     
-    // MARK: - Mock Data
-    
-    private func getMockItinerary() -> Itinerary {
-        let places = [
-            Itinerary.ScheduledPlace(
-                placeId: "p1",
-                name: "The British Museum",
-                address: "Great Russell St, London WC1B 3DG",
-                location: Place.Location(lat: 51.5194, lng: -0.1270),
-                scheduledTime: "10:00",
-                duration: 120,
-                types: ["museum", "tourist_attraction"],
-                rating: 4.7,
-                alternatives: nil,
-                activityDescription: "Explore world history and culture."
-            ),
-            Itinerary.ScheduledPlace(
-                placeId: "p2",
-                name: "Covent Garden",
-                address: "Covent Garden, London WC2E 8RF",
-                location: Place.Location(lat: 51.5117, lng: -0.1240),
-                scheduledTime: "12:30",
-                duration: 90,
-                types: ["shopping_mall", "tourist_attraction"],
-                rating: 4.6,
-                alternatives: nil,
-                activityDescription: "Enjoy lunch and street performers."
-            ),
-            Itinerary.ScheduledPlace(
-                placeId: "p3",
-                name: "Dishoom Covent Garden",
-                address: "12 Upper St Martin's Ln, London WC2H 9FB",
-                location: Place.Location(lat: 51.5124, lng: -0.1265),
-                scheduledTime: "14:00",
-                duration: 60,
-                types: ["restaurant", "food"],
-                rating: 4.8,
-                alternatives: nil,
-                activityDescription: "Famous Bombay café style dining."
-            )
-        ]
-        
-        return Itinerary(
-            id: 12345,
-            title: "London Highlights",
-            description: "A perfect day exploring culture and food.",
-            planDate: Date(),
-            query: "London highlights",
-            places: places,
-            travelTimes: [],
-            created: Date(),
-            weather: Itinerary.WeatherInfo(
-                temperature: 18.5,
-                condition: "Sunny",
-                icon: "sun.max.fill",
-                description: "Clear sky"
-            ),
-            city: "London"
-        )
-    }
-    
-    /// Fetch an existing itinerary by ID
     func fetchItinerary(citySlug: String, id: Int) async throws -> Itinerary {
         let url = baseURL.appendingPathComponent("/api/\(citySlug)/itinerary/\(id)")
         return try await request(url: url, method: .get)
@@ -153,46 +159,26 @@ actor APIClient {
     
     // MARK: - Weather API
     
-    /// Fetch weather for a city
     func fetchWeather(citySlug: String, date: Date) async throws -> Itinerary.WeatherInfo {
         let url = baseURL.appendingPathComponent("/api/\(citySlug)/weather")
         return try await request(url: url, method: .get)
     }
+}
+
+// MARK: - Retry Interceptor (Production Stability)
+
+final class RetryInterceptor: RequestInterceptor, Sendable {
+    let maxRetryCount = 3
+    let retryDelay: TimeInterval = 1.0
     
-    // MARK: - Generic Request Handler
-    
-    private func request<T: Codable>(
-        url: URL,
-        method: HTTPMethod,
-        body: Encodable? = nil
-    ) async throws -> T {
-        var request = URLRequest(url: url)
-        request.httpMethod = method.rawValue
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
+    func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
+        let response = request.task?.response as? HTTPURLResponse
         
-        if let body = body {
-            request.httpBody = try encoder.encode(body)
-        }
-        
-        let (data, response) = try await URLSession.shared.data(for: request)
-        
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw APIError.invalidResponse
-        }
-        
-        guard (200...299).contains(httpResponse.statusCode) else {
-            if let errorResponse = try? decoder.decode(APIResponse<EmptyResponse>.self, from: data) {
-                throw APIError.serverError(errorResponse.error?.message ?? "Unknown error")
-            }
-            throw APIError.httpError(statusCode: httpResponse.statusCode)
-        }
-        
-        do {
-            return try decoder.decode(T.self, from: data)
-        } catch {
-            print("Decoding error: \(error)")
-            throw APIError.decodingError(error)
+        if request.retryCount < maxRetryCount,
+           (response?.statusCode == 500 || (error as NSError).domain == NSURLErrorDomain) {
+            completion(.retryWithDelay(retryDelay))
+        } else {
+            completion(.doNotRetry)
         }
     }
 }
@@ -222,11 +208,7 @@ enum APIError: LocalizedError {
     }
 }
 
-// MARK: - Helper Types
-
-struct EmptyResponse: Codable {}
-
-// MARK: - HTTP Method
+struct EmptyResponse: Codable, Sendable {}
 
 enum HTTPMethod: String {
     case get = "GET"

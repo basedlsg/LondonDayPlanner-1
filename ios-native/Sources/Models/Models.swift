@@ -83,7 +83,7 @@ struct Itinerary: Codable, Identifiable, Sendable {
     let planDate: Date?
     let query: String
     let places: [ScheduledPlace]
-    let travelTimes: [TravelTime]
+    let travelTimes: [TravelTime]?
     let created: Date
     let weather: WeatherInfo?
     let city: String?
