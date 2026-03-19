@@ -37,6 +37,9 @@ struct PlanYourPerfectDayApp: App {
             }
         }
     }
+    init() {
+        print("DEBUG: PlanYourPerfectDayApp init")
+    }
 }
 
 PlanYourPerfectDayApp.main()

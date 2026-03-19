@@ -63,12 +63,12 @@ fun SettingsScreen(
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
             // Account Section
-            SettingsSection(title = "Account") {
+            SettingsSection(title = stringResource(R.string.settings_account)) {
                 // User Profile (Mock)
                 SettingsItem(
                     icon = Icons.Default.Person,
-                    title = "Sign In",
-                    subtitle = "Sync your trips across devices",
+                    title = stringResource(R.string.settings_signIn),
+                    subtitle = stringResource(R.string.settings_syncDescription),
                     onClick = { /* TODO: Auth */ }
                 )
 
@@ -102,10 +102,10 @@ fun SettingsScreen(
             }
 
             // Preferences
-            SettingsSection(title = "Preferences") {
+            SettingsSection(title = stringResource(R.string.settings_preferences)) {
                 SettingsItem(
                     title = stringResource(R.string.settings_city),
-                    subtitle = "London",
+                    subtitle = stringResource(R.string.cities_london),
                     onClick = { /* TODO */ }
                 )
                 Divider(modifier = Modifier.padding(horizontal = 16.dp))

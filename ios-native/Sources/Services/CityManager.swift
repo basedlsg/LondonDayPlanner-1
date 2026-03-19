@@ -8,6 +8,8 @@ class CityManager: ObservableObject {
     @Published var currentCity: City?
     @Published var isLoading: Bool = false
     @Published var error: Error?
+    @Published var shouldAutoPlan: Bool = false
+    @Published var autoPlanQuery: String?
     
     private let apiClient = APIClient.shared
     private let defaults = UserDefaults.standard

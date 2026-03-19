@@ -55,6 +55,9 @@ struct HomeView: View {
             }
         }
         .toolbar(.hidden, for: .navigationBar)
+        .fullScreenCover(isPresented: $viewModel.isLoading) {
+            GeneratingLoadingView()
+        }
         .sheet(isPresented: $showCityPicker) {
             CityPickerSheet(
                 cities: cityManager.cities,

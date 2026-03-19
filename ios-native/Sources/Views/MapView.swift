@@ -59,11 +59,11 @@ struct ItineraryMapViewFull: View {
                 }
                 .animation(.spring(), value: selectedPlace)
             }
-            .navigationTitle("Map")
+            .navigationTitle(NSLocalizedString("map.title", comment: "Map"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Done") { dismiss() }
+                    Button(NSLocalizedString("map.done", comment: "Done")) { dismiss() }
                         .tint(Color.accentPink)
                 }
                 

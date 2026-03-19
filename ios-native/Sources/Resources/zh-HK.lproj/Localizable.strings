@@ -88,7 +88,14 @@
 "subscription.restore" = "恢復購買";
 "subscription.cancel" = "取消訂閱";
 "subscription.expiresOn" = "到期日：%@";
+"subscription.unableToLoad" = "無法載入訂閱選項";
 "subscription.renewsOn" = "續訂日：%@";
+"subscription.troubleshoot" = "若問題持續，請確認你的 App Store 帳號可用後重試。";
+"subscription.selectPlanHint" = "請先選擇一個方案。";
+"subscription.plansUnavailableNeutral" = "高級方案正在背景載入。";
+"subscription.loadingBackgroundHint" = "你可以隨時繼續使用免費版，我們會持續自動檢查。";
+"subscription.refreshPlans" = "重新整理方案";
+"subscription.continueFree" = "繼續使用免費版";
 
 /* Weather */
 "weather.aware" = "天氣感知開啟";
@@ -120,3 +127,38 @@
 "common.copied" = "已複製！";
 "common.tryAgain" = "重試";
 "common.ok" = "好";
+"common.error" = "錯誤";
+"common.unknownError" = "發生未知錯誤";
+
+/* Trips */
+"trips.title" = "我的行程";
+"trips.noTrips" = "暫無行程";
+"trips.getStarted" = "規劃你的第一天行程開始";
+"trips.days" = "%@ 日";
+
+/* Map */
+"map.title" = "地圖";
+"map.done" = "完成";
+
+/* Explore */
+"explore.title" = "探索";
+"explore.featured" = "精選目的地";
+"explore.allCities" = "所有城市";
+"explore.popularAreas" = "熱門區域";
+
+/* Itinerary Additional */
+"itinerary.share.title" = "分享行程";
+"itinerary.share.pdf" = "匯出 PDF";
+"itinerary.share.calendar" = "加入日曆";
+"itinerary.share.messages" = "訊息";
+"itinerary.share.more" = "更多...";
+"itinerary.share.exporting" = "正在匯出...";
+"itinerary.share.text" = "我在 %@ 的一天: %@";
+"itinerary.call" = "致電";
+"itinerary.alternatives.title" = "其他選擇";
+"itinerary.minutes" = "%@ 分鐘";
+
+/* Legal */
+"legal.autoRenew" = "訂閱將自動續期，除非在當前訂閱期結束前至少 24 小時取消。";
+"legal.terms" = "使用條款";
+"legal.privacy" = "私隱政策";

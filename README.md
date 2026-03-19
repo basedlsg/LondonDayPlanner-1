@@ -1,73 +1,78 @@
-# NYC Day Planner
+# London Day Planner
 
-An intelligent day planner that generates personalized, time-optimized itineraries for exploring New York City using advanced natural language processing and the Google Places API.
+![Platforms](https://img.shields.io/badge/Platforms-Web_%7C_iOS_%7C_Android-blue) ![Stack](https://img.shields.io/badge/Stack-PERN_%2B_Capacitor-green)
 
-## Features
+**London Day Planner** is a comprehensive travel companion application designed to help users curate perfect days in London. It leverages AI to generate personalized itineraries based on user preferences and integrates real-time data for a seamless travel experience.
 
-- **Natural Language Input**: Simply describe your plans in plain English (e.g., "I'm at Brooklyn Bridge and need a coffee shop to work until my dinner at Carbone in Greenwich Village at 8pm")
-- **Smart Scheduling**: Automatically fills your day with interesting activities based on location and time
-- **Time-Aware Planning**: 
-  - Supports both 12-hour and 24-hour time formats
-  - Considers typical activity durations
-  - Automatically schedules lunch during appropriate hours
-  - Accounts for travel time between locations
-- **Contextual Recommendations**:
-  - Morning activities (bakeries, markets, coffee spots)
-  - Midday venues (museums, galleries, parks)
-  - Afternoon activities (shopping, cafes, walks)
-  - Evening entertainment (bars, theaters, live music)
+## 🌍 Key Features
 
-## How It Works
+- **AI Itinerary Generation**: Uses Google Gemini to create bespoke daily plans.
+- **Cross-Platform Availability**: Accessible as a responsive web app and native mobile apps (iOS & Android).
+- **Rich Interactive Maps**: Integrated Google Maps for venue discovery and navigation.
+- **User Accounts**: Secure authentication and cloud sync for saving plans across devices.
 
-1. **Input Your Plans**:
-   - Select your preferred date
-   - Choose a start time
-   - Describe your plans in the text area
+## 🛠 Technology Stack
 
-2. **Get Your Itinerary**:
-   - The app analyzes your input to identify:
-     - Starting location
-     - Fixed appointments (e.g., dinner reservations)
-     - Specific preferences (e.g., "quiet coffee shop")
-   - Generates a sequential itinerary with:
-     - Verified locations from Google Places
-     - Estimated travel times
-     - Suggested activities for free time periods
+### Frontend (Web & Mobile)
+- **Framework**: React 18, Vite
+- **Mobile Runtime**: Capacitor 7 (Access to native device features)
+- **Styling**: TailwindCSS (v3.4), Shadcn/UI
+- **State**: React Query, Zustand
 
-3. **Export Options**:
-   - Export to calendar (ICS format)
-   - View travel times between locations
+### Backend (API)
+- **Server**: Node.js, Express
+- **Database**: PostgreSQL (via Neon Serverless)
+- **ORM**: Drizzle ORM
+- **AI**: Google Generative AI SDK
 
-## Technical Architecture
+## 🚀 Getting Started
 
-### Frontend
-- React with TypeScript
-- Real-time form validation
-- Dynamic itinerary display
-- Responsive design for all devices
+### Prerequisites
+- Node.js (v20+)
+- Docker (optional, for local DB)
+- PostgreSQL database URL
 
-### Backend
-- Express server
-- Natural language processing for request parsing
-- Google Places API integration
-- Smart scheduling algorithm
-- PostgreSQL database for storing itineraries
+### Installation
 
-### Key Components
-- Time verification system
-- Location-aware activity suggestions
-- Travel time calculations
-- Intelligent gap filling for unscheduled periods
+1. **Clone the repository**:
+   ```bash
+   git clone <repo-url>
+   cd LondonDayPlanner
+   ```
 
-## Example Use Cases
+2. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
 
-1. **Work & Dinner Plans**:
-   "I'm at Grand Central Station and need a quiet café to work until my dinner at Carbone in Greenwich Village at 8pm"
+3. **Environment Setup**:
+   Create a `.env` file based on `.env.example`:
+   ```env
+   DATABASE_URL=postgres://...
+   GEMINI_API_KEY=...
+   ```
 
-2. **Tourist Day Out**:
-   "Starting from Times Square at 10am, I want to see some museums and have dinner in SoHo at 7pm"
+4. **Run Development Server**:
+   ```bash
+   npm run dev:both
+   # Runs both client (port 5173) and server (port 3000)
+   ```
 
-3. **Shopping & Entertainment**:
-   "Meeting friends at Fifth Avenue at 11am for shopping, then we have theater tickets for 7:30pm in Broadway"
+## 📱 Mobile Build
 
-The app will create a balanced itinerary that includes appropriate meal times, interesting activities, and accounts for travel between locations.
+To build and run on simulators:
+
+```bash
+# iOS
+npm run build:client
+npx cap sync ios
+npx cap open ios
+
+# Android
+npm run build:client
+npx cap sync android
+npx cap open android
+```
+
+## 📄 License
+Proprietary. All rights reserved.

@@ -1,9 +1,5 @@
 {
   "projects": {
-<<<<<<< HEAD
-    "default": "day-planner-london-mvp"
-=======
     "default": "plan-94cee"
->>>>>>> 42cdf3c (Refine aesthetics: Liquid Glass design system, Crystalline inputs, Rozha One typography, and high-quality assets)
   }
 }

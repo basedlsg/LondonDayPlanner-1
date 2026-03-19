@@ -44,7 +44,7 @@ struct SplashScreenView: View {
                         )
                         .shadow(color: .accentPink.opacity(0.5), radius: 20)
                     
-                    Text("Plan Your\nPerfect Day")
+                    Text(NSLocalizedString("app.title", comment: "Plan Your Perfect Day"))
                         .font(.system(size: 40, weight: .bold))
                         .multilineTextAlignment(.center)
                         .foregroundStyle(.white)

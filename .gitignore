@@ -31,3 +31,4 @@ debug_screen*.png
 
 # Xcode user state
 *.xcuserstate
+.env*.local

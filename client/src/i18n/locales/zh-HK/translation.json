@@ -1,11 +1,21 @@
 {
   "app": {
     "title": "計劃你的完美一天",
-    "tagline": "AI智能行程規劃"
+    "tagline": "AI智能行程規劃",
+    "loadingTagline": "數秒內規劃你的完美一天"
   },
   "input": {
     "placeholder": "你想去哪裡？",
     "planButton": "規劃行程",
+    "date": "日期",
+    "time": "時間",
+    "yourPlans": "你的計劃",
+    "selectCity": "選擇城市",
+    "weatherAware": "天氣感知開啟",
+    "weatherOff": "天氣感知關閉",
+    "weatherAwareDesc": "根據天氣推薦場所",
+    "weatherOffDesc": "使用標準推薦",
+    "tryExample": "試試範例：",
     "examples": {
       "simple": "中環咖啡店",
       "detailed": "安靜有WiFi的咖啡廳，工作到下午6點",
@@ -27,7 +37,8 @@
     "whyRecommended": "推薦原因",
     "travelTime": "步行 {{minutes}} 分鐘",
     "arriveBy": "{{time}} 前到達",
-    "stayUntil": "停留至 {{time}}"
+    "stayUntil": "停留至 {{time}}",
+    "export": "匯出至日曆"
   },
   "cities": {
     "london": "倫敦",
@@ -40,7 +51,37 @@
     "chicago": "芝加哥",
     "miami": "邁阿密",
     "barcelona": "巴塞羅那",
-    "rome": "羅馬"
+    "rome": "羅馬",
+    "sydney": "悉尼",
+    "dubai": "杜拜",
+    "singapore": "新加坡",
+    "istanbul": "伊斯坦堡"
+  },
+  "auth": {
+    "signInWithGoogle": "使用Google登入",
+    "signInToSave": "登入以儲存你的行程",
+    "continueWithoutSignIn": "不登入繼續使用",
+    "createAccount": "建立帳戶",
+    "enterDetails": "輸入你的資料以建立新帳戶",
+    "nameOptional": "姓名（選填）",
+    "yourName": "你的姓名",
+    "email": "電郵",
+    "emailPlaceholder": "email@example.com",
+    "password": "密碼",
+    "createPassword": "建立密碼",
+    "confirmPassword": "確認密碼",
+    "confirmPasswordPlaceholder": "再次輸入密碼",
+    "creatingAccount": "正在建立帳戶...",
+    "orContinueWith": "或使用以下方式繼續",
+    "alreadyHaveAccount": "已有帳戶？",
+    "logIn": "登入",
+    "signUp": "註冊",
+    "dontHaveAccount": "沒有帳戶？",
+    "forgotPassword": "忘記密碼？",
+    "validationEmail": "請輸入有效的電郵地址",
+    "validationPasswordMin": "密碼必須至少8個字元",
+    "validationPasswordMatch": "密碼不相符",
+    "validationConfirmPassword": "請確認你的密碼"
   },
   "settings": {
     "title": "設定",
@@ -52,10 +93,20 @@
       "dark": "深色",
       "system": "跟隨系統"
     },
+    "account": "帳戶",
+    "signIn": "登入",
+    "syncDescription": "在裝置之間同步你的行程",
+    "preferences": "偏好設定",
+    "notifications": "通知",
+    "pushNotifications": "推送通知",
+    "weatherAlerts": "天氣提示",
     "subscription": "訂閱",
     "manageSubscription": "管理訂閱",
     "about": "關於",
-    "version": "版本 {{version}}"
+    "version": "版本 {{version}}",
+    "privacyPolicy": "私隱政策",
+    "termsOfService": "服務條款",
+    "rateApp": "評分"
   },
   "subscription": {
     "premium": "高級版",
@@ -67,6 +118,7 @@
     "perYear": "/年",
     "savings": "節省 {{percent}}%",
     "currentPlan": "目前方案",
+    "active": "已啟用",
     "features": {
       "memory": "個人化推薦",
       "memoryDescription": "AI會學習你的偏好",
@@ -86,16 +138,39 @@
     "expiresOn": "到期日：{{date}}",
     "renewsOn": "續訂日：{{date}}"
   },
+  "trips": {
+    "title": "我的行程",
+    "noTrips": "暫無行程",
+    "getStarted": "規劃你的第一天行程開始"
+  },
+  "explore": {
+    "title": "探索",
+    "featured": "精選目的地",
+    "allCities": "所有城市",
+    "planDay": "規劃{{city}}一日遊",
+    "areas": "{{count}} 個區域"
+  },
+  "map": {
+    "title": "地圖",
+    "done": "完成"
+  },
   "errors": {
     "generic": "發生錯誤，請再試一次。",
     "network": "無法連接網絡，請檢查你的網絡連接。",
     "noResults": "找不到結果，請嘗試其他搜尋。",
-    "locationRequired": "請在搜尋中指定地點。"
+    "locationRequired": "請在搜尋中指定地點。",
+    "unknown": "發生未知錯誤"
   },
   "loading": {
     "planning": "正在規劃你的完美一天...",
     "searching": "正在搜尋場所...",
-    "optimizing": "正在優化行程..."
+    "optimizing": "正在優化行程...",
+    "default": "載入中..."
+  },
+  "legal": {
+    "autoRenew": "訂閱將自動續訂，除非在當前期限結束前至少24小時取消。",
+    "terms": "使用條款",
+    "privacy": "私隱政策"
   },
   "common": {
     "back": "返回",
@@ -108,6 +183,11 @@
     "share": "分享",
     "copy": "複製",
     "copied": "已複製！",
-    "tryAgain": "重試"
+    "tryAgain": "重試",
+    "ok": "好",
+    "close": "關閉",
+    "error": "錯誤",
+    "success": "成功",
+    "min": "分鐘"
   }
 }

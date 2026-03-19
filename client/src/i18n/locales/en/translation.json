@@ -1,11 +1,21 @@
 {
   "app": {
     "title": "Plan Your Perfect Day",
-    "tagline": "AI-powered itineraries for your city"
+    "tagline": "AI-powered itineraries for your city",
+    "loadingTagline": "Plan Your Perfect Days in Seconds"
   },
   "input": {
     "placeholder": "Where would you like to go?",
     "planButton": "Plan My Day",
+    "date": "Date",
+    "time": "Time",
+    "yourPlans": "Your Plans",
+    "selectCity": "Select a city",
+    "weatherAware": "Weather Aware",
+    "weatherOff": "Weather Off",
+    "weatherAwareDesc": "Get weather-smart venue recommendations",
+    "weatherOffDesc": "Use standard venue recommendations",
+    "tryExample": "Try an example:",
     "examples": {
       "simple": "Coffee shop in Shoreditch",
       "detailed": "Quiet cafe with wifi, working until 6PM",
@@ -27,7 +37,8 @@
     "whyRecommended": "Why we recommend this",
     "travelTime": "{{minutes}} min walk",
     "arriveBy": "Arrive by {{time}}",
-    "stayUntil": "Stay until {{time}}"
+    "stayUntil": "Stay until {{time}}",
+    "export": "Export to Calendar"
   },
   "cities": {
     "london": "London",
@@ -40,7 +51,37 @@
     "chicago": "Chicago",
     "miami": "Miami",
     "barcelona": "Barcelona",
-    "rome": "Rome"
+    "rome": "Rome",
+    "sydney": "Sydney",
+    "dubai": "Dubai",
+    "singapore": "Singapore",
+    "istanbul": "Istanbul"
+  },
+  "auth": {
+    "signInWithGoogle": "Sign in with Google",
+    "signInToSave": "Sign in to save your itineraries",
+    "continueWithoutSignIn": "Continue without signing in",
+    "createAccount": "Create Account",
+    "enterDetails": "Enter your details to create a new account",
+    "nameOptional": "Name (Optional)",
+    "yourName": "Your name",
+    "email": "Email",
+    "emailPlaceholder": "email@example.com",
+    "password": "Password",
+    "createPassword": "Create a password",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "creatingAccount": "Creating account...",
+    "orContinueWith": "Or continue with",
+    "alreadyHaveAccount": "Already have an account?",
+    "logIn": "Log in",
+    "signUp": "Sign up",
+    "dontHaveAccount": "Don't have an account?",
+    "forgotPassword": "Forgot password?",
+    "validationEmail": "Please enter a valid email address",
+    "validationPasswordMin": "Password must be at least 8 characters",
+    "validationPasswordMatch": "Passwords don't match",
+    "validationConfirmPassword": "Please confirm your password"
   },
   "settings": {
     "title": "Settings",
@@ -52,10 +93,20 @@
       "dark": "Dark",
       "system": "System"
     },
+    "account": "Account",
+    "signIn": "Sign In",
+    "syncDescription": "Sync your trips across devices",
+    "preferences": "Preferences",
+    "notifications": "Notifications",
+    "pushNotifications": "Push Notifications",
+    "weatherAlerts": "Weather Alerts",
     "subscription": "Subscription",
     "manageSubscription": "Manage Subscription",
     "about": "About",
-    "version": "Version {{version}}"
+    "version": "Version {{version}}",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "rateApp": "Rate App"
   },
   "subscription": {
     "premium": "Premium",
@@ -67,6 +118,7 @@
     "perYear": "/year",
     "savings": "Save {{percent}}%",
     "currentPlan": "Current Plan",
+    "active": "Active",
     "features": {
       "memory": "Personalized recommendations",
       "memoryDescription": "The AI learns your preferences over time",
@@ -86,16 +138,39 @@
     "expiresOn": "Expires on {{date}}",
     "renewsOn": "Renews on {{date}}"
   },
+  "trips": {
+    "title": "My Trips",
+    "noTrips": "No trips yet",
+    "getStarted": "Plan your first day to get started"
+  },
+  "explore": {
+    "title": "Explore",
+    "featured": "Featured Destinations",
+    "allCities": "All Cities",
+    "planDay": "Plan a Day in {{city}}",
+    "areas": "{{count}} areas"
+  },
+  "map": {
+    "title": "Map",
+    "done": "Done"
+  },
   "errors": {
     "generic": "Something went wrong. Please try again.",
     "network": "Unable to connect. Check your internet connection.",
     "noResults": "No results found. Try a different search.",
-    "locationRequired": "Please specify a location in your search."
+    "locationRequired": "Please specify a location in your search.",
+    "unknown": "An unknown error occurred"
   },
   "loading": {
     "planning": "Planning your perfect day...",
     "searching": "Searching for venues...",
-    "optimizing": "Optimizing your itinerary..."
+    "optimizing": "Optimizing your itinerary...",
+    "default": "Loading..."
+  },
+  "legal": {
+    "autoRenew": "Subscriptions auto-renew unless cancelled at least 24 hours before the end of the current period.",
+    "terms": "Terms of Use",
+    "privacy": "Privacy Policy"
   },
   "common": {
     "back": "Back",
@@ -108,6 +183,11 @@
     "share": "Share",
     "copy": "Copy",
     "copied": "Copied!",
-    "tryAgain": "Try Again"
+    "tryAgain": "Try Again",
+    "ok": "OK",
+    "close": "Close",
+    "error": "Error",
+    "success": "Success",
+    "min": "min"
   }
 }

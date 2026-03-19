@@ -22,8 +22,10 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.londondayplanner.app.R
 import com.londondayplanner.app.model.Itinerary
 import com.londondayplanner.app.ui.components.LiquidBackground
 import com.londondayplanner.app.ui.components.VenueCard
@@ -58,15 +60,15 @@ fun ItineraryScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = Color.White)
+                        Icon(Icons.Default.ArrowBack, contentDescription = stringResource(R.string.common_back), tint = Color.White)
                     }
                 },
                 actions = {
                     IconButton(onClick = onMapClick) {
-                        Icon(Icons.Default.Place, contentDescription = "Map", tint = Color.White)
+                        Icon(Icons.Default.Place, contentDescription = stringResource(R.string.map_title), tint = Color.White)
                     }
                     IconButton(onClick = onShareClick) {
-                        Icon(Icons.Default.Share, contentDescription = "Share", tint = Color.White)
+                        Icon(Icons.Default.Share, contentDescription = stringResource(R.string.common_share), tint = Color.White)
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(

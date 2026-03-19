@@ -43,6 +43,20 @@
     <string name="settings_manage_subscription">管理订阅</string>
     <string name="settings_about">关于</string>
     <string name="settings_version">版本 %1$s</string>
+    <string name="settings_account">账户</string>
+    <string name="settings_signIn">登录</string>
+    <string name="settings_syncDescription">跨设备同步您的行程</string>
+    <string name="settings_preferences">偏好设置</string>
+    <string name="settings_privacyPolicy">隐私政策</string>
+    <string name="settings_termsOfService">服务条款</string>
+
+    <!-- Legal -->
+    <string name="legal_autoRenew">订阅将自动续期，除非在当前订阅期结束前至少 24 小时取消。</string>
+    <string name="legal_terms">使用条款</string>
+    <string name="legal_privacy">隐私政策</string>
+
+    <!-- Common additional -->
+    <string name="common_close">关闭</string>
 
     <!-- Subscription -->
     <string name="subscription_premium">高级版</string>
@@ -97,4 +111,15 @@
     <string name="common_copied">已复制！</string>
     <string name="common_try_again">重试</string>
     <string name="common_ok">确定</string>
+    <string name="common_min">%1$d 分钟</string>
+    <string name="common_minutes">%1$d 分钟</string>
+
+    <!-- Home Screen -->
+    <string name="home_title">规划你的\n完美一天</string>
+    <string name="home_where_to_go">你想去哪里？</string>
+    <string name="home_city_selected">%1$s（已选择）</string>
+    <string name="home_placeholder">例如：中环喝咖啡，然后去外滩</string>
+
+    <!-- Map Screen -->
+    <string name="map_title">地图</string>
 </resources>

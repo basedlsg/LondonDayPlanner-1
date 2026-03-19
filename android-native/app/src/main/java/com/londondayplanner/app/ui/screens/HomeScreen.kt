@@ -80,7 +80,7 @@ fun HomeScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Plan Your\nPerfect Day",
+                    text = stringResource(R.string.home_title),
                     style = MaterialTheme.typography.displayMedium,
                     fontWeight = FontWeight.Bold,
                     color = Color.White,
@@ -92,15 +92,15 @@ fun HomeScreen(
                 GlassCard {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text(
-                            text = "Where do you want to go?",
+                            text = stringResource(R.string.home_where_to_go),
                             color = Color.White.copy(alpha = 0.8f),
                             style = MaterialTheme.typography.labelLarge
                         )
                         Spacer(modifier = Modifier.height(8.dp))
-                        
+
                         // Simple city selector placeholder
                         Text(
-                            text = "London (Selected)",
+                            text = stringResource(R.string.home_city_selected, stringResource(R.string.cities_london)),
                             color = Color.White,
                             fontWeight = FontWeight.Bold
                         )
@@ -113,8 +113,8 @@ fun HomeScreen(
                     TextField(
                         value = searchQuery,
                         onValueChange = { searchQuery = it },
-                        placeholder = { 
-                            Text("e.g., Coffee in Shoreditch, then Tate Modern", color = Color.Gray) 
+                        placeholder = {
+                            Text(stringResource(R.string.home_placeholder), color = Color.Gray)
                         },
                         colors = TextFieldDefaults.colors(
                             focusedContainerColor = Color.Transparent,
@@ -132,7 +132,7 @@ fun HomeScreen(
                 Spacer(modifier = Modifier.height(24.dp))
 
                 GlassButton(
-                    text = "Plan My Day",
+                    text = stringResource(R.string.input_plan_button),
                     onClick = {
                         isLoading = true
                         onPlanDay(searchQuery)

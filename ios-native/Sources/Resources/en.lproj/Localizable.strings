@@ -104,7 +104,14 @@
 "subscription.restore" = "Restore Purchase";
 "subscription.cancel" = "Cancel Subscription";
 "subscription.expiresOn" = "Expires on %@";
+"subscription.unableToLoad" = "Unable to load subscription options";
 "subscription.renewsOn" = "Renews on %@";
+"subscription.troubleshoot" = "If this persists, confirm your App Store account is active and try again.";
+"subscription.selectPlanHint" = "Select a plan to continue.";
+"subscription.plansUnavailableNeutral" = "Premium plans are loading in the background.";
+"subscription.loadingBackgroundHint" = "You can continue with Free any time while we keep checking.";
+"subscription.refreshPlans" = "Refresh Plans";
+"subscription.continueFree" = "Continue with Free";
 
 /* Weather */
 "weather.aware" = "Weather Aware";
@@ -138,6 +145,16 @@
 "common.ok" = "OK";
 "common.error" = "Error";
 "common.unknownError" = "An error occurred";
+
+/* Trips */
+"trips.title" = "My Trips";
+"trips.noTrips" = "No trips yet";
+"trips.getStarted" = "Plan your first day to get started";
+"trips.days" = "%@ days";
+
+/* Map */
+"map.title" = "Map";
+"map.done" = "Done";
 
 /* Legal */
 "legal.autoRenew" = "Subscriptions auto-renew unless cancelled at least 24 hours before the end of the current period.";

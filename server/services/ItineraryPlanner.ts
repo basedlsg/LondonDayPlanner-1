@@ -49,10 +49,10 @@ export class ItineraryPlanner {
     // Step 1: Classify the query
     const classification = this.classifier.classify(request.query);
 
-    // Premium Upgrade: Force Gemini 1.5 Pro (which we mapped to gemini-2.5-pro in gemini.ts) for premium users
+    // Premium users get Flash (Pro is too slow for serverless timeouts)
     if (request.isPremium) {
-      console.log(`[ItineraryPlanner] Premium user detected - Upgrading model to gemini-2.5-pro`);
-      classification.model = 'gemini-2.5-pro';
+      console.log(`[ItineraryPlanner] Premium user detected - Using gemini-2.5-flash`);
+      classification.model = 'gemini-2.5-flash';
     }
 
     console.log(`[ItineraryPlanner] Classification:`, classification);

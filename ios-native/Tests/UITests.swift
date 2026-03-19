@@ -1,71 +1,111 @@
 import XCTest
+import StoreKitTest
+import Foundation
 
-/// UI Tests for Critical User Flows
-final class UITests: XCTestCase {
-    
+@MainActor
+final class PaywallUITests: XCTestCase {
+    private var app: XCUIApplication!
+    private var storeKitSession: SKTestSession!
+
     override func setUpWithError() throws {
         continueAfterFailure = false
-        let app = XCUIApplication()
-        app.launchArguments = ["--uitesting"]
-        app.launch()
+
+        // SwiftPM test bundles do not provide a UI test host app by default.
+        guard ProcessInfo.processInfo.environment["XCInjectBundleInto"] != nil else {
+            throw XCTSkip("PaywallUITests require a configured UI test host target.")
+        }
+
+        let repoConfigURL = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .appendingPathComponent("Fixtures")
+            .appendingPathComponent("PlanYourPerfectDay.storekit")
+
+        let configURL =
+            Bundle.module.url(forResource: "PlanYourPerfectDay", withExtension: "storekit")
+            ?? Bundle.module.url(forResource: "PlanYourPerfectDay", withExtension: "storekit", subdirectory: "Fixtures")
+            ?? (FileManager.default.fileExists(atPath: repoConfigURL.path) ? repoConfigURL : nil)
+
+        guard let configURL else {
+            throw XCTSkip("StoreKit test configuration not found in test bundle.")
+        }
+
+        storeKitSession = try SKTestSession(contentsOf: configURL)
+        storeKitSession.disableDialogs = true
+        storeKitSession.clearTransactions()
+        storeKitSession.resetToDefaultState()
+
+        app = XCUIApplication()
     }
-    
-    func testAppLaunchAndNavigation() throws {
-        let app = XCUIApplication()
-        
-        // Use an expectation to wait for Splash Screen to transition
-        let homeTab = app.tabBars.buttons["Plan"]
-        let exists = homeTab.waitForExistence(timeout: 5.0)
-        XCTAssertTrue(exists, "Main tab bar should appear after splash screen")
-        
-        // Test Tab Navigation
-        app.tabBars.buttons["Trips"].tap()
-        XCTAssertTrue(app.navigationBars["My Trips"].exists)
-        
-        app.tabBars.buttons["Explore"].tap()
-        XCTAssertTrue(app.navigationBars["Explore"].exists)
-        
+
+    override func tearDownWithError() throws {
+        app = nil
+        storeKitSession = nil
+    }
+
+    func testPaywallDegradedStateRemainsNonBlocking() throws {
+        launchApp(arguments: [
+            "--uitesting",
+            "--fast-paywall-retries",
+            "--simulate-iap-load-failure-always"
+        ])
+
+        openSubscriptionFromSettings()
+
+        let degradedStatus = app.staticTexts["subscription.degradedStatus"]
+        XCTAssertTrue(degradedStatus.waitForExistence(timeout: 4), "Expected neutral degraded status when plans cannot be loaded")
+
+        let retryButton = app.buttons["subscription.retryButton"]
+        XCTAssertTrue(retryButton.exists, "Retry action should remain available in degraded state")
+
+        let restoreButton = app.buttons["subscription.restoreButton"]
+        XCTAssertTrue(restoreButton.exists, "Restore should always be visible")
+        XCTAssertTrue(restoreButton.isEnabled, "Restore should remain enabled in degraded state")
+
+        let continueFreeButton = app.buttons["subscription.continueFreeButton"]
+        XCTAssertTrue(continueFreeButton.exists, "Continue with Free path must always be available")
+        continueFreeButton.tap()
+
+        XCTAssertTrue(app.buttons["settings.subscriptionRow"].waitForExistence(timeout: 3), "Expected to return to Settings after Continue with Free")
+        XCTAssertFalse(app.alerts.firstMatch.exists, "Paywall load issues must not present blocking alerts")
+    }
+
+    func testTransientLoadFailureRecoversWithoutBlockingErrorModal() throws {
+        launchApp(arguments: [
+            "--uitesting",
+            "--fast-paywall-retries",
+            "--simulate-iap-load-failure-once"
+        ])
+
+        openSubscriptionFromSettings()
+
+        let monthlyOption = app.buttons["subscription.option.com.londonplanner.premium.monthly"]
+        let annualOption = app.buttons["subscription.option.com.londonplanner.premium.annual"]
+        let plansLoaded = monthlyOption.waitForExistence(timeout: 4) || annualOption.waitForExistence(timeout: 4)
+        XCTAssertTrue(plansLoaded, "Plans should recover during retry window after a transient failure")
+
+        let subscribeButton = app.buttons["subscription.subscribeButton"]
+        XCTAssertTrue(subscribeButton.exists, "Subscribe button missing")
+        XCTAssertTrue(subscribeButton.isEnabled, "Subscribe should be enabled once plans load")
+
+        let continueFreeButton = app.buttons["subscription.continueFreeButton"]
+        XCTAssertTrue(continueFreeButton.exists, "Continue with Free should remain visible after recovery")
+        XCTAssertFalse(app.alerts.firstMatch.exists, "No blocking error modal should be shown for product-load retries")
+    }
+
+    private func openSubscriptionFromSettings() {
+        XCTAssertTrue(app.tabBars.buttons["Settings"].waitForExistence(timeout: 10), "Settings tab not visible")
         app.tabBars.buttons["Settings"].tap()
-        XCTAssertTrue(app.navigationBars["Settings"].exists)
-        
-        // Return to Home
-        app.tabBars.buttons["Plan"].tap()
-        XCTAssertTrue(app.navigationBars["Plan Your Day"].exists)
+
+        let subscriptionRow = app.buttons["settings.subscriptionRow"]
+        XCTAssertTrue(subscriptionRow.waitForExistence(timeout: 10), "Subscription row not visible")
+        subscriptionRow.tap()
+
+        let paywall = app.otherElements["subscription.view"]
+        XCTAssertTrue(paywall.waitForExistence(timeout: 10), "Paywall did not open")
     }
-    
-    func testCitySelection() throws {
-        let app = XCUIApplication()
-        
-        // Wait for launch
-        XCTAssertTrue(app.tabBars.buttons["Plan"].waitForExistence(timeout: 5.0))
-        
-        // Open City Picker
-        let cityButton = app.buttons.matching(identifier: "City").element(boundBy: 0) // Identifying via accessibility or hierarchy
-        // Note: In a real app we'd add .accessibilityIdentifier("CitySelector") to the view
-        
-        // Since we didn't add identifiers, we assume descriptive text
-        // Tapping the City card (first card usually)
-        app.scrollViews.otherElements.exclude(boundBy: 0).tap() // Approximation
-        
-        // Verify Sheet
-        // XCTAssertTrue(app.navigationBars["Select City"].exists)
-    }
-    
-    func testPlanFlow() throws {
-        let app = XCUIApplication()
-        XCTAssertTrue(app.tabBars.buttons["Plan"].waitForExistence(timeout: 5.0))
-        
-        // Enter Query
-        let textField = app.textViews.firstMatch
-        textField.tap()
-        textField.typeText("Lunch in Soho")
-        
-        // Dismiss keyboard (if needed)
-        // app.toolbars["Toolbar"].buttons["Done"].tap() 
-        
-        // Tap Plan button
-        // app.buttons["Plan My Day"].tap()
-        
-        // This test is partial as we need identifiers to be robust
+
+    private func launchApp(arguments: [String]) {
+        app.launchArguments = arguments
+        app.launch()
     }
 }

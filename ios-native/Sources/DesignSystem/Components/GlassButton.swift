@@ -9,7 +9,7 @@ struct GlassButton: View {
     let action: () -> Void
     
     enum ButtonStyle {
-        case primary, secondary, ghost, solidWhite
+        case primary, secondary, ghost, solidWhite, prominent
         
         var backgroundColor: Color {
             switch self {
@@ -17,6 +17,7 @@ struct GlassButton: View {
             case .secondary: return .accentBlue.opacity(0.2)
             case .ghost: return .clear
             case .solidWhite: return .white
+            case .prominent: return DesignTokens.Colors.accentPink // Solid Pink
             }
         }
         
@@ -25,7 +26,8 @@ struct GlassButton: View {
             case .primary: return .accentPink
             case .secondary: return .accentBlue
             case .ghost: return DesignTokens.Colors.textSecondary
-            case .solidWhite: return Color(hex: "007AFF") // System Blue for high contrast against white
+            case .solidWhite: return Color(hex: "007AFF")
+            case .prominent: return .white
             }
         }
         
@@ -35,6 +37,7 @@ struct GlassButton: View {
             case .secondary: return .accentBlue
             case .ghost: return .clear
             case .solidWhite: return .white
+            case .prominent: return .accentPink
             }
         }
     }

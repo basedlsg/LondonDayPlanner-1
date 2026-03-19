@@ -17,9 +17,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.londondayplanner.app.R
 import com.londondayplanner.app.model.ScheduledPlace
 import com.londondayplanner.app.ui.theme.PinkAccent
 
@@ -99,7 +101,7 @@ fun VenueCard(
                     }
 
                     Text(
-                        text = "${place.durationMinutes} min",
+                        text = stringResource(R.string.common_min, place.durationMinutes),
                         color = Color.White.copy(alpha = 0.6f),
                         style = MaterialTheme.typography.labelMedium
                     )

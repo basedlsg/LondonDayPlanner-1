@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Link } from 'wouter';
@@ -7,6 +8,7 @@ import { initializeGoogleAuth, renderGoogleButton } from '../../lib/googleAuth';
 import { useConfig } from '../../lib/env';
 
 export function LoginForm() {
+  const { t } = useTranslation();
   const { loginWithGoogle, error, isLoading } = useAuth();
   const { config, loading: configLoading } = useConfig();
   const googleButtonRef = useRef<HTMLDivElement>(null);
@@ -57,9 +59,9 @@ export function LoginForm() {
   return (
     <Card className="w-full max-w-md mx-auto shadow-lg border-0">
       <CardHeader>
-        <CardTitle className="text-2xl text-center">Sign in with Google</CardTitle>
+        <CardTitle className="text-2xl text-center">{t('auth.signInWithGoogle')}</CardTitle>
         <CardDescription className="text-center">
-          Sign in to save your itineraries
+          {t('auth.signInToSave')}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -72,18 +74,18 @@ export function LoginForm() {
         {/* Main container for all Google Sign-In related elements */}
         <div id="google-signin-container">
           {/* Button container */}
-          <div 
-            id="google-signin-button" 
-            ref={googleButtonRef} 
+          <div
+            id="google-signin-button"
+            ref={googleButtonRef}
             className="mt-2"
-            style={{ 
-              display: 'flex', 
-              justifyContent: 'center', 
-              width: '100%', 
-              minHeight: '40px' 
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              width: '100%',
+              minHeight: '40px'
             }}
           ></div>
-          
+
           {/* Prompt container */}
           <div id="google-signin-prompt-container"></div>
         </div>
@@ -91,7 +93,7 @@ export function LoginForm() {
       <CardFooter className="flex justify-center">
         <p className="text-sm text-muted-foreground">
           <Link href="/" className="text-primary font-medium hover:underline">
-            Continue without signing in
+            {t('auth.continueWithoutSignIn')}
           </Link>
         </p>
       </CardFooter>

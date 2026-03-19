@@ -74,7 +74,7 @@ fun SubscriptionScreen(
                 title = { },
                 actions = {
                     IconButton(onClick = onDismiss) {
-                        Icon(Icons.Default.Close, contentDescription = "Close")
+                        Icon(Icons.Default.Close, contentDescription = stringResource(R.string.common_close))
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -403,7 +403,7 @@ private fun ProductCard(
                             color = Color(0xFF4CAF50)
                         ) {
                             Text(
-                                text = "Save $savingsPercentage%",
+                                text = stringResource(R.string.subscription_savings, savingsPercentage),
                                 color = Color.White,
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.SemiBold,
@@ -427,7 +427,7 @@ private fun ProductCard(
                     fontSize = 18.sp
                 )
                 Text(
-                    text = if (product.productId.contains("monthly")) "/month" else "/year",
+                    text = if (product.productId.contains("monthly")) stringResource(R.string.subscription_per_month) else stringResource(R.string.subscription_per_year),
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 12.sp
                 )
@@ -442,7 +442,7 @@ private fun LegalSection() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Subscriptions auto-renew unless cancelled at least 24 hours before the end of the current period.",
+            text = stringResource(R.string.legal_autoRenew),
             textAlign = TextAlign.Center,
             fontSize = 12.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -455,13 +455,13 @@ private fun LegalSection() {
         ) {
             TextButton(onClick = { /* Open terms */ }) {
                 Text(
-                    text = "Terms of Use",
+                    text = stringResource(R.string.legal_terms),
                     fontSize = 12.sp
                 )
             }
             TextButton(onClick = { /* Open privacy */ }) {
                 Text(
-                    text = "Privacy Policy",
+                    text = stringResource(R.string.legal_privacy),
                     fontSize = 12.sp
                 )
             }

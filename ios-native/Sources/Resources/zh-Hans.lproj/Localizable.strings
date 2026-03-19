@@ -102,7 +102,14 @@
 "subscription.restore" = "恢复购买";
 "subscription.cancel" = "取消订阅";
 "subscription.expiresOn" = "到期日 %@";
+"subscription.unableToLoad" = "无法加载订阅选项";
 "subscription.renewsOn" = "续订日 %@";
+"subscription.troubleshoot" = "如果问题持续，请确认你的 App Store 账户可用后重试。";
+"subscription.selectPlanHint" = "请先选择一个订阅方案。";
+"subscription.plansUnavailableNeutral" = "高级方案正在后台加载。";
+"subscription.loadingBackgroundHint" = "你可以随时继续使用免费版，我们会持续自动检查。";
+"subscription.refreshPlans" = "刷新方案";
+"subscription.continueFree" = "继续使用免费版";
 
 /* Weather */
 "weather.aware" = "气候感知";
@@ -136,6 +143,16 @@
 "common.ok" = "确定";
 "common.error" = "错误";
 "common.unknownError" = "发生未知错误";
+
+/* Trips */
+"trips.title" = "我的行程";
+"trips.noTrips" = "暂无行程";
+"trips.getStarted" = "规划你的第一天行程开始";
+"trips.days" = "%@ 天";
+
+/* Map */
+"map.title" = "地图";
+"map.done" = "完成";
 
 /* Legal */
 "legal.autoRenew" = "订阅将自动续期，除非在当前订阅期结束前至少 24 小时取消。";

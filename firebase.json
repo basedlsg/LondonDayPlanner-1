@@ -1,57 +1,60 @@
 {
   "hosting": {
-<<<<<<< HEAD
-    "public": "dist/public",
-=======
     "site": "plan-94cee",
     "public": "www",
->>>>>>> 42cdf3c (Refine aesthetics: Liquid Glass design system, Crystalline inputs, Rozha One typography, and high-quality assets)
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ],
     "rewrites": [
-<<<<<<< HEAD
       {
         "source": "/api/**",
         "run": {
-          "serviceId": "plannyc-api",
+          "serviceId": "london-day-planner-server",
           "region": "us-central1"
         }
       },
       {
         "source": "**",
         "destination": "/index.html"
-=======
-      { "source": "/api/**", "function": "api" },
-      { "source": "**", "destination": "/index.html" }
+      }
     ],
     "headers": [
       {
         "source": "/index.html",
-        "headers": [ { "key": "Cache-Control", "value": "no-cache" } ]
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
       },
       {
         "source": "/sw.js",
-        "headers": [ { "key": "Cache-Control", "value": "no-cache" } ]
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
       },
       {
         "source": "/service-worker.js",
-        "headers": [ { "key": "Cache-Control", "value": "no-cache" } ]
->>>>>>> 42cdf3c (Refine aesthetics: Liquid Glass design system, Crystalline inputs, Rozha One typography, and high-quality assets)
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
       }
     ]
   },
   "functions": {
     "source": "functions",
-<<<<<<< HEAD
-    "runtime": "nodejs18"
-=======
     "runtime": "nodejs20",
     "predeploy": [
       "npm --prefix \"$RESOURCE_DIR\" run build"
     ]
->>>>>>> 42cdf3c (Refine aesthetics: Liquid Glass design system, Crystalline inputs, Rozha One typography, and high-quality assets)
   }
 }

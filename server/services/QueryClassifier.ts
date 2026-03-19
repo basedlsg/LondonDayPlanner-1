@@ -30,20 +30,16 @@ export class QueryClassifier {
       tier = 'simple';
     }
 
-    // Select model based on tier (updated to Gemini 2.5 series)
-    // - Simple: gemini-2.5-flash-lite (fastest, most cost-effective)
-    // - Detailed: gemini-2.5-flash (balanced)
-    // - Complex: gemini-2.5-pro (best reasoning)
+    // Select model based on tier - use Flash for all tiers (fast + reliable)
+    // Pro is too slow and causes Vercel function timeouts
     let model: 'gemini-2.5-flash' | 'gemini-2.5-flash-lite' | 'gemini-2.5-pro';
     switch (tier) {
       case 'simple':
         model = 'gemini-2.5-flash-lite';
         break;
       case 'detailed':
-        model = 'gemini-2.5-flash';
-        break;
       case 'complex':
-        model = 'gemini-2.5-pro';
+        model = 'gemini-2.5-flash';
         break;
     }
 

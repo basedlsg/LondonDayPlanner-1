@@ -3,6 +3,12 @@ import SwiftUI
 /// Explore cities and discover popular destinations
 struct ExploreView: View {
     @EnvironmentObject var cityManager: CityManager
+    @Binding var selectedTab: ContentView.Tab
+    
+    // Default init for preview compatibility (wrapped in binding)
+    init(selectedTab: Binding<ContentView.Tab> = .constant(.explore)) {
+        self._selectedTab = selectedTab
+    }
     
     var body: some View {
         ZStack {
@@ -42,6 +48,9 @@ struct ExploreView: View {
                 HStack(spacing: DesignTokens.Spacing.md) {
                     ForEach(cityManager.cities.prefix(4)) { city in
                         FeaturedCityCard(city: city)
+                            .onTapGesture {
+                                cityManager.selectCity(city)
+                            }
                     }
                 }
             }
@@ -57,7 +66,7 @@ struct ExploreView: View {
             LazyVStack(spacing: DesignTokens.Spacing.sm) {
                 ForEach(cityManager.cities) { city in
                     NavigationLink {
-                        CityDetailView(city: city)
+                        CityDetailView(city: city, selectedTab: $selectedTab)
                     } label: {
                         CityRowCard(city: city)
                     }
@@ -65,6 +74,17 @@ struct ExploreView: View {
             }
         }
     }
+}
+
+// ... Cards remain same ...
+
+// ... Cards are defined below ...
+
+#Preview {
+    NavigationStack {
+        ExploreView()
+    }
+    .environmentObject(CityManager())
 }
 
 struct FeaturedCityCard: View {
@@ -75,7 +95,7 @@ struct FeaturedCityCard: View {
             VStack(alignment: .leading, spacing: DesignTokens.Spacing.sm) {
                 // City image
                 ZStack {
-                    Image(city.imageName, bundle: .module)
+                    Image(city.imageName)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 180, height: 100)
@@ -155,6 +175,7 @@ struct CityRowCard: View {
 
 struct CityDetailView: View {
     let city: City
+    @Binding var selectedTab: ContentView.Tab
     @EnvironmentObject var cityManager: CityManager
     
     var body: some View {
@@ -170,8 +191,7 @@ struct CityDetailView: View {
                             HStack {
                                 VStack(alignment: .leading) {
                                     Text(city.name)
-                                        .font(.largeTitle)
-                                        .fontWeight(.bold)
+                                        .font(DesignTokens.Fonts.rozhaOne(size: 36)) // FIXED FONT
                                         .foregroundStyle(DesignTokens.Colors.textPrimary)
                                     
                                     Text(city.country)
@@ -187,7 +207,8 @@ struct CityDetailView: View {
                                 VStack {
                                     Image(systemName: "clock")
                                         .foregroundStyle(Color.accentBlue)
-                                    Text(city.timezone.components(separatedBy: "/").last ?? city.timezone)
+                                    // FIXED FORMATTING
+                                    Text(formatTimezone(city.timezone))
                                         .font(.caption)
                                         .foregroundStyle(DesignTokens.Colors.textSecondary)
                                 }
@@ -211,30 +232,43 @@ struct CityDetailView: View {
                             .foregroundStyle(DesignTokens.Colors.textPrimary)
                         
                         ForEach(city.majorAreas, id: \.name) { area in
-                            GlassCard(variant: .light) {
-                                HStack {
-                                    VStack(alignment: .leading, spacing: 2) {
-                                        Text(area.name)
-                                            .font(.subheadline)
-                                            .foregroundStyle(DesignTokens.Colors.textPrimary)
-                                        
-                                        if let aliases = area.aliases, !aliases.isEmpty {
-                                            Text(aliases.joined(separator: ", "))
-                                                .font(.caption)
-                                                .foregroundStyle(DesignTokens.Colors.textSecondary)
+                            Button {
+                                cityManager.selectCity(city)
+                                cityManager.autoPlanQuery = "Make me a perfect day in \(area.name)"
+                                cityManager.shouldAutoPlan = true
+                                selectedTab = .plan
+                            } label: {
+                                GlassCard(variant: .light) {
+                                    HStack {
+                                        VStack(alignment: .leading, spacing: 2) {
+                                            Text(area.name)
+                                                .font(.subheadline)
+                                                .foregroundStyle(DesignTokens.Colors.textPrimary)
+                                            
+                                            if let aliases = area.aliases, !aliases.isEmpty {
+                                                Text(aliases.joined(separator: ", "))
+                                                    .font(.caption)
+                                                    .foregroundStyle(DesignTokens.Colors.textSecondary)
+                                            }
                                         }
+                                        Spacer()
+                                        
+                                        Image(systemName: "sparkles")
+                                            .font(.caption)
+                                            .foregroundStyle(Color.accentPink)
                                     }
-                                    Spacer()
+                                    .padding(DesignTokens.Spacing.md)
                                 }
-                                .padding(DesignTokens.Spacing.md)
                             }
                         }
                     }
                     
                     // Plan button
-                    GlassButton("Plan a Day in \(city.name)", icon: "sparkles") {
+                    // FIXED STYLE (.solidWhite AKA Home Style)
+                    GlassButton("Plan a Day in \(city.name)", icon: "sparkles", style: .solidWhite) {
                         cityManager.selectCity(city)
-                        // Navigate to plan tab
+                        cityManager.shouldAutoPlan = true
+                        selectedTab = .plan
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.top, DesignTokens.Spacing.md)
@@ -243,6 +277,11 @@ struct CityDetailView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    private func formatTimezone(_ timezone: String) -> String {
+        let lastPart = timezone.components(separatedBy: "/").last ?? timezone
+        return lastPart.replacingOccurrences(of: "_", with: " ")
     }
 }
 

@@ -12,7 +12,7 @@ struct TripsView: View {
             
             VStack(spacing: 0) {
                 // Centered Header
-                Text("My Trips")
+                Text(NSLocalizedString("trips.title", comment: "My Trips"))
                     .font(DesignTokens.Fonts.rozhaOne(size: 48))
                     .foregroundStyle(DesignTokens.Colors.textPrimary)
                     .padding(.top, 40)
@@ -49,11 +49,11 @@ struct TripsView: View {
                     )
                 )
             
-            Text("No trips yet")
+            Text(NSLocalizedString("trips.noTrips", comment: "No trips yet"))
                 .font(.title2)
                 .foregroundStyle(DesignTokens.Colors.textPrimary)
-            
-            Text("Plan your first day to get started")
+
+            Text(NSLocalizedString("trips.getStarted", comment: "Plan your first day"))
                 .font(.subheadline)
                 .foregroundStyle(DesignTokens.Colors.textSecondary)
         }
@@ -88,7 +88,7 @@ struct TripCard: View {
                 }
                 
                 HStack {
-                    Label("\(trip.totalDays) days", systemImage: "calendar")
+                    Label(String(format: NSLocalizedString("trips.days", comment: "X days"), trip.totalDays), systemImage: "calendar")
                     Spacer()
                     Text(formatDate(trip.startDate))
                 }
