@@ -8,8 +8,14 @@ interface Place {
   id: string;
   displayName?: { text: string };
   formattedAddress?: string;
+  location?: {
+    latitude?: number;
+    longitude?: number;
+  };
   rating?: number;
   userRatingCount?: number;
+  nationalPhoneNumber?: string;
+  internationalPhoneNumber?: string;
   currentOpeningHours?: {
     openNow?: boolean;
     periods?: Array<{
@@ -89,11 +95,19 @@ export class PlacesValidator {
       name: placeDetails.displayName?.text || venue.name,
       formattedAddress: placeDetails.formattedAddress || venue.address,
       placeId: placeDetails.id,
+      location: placeDetails.location?.latitude != null && placeDetails.location?.longitude != null
+        ? {
+          lat: placeDetails.location.latitude,
+          lng: placeDetails.location.longitude,
+        }
+        : undefined,
       rating: placeDetails.rating,
       totalRatings: placeDetails.userRatingCount,
       openingHours: this.convertOpeningHours(placeDetails.currentOpeningHours),
       photos: this.convertPhotos(placeDetails.photos),
       isOpenNow: placeDetails.currentOpeningHours?.openNow,
+      phoneNumber: placeDetails.internationalPhoneNumber || placeDetails.nationalPhoneNumber,
+      types: placeDetails.types,
     };
   }
 
@@ -111,8 +125,11 @@ export class PlacesValidator {
             'places.id',
             'places.displayName',
             'places.formattedAddress',
+            'places.location',
             'places.rating',
             'places.userRatingCount',
+            'places.nationalPhoneNumber',
+            'places.internationalPhoneNumber',
             'places.currentOpeningHours',
             'places.photos',
             'places.priceLevel',
@@ -155,8 +172,11 @@ export class PlacesValidator {
             'places.id',
             'places.displayName',
             'places.formattedAddress',
+            'places.location',
             'places.rating',
             'places.userRatingCount',
+            'places.nationalPhoneNumber',
+            'places.internationalPhoneNumber',
             'places.currentOpeningHours',
             'places.photos',
             'places.priceLevel',
@@ -181,6 +201,12 @@ export class PlacesValidator {
         address: place.formattedAddress || 'Address not available',
         whyRecommended: 'Matches your search criteria',
         placeId: place.id,
+        location: place.location?.latitude != null && place.location?.longitude != null
+          ? {
+            lat: place.location.latitude,
+            lng: place.location.longitude,
+          }
+          : undefined,
         rating: place.rating,
         totalRatings: place.userRatingCount,
         openingHours: this.convertOpeningHours(place.currentOpeningHours),
@@ -188,6 +214,8 @@ export class PlacesValidator {
         formattedAddress: place.formattedAddress,
         isOpenNow: place.currentOpeningHours?.openNow,
         priceLevel: place.priceLevel,
+        phoneNumber: place.internationalPhoneNumber || place.nationalPhoneNumber,
+        types: place.types,
       }));
     } catch (error) {
       console.error('Failed to search venues:', error);

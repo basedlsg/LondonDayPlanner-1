@@ -13,7 +13,8 @@ export const cities: Record<string, CityConfig> = {
       'Mayfair', 'Shoreditch', 'Soho', 'Covent Garden', 'Chelsea',
       'Notting Hill', 'Camden', 'Kensington', 'Westminster', 'Fitzrovia',
       'Marylebone', 'Clerkenwell', 'Hackney', 'Brixton', 'Islington',
-      'Canary Wharf', 'Southbank', 'Borough', 'Bermondsey', 'Peckham'
+      'Canary Wharf', 'Southbank', 'Borough', 'Bermondsey', 'Peckham',
+      'Holborn', 'Bloomsbury'
     ]
   },
   nyc: {

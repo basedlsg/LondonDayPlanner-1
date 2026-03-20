@@ -1,16 +1,18 @@
 // Server Entry Point
 // Express server for the London Day Planner API
 
+import './config/loadEnvironment.js';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import { planRoutes } from './routes/index.js';
-
-// Load environment variables
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const currentFilePath = fileURLToPath(import.meta.url);
+const entryFilePath = process.argv[1] ? path.resolve(process.argv[1]) : '';
+const isDirectRun = currentFilePath === entryFilePath;
 
 // Middleware
 app.use(cors({
@@ -50,8 +52,8 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-// Start server only if not running in Vercel (serverless)
-if (!process.env.VERCEL) {
+// Start a local HTTP server only when this file is the direct entrypoint.
+if (isDirectRun) {
   app.listen(PORT, () => {
     console.log(`
   ==============================================

@@ -115,12 +115,16 @@ export interface GroundedResult {
 
 export interface ValidatedVenue extends GroundedVenue {
   placeId?: string;
+  location?: Location;
   rating?: number;
   totalRatings?: number;
   openingHours?: OpeningHours;
   photos?: PlacePhoto[];
   formattedAddress?: string;
   isOpenNow?: boolean;
+  phoneNumber?: string;
+  photoUrl?: string;
+  types?: string[];
 }
 
 export interface OpeningHours {
@@ -162,6 +166,10 @@ export interface ItineraryPlace {
   rating?: number;
   alternatives?: ValidatedVenue[];
   activityDescription?: string;
+  photoUrl?: string;
+  statusText?: string;
+  isOpenNow?: boolean;
+  phoneNumber?: string;
 }
 
 // TravelTime - matches iOS Itinerary.TravelTime structure

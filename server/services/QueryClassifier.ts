@@ -3,6 +3,18 @@
 
 import { QueryTier, Classification } from '../types/index.js';
 
+const ACTIVITY_KEYWORD_SOURCE = [
+  'breakfast', 'brunch', 'lunch', 'dinner', 'supper',
+  'coffee', 'cafe', 'tea',
+  'drinks?', 'cocktails?', 'bar', 'pub',
+  'meeting', 'appointment', 'reservation',
+  'work(?:ing)?', 'cowork(?:ing)?',
+  'shopping', 'shop',
+  'museum', 'gallery', 'exhibit',
+  'walk', 'stroll', 'dessert',
+  'sightseeing', 'tour', 'visit', 'explore'
+].join('|');
+
 export class QueryClassifier {
   /**
    * Classify a user query into a tier and determine the appropriate model
@@ -17,8 +29,8 @@ export class QueryClassifier {
 
     let tier: QueryTier;
 
-    // Complex: 3+ activities OR multi-stop indicators OR multiple distinct locations
-    if (activityCount >= 3 || this.isMultiStop(normalizedQuery) || hasMultipleLocations) {
+    // Complex: 2+ sequential activities OR multi-stop indicators OR multiple distinct locations
+    if (activityCount >= 2 || this.isMultiStop(normalizedQuery) || hasMultipleLocations) {
       tier = 'complex';
     }
     // Detailed: has time constraints OR venue preferences
@@ -56,48 +68,24 @@ export class QueryClassifier {
    * Count the number of distinct activities in the query
    */
   private countActivities(query: string): number {
-    // Count activity separators
-    const separatorPatterns = [
-      /--/g,                          // Double dash separator
-      /\bthen\b/gi,                   // "then"
-      /\bafter\s+that\b/gi,           // "after that"
-      /\bfollowed\s+by\b/gi,          // "followed by"
-      /\bnext\b/gi,                   // "next"
-      /\bafterwards?\b/gi,            // "afterwards" / "afterward"
-      /\blater\b/gi,                  // "later"
-      /\bfinally\b/gi,                // "finally"
-      /\b(?:and|&)\s+then\b/gi,       // "and then"
-    ];
-
-    let separatorCount = 0;
-    for (const pattern of separatorPatterns) {
-      const matches = query.match(pattern);
-      if (matches) {
-        separatorCount += matches.length;
+    const activityMentions = Array.from(
+      query.matchAll(new RegExp(`\\b(${ACTIVITY_KEYWORD_SOURCE})\\b`, 'gi'))
+    );
+    const sequentialActivityCount = activityMentions.reduce((count, match, index) => {
+      const mentionIndex = match.index ?? 0;
+      if (index === 0 || this.hasSequentialPrefix(query, mentionIndex)) {
+        return count + 1;
       }
+      return count;
+    }, 0);
+
+    const separatorCount = this.countActivitySeparators(query);
+
+    if (sequentialActivityCount > 0 || separatorCount > 0) {
+      return Math.max(sequentialActivityCount, separatorCount + 1);
     }
 
-    // Also count distinct meal/activity mentions
-    const activityKeywords = [
-      /\b(breakfast|brunch|lunch|dinner|supper)\b/gi,
-      /\b(coffee|cafe|tea)\b/gi,
-      /\b(drinks?|cocktails?|bar|pub)\b/gi,
-      /\b(meeting|appointment|reservation)\b/gi,
-      /\b(work(?:ing)?|cowork(?:ing)?)\b/gi,
-      /\b(shopping|shop)\b/gi,
-      /\b(museum|gallery|exhibit)\b/gi,
-    ];
-
-    const uniqueActivities = new Set<string>();
-    for (const pattern of activityKeywords) {
-      const matches = query.match(pattern);
-      if (matches) {
-        matches.forEach(m => uniqueActivities.add(m.toLowerCase()));
-      }
-    }
-
-    // Return the higher count (separators imply activities, unique activities are explicit)
-    return Math.max(separatorCount + 1, uniqueActivities.size);
+    return activityMentions.length > 0 ? 1 : 0;
   }
 
   /**
@@ -109,6 +97,8 @@ export class QueryClassifier {
       /\bthen\b/i,                    // Sequential indicator
       /\bafter\b/i,                   // After indicator
       /\bfollowed\s+by\b/i,           // Sequence indicator
+      new RegExp(`,\\s*(?=(?:${ACTIVITY_KEYWORD_SOURCE})\\b)`, 'i'),
+      new RegExp(`\\band\\s+(?=(?:${ACTIVITY_KEYWORD_SOURCE})\\b)`, 'i'),
       /\b(?:from|starting)\s+.*?\b(?:to|ending)\b/i,  // Range indicator
       /\bmorning\b.*\b(?:afternoon|evening|night)\b/i, // Time span
       /\bfirst\b.*\bthen\b/i,         // Sequence
@@ -183,6 +173,7 @@ export class QueryClassifier {
       'notting hill', 'camden', 'kensington', 'westminster', 'fitzrovia',
       'marylebone', 'clerkenwell', 'hackney', 'brixton', 'islington',
       'canary wharf', 'southbank', 'borough', 'bermondsey', 'peckham',
+      'holborn', 'bloomsbury',
       'hammersmith', 'fulham', 'clapham', 'battersea', 'greenwich'
     ];
 
@@ -192,6 +183,32 @@ export class QueryClassifier {
     );
 
     return mentionedNeighborhoods.length >= 2;
+  }
+
+  private countActivitySeparators(query: string): number {
+    const separatorPatterns = [
+      /--/g,
+      /\bthen\b/gi,
+      /\bafter\s+that\b/gi,
+      /\bfollowed\s+by\b/gi,
+      /\bnext\b/gi,
+      /\bafterwards?\b/gi,
+      /\blater\b/gi,
+      /\bfinally\b/gi,
+      /\b(?:and|&)\s+then\b/gi,
+      new RegExp(`,\\s*(?=(?:${ACTIVITY_KEYWORD_SOURCE})\\b)`, 'gi'),
+      new RegExp(`\\band\\s+(?=(?:${ACTIVITY_KEYWORD_SOURCE})\\b)`, 'gi'),
+    ];
+
+    return separatorPatterns.reduce((count, pattern) => {
+      const matches = query.match(pattern);
+      return count + (matches?.length || 0);
+    }, 0);
+  }
+
+  private hasSequentialPrefix(query: string, activityIndex: number): boolean {
+    const prefix = query.slice(Math.max(0, activityIndex - 32), activityIndex);
+    return /(?:--|,|;|\/|\bthen\b|\bafter(?:\s+that)?\b|\bfollowed\s+by\b|\bnext\b|\blater\b|\bfinally\b|\band\b|&)\s*$/i.test(prefix);
   }
 }
 
