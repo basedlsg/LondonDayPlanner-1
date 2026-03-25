@@ -43,48 +43,54 @@ export class VenueDiscovery {
     console.log(`[VenueDiscovery] Searching for: "${searchQuery}" in ${location}`);
 
     // Step 1: Use grounded search to find current venue recommendations
+    const groundedStart = Date.now();
     const groundedResults = await this.groundedSearch.search(
       searchQuery,
       location,
       context
     );
+    const groundedMs = Date.now() - groundedStart;
 
-    console.log(`[VenueDiscovery] Grounded search found ${groundedResults.venues.length} venues`);
+    console.log(`[VenueDiscovery] Grounded search found ${groundedResults.venues.length} venues (${groundedMs}ms)`);
 
     if (groundedResults.venues.length === 0) {
       // Fallback to direct Places API search
       console.log('[VenueDiscovery] Falling back to direct Places API search');
-      return this.fallbackSearch(searchQuery, context);
+      return this.fallbackSearch(searchQuery, location, activity, context);
     }
 
     // Step 2: Validate with Google Places API for accurate details
+    const validateStart = Date.now();
     const validated = await this.placesValidator.validate(
       groundedResults.venues,
       context.citySlug
     );
+    const validateMs = Date.now() - validateStart;
 
-    console.log(`[VenueDiscovery] Validated ${validated.length} venues`);
+    console.log(`[VenueDiscovery] Validated ${validated.length} venues (${validateMs}ms)`);
 
     // Step 3: Filter by operating hours if time specified
-    let filteredVenues = validated;
+    let filteredVenues = this.rerankVenues(validated, activity.location);
     if (activity.scheduledTime || activity.timeWindow) {
       const targetTime = activity.scheduledTime || activity.timeWindow?.earliest;
       if (targetTime) {
         filteredVenues = this.filterByOperatingHours(
-          validated,
+          filteredVenues,
           targetTime,
           context.timezone || 'Europe/London'
         );
+        filteredVenues = this.rerankVenues(filteredVenues, activity.location);
         console.log(`[VenueDiscovery] After hours filter: ${filteredVenues.length} venues`);
       }
     }
 
     // If all venues were filtered out, return unfiltered results with a note
     if (filteredVenues.length === 0 && validated.length > 0) {
+      const rerankedValidated = this.rerankVenues(validated, activity.location);
       console.log('[VenueDiscovery] All venues filtered by hours, returning unfiltered with warning');
       return {
-        primary: validated[0],
-        alternatives: validated.slice(1, 4),
+        primary: rerankedValidated[0],
+        alternatives: rerankedValidated.slice(1, 4),
         searchInsights: `${groundedResults.searchInsights || ''} Note: Opening hours couldn't be verified for all venues.`.trim(),
       };
     }
@@ -97,15 +103,39 @@ export class VenueDiscovery {
   }
 
   /**
+   * Fast Places-only search (skips grounded Gemini). Used when request is near deadline.
+   */
+  async fastPlacesSearch(
+    searchQuery: string,
+    location: string,
+    activity: ParsedActivity,
+    context: SearchContext
+  ): Promise<DiscoveryResult> {
+    console.log(`[VenueDiscovery] Fast Places-only search for: "${searchQuery}" in ${location}`);
+    return this.fallbackSearch(searchQuery, location, activity, context);
+  }
+
+  /**
    * Fallback to direct Places API search when grounded search fails
    */
   private async fallbackSearch(
     searchQuery: string,
+    location: string,
+    activity: ParsedActivity,
     context: SearchContext
   ): Promise<DiscoveryResult> {
-    const venues = await this.placesValidator.searchVenues(
-      `${searchQuery} in ${context.city}`,
-      5
+    const venues = this.rerankVenues(
+      await this.placesValidator.searchVenues(
+        `${searchQuery} in ${location}`,
+        5,
+        {
+          activity: activity.activity,
+          location: activity.location,
+          venuePreference: activity.venuePreference,
+          requirements: activity.requirements,
+        }
+      ),
+      activity.location
     );
 
     return {
@@ -222,6 +252,65 @@ export class VenueDiscovery {
     const hours = parseInt(time.slice(0, 2), 10);
     const minutes = parseInt(time.slice(2, 4), 10) || 0;
     return hours * 60 + minutes;
+  }
+
+  private rerankVenues(
+    venues: ValidatedVenue[],
+    requestedLocation: string
+  ): ValidatedVenue[] {
+    const locationHint = this.normalizeLocationHint(requestedLocation);
+    if (!locationHint) {
+      return venues;
+    }
+
+    return [...venues].sort((left, right) => {
+      const scoreDelta =
+        this.locationRelevanceScore(right, locationHint)
+        - this.locationRelevanceScore(left, locationHint);
+
+      if (scoreDelta !== 0) {
+        return scoreDelta;
+      }
+
+      return (right.rating ?? 0) - (left.rating ?? 0);
+    });
+  }
+
+  private locationRelevanceScore(
+    venue: ValidatedVenue,
+    locationHint: string
+  ): number {
+    const haystack = `${venue.formattedAddress ?? ''} ${venue.address ?? ''}`.toLowerCase();
+    if (!haystack) {
+      return 0;
+    }
+
+    if (haystack.includes(locationHint)) {
+      return 100;
+    }
+
+    return locationHint
+      .split(/\s+/)
+      .filter((token) => token.length > 2)
+      .reduce((score, token) => score + (haystack.includes(token) ? 10 : 0), 0);
+  }
+
+  private normalizeLocationHint(location: string): string {
+    const normalized = location
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    if (
+      !normalized
+      || normalized === 'same area'
+      || normalized === 'near previous'
+    ) {
+      return '';
+    }
+
+    return normalized;
   }
 }
 

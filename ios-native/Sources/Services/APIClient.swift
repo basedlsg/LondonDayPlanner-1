@@ -4,6 +4,12 @@ import Alamofire
 /// Central API client for backend communication
 actor APIClient {
     static let shared = APIClient()
+    private static let vercelBaseURL = URL(string: "https://london-day-planner-1.vercel.app")!
+    private enum Timeout {
+        static let standardRequest: TimeInterval = 30
+        static let standardResource: TimeInterval = 120
+        static let itineraryRequest: TimeInterval = 120
+    }
     
     private let baseURL: URL
     private let session: Session
@@ -11,18 +17,15 @@ actor APIClient {
     private let encoder: JSONEncoder
     
     private init() {
-        // Configure base URL based on environment
-        #if DEBUG
-        // self.baseURL = URL(string: "http://localhost:3000")! // Localhost for Simulator
-        self.baseURL = URL(string: "https://london-day-planner-1.vercel.app")!
-        #else
-        self.baseURL = URL(string: "https://london-day-planner-1.vercel.app")!
-        #endif
+        self.baseURL = Self.vercelBaseURL
         
         // Configure session with retry and timeout
         let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 30
-        configuration.timeoutIntervalForResource = 60
+        configuration.timeoutIntervalForRequest = Timeout.standardRequest
+        configuration.timeoutIntervalForResource = Timeout.standardResource
+        configuration.waitsForConnectivity = true
+        configuration.allowsExpensiveNetworkAccess = true
+        configuration.allowsConstrainedNetworkAccess = true
         
         self.session = Session(configuration: configuration)
         
@@ -72,7 +75,8 @@ actor APIClient {
     private func request<T: Codable & Sendable>(
         url: URL,
         method: HTTPMethod,
-        body: (any Encodable & Sendable)? = nil
+        body: (any Encodable & Sendable)? = nil,
+        timeoutInterval: TimeInterval? = nil
     ) async throws -> T {
         let afMethod: Alamofire.HTTPMethod = {
             switch method {
@@ -82,21 +86,24 @@ actor APIClient {
             case .delete: return .delete
             }
         }()
-        
+
         var urlRequest = try URLRequest(url: url, method: afMethod)
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
-        
+        urlRequest.timeoutInterval = timeoutInterval ?? Timeout.standardRequest
+
         if let body = body {
             urlRequest.httpBody = try encoder.encode(body)
         }
-        
-        // Wrap request in Alamofire for proper session management and retries
+
+        // RetryInterceptor handles all retry logic (network errors + HTTP 5xx).
+        // Do NOT add a manual retry loop here — it compounds with the interceptor
+        // and can cause the user to wait 3x-9x the timeout on failure.
         let response = await session.request(urlRequest, interceptor: RetryInterceptor())
             .validate(statusCode: 200...299)
             .serializingDecodable(T.self, decoder: decoder)
             .response
-        
+
         switch response.result {
         case .success(let value):
             return value
@@ -146,7 +153,8 @@ actor APIClient {
         let response: CreateItineraryResponse = try await request(
             url: url,
             method: .post,
-            body: body
+            body: body,
+            timeoutInterval: Timeout.itineraryRequest
         )
         
         return response.itinerary
@@ -163,23 +171,79 @@ actor APIClient {
         let url = baseURL.appendingPathComponent("/api/\(citySlug)/weather")
         return try await request(url: url, method: .get)
     }
+
 }
 
 // MARK: - Retry Interceptor (Production Stability)
 
 final class RetryInterceptor: RequestInterceptor, Sendable {
-    let maxRetryCount = 3
-    let retryDelay: TimeInterval = 1.0
+    let maxRetryCount = 2
+    let baseRetryDelay: TimeInterval = 1.0
+    private let retryableStatusCodes: Set<Int> = [408, 429, 500, 502, 503, 504]
     
     func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
         let response = request.task?.response as? HTTPURLResponse
-        
-        if request.retryCount < maxRetryCount,
-           (response?.statusCode == 500 || (error as NSError).domain == NSURLErrorDomain) {
-            completion(.retryWithDelay(retryDelay))
-        } else {
+
+        guard request.retryCount < maxRetryCount else {
             completion(.doNotRetry)
+            return
         }
+
+        if let statusCode = response?.statusCode, retryableStatusCodes.contains(statusCode) {
+            completion(.retryWithDelay(baseRetryDelay * pow(2, Double(request.retryCount))))
+            return
+        }
+
+        if let urlError = Self.extractURLError(from: error) {
+            switch urlError.code {
+            case .networkConnectionLost,
+                 .timedOut,
+                 .notConnectedToInternet,
+                 .cannotFindHost,
+                 .cannotConnectToHost,
+                 .cannotLoadFromNetwork,
+                 .dnsLookupFailed,
+                 .internationalRoamingOff,
+                 .callIsActive,
+                 .dataNotAllowed,
+                 .resourceUnavailable:
+                completion(.retryWithDelay(baseRetryDelay * pow(2, Double(request.retryCount))))
+                return
+            default:
+                break
+            }
+        }
+
+        completion(.doNotRetry)
+    }
+
+    static func extractURLError(from error: Error) -> URLError? {
+        if let urlError = error as? URLError {
+            return urlError
+        }
+
+        if let afError = error as? AFError {
+            if case let .sessionTaskFailed(underlyingError) = afError,
+               let urlError = underlyingError as? URLError {
+                return urlError
+            }
+
+            if let underlyingError = afError.underlyingError as? URLError {
+                return underlyingError
+            }
+
+            if let nsError = afError.underlyingError as NSError?,
+               nsError.domain == NSURLErrorDomain {
+                return URLError(_nsError: nsError)
+            }
+        }
+
+        let nsError = error as NSError
+        guard nsError.domain == NSURLErrorDomain else {
+            return nil
+        }
+
+        return URLError(_nsError: nsError)
     }
 }
 

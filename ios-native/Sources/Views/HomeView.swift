@@ -32,23 +32,37 @@ struct HomeView: View {
             }
             .scrollContentBackground(.hidden)
             
-            // 3. Error Overlay
+            // 3. Error Overlay with Retry
             if let error = viewModel.error {
                 VStack {
                     Spacer()
-                    Text(error)
-                        .font(.caption)
-                        .foregroundStyle(.white)
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 8)
-                        .background(Color.red.opacity(0.8))
-                        .clipShape(Capsule())
-                        .padding(.bottom, 100)
+                    VStack(spacing: 8) {
+                        Text(error)
+                            .font(.caption)
+                            .foregroundStyle(.white)
+                            .multilineTextAlignment(.center)
+
+                        Button {
+                            viewModel.error = nil
+                            Task {
+                                await viewModel.createItinerary(city: cityManager.currentCity)
+                            }
+                        } label: {
+                            Label("Retry", systemImage: "arrow.clockwise")
+                                .font(.caption.bold())
+                                .foregroundStyle(.white)
+                        }
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 10)
+                    .background(Color.red.opacity(0.8))
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .padding(.bottom, 100)
                 }
                 .transition(.move(edge: .bottom).combined(with: .opacity))
                 .onAppear {
-                    // Auto-hide error after 5 seconds
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                    // Auto-hide error after 8 seconds (longer to give time to tap retry)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
                         viewModel.error = nil
                     }
                 }
@@ -56,7 +70,10 @@ struct HomeView: View {
         }
         .toolbar(.hidden, for: .navigationBar)
         .fullScreenCover(isPresented: $viewModel.isLoading) {
-            GeneratingLoadingView()
+            GeneratingLoadingView(
+                citySlug: cityManager.currentCity?.slug,
+                cityName: cityManager.currentCity?.name
+            )
         }
         .sheet(isPresented: $showCityPicker) {
             CityPickerSheet(
@@ -208,7 +225,6 @@ struct HomeView: View {
     private var planButtonSection: some View {
         GlassButton(
             NSLocalizedString("input.planButton", comment: "Plan My Day"),
-            icon: "sparkles",
             style: .solidWhite,
             isLoading: viewModel.isLoading
         ) {

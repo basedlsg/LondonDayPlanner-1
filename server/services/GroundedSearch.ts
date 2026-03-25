@@ -25,7 +25,9 @@ export class GroundedSearch {
     try {
       const response = await this.gemini.generateGroundedContent(prompt, {
         temperature: 0.3,
-        maxOutputTokens: 4096,
+        maxOutputTokens: 2048,
+        thinkingLevel: 'minimal',
+        timeoutMs: 18_000,
       });
 
       return this.parseSearchResponse(response);
@@ -112,7 +114,9 @@ IMPORTANT:
         .map((v: any) => ({
           name: v.name,
           address: v.address,
-          whyRecommended: v.whyRecommended || 'Matches your search',
+          whyRecommended: typeof v.whyRecommended === 'string' && v.whyRecommended.trim()
+            ? v.whyRecommended.trim()
+            : undefined,
           estimatedRating: typeof v.estimatedRating === 'number' ? v.estimatedRating : undefined,
           priceLevel: v.priceLevel || undefined,
           likelyOpenNow: typeof v.likelyOpenNow === 'boolean' ? v.likelyOpenNow : undefined,

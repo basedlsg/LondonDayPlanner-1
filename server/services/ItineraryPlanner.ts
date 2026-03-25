@@ -3,7 +3,8 @@
 
 import { QueryClassifier, queryClassifier } from './QueryClassifier.js';
 import { VenueDiscovery, getVenueDiscovery } from './VenueDiscovery.js';
-import { GeminiClient, getGeminiClient } from '../lib/gemini.js';
+import { RouteTimeService, TravelEstimate, getRouteTimeService } from './RouteTimeService.js';
+import { DEFAULT_GEMINI_FLASH_MODEL, GeminiClient, getGeminiClient } from '../lib/gemini.js';
 import { simplePrompt } from '../lib/prompts/simple.js';
 import { detailedPrompt } from '../lib/prompts/detailed.js';
 import { complexPrompt } from '../lib/prompts/complex.js';
@@ -61,64 +62,89 @@ type ParsedFallbackSegment = {
   };
 };
 
+/** Maximum wall-clock time (ms) before we start cutting corners to return a result. */
+const REQUEST_DEADLINE_MS = 70_000;
+
 export class ItineraryPlanner {
   private classifier: QueryClassifier;
   private venueDiscovery: VenueDiscovery;
+  private routeTimeService: RouteTimeService;
   private gemini: GeminiClient;
 
   constructor(
     classifier?: QueryClassifier,
     venueDiscovery?: VenueDiscovery,
-    gemini?: GeminiClient
+    gemini?: GeminiClient,
+    routeTimeService?: RouteTimeService
   ) {
     this.classifier = classifier || queryClassifier;
     this.venueDiscovery = venueDiscovery || getVenueDiscovery();
     this.gemini = gemini || getGeminiClient();
+    this.routeTimeService = routeTimeService || getRouteTimeService();
   }
 
   /**
    * Create an itinerary from a user request
    */
   async createPlan(request: PlanRequest, cityConfig: CityConfig): Promise<Itinerary> {
+    const totalStart = Date.now();
     console.log(`[ItineraryPlanner] Creating plan for query: "${request.query}"`);
     console.log(`[ItineraryPlanner] City: ${cityConfig.name}`);
 
     // Step 1: Classify the query
+    const classifyStart = Date.now();
     const classification = this.classifier.classify(request.query);
+    const classifyMs = Date.now() - classifyStart;
 
-    // Premium users get Flash (Pro is too slow for serverless timeouts)
+    // Premium users stay on the same low-latency Flash model.
     if (request.isPremium) {
-      console.log(`[ItineraryPlanner] Premium user detected - Using gemini-2.5-flash`);
-      classification.model = 'gemini-2.5-flash';
+      console.log(`[ItineraryPlanner] Premium user detected - Using ${DEFAULT_GEMINI_FLASH_MODEL}`);
+      classification.model = DEFAULT_GEMINI_FLASH_MODEL;
     }
 
     console.log(`[ItineraryPlanner] Classification:`, classification);
 
     // Step 2: Parse with tier-appropriate model and prompt
     let parsed: any;
+    let parsedVia: 'ai' | 'fallback' = 'ai';
+    const parseStart = Date.now();
     try {
       parsed = await this.parseQuery(request, classification, cityConfig);
       console.log(`[ItineraryPlanner] Parsed query:`, JSON.stringify(parsed, null, 2));
     } catch (error) {
       console.warn(`[ItineraryPlanner] AI Parsing failed, using curated fallback:`, error);
       parsed = this.getFallbackParsedQuery(request, cityConfig, classification.tier);
+      parsedVia = 'fallback';
       console.log(`[ItineraryPlanner] Fallback parsed query:`, JSON.stringify(parsed, null, 2));
     }
+    const parseMs = Date.now() - parseStart;
 
     // Step 3: Convert parsed data to activities
+    const extractStart = Date.now();
     const activities = this.extractActivities(parsed, classification.tier, request.startTime);
+    const extractMs = Date.now() - extractStart;
     console.log(`[ItineraryPlanner] Extracted ${activities.length} activities`);
 
     // Step 4: Discover venues for each activity
+    // If parsing was slow, check deadline before starting discovery
+    const preDiscoverElapsed = Date.now() - totalStart;
+    if (preDiscoverElapsed > REQUEST_DEADLINE_MS) {
+      console.log(`[ItineraryPlanner] Deadline exceeded before discovery (${preDiscoverElapsed}ms), using fast Places-only search`);
+    }
     const searchContext = this.buildSearchContext(request, cityConfig);
+    const discoverStart = Date.now();
     const venueResults = await this.discoverVenuesForActivities(
       activities,
       searchContext,
-      classification.tier
+      classification.tier,
+      totalStart
     );
+    const discoverMs = Date.now() - discoverStart;
 
     // Step 5: Build the final itinerary with all required fields for iOS decoding
-    const itineraryData = this.buildItinerary(activities, venueResults, cityConfig, request.date);
+    const buildStart = Date.now();
+    const itineraryData = await this.buildItinerary(activities, venueResults, cityConfig, request.date, totalStart);
+    const buildMs = Date.now() - buildStart;
 
     const itinerary: Itinerary = {
       id: Date.now(),
@@ -135,6 +161,19 @@ export class ItineraryPlanner {
     };
 
     console.log(`[ItineraryPlanner] Built itinerary with ${itinerary.venues.length} venues`);
+    const totalMs = Date.now() - totalStart;
+    console.log('[ItineraryPlanner][timing]', {
+      model: classification.model,
+      parsedVia,
+      classifyMs,
+      parseMs,
+      extractMs,
+      discoverMs,
+      buildMs,
+      totalMs,
+      deadlineBudgetMs: REQUEST_DEADLINE_MS,
+      overDeadline: totalMs > REQUEST_DEADLINE_MS,
+    });
 
     return itinerary;
   }
@@ -195,6 +234,7 @@ export class ItineraryPlanner {
         venuePreference: query.searchQuery,
         requirements: query.requirements,
         scheduledTime: (query as ParsedDetailedQuery).idealArrivalTime || startTime,
+        suggestedDurationMinutes: this.parseStayDurationMinutes((query as ParsedDetailedQuery).stayDuration),
       });
     } else {
       // Complex queries have multiple activities
@@ -249,18 +289,47 @@ export class ItineraryPlanner {
     };
   }
 
+  private parseStayDurationMinutes(value?: string): number | undefined {
+    if (!value) {
+      return undefined;
+    }
+
+    const match = value.toLowerCase().match(/(\d+(?:\.\d+)?)\s*(hours?|hrs?|hr|minutes?|mins?|min)\b/);
+    if (!match) {
+      return undefined;
+    }
+
+    const amount = Number.parseFloat(match[1]);
+    if (Number.isNaN(amount) || amount <= 0) {
+      return undefined;
+    }
+
+    return match[2].startsWith('h') ? Math.round(amount * 60) : Math.round(amount);
+  }
+
   /**
    * Discover venues for all activities in parallel
    */
   private async discoverVenuesForActivities(
     activities: ParsedActivity[],
     context: SearchContext,
-    tier: string
+    tier: string,
+    requestStartTime?: number
   ): Promise<DiscoveryResult[]> {
+    // If we're already past the deadline, use fast Places-only search (skip grounded Gemini)
+    const pastDeadline = requestStartTime ? (Date.now() - requestStartTime) > REQUEST_DEADLINE_MS : false;
+
     const results = await Promise.all(
-      activities.map((activity) =>
-        this.venueDiscovery.discover(activity, context, tier as any)
-      )
+      activities.map(async (activity) => {
+        if (pastDeadline) {
+          // Fast path: skip 18s grounded search, go straight to Places API (~5s)
+          const location = `${activity.location}, ${context.city}`;
+          const searchQuery = activity.venuePreference || activity.activity;
+          const venues = await this.venueDiscovery.fastPlacesSearch(searchQuery, location, activity, context);
+          return venues;
+        }
+        return this.venueDiscovery.discover(activity, context, tier as any);
+      })
     );
     return results;
   }
@@ -269,19 +338,20 @@ export class ItineraryPlanner {
    * Build the final itinerary from activities and discovered venues
    * Output format matches iOS Itinerary structure exactly
    */
-  private buildItinerary(
+  private async buildItinerary(
     activities: ParsedActivity[],
     venueResults: DiscoveryResult[],
     city: CityConfig,
-    planDate: string
-  ): { venues: ItineraryPlace[]; travelTimes: TravelTime[]; searchInsights?: string[] } {
+    planDate: string,
+    requestStartTime?: number
+  ): Promise<{ venues: ItineraryPlace[]; travelTimes: TravelTime[]; searchInsights?: string[] }> {
     const venues: ItineraryPlace[] = [];
-    const travelTimes: TravelTime[] = [];
     const searchInsights: string[] = [];
+    const usedVenueKeys = new Set<string>();
 
     for (let i = 0; i < activities.length; i++) {
       const activity = activities[i];
-      const venueResult = venueResults[i];
+      const venueResult = this.selectDistinctVenueResult(venueResults[i], usedVenueKeys);
 
       // Determine scheduled time
       let scheduledTime = activity.scheduledTime;
@@ -292,13 +362,18 @@ export class ItineraryPlanner {
         );
       }
       scheduledTime = scheduledTime || '09:00';
+      const durationMinutes = this.estimateVenueDurationMinutes(activity, venueResult.primary);
 
       // Build place entry matching iOS ScheduledPlace structure
       if (venueResult.primary) {
         const venue = venueResult.primary;
+        const venueKey = this.venueIdentity(venue);
         const alternatives = venueResult.alternatives.map((alternative) => ({
           ...alternative,
+          whyRecommended: this.cleanActivityDescription(alternative.description)
+            ?? this.cleanActivityDescription(alternative.whyRecommended),
           photoUrl: this.buildPhotoUrl(alternative.photos?.[0]),
+          photoUrls: this.buildPhotoUrls(alternative.photos),
         }));
 
         venues.push({
@@ -307,16 +382,22 @@ export class ItineraryPlanner {
           address: venue.formattedAddress || venue.address,
           location: venue.location || city.coordinates,
           time: scheduledTime,  // iOS expects 'time' key
-          duration: 60, // Default 1 hour
+          duration: durationMinutes,
           categories: this.buildCategories(activity, venue),
           rating: venue.rating,
           alternatives,
-          activityDescription: venue.whyRecommended,
+          activityDescription: this.cleanActivityDescription(venue.description)
+            ?? this.cleanActivityDescription(venue.whyRecommended),
           photoUrl: this.buildPhotoUrl(venue.photos?.[0]),
+          photoUrls: this.buildPhotoUrls(venue.photos),
           statusText: this.buildStatusText(venue, scheduledTime, planDate),
           isOpenNow: venue.isOpenNow,
           phoneNumber: venue.phoneNumber,
         });
+
+        if (venueKey) {
+          usedVenueKeys.add(venueKey);
+        }
       } else {
         // No venue found - create placeholder
         venues.push({
@@ -324,7 +405,7 @@ export class ItineraryPlanner {
           address: `${activity.location}, ${city.name}`,
           location: city.coordinates,
           time: scheduledTime,
-          duration: 60,
+          duration: durationMinutes,
           categories: this.buildFallbackCategories(activity),
           activityDescription: 'No specific venue found - explore the area',
           alternatives: [],
@@ -336,23 +417,41 @@ export class ItineraryPlanner {
         searchInsights.push(venueResult.searchInsights);
       }
 
-      // Calculate travel time to next activity - match iOS TravelTime structure
-      if (i < activities.length - 1) {
-        const currentLocation = activity.location;
-        const nextActivity = activities[i + 1];
-        const durationMinutes = this.estimateTravelTime(
-          currentLocation,
-          nextActivity.location
-        );
-        travelTimes.push({
-          from: currentLocation,
-          to: nextActivity.location,
-          durationMinutes: durationMinutes,
-          durationText: `${durationMinutes} min`,
-          mode: 'transit',
-        });
-      }
     }
+
+    // Skip Routes API calls if we're running out of time — use haversine fallbacks instead
+    const elapsedMs = requestStartTime ? Date.now() - requestStartTime : 0;
+    const skipRoutes = elapsedMs > REQUEST_DEADLINE_MS;
+    if (skipRoutes) {
+      console.log(`[ItineraryPlanner] Deadline approaching (${elapsedMs}ms elapsed), skipping Routes API`);
+    }
+
+    const travelEstimates = skipRoutes
+      ? activities.slice(0, -1).map((activity, index) =>
+          this.estimateLabelFallbackTravelTime(activity.location, activities[index + 1].location)
+        )
+      : await Promise.all(
+          activities.slice(0, -1).map((activity, index) =>
+            this.estimateLegTravelTime(
+              activity.location,
+              activities[index + 1].location,
+              venues[index],
+              venues[index + 1],
+              venueResults[index],
+              venueResults[index + 1],
+              planDate,
+              city.timezone
+            )
+          )
+        );
+
+    const travelTimes = travelEstimates.map((estimate, index) => ({
+      from: activities[index].location,
+      to: activities[index + 1].location,
+      durationMinutes: estimate.durationMinutes,
+      durationText: estimate.durationText,
+      mode: estimate.mode,
+    }));
 
     return {
       venues,
@@ -420,21 +519,248 @@ export class ItineraryPlanner {
     };
   }
 
-  /**
-   * Estimate travel time between locations (simplified)
-   */
-  private estimateTravelTime(from: string, to: string): number {
-    // Same location
-    if (from.toLowerCase() === to.toLowerCase()) {
-      return 5;
+  private async estimateLegTravelTime(
+    fromLabel: string,
+    toLabel: string,
+    fromVenue: ItineraryPlace,
+    toVenue: ItineraryPlace,
+    fromDiscovery: DiscoveryResult,
+    toDiscovery: DiscoveryResult,
+    planDate: string,
+    timezone: string
+  ): Promise<TravelEstimate> {
+    const hasPreciseLocations = Boolean(fromDiscovery.primary?.location && toDiscovery.primary?.location);
+    if (!hasPreciseLocations) {
+      return this.estimateLabelFallbackTravelTime(fromLabel, toLabel);
     }
 
-    // Different neighborhoods
-    if (from.toLowerCase() !== to.toLowerCase()) {
-      return 25; // Average tube/walk time between neighborhoods
+    return this.routeTimeService.estimateTravelTime(
+      fromVenue.location,
+      toVenue.location,
+      {
+        departureTime: addMinutesToTime(fromVenue.time, fromVenue.duration ?? 60),
+        planDate,
+        timezone,
+      }
+    );
+  }
+
+  private estimateLabelFallbackTravelTime(from: string, to: string): TravelEstimate {
+    if (from.trim().toLowerCase() === to.trim().toLowerCase()) {
+      return {
+        durationMinutes: 5,
+        durationText: '5 min',
+        mode: 'walking',
+      };
     }
 
-    return 15;
+    return {
+      durationMinutes: 20,
+      durationText: '20 min',
+      mode: 'transit',
+    };
+  }
+
+  private estimateVenueDurationMinutes(
+    activity: ParsedActivity,
+    venue?: DiscoveryResult['primary']
+  ): number {
+    if (activity.suggestedDurationMinutes) {
+      return this.clampDuration(activity.suggestedDurationMinutes);
+    }
+
+    const explicitDuration = this.extractExplicitDurationMinutes([
+      activity.activity,
+      activity.venuePreference,
+      ...(activity.requirements || []),
+    ]);
+    if (explicitDuration) {
+      return this.clampDuration(explicitDuration);
+    }
+
+    const activitySignals = [
+      activity.activity,
+      activity.venuePreference,
+      ...(activity.requirements || []),
+    ]
+      .filter(Boolean)
+      .join(' ')
+      .toLowerCase();
+
+    const activityDuration = this.estimateDurationFromSignals(activitySignals);
+    if (activityDuration) {
+      return activityDuration;
+    }
+
+    const venueSignals = [
+      ...(venue?.types || []),
+      venue?.name,
+      venue?.whyRecommended,
+    ]
+      .filter(Boolean)
+      .join(' ')
+      .toLowerCase();
+
+    return this.estimateDurationFromSignals(venueSignals) ?? 60;
+  }
+
+  private cleanActivityDescription(description?: string): string | undefined {
+    const value = description?.trim();
+    if (!value) {
+      return undefined;
+    }
+
+    const normalized = value.toLowerCase();
+    const genericPatterns = [
+      /^matches your search(?: criteria)?$/,
+      /^popular local pick$/,
+      /^recommended for /,
+      /^good stop for coffee(?: in .+)?$/,
+      /^great spot for drinks(?: in .+)?$/,
+      /^popular (?:breakfast|brunch|lunch|dinner) option(?: in .+)?$/,
+      /^popular dessert stop(?: in .+)?$/,
+      /^good cultural stop(?: in .+)?$/,
+      /^good place to explore(?: in .+)?$/,
+    ];
+
+    if (genericPatterns.some((pattern) => pattern.test(normalized))) {
+      return undefined;
+    }
+
+    return value;
+  }
+
+  private estimateDurationFromSignals(signals: string): number | undefined {
+    if (!signals) {
+      return undefined;
+    }
+
+    if (/\b(?:breakfast|coffee|cafe|tea|bakery|dessert|ice cream)\b/.test(signals)) {
+      return 45;
+    }
+
+    if (/\b(?:michelin|fine dining|tasting menu|degustation|omakase|chef['’]s table)\b/.test(signals)) {
+      return 120;
+    }
+
+    if (/\b(?:lunch|dinner|brunch|restaurant|bistro|grill|steakhouse|meal)\b/.test(signals)) {
+      return 90;
+    }
+
+    if (/\b(?:bar|pub|drinks?|cocktail|rooftop|wine|brewery)\b/.test(signals)) {
+      return 90;
+    }
+
+    if (/\b(?:museum|gallery|exhibit|exhibition|aquarium|zoo|historic|tour|sightseeing)\b/.test(signals)) {
+      return 120;
+    }
+
+    if (/\b(?:park|garden|walk|stroll|trail|hike|market|shopping|shop|store|boutique|mall|explore|visit)\b/.test(signals)) {
+      return 90;
+    }
+
+    if (/\b(?:appointment|reservation|meeting)\b/.test(signals)) {
+      return 60;
+    }
+
+    if (/\b(?:cowork|working|work)\b/.test(signals)) {
+      return 180;
+    }
+
+    return undefined;
+  }
+
+  private extractExplicitDurationMinutes(signals: Array<string | undefined>): number | undefined {
+    const combined = signals.filter(Boolean).join(' ').toLowerCase();
+    const match = combined.match(/(\d+(?:\.\d+)?)\s*(hours?|hrs?|hr|minutes?|mins?|min)\b/);
+    if (!match) {
+      return undefined;
+    }
+
+    const value = Number.parseFloat(match[1]);
+    if (Number.isNaN(value) || value <= 0) {
+      return undefined;
+    }
+
+    const unit = match[2];
+    const minutes = unit.startsWith('h') ? value * 60 : value;
+    return minutes;
+  }
+
+  private clampDuration(minutes: number): number {
+    const rounded = Math.round(minutes / 15) * 15;
+    return Math.max(30, Math.min(rounded, 240));
+  }
+
+  private selectDistinctVenueResult(
+    venueResult: DiscoveryResult,
+    usedVenueKeys: Set<string>
+  ): DiscoveryResult {
+    const candidates = [venueResult.primary, ...venueResult.alternatives]
+      .filter((venue): venue is NonNullable<DiscoveryResult['primary']> => Boolean(venue));
+
+    if (candidates.length === 0) {
+      return venueResult;
+    }
+
+    const primary = candidates.find((candidate) => {
+      const key = this.venueIdentity(candidate);
+      return !key || !usedVenueKeys.has(key);
+    }) ?? venueResult.primary;
+
+    const selectedKey = this.venueIdentity(primary);
+    const alternatives = candidates.filter((candidate) => {
+      if (candidate === primary) {
+        return false;
+      }
+
+      const key = this.venueIdentity(candidate);
+      if (!key) {
+        return true;
+      }
+
+      if (selectedKey && key === selectedKey) {
+        return false;
+      }
+
+      return !usedVenueKeys.has(key);
+    });
+
+    return {
+      ...venueResult,
+      primary,
+      alternatives,
+    };
+  }
+
+  private venueIdentity(
+    venue?: {
+      placeId?: string;
+      name?: string;
+      formattedAddress?: string;
+      address?: string;
+    }
+  ): string | undefined {
+    if (!venue) {
+      return undefined;
+    }
+
+    if (venue.placeId) {
+      return venue.placeId;
+    }
+
+    const normalizedName = venue.name?.toLowerCase().trim();
+    const normalizedAddress = (venue.formattedAddress || venue.address)?.toLowerCase().trim();
+
+    if (!normalizedName) {
+      return normalizedAddress;
+    }
+
+    if (!normalizedAddress) {
+      return normalizedName;
+    }
+
+    return `${normalizedName}::${normalizedAddress}`;
   }
 
   private buildPhotoUrl(photo?: { name?: string }): string | undefined {
@@ -448,6 +774,18 @@ export class ItineraryPlanner {
     });
 
     return `/api/place-photo?${params.toString()}`;
+  }
+
+  private buildPhotoUrls(photos?: Array<{ name?: string }>): string[] | undefined {
+    const urls = photos
+      ?.map((photo) => this.buildPhotoUrl(photo))
+      .filter((url): url is string => Boolean(url));
+
+    if (!urls || urls.length === 0) {
+      return undefined;
+    }
+
+    return Array.from(new Set(urls));
   }
 
   private buildCategories(activity: ParsedActivity, venue: DiscoveryResult['primary']): string[] {

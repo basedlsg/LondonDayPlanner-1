@@ -1,123 +1,165 @@
 // Gemini Client - handles model selection and API interactions
 
-import { GoogleGenerativeAI, GenerativeModel } from '@google/generative-ai';
 import { getConfig } from '../config/index.js';
 
-export type GeminiModelType = 'gemini-2.5-flash' | 'gemini-2.5-flash-lite' | 'gemini-2.5-pro';
+// Use the stable Gemini 2.5 Flash release in production.
+// Preview models can be tested explicitly later without becoming the default path.
+export const DEFAULT_GEMINI_FLASH_MODEL = 'gemini-2.5-flash';
+
+export type GeminiModelType = 'gemini-2.5-flash' | 'gemini-3-flash-preview';
+type GeminiThinkingLevel = 'minimal' | 'low' | 'medium' | 'high';
+
+interface GeminiGenerateResponse {
+  candidates?: Array<{
+    content?: {
+      parts?: Array<{
+        text?: string;
+      }>;
+    };
+    finishReason?: string;
+  }>;
+  error?: {
+    code?: number;
+    message?: string;
+    status?: string;
+  };
+}
 
 export class GeminiClient {
-  private genAI: GoogleGenerativeAI;
-  private models: Map<GeminiModelType, GenerativeModel> = new Map();
+  private readonly apiKey: string;
+  private readonly baseUrl = 'https://generativelanguage.googleapis.com/v1beta/models';
 
   constructor(apiKey?: string) {
-    const key = apiKey || getConfig().geminiApiKey;
-    this.genAI = new GoogleGenerativeAI(key);
+    this.apiKey = apiKey || getConfig().geminiApiKey;
   }
 
   /**
-   * Get a model instance, creating it if necessary
-   */
-  getModel(modelType: GeminiModelType): GenerativeModel {
-    if (!this.models.has(modelType)) {
-      // Map model types to actual model IDs
-      const modelId = this.getModelId(modelType);
-      const model = this.genAI.getGenerativeModel({ model: modelId });
-      this.models.set(modelType, model);
-    }
-    return this.models.get(modelType)!;
-  }
-
-  /**
-   * Get a model with Google Search grounding enabled
-   */
-  getGroundedModel(): GenerativeModel {
-    return this.genAI.getGenerativeModel({
-      model: this.getModelId('gemini-2.5-flash'),
-      tools: [{ googleSearch: {} } as any]
-    });
-  }
-
-  /**
-   * Map our model types to actual Google model IDs
-   */
-  private getModelId(modelType: GeminiModelType): string {
-    switch (modelType) {
-      case 'gemini-2.5-flash':
-        return 'gemini-2.5-flash';
-      case 'gemini-2.5-flash-lite':
-        return 'gemini-2.5-flash-lite';
-      case 'gemini-2.5-pro':
-        return 'gemini-2.5-pro';
-      default:
-        return 'gemini-2.5-flash';
-    }
-  }
-
-  /**
-   * Generate content with a specific model
+   * Generate content with a specific model.
    */
   async generateContent(
     prompt: string,
-    modelType: GeminiModelType = 'gemini-2.5-flash',
+    modelType: GeminiModelType = DEFAULT_GEMINI_FLASH_MODEL,
     options: {
       temperature?: number;
       maxOutputTokens?: number;
+      thinkingLevel?: GeminiThinkingLevel;
+      timeoutMs?: number;
     } = {}
   ): Promise<string> {
-    const model = this.getModel(modelType);
-
-    const result = await model.generateContent({
-      contents: [{ role: 'user', parts: [{ text: prompt }] }],
-      generationConfig: {
-        temperature: options.temperature ?? 0.2,
-        maxOutputTokens: options.maxOutputTokens ?? 2048,
-      },
+    return this.generate(prompt, modelType, {
+      temperature: options.temperature ?? 0.2,
+      maxOutputTokens: options.maxOutputTokens ?? 2048,
+      thinkingLevel: options.thinkingLevel ?? 'low',
+      timeoutMs: options.timeoutMs ?? 15_000,
     });
-
-    return result.response.text();
   }
 
   /**
-   * Generate content with Google Search grounding for real-time information
+   * Generate content with Google Search grounding for real-time information.
    */
   async generateGroundedContent(
     prompt: string,
     options: {
       temperature?: number;
       maxOutputTokens?: number;
+      thinkingLevel?: GeminiThinkingLevel;
+      timeoutMs?: number;
     } = {}
   ): Promise<string> {
-    const model = this.getGroundedModel();
-
-    const result = await model.generateContent({
-      contents: [{ role: 'user', parts: [{ text: prompt }] }],
-      generationConfig: {
-        temperature: options.temperature ?? 0.3,
-        maxOutputTokens: options.maxOutputTokens ?? 4096,
-      },
+    return this.generate(prompt, DEFAULT_GEMINI_FLASH_MODEL, {
+      temperature: options.temperature ?? 0.3,
+      maxOutputTokens: options.maxOutputTokens ?? 2048,
+      thinkingLevel: options.thinkingLevel ?? 'minimal',
+      timeoutMs: options.timeoutMs ?? 18_000,
+      useGoogleSearch: true,
     });
+  }
 
-    return result.response.text();
+  private async generate(
+    prompt: string,
+    modelType: GeminiModelType,
+    options: {
+      temperature: number;
+      maxOutputTokens: number;
+      thinkingLevel: GeminiThinkingLevel;
+      timeoutMs: number;
+      useGoogleSearch?: boolean;
+    }
+  ): Promise<string> {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), options.timeoutMs);
+
+    try {
+      const endpoint = `${this.baseUrl}/${modelType}:generateContent?key=${encodeURIComponent(this.apiKey)}`;
+      const requestBody: Record<string, unknown> = {
+        contents: [{ role: 'user', parts: [{ text: prompt }] }],
+        generationConfig: {
+          temperature: options.temperature,
+          maxOutputTokens: options.maxOutputTokens,
+        },
+      };
+
+      // Gemini 3 preview accepts thinkingConfig; stable Gemini 2.5 Flash does not.
+      if (modelType.startsWith('gemini-3')) {
+        (requestBody.generationConfig as Record<string, unknown>).thinkingConfig = {
+          thinkingLevel: options.thinkingLevel,
+        };
+      }
+
+      if (options.useGoogleSearch) {
+        requestBody.tools = [{ googleSearch: {} }];
+      }
+
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+        signal: controller.signal,
+      });
+
+      const data = (await response.json()) as GeminiGenerateResponse;
+      if (!response.ok || data.error) {
+        const message = data.error?.message || `Gemini request failed with ${response.status}`;
+        throw new Error(message);
+      }
+
+      const text = data.candidates?.[0]?.content?.parts
+        ?.map((part) => part.text || '')
+        .join('')
+        .trim();
+
+      if (text) {
+        return text;
+      }
+
+      const finishReason = data.candidates?.[0]?.finishReason || 'UNKNOWN';
+      throw new Error(`Gemini returned no text output (finishReason=${finishReason})`);
+    } catch (error) {
+      if (error instanceof DOMException && error.name === 'AbortError') {
+        throw new Error(`Gemini request timed out after ${options.timeoutMs}ms`);
+      }
+      throw error;
+    } finally {
+      clearTimeout(timeout);
+    }
   }
 
   /**
-   * Parse JSON from Gemini response, handling markdown code blocks
+   * Parse JSON from Gemini response, handling markdown code blocks.
    */
   static parseJsonResponse<T>(response: string): T {
-    // Try to extract JSON from markdown code blocks
     let jsonText = response;
 
-    // Check for ```json blocks
     const jsonMatch = response.match(/```json\n([\s\S]*?)\n```/);
     if (jsonMatch) {
       jsonText = jsonMatch[1];
     } else {
-      // Check for ``` blocks without language specifier
       const codeMatch = response.match(/```\n([\s\S]*?)\n```/);
       if (codeMatch) {
         jsonText = codeMatch[1];
       } else {
-        // Try to find raw JSON object/array
         const rawJsonMatch = response.match(/(\{[\s\S]*\}|\[[\s\S]*\])/);
         if (rawJsonMatch) {
           jsonText = rawJsonMatch[1];
@@ -125,10 +167,9 @@ export class GeminiClient {
       }
     }
 
-    // Clean up common issues
     jsonText = jsonText
-      .replace(/,\s*([}\]])/g, '$1')  // Remove trailing commas
-      .replace(/\n/g, ' ')             // Remove newlines within JSON
+      .replace(/,\s*([}\]])/g, '$1')
+      .replace(/\n/g, ' ')
       .trim();
 
     try {
@@ -140,7 +181,6 @@ export class GeminiClient {
   }
 }
 
-// Singleton export
 let geminiClient: GeminiClient | null = null;
 
 export function getGeminiClient(): GeminiClient {
