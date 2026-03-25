@@ -50,7 +50,7 @@ export class GeminiClient {
       temperature: options.temperature ?? 0.2,
       maxOutputTokens: options.maxOutputTokens ?? 2048,
       thinkingLevel: options.thinkingLevel ?? 'low',
-      timeoutMs: options.timeoutMs ?? 15_000,
+      timeoutMs: options.timeoutMs ?? 10_000,
     });
   }
 
@@ -70,7 +70,7 @@ export class GeminiClient {
       temperature: options.temperature ?? 0.3,
       maxOutputTokens: options.maxOutputTokens ?? 2048,
       thinkingLevel: options.thinkingLevel ?? 'minimal',
-      timeoutMs: options.timeoutMs ?? 18_000,
+      timeoutMs: options.timeoutMs ?? 12_000,
       useGoogleSearch: true,
     });
   }

@@ -27,7 +27,7 @@ export class GroundedSearch {
         temperature: 0.3,
         maxOutputTokens: 2048,
         thinkingLevel: 'minimal',
-        timeoutMs: 18_000,
+        timeoutMs: 12_000,
       });
 
       return this.parseSearchResponse(response);

@@ -62,8 +62,11 @@ type ParsedFallbackSegment = {
   };
 };
 
-/** Maximum wall-clock time (ms) before we start cutting corners to return a result. */
-const REQUEST_DEADLINE_MS = 70_000;
+/** Maximum wall-clock time (ms) before we start cutting corners to return a result.
+ * Vercel Hobby plan hard-kills functions at 60s. We must start cutting corners
+ * well before that so we can still return a response instead of a timeout error.
+ * Previously set to 70s which EXCEEDED the 60s Hobby limit — causing silent kills. */
+const REQUEST_DEADLINE_MS = 45_000;
 
 export class ItineraryPlanner {
   private classifier: QueryClassifier;
