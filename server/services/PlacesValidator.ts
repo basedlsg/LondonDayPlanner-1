@@ -8,6 +8,18 @@ interface Place {
   id: string;
   displayName?: { text: string };
   formattedAddress?: string;
+  editorialSummary?: { text?: string } | string;
+  reviewSummary?: {
+    text?: { text?: string } | string;
+  };
+  generativeSummary?: {
+    overview?: {
+      text?: { text?: string } | string;
+    };
+    description?: {
+      text?: { text?: string } | string;
+    };
+  };
   location?: {
     latitude?: number;
     longitude?: number;
@@ -40,6 +52,7 @@ interface PlacesApiResponse {
 export class PlacesValidator {
   private apiKey: string;
   private baseUrl = 'https://places.googleapis.com/v1/places:searchText';
+  private readonly requestTimeoutMs = 12_000;
 
   constructor(apiKey?: string) {
     this.apiKey = apiKey || getConfig().placesApiKey;
@@ -95,6 +108,7 @@ export class PlacesValidator {
       name: placeDetails.displayName?.text || venue.name,
       formattedAddress: placeDetails.formattedAddress || venue.address,
       placeId: placeDetails.id,
+      description: this.extractPlaceDescription(placeDetails),
       location: placeDetails.location?.latitude != null && placeDetails.location?.longitude != null
         ? {
           lat: placeDetails.location.latitude,
@@ -115,6 +129,9 @@ export class PlacesValidator {
    * Search for a place using Google Places Text Search API
    */
   private async searchPlace(query: string): Promise<Place | null> {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), this.requestTimeoutMs);
+
     try {
       const response = await fetch(this.baseUrl, {
         method: 'POST',
@@ -125,6 +142,9 @@ export class PlacesValidator {
             'places.id',
             'places.displayName',
             'places.formattedAddress',
+            'places.editorialSummary',
+            'places.reviewSummary',
+            'places.generativeSummary',
             'places.location',
             'places.rating',
             'places.userRatingCount',
@@ -140,6 +160,7 @@ export class PlacesValidator {
           textQuery: query,
           maxResultCount: 1,
         }),
+        signal: controller.signal,
       });
 
       if (!response.ok) {
@@ -152,6 +173,8 @@ export class PlacesValidator {
     } catch (error) {
       console.error('Failed to search place:', error);
       return null;
+    } finally {
+      clearTimeout(timeout);
     }
   }
 
@@ -160,8 +183,17 @@ export class PlacesValidator {
    */
   async searchVenues(
     query: string,
-    maxResults: number = 5
+    maxResults: number = 5,
+    recommendationContext?: {
+      activity?: string;
+      location?: string;
+      venuePreference?: string;
+      requirements?: string[];
+    }
   ): Promise<ValidatedVenue[]> {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), this.requestTimeoutMs);
+
     try {
       const response = await fetch(this.baseUrl, {
         method: 'POST',
@@ -172,6 +204,9 @@ export class PlacesValidator {
             'places.id',
             'places.displayName',
             'places.formattedAddress',
+            'places.editorialSummary',
+            'places.reviewSummary',
+            'places.generativeSummary',
             'places.location',
             'places.rating',
             'places.userRatingCount',
@@ -187,6 +222,7 @@ export class PlacesValidator {
           textQuery: query,
           maxResultCount: maxResults,
         }),
+        signal: controller.signal,
       });
 
       if (!response.ok) {
@@ -199,7 +235,8 @@ export class PlacesValidator {
       return (data.places || []).map((place) => ({
         name: place.displayName?.text || 'Unknown',
         address: place.formattedAddress || 'Address not available',
-        whyRecommended: 'Matches your search criteria',
+        whyRecommended: undefined,
+        description: this.extractPlaceDescription(place),
         placeId: place.id,
         location: place.location?.latitude != null && place.location?.longitude != null
           ? {
@@ -220,6 +257,8 @@ export class PlacesValidator {
     } catch (error) {
       console.error('Failed to search venues:', error);
       return [];
+    } finally {
+      clearTimeout(timeout);
     }
   }
 
@@ -262,6 +301,132 @@ export class PlacesValidator {
       widthPx: p.widthPx,
       heightPx: p.heightPx,
     }));
+  }
+
+  private extractPlaceDescription(place: Place): string | undefined {
+    const candidates = [
+      this.unwrapSummaryText(place.generativeSummary?.overview?.text),
+      this.unwrapSummaryText(place.generativeSummary?.description?.text),
+      this.unwrapSummaryText(place.reviewSummary?.text),
+      this.unwrapSummaryText(place.editorialSummary),
+    ]
+      .map((value) => value?.trim())
+      .filter((value): value is string => Boolean(value));
+
+    return candidates[0];
+  }
+
+  private unwrapSummaryText(
+    value: string | { text?: string } | undefined
+  ): string | undefined {
+    if (!value) {
+      return undefined;
+    }
+
+    if (typeof value === 'string') {
+      return value;
+    }
+
+    return value.text;
+  }
+
+  private buildFallbackRecommendation(
+    place: Place,
+    context?: {
+      activity?: string;
+      location?: string;
+      venuePreference?: string;
+      requirements?: string[];
+    }
+  ): string {
+    const phrase = this.buildActivityPhrase(context?.activity, context?.venuePreference);
+    const location = context?.location?.trim();
+
+    if (location) {
+      return `${phrase} in ${location}`;
+    }
+
+    return phrase;
+  }
+
+  private buildActivityPhrase(activity?: string, venuePreference?: string): string {
+    const preferredValue = this.preferredDescriptor(activity, venuePreference);
+    const rawValue = preferredValue.trim();
+    if (!rawValue) {
+      return 'Popular local pick';
+    }
+
+    const normalized = rawValue.toLowerCase();
+
+    if (/(cocktail|drink|bar|pub)/.test(normalized)) {
+      return 'Great spot for drinks';
+    }
+
+    if (/(coffee|cafe|tea)/.test(normalized)) {
+      return 'Good stop for coffee';
+    }
+
+    if (/breakfast/.test(normalized)) {
+      return 'Popular breakfast option';
+    }
+
+    if (/brunch/.test(normalized)) {
+      return 'Popular brunch option';
+    }
+
+    if (/lunch/.test(normalized)) {
+      return 'Popular lunch option';
+    }
+
+    if (/(dinner|supper)/.test(normalized)) {
+      return 'Popular dinner option';
+    }
+
+    if (/dessert/.test(normalized)) {
+      return 'Popular dessert stop';
+    }
+
+    if (/(museum|gallery|exhibit)/.test(normalized)) {
+      return 'Good cultural stop';
+    }
+
+    if (/(park|garden|walk|stroll|explore|visit)/.test(normalized)) {
+      return 'Good place to explore';
+    }
+
+    return `Recommended for ${this.humanizePhrase(rawValue)}`;
+  }
+
+  private preferredDescriptor(activity?: string, venuePreference?: string): string {
+    const normalizedPreference = venuePreference?.trim().toLowerCase() ?? '';
+    const normalizedActivity = activity?.trim().toLowerCase() ?? '';
+
+    const genericVenuePreferences = new Set([
+      'restaurant',
+      'bar',
+      'pub',
+      'cafe',
+      'café',
+      'coffee shop',
+      'cocktail bar',
+      'museum',
+      'gallery',
+      'park',
+    ]);
+
+    if (normalizedActivity && genericVenuePreferences.has(normalizedPreference)) {
+      return activity!.trim();
+    }
+
+    return (venuePreference || activity || '').trim();
+  }
+
+  private humanizePhrase(value: string): string {
+    return value
+      .replace(/_/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .toLowerCase();
   }
 }
 

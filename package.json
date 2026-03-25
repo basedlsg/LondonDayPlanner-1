@@ -22,6 +22,7 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
     "test:watch": "vitest --watch",
+    "verify:itinerary-gate": "tsx server/scripts/release-gate.ts",
     "verify-env": "tsx scripts/verify-env.ts"
   },
   "dependencies": {

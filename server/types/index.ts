@@ -7,7 +7,7 @@ export interface Classification {
   activityCount: number;
   hasTimeConstraints: boolean;
   hasPreferences: boolean;
-  model: 'gemini-2.5-flash' | 'gemini-2.5-flash-lite' | 'gemini-2.5-pro';
+  model: 'gemini-2.5-flash' | 'gemini-3-flash-preview';
 }
 
 export interface QueryContext {
@@ -33,6 +33,24 @@ export interface CityConfig {
     lng: number;
   };
   neighborhoods: string[];
+}
+
+export interface CityArea {
+  name: string;
+  aliases?: string[];
+  center?: Location;
+}
+
+export interface ClientCity {
+  id: string;
+  slug: string;
+  name: string;
+  country: string;
+  timezone: string;
+  currency: string;
+  language?: string;
+  majorAreas: CityArea[];
+  defaultCenter: Location;
 }
 
 export interface PlanRequest {
@@ -91,6 +109,7 @@ export interface ParsedActivity {
   venuePreference?: string;
   requirements?: string[];
   scheduledTime?: string;
+  suggestedDurationMinutes?: number;
   timeWindow?: {
     earliest: string;
     latest: string;
@@ -102,7 +121,7 @@ export interface ParsedActivity {
 export interface GroundedVenue {
   name: string;
   address: string;
-  whyRecommended: string;
+  whyRecommended?: string;
   estimatedRating?: number;
   priceLevel?: string;
   likelyOpenNow?: boolean;
@@ -124,7 +143,9 @@ export interface ValidatedVenue extends GroundedVenue {
   isOpenNow?: boolean;
   phoneNumber?: string;
   photoUrl?: string;
+  photoUrls?: string[];
   types?: string[];
+  description?: string;
 }
 
 export interface OpeningHours {
@@ -167,6 +188,7 @@ export interface ItineraryPlace {
   alternatives?: ValidatedVenue[];
   activityDescription?: string;
   photoUrl?: string;
+  photoUrls?: string[];
   statusText?: string;
   isOpenNow?: boolean;
   phoneNumber?: string;

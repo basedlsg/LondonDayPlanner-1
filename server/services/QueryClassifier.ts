@@ -2,6 +2,7 @@
 // Classifies user queries into tiers (simple, detailed, complex) and selects appropriate AI model
 
 import { QueryTier, Classification } from '../types/index.js';
+import { DEFAULT_GEMINI_FLASH_MODEL } from '../lib/gemini.js';
 
 const ACTIVITY_KEYWORD_SOURCE = [
   'breakfast', 'brunch', 'lunch', 'dinner', 'supper',
@@ -14,6 +15,12 @@ const ACTIVITY_KEYWORD_SOURCE = [
   'walk', 'stroll', 'dessert',
   'sightseeing', 'tour', 'visit', 'explore'
 ].join('|');
+
+type ActivityMention = {
+  index: number;
+  raw: string;
+  canonical: string;
+};
 
 export class QueryClassifier {
   /**
@@ -42,18 +49,8 @@ export class QueryClassifier {
       tier = 'simple';
     }
 
-    // Select model based on tier - use Flash for all tiers (fast + reliable)
-    // Pro is too slow and causes Vercel function timeouts
-    let model: 'gemini-2.5-flash' | 'gemini-2.5-flash-lite' | 'gemini-2.5-pro';
-    switch (tier) {
-      case 'simple':
-        model = 'gemini-2.5-flash-lite';
-        break;
-      case 'detailed':
-      case 'complex':
-        model = 'gemini-2.5-flash';
-        break;
-    }
+    // Default to the stable Gemini 2.5 Flash path for production reliability.
+    const model: 'gemini-2.5-flash' = DEFAULT_GEMINI_FLASH_MODEL;
 
     return {
       tier,
@@ -68,11 +65,9 @@ export class QueryClassifier {
    * Count the number of distinct activities in the query
    */
   private countActivities(query: string): number {
-    const activityMentions = Array.from(
-      query.matchAll(new RegExp(`\\b(${ACTIVITY_KEYWORD_SOURCE})\\b`, 'gi'))
-    );
+    const activityMentions = this.getActivityMentions(query);
     const sequentialActivityCount = activityMentions.reduce((count, match, index) => {
-      const mentionIndex = match.index ?? 0;
+      const mentionIndex = match.index;
       if (index === 0 || this.hasSequentialPrefix(query, mentionIndex)) {
         return count + 1;
       }
@@ -81,8 +76,13 @@ export class QueryClassifier {
 
     const separatorCount = this.countActivitySeparators(query);
 
-    if (sequentialActivityCount > 0 || separatorCount > 0) {
+    if (sequentialActivityCount > 1 || separatorCount > 0) {
       return Math.max(sequentialActivityCount, separatorCount + 1);
+    }
+
+    const implicitDistinctActivityCount = this.countImplicitDistinctActivities(query, activityMentions);
+    if (implicitDistinctActivityCount > 0) {
+      return implicitDistinctActivityCount;
     }
 
     return activityMentions.length > 0 ? 1 : 0;
@@ -97,6 +97,7 @@ export class QueryClassifier {
       /\bthen\b/i,                    // Sequential indicator
       /\bafter\b/i,                   // After indicator
       /\bfollowed\s+by\b/i,           // Sequence indicator
+      /\r?\n+\s*(?=(?:\b(?:breakfast|brunch|lunch|dinner|supper|coffee|cafe|tea|drinks?|cocktails?|bar|pub|meeting|appointment|reservation|work(?:ing)?|cowork(?:ing)?|shopping|shop|museum|gallery|exhibit|walk|stroll|dessert|sightseeing|tour|visit|explore)\b))/i,
       new RegExp(`,\\s*(?=(?:${ACTIVITY_KEYWORD_SOURCE})\\b)`, 'i'),
       new RegExp(`\\band\\s+(?=(?:${ACTIVITY_KEYWORD_SOURCE})\\b)`, 'i'),
       /\b(?:from|starting)\s+.*?\b(?:to|ending)\b/i,  // Range indicator
@@ -196,6 +197,7 @@ export class QueryClassifier {
       /\blater\b/gi,
       /\bfinally\b/gi,
       /\b(?:and|&)\s+then\b/gi,
+      /\r?\n+\s*(?=(?:\b(?:breakfast|brunch|lunch|dinner|supper|coffee|cafe|tea|drinks?|cocktails?|bar|pub|meeting|appointment|reservation|work(?:ing)?|cowork(?:ing)?|shopping|shop|museum|gallery|exhibit|walk|stroll|dessert|sightseeing|tour|visit|explore)\b))/gi,
       new RegExp(`,\\s*(?=(?:${ACTIVITY_KEYWORD_SOURCE})\\b)`, 'gi'),
       new RegExp(`\\band\\s+(?=(?:${ACTIVITY_KEYWORD_SOURCE})\\b)`, 'gi'),
     ];
@@ -208,7 +210,70 @@ export class QueryClassifier {
 
   private hasSequentialPrefix(query: string, activityIndex: number): boolean {
     const prefix = query.slice(Math.max(0, activityIndex - 32), activityIndex);
-    return /(?:--|,|;|\/|\bthen\b|\bafter(?:\s+that)?\b|\bfollowed\s+by\b|\bnext\b|\blater\b|\bfinally\b|\band\b|&)\s*$/i.test(prefix);
+    return /(?:--|,|;|\/|\bthen\b|\bafter(?:\s+that)?\b|\bfollowed\s+by\b|\bnext\b|\blater\b|\bfinally\b|\band\b|&|\r?\n)\s*$/i.test(prefix);
+  }
+
+  private getActivityMentions(query: string): ActivityMention[] {
+    return Array.from(
+      query.matchAll(new RegExp(`\\b(${ACTIVITY_KEYWORD_SOURCE})\\b`, 'gi'))
+    ).map((match) => ({
+      index: match.index ?? 0,
+      raw: match[0].toLowerCase(),
+      canonical: this.canonicalizeActivity(match[0]),
+    }));
+  }
+
+  private countImplicitDistinctActivities(query: string, activityMentions: ActivityMention[]): number {
+    if (activityMentions.length === 0) {
+      return 0;
+    }
+
+    let count = 1;
+    let previousMention = activityMentions[0];
+
+    for (let index = 1; index < activityMentions.length; index += 1) {
+      const currentMention = activityMentions[index];
+      const previousEnd = previousMention.index + previousMention.raw.length;
+      const betweenMentions = query.slice(previousEnd, currentMention.index);
+      const normalizedGap = betweenMentions.replace(/\s+/g, ' ').trim();
+
+      if (
+        currentMention.canonical !== previousMention.canonical
+        && (normalizedGap.length >= 6 || /[\r\n.!?]/.test(betweenMentions))
+      ) {
+        count += 1;
+        previousMention = currentMention;
+      }
+    }
+
+    return count;
+  }
+
+  private canonicalizeActivity(activity: string): string {
+    switch (activity.toLowerCase()) {
+      case 'cafe':
+      case 'tea':
+        return 'coffee';
+      case 'cocktail':
+      case 'cocktails':
+      case 'drinks':
+      case 'bar':
+      case 'pub':
+        return 'drinks';
+      case 'shop':
+        return 'shopping';
+      case 'gallery':
+      case 'exhibit':
+        return 'museum';
+      case 'stroll':
+        return 'walk';
+      case 'tour':
+      case 'visit':
+      case 'sightseeing':
+        return 'explore';
+      default:
+        return activity.toLowerCase();
+    }
   }
 }
 

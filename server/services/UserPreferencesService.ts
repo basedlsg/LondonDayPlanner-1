@@ -387,8 +387,7 @@ IMPORTANT: Use these preferences to rank and filter recommendations. Prioritize 
     isPremium: boolean
   ): string {
     if (isPremium) {
-      // Premium users always get the Pro model
-      return 'gemini-1.5-pro';
+      return classification.model;
     }
     // Free users get the model based on query complexity
     return classification.model;

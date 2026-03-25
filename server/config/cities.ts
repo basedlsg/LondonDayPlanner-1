@@ -1,6 +1,6 @@
 // City configurations for the day planner
 
-import { CityConfig } from '../types/index.js';
+import { CityConfig, CityArea, ClientCity } from '../types/index.js';
 
 export const cities: Record<string, CityConfig> = {
   london: {
@@ -28,6 +28,30 @@ export const cities: Record<string, CityConfig> = {
       'Tribeca', 'Chelsea', 'East Village', 'West Village', 'Williamsburg',
       'Brooklyn Heights', 'DUMBO', 'Lower East Side', 'NoHo', 'Nolita',
       'Financial District', 'Harlem', 'Flatiron', 'Murray Hill', 'Astoria'
+    ]
+  },
+  boston: {
+    name: 'Boston',
+    slug: 'boston',
+    country: 'United States',
+    timezone: 'America/New_York',
+    coordinates: { lat: 42.3601, lng: -71.0589 },
+    neighborhoods: [
+      'Back Bay', 'Beacon Hill', 'North End', 'Seaport', 'South End',
+      'Fenway', 'Cambridge', 'Charlestown', 'Allston', 'Somerville',
+      'Harvard Square', 'South Boston', 'Downtown Crossing'
+    ]
+  },
+  austin: {
+    name: 'Austin',
+    slug: 'austin',
+    country: 'United States',
+    timezone: 'America/Chicago',
+    coordinates: { lat: 30.2672, lng: -97.7431 },
+    neighborhoods: [
+      'Downtown', 'South Congress', 'East Austin', 'Zilker', 'South Lamar',
+      'Rainey Street', 'The Domain', 'Hyde Park', 'Clarksville', 'Bouldin Creek',
+      'Mueller', 'East Cesar Chavez', 'West Campus'
     ]
   },
   paris: {
@@ -138,8 +162,99 @@ export const cities: Record<string, CityConfig> = {
   }
 };
 
+const cityMetadata: Record<string, { currency: string; language?: string; majorAreas?: CityArea[] }> = {
+  london: {
+    currency: 'GBP',
+    language: 'en',
+    majorAreas: [
+      { name: 'Mayfair' },
+      { name: 'Soho' },
+      { name: 'Shoreditch' },
+      { name: 'Chelsea' },
+      { name: 'Covent Garden' },
+      { name: 'Camden' }
+    ]
+  },
+  nyc: {
+    currency: 'USD',
+    language: 'en',
+    majorAreas: [
+      { name: 'SoHo' },
+      { name: 'Greenwich Village', aliases: ['West Village'] },
+      { name: 'Midtown' },
+      { name: 'Upper East Side' },
+      { name: 'Chelsea' },
+      { name: 'Williamsburg' }
+    ]
+  },
+  boston: {
+    currency: 'USD',
+    language: 'en',
+    majorAreas: [
+      { name: 'Back Bay' },
+      { name: 'Beacon Hill' },
+      { name: 'North End' },
+      { name: 'Seaport' },
+      { name: 'South End' },
+      { name: 'Cambridge', aliases: ['Harvard Square'] }
+    ]
+  },
+  austin: {
+    currency: 'USD',
+    language: 'en',
+    majorAreas: [
+      { name: 'Downtown' },
+      { name: 'South Congress', aliases: ['SoCo'] },
+      { name: 'East Austin' },
+      { name: 'South Lamar' },
+      { name: 'Rainey Street' },
+      { name: 'Zilker' }
+    ]
+  },
+  paris: {
+    currency: 'EUR',
+    language: 'fr'
+  },
+  tokyo: {
+    currency: 'JPY',
+    language: 'ja'
+  },
+  rome: {
+    currency: 'EUR',
+    language: 'it'
+  },
+  barcelona: {
+    currency: 'EUR',
+    language: 'es'
+  },
+  sydney: {
+    currency: 'AUD',
+    language: 'en'
+  },
+  dubai: {
+    currency: 'AED',
+    language: 'ar'
+  },
+  singapore: {
+    currency: 'SGD',
+    language: 'en'
+  },
+  istanbul: {
+    currency: 'TRY',
+    language: 'tr'
+  },
+  'hong-kong': {
+    currency: 'HKD',
+    language: 'zh'
+  }
+};
+
+export function findCityConfig(citySlug: string): CityConfig | undefined {
+  return cities[citySlug.toLowerCase()];
+}
+
 export function getCityConfig(citySlug: string): CityConfig {
-  const city = cities[citySlug.toLowerCase()];
+  const city = findCityConfig(citySlug);
   if (!city) {
     // Default to London if city not found
     return cities.london;
@@ -153,4 +268,29 @@ export function getAllCities(): CityConfig[] {
 
 export function getCitySlugs(): string[] {
   return Object.keys(cities);
+}
+
+export function toClientCity(city: CityConfig): ClientCity {
+  const metadata = cityMetadata[city.slug];
+
+  return {
+    id: city.slug,
+    slug: city.slug,
+    name: city.name,
+    country: city.country,
+    timezone: city.timezone,
+    currency: metadata?.currency ?? 'USD',
+    language: metadata?.language,
+    majorAreas: metadata?.majorAreas ?? city.neighborhoods.slice(0, 6).map((name) => ({ name })),
+    defaultCenter: city.coordinates,
+  };
+}
+
+export function getAllClientCities(): ClientCity[] {
+  return getAllCities().map(toClientCity);
+}
+
+export function getClientCity(citySlug: string): ClientCity | undefined {
+  const city = findCityConfig(citySlug);
+  return city ? toClientCity(city) : undefined;
 }

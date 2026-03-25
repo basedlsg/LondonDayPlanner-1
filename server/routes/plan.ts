@@ -4,7 +4,7 @@
 import { Router, Request, Response } from 'express';
 import { ItineraryPlanner, getItineraryPlanner } from '../services/ItineraryPlanner.js';
 import { getConfig } from '../config/index.js';
-import { getAllCities, getCityConfig } from '../config/cities.js';
+import { findCityConfig, getAllClientCities, getClientCity, getCityConfig } from '../config/cities.js';
 import { Itinerary, PlanRequest } from '../types/index.js';
 
 const router = Router();
@@ -40,7 +40,15 @@ router.post('/plan', async (req: Request, res: Response) => {
     console.log(`[/api/plan] Received request for city: ${city}`);
     console.log(`[/api/plan] Query: ${query}`);
 
-    const cityConfig = getCityConfig(city);
+    const requestedCity = typeof city === 'string' ? city.trim() : '';
+    const cityConfig = requestedCity ? findCityConfig(requestedCity) : getCityConfig('london');
+    if (!cityConfig) {
+      return res.status(400).json({
+        error: 'Unsupported city',
+        message: `City "${requestedCity}" is not currently supported.`,
+      });
+    }
+
     const planner = getItineraryPlanner();
 
     const request: PlanRequest = {
@@ -83,7 +91,14 @@ router.post('/:city/plan', async (req: Request, res: Response) => {
     console.log(`[/api/${city}/plan] Received request`);
     console.log(`[/api/${city}/plan] Query: ${planQuery}`);
 
-    const cityConfig = getCityConfig(city);
+    const cityConfig = findCityConfig(city);
+    if (!cityConfig) {
+      return res.status(404).json({
+        error: 'Unsupported city',
+        message: `City "${city}" is not currently supported.`,
+      });
+    }
+
     const planner = getItineraryPlanner();
 
     const request: PlanRequest = {
@@ -168,8 +183,23 @@ router.get('/place-photo', async (req: Request, res: Response) => {
       });
     }
 
-    res.set('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400');
-    return res.redirect(data.photoUri);
+    const imageResponse = await fetch(data.photoUri);
+    if (!imageResponse.ok) {
+      return res.status(imageResponse.status).json({
+        error: 'Failed to fetch photo bytes',
+        message: await imageResponse.text(),
+      });
+    }
+
+    const imageBuffer = Buffer.from(await imageResponse.arrayBuffer());
+    res.set('Cache-Control', 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800');
+    res.set('Content-Type', imageResponse.headers.get('content-type') || 'image/jpeg');
+    const contentLength = imageResponse.headers.get('content-length');
+    if (contentLength) {
+      res.set('Content-Length', contentLength);
+    }
+
+    return res.status(200).send(imageBuffer);
   } catch (error) {
     console.error('[/api/place-photo] Error:', error);
     return res.status(500).json({
@@ -184,12 +214,24 @@ router.get('/place-photo', async (req: Request, res: Response) => {
  * Get list of supported cities
  */
 router.get('/cities', (req: Request, res: Response) => {
-  const cities = getAllCities();
-  res.json(cities.map((c: any) => ({
-    name: c.name,
-    slug: c.slug,
-    country: c.country,
-  })));
+  res.json(getAllClientCities());
+});
+
+/**
+ * GET /api/cities/:slug
+ * Get a single supported city definition for client routing and city pickers
+ */
+router.get('/cities/:slug', (req: Request, res: Response) => {
+  const city = getClientCity(req.params.slug);
+
+  if (!city) {
+    return res.status(404).json({
+      error: 'Unsupported city',
+      message: `City "${req.params.slug}" is not currently supported.`,
+    });
+  }
+
+  return res.json(city);
 });
 
 export default router;
@@ -202,9 +244,11 @@ function withAbsoluteAssetUrls(req: Request, itinerary: Itinerary): Itinerary {
     venues: itinerary.venues.map((venue) => ({
       ...venue,
       photoUrl: absolutizeMaybeRelative(baseUrl, venue.photoUrl),
+      photoUrls: absolutizeManyMaybeRelative(baseUrl, venue.photoUrls),
       alternatives: venue.alternatives?.map((alternative) => ({
         ...alternative,
         photoUrl: absolutizeMaybeRelative(baseUrl, alternative.photoUrl),
+        photoUrls: absolutizeManyMaybeRelative(baseUrl, alternative.photoUrls),
       })),
     })),
   };
@@ -216,6 +260,14 @@ function absolutizeMaybeRelative(baseUrl: string, value?: string): string | unde
   }
 
   return value.startsWith('http') ? value : new URL(value, baseUrl).toString();
+}
+
+function absolutizeManyMaybeRelative(baseUrl: string, values?: string[]): string[] | undefined {
+  if (!values || values.length === 0) {
+    return undefined;
+  }
+
+  return values.map((value) => absolutizeMaybeRelative(baseUrl, value)).filter((value): value is string => Boolean(value));
 }
 
 function getRequestOrigin(req: Request): string {
