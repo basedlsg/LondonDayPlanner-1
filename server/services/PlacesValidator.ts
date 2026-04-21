@@ -2,6 +2,7 @@
 // Validates venue information from grounded search using Google Places API
 
 import { getConfig } from '../config/index.js';
+import { getCityConfig } from '../config/cities.js';
 import { GroundedVenue, ValidatedVenue, OpeningHours, PlacePhoto } from '../types/index.js';
 
 interface Place {
@@ -92,8 +93,9 @@ export class PlacesValidator {
   ): Promise<ValidatedVenue | null> {
     // Build search query: venue name + address for accuracy
     const searchQuery = `${venue.name} ${venue.address}`;
+    const cityConfig = getCityConfig(citySlug);
 
-    const placeDetails = await this.searchPlace(searchQuery);
+    const placeDetails = await this.searchPlace(searchQuery, cityConfig.coordinates);
 
     if (!placeDetails) {
       // Venue not found in Places API, return original with flag
@@ -128,11 +130,29 @@ export class PlacesValidator {
   /**
    * Search for a place using Google Places Text Search API
    */
-  private async searchPlace(query: string): Promise<Place | null> {
+  private async searchPlace(
+    query: string,
+    coordinates?: { lat: number; lng: number }
+  ): Promise<Place | null> {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), this.requestTimeoutMs);
 
     try {
+      const requestBody: Record<string, unknown> = {
+        textQuery: query,
+        maxResultCount: 1,
+      };
+
+      // Bias results toward the city center (50km radius)
+      if (coordinates) {
+        requestBody.locationBias = {
+          circle: {
+            center: { latitude: coordinates.lat, longitude: coordinates.lng },
+            radius: 50000.0,
+          },
+        };
+      }
+
       const response = await fetch(this.baseUrl, {
         method: 'POST',
         headers: {
@@ -156,10 +176,7 @@ export class PlacesValidator {
             'places.types',
           ].join(','),
         },
-        body: JSON.stringify({
-          textQuery: query,
-          maxResultCount: 1,
-        }),
+        body: JSON.stringify(requestBody),
         signal: controller.signal,
       });
 
@@ -189,12 +206,28 @@ export class PlacesValidator {
       location?: string;
       venuePreference?: string;
       requirements?: string[];
-    }
+    },
+    coordinates?: { lat: number; lng: number }
   ): Promise<ValidatedVenue[]> {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), this.requestTimeoutMs);
 
     try {
+      const requestBody: Record<string, unknown> = {
+        textQuery: query,
+        maxResultCount: maxResults,
+      };
+
+      // Bias results toward the city center (50km radius)
+      if (coordinates) {
+        requestBody.locationBias = {
+          circle: {
+            center: { latitude: coordinates.lat, longitude: coordinates.lng },
+            radius: 50000.0,
+          },
+        };
+      }
+
       const response = await fetch(this.baseUrl, {
         method: 'POST',
         headers: {
@@ -218,10 +251,7 @@ export class PlacesValidator {
             'places.types',
           ].join(','),
         },
-        body: JSON.stringify({
-          textQuery: query,
-          maxResultCount: maxResults,
-        }),
+        body: JSON.stringify(requestBody),
         signal: controller.signal,
       });
 

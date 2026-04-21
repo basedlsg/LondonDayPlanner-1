@@ -7,19 +7,15 @@ struct SettingsView: View {
     @AppStorage("notifications_enabled") private var notificationsEnabled = true
     @AppStorage("weather_alerts") private var weatherAlerts = true
     @AppStorage("distance_unit") private var distanceUnit = "km"
-    
-    @StateObject private var store = StoreManager.shared
+
     @StateObject private var authService = AuthenticationService.shared
     @StateObject private var stressTest = StressTestService.shared
-    @State private var showSubscription = false
     @State private var showStressTest = false
     @State private var showDeleteAlert = false
-    @State private var didAutoOpenSubscription = false
-    private let launchArguments = ProcessInfo.processInfo.arguments
     
     var body: some View {
         ZStack {
-            LiquidBackground()
+            DesignTokens.Gradients.brandBackground
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
@@ -57,19 +53,6 @@ struct SettingsView: View {
         }
         // Hide default navigation bar to use custom header
         .toolbar(.hidden, for: .navigationBar)
-        .sheet(isPresented: $showSubscription) {
-            SubscriptionView()
-                .presentationDetents([.large])
-                .presentationCornerRadius(32)
-        }
-        .onAppear {
-            guard launchArguments.contains("--record-open-subscription"), !didAutoOpenSubscription else { return }
-            didAutoOpenSubscription = true
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                showSubscription = true
-            }
-        }
         .alert(NSLocalizedString("settings.deleteAccountTitle", value: "Delete Account?", comment: ""), isPresented: $showDeleteAlert) {
             Button("Cancel", role: .cancel) { }
             Button("Delete", role: .destructive) {
@@ -98,21 +81,9 @@ struct SettingsView: View {
                                 .foregroundStyle(Color.accentPink)
                             
                             VStack(alignment: .leading, spacing: 2) {
-                                HStack {
-                                    Text(authService.fullName?.givenName ?? "User")
-                                        .font(.headline)
-                                        .foregroundStyle(.black)
-                                    
-                                    if true {
-                                        Text("PRO")
-                                            .font(.caption2)
-                                            .fontWeight(.bold)
-                                            .foregroundStyle(.white)
-                                            .padding(.horizontal, 6)
-                                            .padding(.vertical, 2)
-                                            .background(Color.accentPink, in: Capsule())
-                                    }
-                                }
+                                Text(authService.fullName?.givenName ?? "User")
+                                    .font(.headline)
+                                    .foregroundStyle(.black)
                                 Text(authService.email ?? NSLocalizedString("settings.syncDescription", comment: "Sync your trips"))
                                     .font(.caption)
                                     .foregroundStyle(.gray)
@@ -138,34 +109,6 @@ struct SettingsView: View {
                         Spacer()
                     }
                     .padding(DesignTokens.Spacing.md)
-                    
-                    Divider()
-                        .background(Color.gray.opacity(0.2))
-                        
-                    // Subscription Row
-                    Button {
-                        showSubscription = true
-                    } label: {
-                        HStack {
-                            Image(systemName: "crown.fill")
-                                .foregroundStyle(Color.yellow) // Gold for premium
-                                .frame(width: 24)
-                            
-                            Text(NSLocalizedString("settings.subscription", comment: "Subscription"))
-                                .foregroundStyle(.black)
-                            
-                            Spacer()
-                            
-                            Text(NSLocalizedString("subscription.active", value: "Active", comment: ""))
-                                .font(.subheadline)
-                                .foregroundStyle(.green)
-                            
-                            Image(systemName: "chevron.right")
-                                .foregroundStyle(.gray.opacity(0.5))
-                        }
-                        .padding(DesignTokens.Spacing.md)
-                    }
-                    .accessibilityIdentifier("settings.subscriptionRow")
                     
                     if authService.isAuthenticated {
                         Divider()

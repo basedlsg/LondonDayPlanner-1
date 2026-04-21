@@ -5,8 +5,7 @@ let package = Package(
     name: "PlanYourPerfectDay",
     defaultLocalization: "en",
     platforms: [
-        .iOS(.v26),
-        .macOS(.v10_15)
+        .iOS(.v26)
     ],
     products: [
         .executable(

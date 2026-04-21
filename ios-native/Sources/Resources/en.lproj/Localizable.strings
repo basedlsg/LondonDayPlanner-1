@@ -34,6 +34,8 @@
 "itinerary.call" = "Call";
 "itinerary.alternatives.title" = "Alternatives";
 "itinerary.minutes" = "%@ min";
+"itinerary.similar.title" = "Similar Experiences";
+"itinerary.placeholder.description" = "A thoughtfully selected stop for your itinerary.";
 
 
 /* Explore */
@@ -64,9 +66,6 @@
 "settings.themes.light" = "Light";
 "settings.themes.dark" = "Dark";
 "settings.themes.system" = "System";
-"settings.subscription" = "Subscription";
-"settings.manageSubscription" = "Manage Subscription";
-"settings.manage" = "Upgrade";
 "settings.about" = "About";
 "settings.version" = "Version %@";
 "settings.account" = "Account";
@@ -81,37 +80,6 @@
 "settings.privacyPolicy" = "Privacy Policy";
 "settings.termsOfService" = "Terms of Service";
 "settings.rateApp" = "Rate App";
-
-
-/* Subscription */
-"subscription.active" = "Active";
-"subscription.premium" = "Premium";
-"subscription.tagline" = "Unlock personalized recommendations";
-"subscription.free" = "Free";
-"subscription.monthly" = "Monthly";
-"subscription.annual" = "Annual";
-"subscription.perMonth" = "/month";
-"subscription.perYear" = "/year";
-"subscription.savings" = "Save %d%%";
-"subscription.currentPlan" = "Current Plan";
-"subscription.features.memory" = "Personalized recommendations";
-"subscription.features.memoryDescription" = "The AI learns your preferences over time";
-"subscription.features.betterModel" = "Enhanced AI responses";
-"subscription.features.betterModelDescription" = "Access to our most capable AI model";
-"subscription.features.priority" = "Priority processing";
-"subscription.features.priorityDescription" = "Faster response times";
-"subscription.subscribe" = "Subscribe";
-"subscription.restore" = "Restore Purchase";
-"subscription.cancel" = "Cancel Subscription";
-"subscription.expiresOn" = "Expires on %@";
-"subscription.unableToLoad" = "Unable to load subscription options";
-"subscription.renewsOn" = "Renews on %@";
-"subscription.troubleshoot" = "If this persists, confirm your App Store account is active and try again.";
-"subscription.selectPlanHint" = "Select a plan to continue.";
-"subscription.plansUnavailableNeutral" = "Premium plans are loading in the background.";
-"subscription.loadingBackgroundHint" = "You can continue with Free any time while we keep checking.";
-"subscription.refreshPlans" = "Refresh Plans";
-"subscription.continueFree" = "Continue with Free";
 
 /* Weather */
 "weather.aware" = "Weather Aware";
@@ -151,12 +119,122 @@
 "trips.noTrips" = "No trips yet";
 "trips.getStarted" = "Plan your first day to get started";
 "trips.days" = "%@ days";
+"trips.addButton" = "Add to My Trips";
+"trips.addedButton" = "Saved to My Trips";
 
 /* Map */
 "map.title" = "Map";
 "map.done" = "Done";
+"maps.chooseApp" = "Open directions in";
+"maps.apple" = "Apple Maps";
+"maps.google" = "Google Maps";
 
 /* Legal */
-"legal.autoRenew" = "Subscriptions auto-renew unless cancelled at least 24 hours before the end of the current period.";
 "legal.terms" = "Terms of Use";
 "legal.privacy" = "Privacy Policy";
+
+/* Loading Screen Facts */
+"loading.didYouKnow" = "DID YOU KNOW?";
+"loading.fact.general.1" = "Planning your perfect day...";
+"loading.fact.general.2" = "Finding the best spots for you...";
+"loading.fact.general.3" = "Curating your ideal itinerary...";
+
+/* London */
+"loading.fact.london.1a" = "There are over 100 species of fish in the River Thames.";
+"loading.fact.london.1b" = "The Thames is 215 miles long, making it the longest river entirely in England.";
+"loading.fact.london.1c" = "Over 15 million people depend on the Thames for their drinking water.";
+"loading.fact.london.2a" = "Tea was first sold in London in 1657.";
+"loading.fact.london.2b" = "The British drink approximately 100 million cups of tea every day.";
+"loading.fact.london.2c" = "Afternoon tea was invented in 1840 by Anna, the Duchess of Bedford.";
+"loading.fact.london.3a" = "Queen Elizabeth II owned more than 30 corgis during her reign.";
+"loading.fact.london.3b" = "The Queen's first corgi, Dookie, joined the royal family in 1933.";
+"loading.fact.london.3c" = "Corgis were originally bred in Wales to herd cattle.";
+"loading.fact.london.4a" = "London taxi drivers must pass 'The Knowledge' test, memorizing 25,000 streets and 20,000 landmarks.";
+"loading.fact.london.4b" = "Big Ben is actually the name of the bell, not the tower — the tower is called the Elizabeth Tower.";
+"loading.fact.london.4c" = "The clock in Elizabeth Tower has rarely stopped since it started ticking in 1859.";
+"loading.fact.london.5a" = "Tower Bridge opens approximately 800 times per year for passing ships.";
+"loading.fact.london.5b" = "Tower Bridge took 8 years and 432 workers to build, opening in 1894.";
+"loading.fact.london.5c" = "Tower Bridge is often confused with London Bridge, which is a much simpler structure upstream.";
+"loading.fact.london.6a" = "London is home to over 170 museums, including the British Museum, Tate Modern, and the V&A.";
+"loading.fact.london.6b" = "The iconic red double-decker bus has been a symbol of London since 1956.";
+"loading.fact.london.6c" = "There are still around 8,000 red phone boxes remaining across the UK.";
+
+/* NYC */
+"loading.fact.nyc.1a" = "The Brooklyn Bridge was the first steel-wire suspension bridge ever constructed.";
+"loading.fact.nyc.1b" = "The Brooklyn Bridge took 14 years to build and opened in 1883.";
+"loading.fact.nyc.1c" = "Approximately 120,000 vehicles and pedestrians cross the Brooklyn Bridge every day.";
+"loading.fact.nyc.2a" = "The Statue of Liberty was a gift from France, arriving in 350 individual pieces in 1885.";
+"loading.fact.nyc.2b" = "Lady Liberty's full name is 'Liberty Enlightening the World.'";
+"loading.fact.nyc.2c" = "The statue's copper skin is only 3/32 of an inch thick — about two pennies.";
+"loading.fact.nyc.3a" = "The Empire State Building was built in just 410 days.";
+"loading.fact.nyc.3b" = "The building is struck by lightning about 25 times per year.";
+"loading.fact.nyc.3c" = "The Empire State Building has its own ZIP code: 10118.";
+"loading.fact.nyc.4a" = "Central Park is larger than the entire country of Monaco.";
+"loading.fact.nyc.4b" = "The park has over 25,000 trees and 9,000 benches.";
+"loading.fact.nyc.4c" = "Central Park was the first landscaped public park in the United States, opening in 1858.";
+"loading.fact.nyc.5a" = "NYC has more than 800 spoken languages, making it the most linguistically diverse city in the world.";
+"loading.fact.nyc.5b" = "There are approximately 13,500 licensed yellow taxis in New York City.";
+"loading.fact.nyc.5c" = "New Yorkers drink about 7 times more coffee per capita than the rest of the US.";
+"loading.fact.nyc.6a" = "The NYC subway system has 472 stations — the most of any system in the world.";
+"loading.fact.nyc.6b" = "The subway runs 24 hours a day, 365 days a year — one of the few systems in the world to do so.";
+"loading.fact.nyc.6c" = "If laid end to end, NYC subway tracks would stretch from New York to Chicago.";
+
+/* Paris */
+"loading.fact.paris.1a" = "The Eiffel Tower can be 15 cm taller during the summer, due to thermal expansion of the iron.";
+"loading.fact.paris.1b" = "The Eiffel Tower was originally meant to stand for just 20 years before being dismantled.";
+"loading.fact.paris.1c" = "The tower is repainted every 7 years, requiring 60 tonnes of paint.";
+"loading.fact.paris.2a" = "The Arc de Triomphe sits at the center of 12 radiating avenues.";
+"loading.fact.paris.2b" = "It took 30 years to build the Arc de Triomphe, from 1806 to 1836.";
+"loading.fact.paris.2c" = "An unknown soldier from World War I has been buried beneath the arch since 1921.";
+"loading.fact.paris.3a" = "Notre-Dame took nearly 200 years to build, from 1163 to 1345.";
+"loading.fact.paris.3b" = "The cathedral's largest bell, Emmanuel, weighs over 13 tonnes.";
+"loading.fact.paris.3c" = "Victor Hugo's novel 'The Hunchback of Notre-Dame' saved the cathedral from demolition in 1831.";
+"loading.fact.paris.4a" = "The croissant was actually invented in Austria, not France — but the French perfected it.";
+"loading.fact.paris.4b" = "Paris has over 30,000 cafés and restaurants.";
+"loading.fact.paris.4c" = "French law requires every bakery to make its baguettes from scratch on-site to call itself a 'boulangerie.'";
+"loading.fact.paris.5a" = "The Louvre is the world's largest art museum and was originally built as a fortress in 1190.";
+"loading.fact.paris.5b" = "It would take 100 days to see every piece of art in the Louvre, spending 30 seconds on each.";
+"loading.fact.paris.5c" = "The Mona Lisa has her own mailbox at the Louvre because of all the love letters she receives.";
+"loading.fact.paris.6a" = "Sacré-Cœur's bell, La Savoyarde, is one of the heaviest in the world at 19 tonnes.";
+"loading.fact.paris.6b" = "The basilica's white stone actually gets whiter with age as it secretes calcite when it rains.";
+"loading.fact.paris.6c" = "There is only one stop sign in the entire city of Paris.";
+
+/* Austin */
+"loading.fact.austin.1a" = "Austin is known as the 'Live Music Capital of the World' with more live music venues per capita than anywhere else.";
+"loading.fact.austin.1b" = "Austin hosts over 250 live music venues on any given night.";
+"loading.fact.austin.1c" = "The city's unofficial motto is 'Keep Austin Weird.'";
+"loading.fact.austin.2a" = "The Texas State Capitol is taller than the U.S. Capitol in Washington, D.C.";
+"loading.fact.austin.2b" = "The capitol building covers 3 acres and has over 400 rooms.";
+"loading.fact.austin.2c" = "Austin was originally named 'Waterloo' when it was first settled in 1837.";
+"loading.fact.austin.3a" = "Austin is home to North America's largest urban bat colony — up to 1.5 million bats live under the Congress Avenue Bridge.";
+"loading.fact.austin.3b" = "The bats eat 10,000 to 30,000 pounds of insects every night.";
+"loading.fact.austin.3c" = "Bat-watching at Congress Avenue Bridge attracts around 100,000 tourists each year.";
+"loading.fact.austin.4a" = "Texas-style BBQ brisket can take 12 to 18 hours to smoke properly.";
+"loading.fact.austin.4b" = "Austin's Franklin Barbecue regularly has lines stretching 2-3 hours before it opens.";
+"loading.fact.austin.4c" = "Texas produces more cattle than any other U.S. state — about 13 million head.";
+"loading.fact.austin.5a" = "A Texas Longhorn's horns can span over 7 feet from tip to tip.";
+"loading.fact.austin.5b" = "The University of Texas mascot, Bevo, has been a live Longhorn steer since 1916.";
+"loading.fact.austin.5c" = "Longhorns were the first cattle breed established in the Americas.";
+"loading.fact.austin.6a" = "Lady Bird Lake is a reservoir on the Colorado River right in downtown Austin.";
+"loading.fact.austin.6b" = "The lake is named after Lady Bird Johnson, former First Lady and environmental champion.";
+"loading.fact.austin.6c" = "Swimming is banned in Lady Bird Lake, but it hosts kayaking, rowing, and paddleboarding year-round.";
+
+/* Boston */
+"loading.fact.boston.1a" = "Boston is famous for its 'sacred cod' and served the first ever chocolate bar made in the U.S.";
+"loading.fact.boston.1b" = "Massachusetts harvests approximately 15 million pounds of lobster annually.";
+"loading.fact.boston.1c" = "New England clam chowder was first documented in a Boston cookbook in 1751.";
+"loading.fact.boston.2a" = "Fenway Park is the oldest Major League Baseball stadium currently in use, opening in 1912.";
+"loading.fact.boston.2b" = "The Green Monster wall is 37 feet tall and was originally built to prevent fans from watching for free.";
+"loading.fact.boston.2c" = "Fenway Park's Pesky's Pole in right field is just 302 feet from home plate — one of the shortest in baseball.";
+"loading.fact.boston.3a" = "Paul Revere's famous midnight ride covered about 20 miles from Boston to Lexington in 1775.";
+"loading.fact.boston.3b" = "Revere never actually shouted 'The British are coming!' — most colonists still considered themselves British.";
+"loading.fact.boston.3c" = "The Freedom Trail in Boston connects 16 historically significant sites across 2.5 miles.";
+"loading.fact.boston.4a" = "The Boston Tea Party took place in Boston Harbor in 1773, when 342 chests of tea were dumped into the water.";
+"loading.fact.boston.4b" = "Boston Harbor was once so polluted it became a national symbol of failure — it's now one of the cleanest urban harbors in America.";
+"loading.fact.boston.4c" = "The first lighthouse in America was built on Little Brewster Island in Boston Harbor in 1716.";
+"loading.fact.boston.5a" = "The Boston Public Garden's iconic Swan Boats have been a city tradition since 1877.";
+"loading.fact.boston.5b" = "The Boston Common, adjacent to the Public Garden, was established in 1634 — the oldest public park in the U.S.";
+"loading.fact.boston.5c" = "The children's book 'Make Way for Ducklings' is set in the Boston Public Garden.";
+"loading.fact.boston.6a" = "Faneuil Hall has been a marketplace and meeting hall since 1743.";
+"loading.fact.boston.6b" = "The grasshopper weather vane on top of Faneuil Hall was used during the Revolutionary War to test suspected spies.";
+"loading.fact.boston.6c" = "The first subway in the United States was built in Boston in 1897.";

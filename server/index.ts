@@ -6,7 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
-import { planRoutes } from './routes/index.js';
+import { planRoutes, collectionsRoutes } from './routes/index.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -32,6 +32,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 // Mount API routes
 app.use('/api', planRoutes);
+app.use('/api', collectionsRoutes);
 
 // 404 handler
 app.use((req: Request, res: Response) => {
@@ -63,10 +64,12 @@ if (isDirectRun) {
     Port: ${PORT}
 
     Endpoints:
-      POST /api/plan          - Create itinerary
-      POST /api/:city/plan    - Create city-specific itinerary
-      GET  /api/health        - Health check
-      GET  /api/cities        - List supported cities
+      POST /api/plan                        - Create itinerary
+      POST /api/:city/plan                  - Create city-specific itinerary
+      GET  /api/:city/collections           - List curated collections
+      POST /api/:city/collections/:slug     - Generate collection itinerary
+      GET  /api/health                      - Health check
+      GET  /api/cities                      - List supported cities
   ==============================================
   `);
   });

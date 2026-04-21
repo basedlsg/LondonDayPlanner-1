@@ -25,9 +25,8 @@ router.post('/plan', async (req: Request, res: Response) => {
       startTime,
       query,
       weatherAware,
-      isPremium,
       city = 'london'
-    } = req.body as PlanRequest & { city?: string, isPremium?: boolean };
+    } = req.body as PlanRequest & { city?: string };
 
     // Validate required fields
     if (!query) {
@@ -56,7 +55,6 @@ router.post('/plan', async (req: Request, res: Response) => {
       startTime: startTime || new Date().toTimeString().slice(0, 5),
       query,
       weatherAware,
-      isPremium: req.body.isPremium,
     };
 
     const itinerary = await planner.createPlan(request, cityConfig);
@@ -83,7 +81,7 @@ router.post('/:city/plan', async (req: Request, res: Response) => {
   const startProcessingTime = Date.now();
   try {
     const { city } = req.params;
-    const { date, startTime, query, weatherAware, isPremium } = req.body;
+    const { date, startTime, query, weatherAware } = req.body;
 
     // Default to "surprise me" if no query provided
     const planQuery = query || `Best of ${city} - surprise me with a great day out`;
@@ -106,7 +104,6 @@ router.post('/:city/plan', async (req: Request, res: Response) => {
       startTime: startTime || new Date().toTimeString().slice(0, 5),
       query: planQuery,
       weatherAware,
-      isPremium,
     };
 
     const itinerary = await planner.createPlan(request, cityConfig);

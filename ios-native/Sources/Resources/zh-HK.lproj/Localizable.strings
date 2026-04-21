@@ -48,9 +48,6 @@
 "settings.themes.light" = "淺色";
 "settings.themes.dark" = "深色";
 "settings.themes.system" = "跟隨系統";
-"settings.subscription" = "訂閱";
-"settings.manageSubscription" = "管理訂閱";
-"settings.manage" = "升級";
 "settings.about" = "關於";
 "settings.version" = "版本 %@";
 "settings.account" = "帳戶";
@@ -65,37 +62,6 @@
 "settings.privacyPolicy" = "私隱政策";
 "settings.termsOfService" = "服務條款";
 "settings.rateApp" = "評分";
-
-
-/* Subscription */
-"subscription.active" = "已啟用";
-"subscription.premium" = "高級版";
-"subscription.tagline" = "解鎖個人化推薦功能";
-"subscription.free" = "免費版";
-"subscription.monthly" = "月費";
-"subscription.annual" = "年費";
-"subscription.perMonth" = "/月";
-"subscription.perYear" = "/年";
-"subscription.savings" = "節省 %d%%";
-"subscription.currentPlan" = "目前方案";
-"subscription.features.memory" = "個人化推薦";
-"subscription.features.memoryDescription" = "AI會學習你的偏好";
-"subscription.features.betterModel" = "進階AI回應";
-"subscription.features.betterModelDescription" = "使用最強大的AI模型";
-"subscription.features.priority" = "優先處理";
-"subscription.features.priorityDescription" = "更快的回應速度";
-"subscription.subscribe" = "訂閱";
-"subscription.restore" = "恢復購買";
-"subscription.cancel" = "取消訂閱";
-"subscription.expiresOn" = "到期日：%@";
-"subscription.unableToLoad" = "無法載入訂閱選項";
-"subscription.renewsOn" = "續訂日：%@";
-"subscription.troubleshoot" = "若問題持續，請確認你的 App Store 帳號可用後重試。";
-"subscription.selectPlanHint" = "請先選擇一個方案。";
-"subscription.plansUnavailableNeutral" = "高級方案正在背景載入。";
-"subscription.loadingBackgroundHint" = "你可以隨時繼續使用免費版，我們會持續自動檢查。";
-"subscription.refreshPlans" = "重新整理方案";
-"subscription.continueFree" = "繼續使用免費版";
 
 /* Weather */
 "weather.aware" = "天氣感知開啟";
@@ -135,10 +101,15 @@
 "trips.noTrips" = "暫無行程";
 "trips.getStarted" = "規劃你的第一天行程開始";
 "trips.days" = "%@ 日";
+"trips.addButton" = "加入我的行程";
+"trips.addedButton" = "已儲存到我的行程";
 
 /* Map */
 "map.title" = "地圖";
 "map.done" = "完成";
+"maps.chooseApp" = "選擇導航應用程式";
+"maps.apple" = "Apple 地圖";
+"maps.google" = "Google 地圖";
 
 /* Explore */
 "explore.title" = "探索";
@@ -157,8 +128,115 @@
 "itinerary.call" = "致電";
 "itinerary.alternatives.title" = "其他選擇";
 "itinerary.minutes" = "%@ 分鐘";
+"itinerary.similar.title" = "相似體驗";
+"itinerary.placeholder.description" = "這是為你的行程精心挑選的一站。";
 
 /* Legal */
-"legal.autoRenew" = "訂閱將自動續期，除非在當前訂閱期結束前至少 24 小時取消。";
 "legal.terms" = "使用條款";
 "legal.privacy" = "私隱政策";
+
+/* Loading Screen Facts */
+"loading.didYouKnow" = "你知道嗎？";
+"loading.fact.general.1" = "正在規劃你的完美一天...";
+"loading.fact.general.2" = "正在尋找最適合你的地方...";
+"loading.fact.general.3" = "正在策劃你的理想行程...";
+
+/* London */
+"loading.fact.london.1a" = "泰晤士河裡有超過100種魚類。";
+"loading.fact.london.1b" = "泰晤士河全長215英里，是英格蘭境內最長的河流。";
+"loading.fact.london.1c" = "超過1500萬人依賴泰晤士河作為食水來源。";
+"loading.fact.london.2a" = "茶葉於1657年首次在倫敦銷售。";
+"loading.fact.london.2b" = "英國人每天大約喝1億杯茶。";
+"loading.fact.london.2c" = "下午茶是由貝德福德公爵夫人安娜於1840年發明的。";
+"loading.fact.london.3a" = "伊利沙伯二世在位期間養了超過30隻哥基犬。";
+"loading.fact.london.3b" = "女王的第一隻哥基犬Dookie於1933年加入皇室。";
+"loading.fact.london.3c" = "哥基犬最初在威爾斯被培育來牧牛。";
+"loading.fact.london.4a" = "倫敦的士司機必須通過「知識測驗」，記住25,000條街道和20,000個地標。";
+"loading.fact.london.4b" = "大笨鐘其實是鐘的名字，不是塔的名字——塔叫伊利沙伯塔。";
+"loading.fact.london.4c" = "伊利沙伯塔的時鐘自1859年開始運行以來，幾乎從未停過。";
+"loading.fact.london.5a" = "倫敦塔橋每年大約打開800次，讓船隻通過。";
+"loading.fact.london.5b" = "倫敦塔橋歷時8年、由432名工人建造，於1894年啟用。";
+"loading.fact.london.5c" = "倫敦塔橋經常與倫敦橋混淆，但倫敦橋是上游一座簡單得多的橋。";
+"loading.fact.london.6a" = "倫敦有超過170間博物館，包括大英博物館、泰特現代藝術館和V&A博物館。";
+"loading.fact.london.6b" = "標誌性的紅色雙層巴士自1956年起成為倫敦的象徵。";
+"loading.fact.london.6c" = "英國仍有大約8,000個紅色電話亭。";
+
+/* NYC */
+"loading.fact.nyc.1a" = "布魯克林大橋是世界上第一座鋼絲懸索橋。";
+"loading.fact.nyc.1b" = "布魯克林大橋歷時14年建造，於1883年啟用。";
+"loading.fact.nyc.1c" = "每天約有12萬車輛和行人通過布魯克林大橋。";
+"loading.fact.nyc.2a" = "自由女神像是法國的禮物，於1885年以350個部件運抵美國。";
+"loading.fact.nyc.2b" = "自由女神像的全名是「照耀世界的自由」。";
+"loading.fact.nyc.2c" = "雕像的銅皮只有3/32英寸厚——大約兩個硬幣的厚度。";
+"loading.fact.nyc.3a" = "帝國大廈僅用了410天就建成了。";
+"loading.fact.nyc.3b" = "這座大廈每年大約被閃電擊中25次。";
+"loading.fact.nyc.3c" = "帝國大廈有自己的郵遞區號：10118。";
+"loading.fact.nyc.4a" = "中央公園比整個摩納哥還要大。";
+"loading.fact.nyc.4b" = "公園裡有超過25,000棵樹和9,000張長椅。";
+"loading.fact.nyc.4c" = "中央公園是美國第一個經過規劃的公共公園，於1858年開放。";
+"loading.fact.nyc.5a" = "紐約有超過800種語言，是世界上語言最多元化的城市。";
+"loading.fact.nyc.5b" = "紐約市約有13,500輛持牌黃色的士。";
+"loading.fact.nyc.5c" = "紐約人的人均咖啡消費量是美國其他地區的7倍。";
+"loading.fact.nyc.6a" = "紐約地鐵有472個車站——全球最多。";
+"loading.fact.nyc.6b" = "地鐵全年365天、每天24小時運行——是世界上少數如此的系統之一。";
+"loading.fact.nyc.6c" = "如果把紐約地鐵軌道首尾相連，可以從紐約延伸到芝加哥。";
+
+/* Paris */
+"loading.fact.paris.1a" = "由於鐵的熱膨脹，艾菲爾鐵塔在夏天可以高出15厘米。";
+"loading.fact.paris.1b" = "艾菲爾鐵塔原本只打算矗立20年就拆除。";
+"loading.fact.paris.1c" = "鐵塔每7年重新油漆一次，需要60噸油漆。";
+"loading.fact.paris.2a" = "凱旋門位於12條放射狀大道的中心。";
+"loading.fact.paris.2b" = "凱旋門花了30年才建成，從1806年到1836年。";
+"loading.fact.paris.2c" = "一位一戰無名戰士自1921年起長眠於拱門之下。";
+"loading.fact.paris.3a" = "巴黎聖母院花了近200年才建成，從1163年到1345年。";
+"loading.fact.paris.3b" = "大教堂最大的鐘「Emmanuel」重達13噸以上。";
+"loading.fact.paris.3c" = "雨果的小說《巴黎聖母院》在1831年拯救了大教堂免於被拆除。";
+"loading.fact.paris.4a" = "牛角包其實是奧地利發明的，不是法國——但法國人將其完美化了。";
+"loading.fact.paris.4b" = "巴黎有超過30,000間咖啡館和餐廳。";
+"loading.fact.paris.4c" = "法國法律規定，每間麵包店都必須在店內從頭製作法棍，才能自稱「boulangerie」。";
+"loading.fact.paris.5a" = "羅浮宮是世界上最大的美術館，最初於1190年作為堡壘而建。";
+"loading.fact.paris.5b" = "如果每件藝術品花30秒觀看，要100天才能看完羅浮宮的所有藏品。";
+"loading.fact.paris.5c" = "蒙娜麗莎在羅浮宮有自己的郵箱，因為收到太多情書了。";
+"loading.fact.paris.6a" = "聖心堂的鐘La Savoyarde重達19噸，是世界上最重的鐘之一。";
+"loading.fact.paris.6b" = "聖殿的白色石頭隨著年月會變得更白，因為下雨時會分泌方解石。";
+"loading.fact.paris.6c" = "整個巴黎市只有一個停車標誌。";
+
+/* Austin */
+"loading.fact.austin.1a" = "奧斯汀被稱為「世界現場音樂之都」，人均現場音樂場地比其他任何地方都多。";
+"loading.fact.austin.1b" = "奧斯汀每晚有超過250個現場音樂場地在演出。";
+"loading.fact.austin.1c" = "這座城市的非官方座右銘是「Keep Austin Weird（保持奧斯汀的怪異）」。";
+"loading.fact.austin.2a" = "德克薩斯州議會大廈比華盛頓特區的美國國會大廈還要高。";
+"loading.fact.austin.2b" = "議會大廈佔地3英畝，擁有超過400個房間。";
+"loading.fact.austin.2c" = "奧斯汀在1837年首次定居時，原名為「Waterloo（滑鐵盧）」。";
+"loading.fact.austin.3a" = "奧斯汀擁有北美最大的城市蝙蝠群——多達150萬隻蝙蝠住在國會大道橋下。";
+"loading.fact.austin.3b" = "這些蝙蝠每晚吃掉10,000到30,000磅昆蟲。";
+"loading.fact.austin.3c" = "國會大道橋的觀蝙蝠活動每年吸引約10萬名遊客。";
+"loading.fact.austin.4a" = "德州式BBQ牛胸肉需要12至18小時才能正確煙燻。";
+"loading.fact.austin.4b" = "奧斯汀的Franklin Barbecue開店前經常要排隊2至3小時。";
+"loading.fact.austin.4c" = "德克薩斯州的牛隻數量比美國任何其他州都多——約有1300萬頭。";
+"loading.fact.austin.5a" = "德州長角牛的角展可以超過7英尺。";
+"loading.fact.austin.5b" = "德克薩斯大學的吉祥物Bevo自1916年以來一直是一頭真正的長角牛。";
+"loading.fact.austin.5c" = "長角牛是美洲建立的第一個牛品種。";
+"loading.fact.austin.6a" = "Lady Bird Lake是科羅拉多河上的水庫，就在奧斯汀市中心。";
+"loading.fact.austin.6b" = "這個湖以前第一夫人及環保鬥士Lady Bird Johnson命名。";
+"loading.fact.austin.6c" = "Lady Bird Lake禁止游泳，但全年提供皮划艇、划船和立槳衝浪。";
+
+/* Boston */
+"loading.fact.boston.1a" = "波士頓以其「神聖鱈魚」聞名，也生產了美國第一塊朱古力。";
+"loading.fact.boston.1b" = "麻省每年收穫約1500萬磅龍蝦。";
+"loading.fact.boston.1c" = "新英格蘭蜆湯於1751年首次記錄在波士頓的食譜書中。";
+"loading.fact.boston.2a" = "芬威球場是目前仍在使用的最古老的大聯盟棒球場，於1912年啟用。";
+"loading.fact.boston.2b" = "綠色怪物牆高37英尺，最初是為了防止球迷免費觀看比賽而建造的。";
+"loading.fact.boston.2c" = "芬威球場右外野的Pesky Pole距離本壘只有302英尺——棒球場中最短的之一。";
+"loading.fact.boston.3a" = "保羅·里維爾著名的午夜騎行在1775年從波士頓到列克星頓，全程約20英里。";
+"loading.fact.boston.3b" = "里維爾從未真正喊過「英國人來了！」——大多數殖民者仍自認為是英國人。";
+"loading.fact.boston.3c" = "波士頓的自由之路連接了16個具有歷史意義的地點，全長2.5英里。";
+"loading.fact.boston.4a" = "波士頓茶葉事件於1773年在波士頓港發生，342箱茶葉被倒入水中。";
+"loading.fact.boston.4b" = "波士頓港曾經污染嚴重，成為全國失敗的象徵——現在卻是美國最乾淨的城市港口之一。";
+"loading.fact.boston.4c" = "美國第一座燈塔於1716年建在波士頓港的Little Brewster Island上。";
+"loading.fact.boston.5a" = "波士頓公共花園的天鵝船自1877年以來一直是城市傳統。";
+"loading.fact.boston.5b" = "波士頓公園毗鄰公共花園，建於1634年，是美國最古老的公園。";
+"loading.fact.boston.5c" = "兒童書籍《讓路給小鴨子》的故事就發生在波士頓公共花園。";
+"loading.fact.boston.6a" = "法尼爾廳自1743年以來一直是市場和會堂。";
+"loading.fact.boston.6b" = "法尼爾廳頂部的蚱蜢風向標在獨立戰爭期間被用來測試疑似間諜。";
+"loading.fact.boston.6c" = "美國第一條地鐵於1897年在波士頓建成。";

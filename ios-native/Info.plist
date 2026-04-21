@@ -17,7 +17,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>7</string>
+	<string>12</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -25,7 +25,7 @@
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
-		<true/>
+		<false/>
 	</dict>
 	<key>NSCalendarsUsageDescription</key>
 	<string>We need access to your calendar to export your itinerary events.</string>
@@ -34,6 +34,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>RozhaOne-Regular.ttf</string>
+		<string>Manrope-Variable.ttf</string>
 	</array>
 	<key>UILaunchScreen</key>
 	<dict/>

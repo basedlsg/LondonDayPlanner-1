@@ -31,22 +31,23 @@
 		625C33226BB873FE44B15BCB /* Icon-App-29x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7258857909EFF58502FB2083 /* Icon-App-29x29@2x.png */; };
 		631B31491D5D4D0A77E80667 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52847F8F117F19B85DC1137 /* SplashScreenView.swift */; };
 		657B281727C6A398828A3CFC /* Icon-App-40x40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70019B2F5BA8E4E696CC0638 /* Icon-App-40x40@3x.png */; };
-		6A04EDEB0DFC3C482CFADC66 /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B92A72FBE1C7406DBA4389 /* SubscriptionView.swift */; };
+
 		703D20BE89DE8731EBECA220 /* City+Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF78B809E5D548EF4D69918 /* City+Assets.swift */; };
 		72317FC74A2310F5C2B3DE54 /* LegalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425260AD565BBE4FC6AA9DC2 /* LegalView.swift */; };
 		73B8D1E314BCEA380D2B6300 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24EECCDA39AB8B44B4089C4 /* MapView.swift */; };
 		74F59433810537171D44F572 /* LiquidBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7742F733F60DFE46318BDDB /* LiquidBackground.swift */; };
 		762B8570D7325A254352FC67 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D7EBE6D1665E48456CBAE6 /* APIClient.swift */; };
 		7A8ED2BFE47DC62676371DDE /* ItineraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EB1F3676A678AA5FDCD13D /* ItineraryView.swift */; };
-		7D0EED2CBF030B240EB82945 /* city_boston.png in Resources */ = {isa = PBXBuildFile; fileRef = 61737531BD812C216BD4E0F9 /* city_boston.png */; };
+
 		8B13811A26D33355688A4532 /* Icon-App-29x29@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 272B28D5EB2AC7A5F8506DA3 /* Icon-App-29x29@1x.png */; };
 		90ACE6D8698B9B80B1DA4CFB /* zh-Hans.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1E83B8B9C307826441BD721F /* zh-Hans.lproj */; };
 		915F99E7B0A7F33774E1771D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64B52D9F92A18FE79671663 /* main.swift */; };
 		93DA08FCFDF23EC4B3C82B1E /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA053BE3EA2E39AE72BE41 /* AuthenticationService.swift */; };
-		94E985195937A2BE51E509BF /* city_nyc.png in Resources */ = {isa = PBXBuildFile; fileRef = E31E25F445EFBF2E04B03067 /* city_nyc.png */; };
+
 		98D310A09F1DFB1A0343B9A7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 97EAAB316954CF150C54CF36 /* Localizable.strings */; };
 		A1C7E1FBDF3DE1E9ED73CE38 /* Icon-App-83.5x83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37DF98597BA9540C7F901195 /* Icon-App-83.5x83.5@2x.png */; };
 		A4AAFC39C4D415D798BAC5C9 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9692A500EB8D230D8553934B /* ExploreView.swift */; };
+		CD01AB3F1234567890ABCDEF /* CollectionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD01AB3F0987654321FEDCBA /* CollectionDetailView.swift */; };
 		A57833BE1547CC83172169CE /* zh-HK.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6649D77C637E692C26E9E6AC /* zh-HK.lproj */; };
 		B35C35D41AEAC63503C08530 /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 4C8651E729C6E45D8DAF1035 /* en.lproj */; };
 		B9967F22A361327BE6A5DAA9 /* CityPickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2349B941C57A1F11666E0BA /* CityPickerSheet.swift */; };
@@ -57,7 +58,7 @@
 		C979A4A5139008C5B0F8FA4E /* Icon-App-60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C8CFF66792B818D64A0EB22 /* Icon-App-60x60@2x.png */; };
 		D11FF611367BAE8178986480 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EACE87440AA2FB5D2B7372D0 /* Media.xcassets */; };
 		D557B95E6962032A9A2A8363 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E75978CD67927E19753867 /* LocationManager.swift */; };
-		D7D1CFB8779C1F59B44C65A3 /* city_austin.png in Resources */ = {isa = PBXBuildFile; fileRef = 52EDE818FC054EAE69F31767 /* city_austin.png */; };
+
 		DD0CC84F9B203712BAE4D920 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223C4DF2DEB5E85EAAEE7162 /* ContentView.swift */; };
 		E023B6E865048BE500C89137 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B65BBCE9C490725B29FB262 /* ActivityViewController.swift */; };
 		E772B4AA55BD4A91AC32F64D /* Icon-App-1024x1024@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA8912FBCD0DC22911E06429 /* Icon-App-1024x1024@1x.png */; };
@@ -66,8 +67,11 @@
 		EE215B083A4DBFC8C30CF49E /* HomeAmbientBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FE0845DD23B5553836C707 /* HomeAmbientBackground.swift */; };
 		F52040E0D12C395DE9D1DC18 /* Icon-App-20x20@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C7E3B20F8BDAD8B96AAFFDD5 /* Icon-App-20x20@3x.png */; };
 		F5CA1C5BD9A3194F82D5DDB5 /* RozhaOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FC58D6C58401DACA0E303AD7 /* RozhaOne-Regular.ttf */; };
+		D4A17B52E2AF4B4F90E1B773 /* Manrope-Variable.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97B593D5CC1247F985C5DBAB /* Manrope-Variable.ttf */; };
+		SEED11223344556677889900 /* SeedItineraries.json in Resources */ = {isa = PBXBuildFile; fileRef = SEED99887766554433221100 /* SeedItineraries.json */; };
+		PRIV00112233445566778899 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = PRIV99887766554433221100 /* PrivacyInfo.xcprivacy */; };
 		F5E755F25A8316CA0DB7F9E5 /* Icon-App-76x76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 825C68E26E71604E0B537A14 /* Icon-App-76x76@2x.png */; };
-		FB4AEAB6D98BE361B8A91BBE /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BFCE43CFEE57C1652D789B /* StoreManager.swift */; };
+
 		FEB1E2CC3060BC52E2515843 /* city_london.png in Resources */ = {isa = PBXBuildFile; fileRef = DFF0B01CFFD26D8E6346E352 /* city_london.png */; };
 		AABB001122334455DEADBEEF /* GeneratingLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB001122334455DEADBEE0 /* GeneratingLoadingView.swift */; };
 /* End PBXBuildFile section */
@@ -91,12 +95,12 @@
 		4C8651E729C6E45D8DAF1035 /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = en.lproj; path = Sources/Resources/en.lproj; sourceTree = "<group>"; };
 		4C8CFF66792B818D64A0EB22 /* Icon-App-60x60@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "Icon-App-60x60@2x.png"; path = "Sources/Resources/Media.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png"; sourceTree = "<group>"; };
 		52D7EBE6D1665E48456CBAE6 /* APIClient.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = APIClient.swift; path = Sources/Services/APIClient.swift; sourceTree = "<group>"; };
-		52EDE818FC054EAE69F31767 /* city_austin.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = city_austin.png; path = Sources/Resources/Media.xcassets/city_austin.imageset/city_austin.png; sourceTree = "<group>"; };
+
 		55492DE166738686066C035B /* Models.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Models.swift; path = Sources/Models/Models.swift; sourceTree = "<group>"; };
 		5CF6685E6E365D28D5019AC7 /* StressTestService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StressTestService.swift; path = Sources/Services/StressTestService.swift; sourceTree = "<group>"; };
 		5D843C288A79C7434CC522B9 /* CalendarService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CalendarService.swift; path = Sources/Services/CalendarService.swift; sourceTree = "<group>"; };
 		600D90596D6E688B2C83E727 /* Localizable.strings */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = Sources/Resources/en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		61737531BD812C216BD4E0F9 /* city_boston.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = city_boston.png; path = Sources/Resources/Media.xcassets/city_boston.imageset/city_boston.png; sourceTree = "<group>"; };
+
 		61CA053BE3EA2E39AE72BE41 /* AuthenticationService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AuthenticationService.swift; path = Sources/Services/AuthenticationService.swift; sourceTree = "<group>"; };
 		6649D77C637E692C26E9E6AC /* zh-HK.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "zh-HK.lproj"; path = "Sources/Resources/zh-HK.lproj"; sourceTree = "<group>"; };
 		6B97EB57104B2DE60E96E016 /* SettingsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = Sources/Views/SettingsView.swift; sourceTree = "<group>"; };
@@ -111,6 +115,7 @@
 		895E7677F9DA90BE9508CB21 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		966DF5590D2CBDB7AA452DBD /* HomeView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HomeView.swift; path = Sources/Views/HomeView.swift; sourceTree = "<group>"; };
 		9692A500EB8D230D8553934B /* ExploreView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExploreView.swift; path = Sources/Views/ExploreView.swift; sourceTree = "<group>"; };
+		CD01AB3F0987654321FEDCBA /* CollectionDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CollectionDetailView.swift; path = Sources/Views/CollectionDetailView.swift; sourceTree = "<group>"; };
 		97EAAB316954CF150C54CF36 /* Localizable.strings */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = "Sources/Resources/zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		A0B6F314FB91E647997FF337 /* Icon-App-20x20@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "Icon-App-20x20@2x.png"; path = "Sources/Resources/Media.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png"; sourceTree = "<group>"; };
 		A2349B941C57A1F11666E0BA /* CityPickerSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CityPickerSheet.swift; path = Sources/Views/Components/CityPickerSheet.swift; sourceTree = "<group>"; };
@@ -126,17 +131,19 @@
 		CDCCAB38C2BE39B8051536AD /* Icon-App-40x40@1x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "Icon-App-40x40@1x.png"; path = "Sources/Resources/Media.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png"; sourceTree = "<group>"; };
 		D24EECCDA39AB8B44B4089C4 /* MapView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MapView.swift; path = Sources/Views/MapView.swift; sourceTree = "<group>"; };
 		DFF0B01CFFD26D8E6346E352 /* city_london.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = city_london.png; path = Sources/Resources/Media.xcassets/city_london.imageset/city_london.png; sourceTree = "<group>"; };
-		E31E25F445EFBF2E04B03067 /* city_nyc.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = city_nyc.png; path = Sources/Resources/Media.xcassets/city_nyc.imageset/city_nyc.png; sourceTree = "<group>"; };
+
 		E64B52D9F92A18FE79671663 /* main.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = main.swift; path = Sources/App/main.swift; sourceTree = "<group>"; };
-		E6BFCE43CFEE57C1652D789B /* StoreManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StoreManager.swift; path = Sources/Services/StoreManager.swift; sourceTree = "<group>"; };
-		E7B92A72FBE1C7406DBA4389 /* SubscriptionView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SubscriptionView.swift; path = Sources/Views/SubscriptionView.swift; sourceTree = "<group>"; };
+
 		E9FB800C7639090131CDD740 /* Icon-App-20x20@1x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "Icon-App-20x20@1x.png"; path = "Sources/Resources/Media.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png"; sourceTree = "<group>"; };
 		EACE87440AA2FB5D2B7372D0 /* Media.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = Sources/Resources/Media.xcassets; sourceTree = "<group>"; };
 		EBB9A16A655341F2A8CC414C /* Icon-App-40x40@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "Icon-App-40x40@2x.png"; path = "Sources/Resources/Media.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png"; sourceTree = "<group>"; };
 		F739039B190978075EFF9DC5 /* GlassButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GlassButton.swift; path = Sources/DesignSystem/Components/GlassButton.swift; sourceTree = "<group>"; };
 		FAF78B809E5D548EF4D69918 /* City+Assets.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "City+Assets.swift"; path = "Sources/Models/City+Assets.swift"; sourceTree = "<group>"; };
 		FC58D6C58401DACA0E303AD7 /* RozhaOne-Regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "RozhaOne-Regular.ttf"; path = "Sources/Resources/RozhaOne-Regular.ttf"; sourceTree = "<group>"; };
+		97B593D5CC1247F985C5DBAB /* Manrope-Variable.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "Manrope-Variable.ttf"; path = "Sources/Resources/Manrope-Variable.ttf"; sourceTree = "<group>"; };
 		AABB001122334455DEADBEE0 /* GeneratingLoadingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GeneratingLoadingView.swift; path = Sources/Views/GeneratingLoadingView.swift; sourceTree = "<group>"; };
+		SEED99887766554433221100 /* SeedItineraries.json */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json; name = SeedItineraries.json; path = Sources/Resources/SeedItineraries.json; sourceTree = "<group>"; };
+		PRIV99887766554433221100 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = Sources/Resources/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,8 +174,6 @@
 			isa = PBXGroup;
 			children = (
 				EACE87440AA2FB5D2B7372D0 /* Media.xcassets */,
-				52EDE818FC054EAE69F31767 /* city_austin.png */,
-				E31E25F445EFBF2E04B03067 /* city_nyc.png */,
 				825C68E26E71604E0B537A14 /* Icon-App-76x76@2x.png */,
 				272B28D5EB2AC7A5F8506DA3 /* Icon-App-29x29@1x.png */,
 				CDCCAB38C2BE39B8051536AD /* Icon-App-40x40@1x.png */,
@@ -185,7 +190,6 @@
 				70019B2F5BA8E4E696CC0638 /* Icon-App-40x40@3x.png */,
 				7258857909EFF58502FB2083 /* Icon-App-29x29@2x.png */,
 				DFF0B01CFFD26D8E6346E352 /* city_london.png */,
-				61737531BD812C216BD4E0F9 /* city_boston.png */,
 				1E83B8B9C307826441BD721F /* zh-Hans.lproj */,
 				97EAAB316954CF150C54CF36 /* Localizable.strings */,
 				4C8651E729C6E45D8DAF1035 /* en.lproj */,
@@ -193,6 +197,9 @@
 				6649D77C637E692C26E9E6AC /* zh-HK.lproj */,
 				88630C2D815CA459CEAC8BB1 /* Localizable.strings */,
 				FC58D6C58401DACA0E303AD7 /* RozhaOne-Regular.ttf */,
+				97B593D5CC1247F985C5DBAB /* Manrope-Variable.ttf */,
+				SEED99887766554433221100 /* SeedItineraries.json */,
+				PRIV99887766554433221100 /* PrivacyInfo.xcprivacy */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -219,6 +226,7 @@
 				55492DE166738686066C035B /* Models.swift */,
 				FAF78B809E5D548EF4D69918 /* City+Assets.swift */,
 				9692A500EB8D230D8553934B /* ExploreView.swift */,
+				CD01AB3F0987654321FEDCBA /* CollectionDetailView.swift */,
 				6B97EB57104B2DE60E96E016 /* SettingsView.swift */,
 				C52847F8F117F19B85DC1137 /* SplashScreenView.swift */,
 				D24EECCDA39AB8B44B4089C4 /* MapView.swift */,
@@ -228,7 +236,7 @@
 				47EB1F3676A678AA5FDCD13D /* ItineraryView.swift */,
 				1B65BBCE9C490725B29FB262 /* ActivityViewController.swift */,
 				A2349B941C57A1F11666E0BA /* CityPickerSheet.swift */,
-				E7B92A72FBE1C7406DBA4389 /* SubscriptionView.swift */,
+
 				425260AD565BBE4FC6AA9DC2 /* LegalView.swift */,
 				082FBBF9B9B2C91DF3B121E4 /* CityManager.swift */,
 				72DEC5AB6D5236470636B70C /* WeatherService.swift */,
@@ -236,7 +244,7 @@
 				61CA053BE3EA2E39AE72BE41 /* AuthenticationService.swift */,
 				1E538D043709424D0296C2CC /* PDFService.swift */,
 				5CF6685E6E365D28D5019AC7 /* StressTestService.swift */,
-				E6BFCE43CFEE57C1652D789B /* StoreManager.swift */,
+
 				5D843C288A79C7434CC522B9 /* CalendarService.swift */,
 				85E75978CD67927E19753867 /* LocationManager.swift */,
 				7535D61036B44CE1290D9093 /* NetworkMonitor.swift */,
@@ -325,8 +333,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D11FF611367BAE8178986480 /* Media.xcassets in Resources */,
-				D7D1CFB8779C1F59B44C65A3 /* city_austin.png in Resources */,
-				94E985195937A2BE51E509BF /* city_nyc.png in Resources */,
 				F5E755F25A8316CA0DB7F9E5 /* Icon-App-76x76@2x.png in Resources */,
 				8B13811A26D33355688A4532 /* Icon-App-29x29@1x.png in Resources */,
 				5CD55007F1AD1B3F294991CC /* Icon-App-40x40@1x.png in Resources */,
@@ -343,7 +349,6 @@
 				657B281727C6A398828A3CFC /* Icon-App-40x40@3x.png in Resources */,
 				625C33226BB873FE44B15BCB /* Icon-App-29x29@2x.png in Resources */,
 				FEB1E2CC3060BC52E2515843 /* city_london.png in Resources */,
-				7D0EED2CBF030B240EB82945 /* city_boston.png in Resources */,
 				90ACE6D8698B9B80B1DA4CFB /* zh-Hans.lproj in Resources */,
 				98D310A09F1DFB1A0343B9A7 /* Localizable.strings in Resources */,
 				B35C35D41AEAC63503C08530 /* en.lproj in Resources */,
@@ -351,6 +356,9 @@
 				A57833BE1547CC83172169CE /* zh-HK.lproj in Resources */,
 				4F3E5B586B7EFD0F33E731E8 /* Localizable.strings in Resources */,
 				F5CA1C5BD9A3194F82D5DDB5 /* RozhaOne-Regular.ttf in Resources */,
+				D4A17B52E2AF4B4F90E1B773 /* Manrope-Variable.ttf in Resources */,
+				SEED11223344556677889900 /* SeedItineraries.json in Resources */,
+				PRIV00112233445566778899 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,6 +380,7 @@
 				E840F0A7BE29720918FA4541 /* Models.swift in Sources */,
 				703D20BE89DE8731EBECA220 /* City+Assets.swift in Sources */,
 				A4AAFC39C4D415D798BAC5C9 /* ExploreView.swift in Sources */,
+				CD01AB3F1234567890ABCDEF /* CollectionDetailView.swift in Sources */,
 				C73C18D6A57DE5C3FCB1CD32 /* SettingsView.swift in Sources */,
 				631B31491D5D4D0A77E80667 /* SplashScreenView.swift in Sources */,
 				73B8D1E314BCEA380D2B6300 /* MapView.swift in Sources */,
@@ -381,7 +390,7 @@
 				7A8ED2BFE47DC62676371DDE /* ItineraryView.swift in Sources */,
 				E023B6E865048BE500C89137 /* ActivityViewController.swift in Sources */,
 				B9967F22A361327BE6A5DAA9 /* CityPickerSheet.swift in Sources */,
-				6A04EDEB0DFC3C482CFADC66 /* SubscriptionView.swift in Sources */,
+
 				72317FC74A2310F5C2B3DE54 /* LegalView.swift in Sources */,
 				B9D147705536D3E1883F0065 /* CityManager.swift in Sources */,
 				2972EE2871FBC60D3D123C7E /* WeatherService.swift in Sources */,
@@ -389,7 +398,7 @@
 				93DA08FCFDF23EC4B3C82B1E /* AuthenticationService.swift in Sources */,
 				0A3DEF24C4491E3CB1F91130 /* PDFService.swift in Sources */,
 				567D32BBA5F0042C6E33BE9E /* StressTestService.swift in Sources */,
-				FB4AEAB6D98BE361B8A91BBE /* StoreManager.swift in Sources */,
+
 				380CF8FDF5B7E0BCBCB7B84B /* CalendarService.swift in Sources */,
 				D557B95E6962032A9A2A8363 /* LocationManager.swift in Sources */,
 				0AB0A7EF8790A4A62F2B8707 /* NetworkMonitor.swift in Sources */,

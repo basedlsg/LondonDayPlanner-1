@@ -62,9 +62,8 @@ actor APIClient {
             throw DecodingError.dataCorruptedError(in: container, debugDescription: "Cannot decode date string \(dateString)")
         }
         
-        // Configure JSON encoder
-        // Server expects camelCase keys (isPremium, startTime, etc.)
-        // Do NOT use .convertToSnakeCase — server reads req.body.isPremium, not req.body.is_premium
+        // Configure JSON encoder — server expects camelCase keys (startTime, citySlug, etc.)
+        // Do NOT use .convertToSnakeCase
         self.encoder = JSONEncoder()
         self.encoder.keyEncodingStrategy = .useDefaultKeys
         self.encoder.dateEncodingStrategy = .iso8601
@@ -134,20 +133,18 @@ actor APIClient {
         citySlug: String,
         query: String,
         date: Date,
-        startTime: String? = nil,
-        isPremium: Bool = false
+        startTime: String? = nil
     ) async throws -> Itinerary {
         let url = baseURL.appendingPathComponent("/api/\(citySlug)/plan")
-        
+
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        
+
         let body = CreateItineraryRequest(
             query: query,
             date: dateFormatter.string(from: date),
             startTime: startTime,
-            preferences: nil,
-            isPremium: isPremium
+            preferences: nil
         )
         
         let response: CreateItineraryResponse = try await request(
@@ -166,10 +163,30 @@ actor APIClient {
     }
     
     // MARK: - Weather API
-    
+
     func fetchWeather(citySlug: String, date: Date) async throws -> Itinerary.WeatherInfo {
         let url = baseURL.appendingPathComponent("/api/\(citySlug)/weather")
         return try await request(url: url, method: .get)
+    }
+
+    // MARK: - Collections API
+
+    /// Fetch curated collection metadata for a city
+    func getCollections(citySlug: String) async throws -> [CollectionMeta] {
+        let url = baseURL.appendingPathComponent("/api/\(citySlug)/collections")
+        let response: CollectionsResponse = try await request(url: url, method: .get)
+        return response.collections
+    }
+
+    /// Generate a full itinerary for a curated collection
+    func generateCollection(citySlug: String, slug: String) async throws -> Itinerary {
+        let url = baseURL.appendingPathComponent("/api/\(citySlug)/collections/\(slug)")
+        let response: CreateItineraryResponse = try await request(
+            url: url,
+            method: .post,
+            timeoutInterval: Timeout.itineraryRequest
+        )
+        return response.itinerary
     }
 
 }

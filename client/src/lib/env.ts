@@ -5,6 +5,7 @@
  * environment variables and server-provided configuration.
  */
 import { useState, useEffect } from 'react';
+import { buildApiUrl } from './queryClient';
 
 // Directly available environment variables
 export const BASE_URL = import.meta.env.VITE_BASE_URL || '';
@@ -39,7 +40,7 @@ export async function fetchConfig(): Promise<ServerConfig> {
   isLoading = true;
   loadError = null;
   
-  loadPromise = fetch('/api/config/public')
+  loadPromise = fetch(buildApiUrl('/api/config/public'))
     .then(response => {
       if (!response.ok) {
         throw new Error(`Failed to load configuration: ${response.status} ${response.statusText}`);

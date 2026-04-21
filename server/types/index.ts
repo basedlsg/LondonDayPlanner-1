@@ -59,7 +59,6 @@ export interface PlanRequest {
   query: string;
   weatherAware?: boolean;
   city?: string;
-  isPremium?: boolean;
 }
 
 // Parsed query structures

@@ -33,7 +33,7 @@ struct SplashScreenView: View {
                 
                 // Logo/Title
                 VStack(spacing: 20) {
-                    Image(systemName: "sparkles")
+                    Image(systemName: "map.fill")
                         .font(.system(size: 80))
                         .foregroundStyle(
                             LinearGradient(

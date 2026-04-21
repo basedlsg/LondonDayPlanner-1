@@ -5,6 +5,7 @@ import { QueryClassifier, queryClassifier } from './QueryClassifier.js';
 import { VenueDiscovery, getVenueDiscovery } from './VenueDiscovery.js';
 import { RouteTimeService, TravelEstimate, getRouteTimeService } from './RouteTimeService.js';
 import { DEFAULT_GEMINI_FLASH_MODEL, GeminiClient, getGeminiClient } from '../lib/gemini.js';
+import { getConfig } from '../config/index.js';
 import { simplePrompt } from '../lib/prompts/simple.js';
 import { detailedPrompt } from '../lib/prompts/detailed.js';
 import { complexPrompt } from '../lib/prompts/complex.js';
@@ -98,12 +99,6 @@ export class ItineraryPlanner {
     const classifyStart = Date.now();
     const classification = this.classifier.classify(request.query);
     const classifyMs = Date.now() - classifyStart;
-
-    // Premium users stay on the same low-latency Flash model.
-    if (request.isPremium) {
-      console.log(`[ItineraryPlanner] Premium user detected - Using ${DEFAULT_GEMINI_FLASH_MODEL}`);
-      classification.model = DEFAULT_GEMINI_FLASH_MODEL;
-    }
 
     console.log(`[ItineraryPlanner] Classification:`, classification);
 
@@ -351,6 +346,12 @@ export class ItineraryPlanner {
     const venues: ItineraryPlace[] = [];
     const searchInsights: string[] = [];
     const usedVenueKeys = new Set<string>();
+    const photoRefs: Array<{
+      venueIndex: number;
+      primary?: { name?: string };
+      all?: Array<{ name?: string }>;
+      altPhotos: Array<{ first?: { name?: string }; all?: Array<{ name?: string }> }>;
+    }> = [];
 
     for (let i = 0; i < activities.length; i++) {
       const activity = activities[i];
@@ -375,10 +376,9 @@ export class ItineraryPlanner {
           ...alternative,
           whyRecommended: this.cleanActivityDescription(alternative.description)
             ?? this.cleanActivityDescription(alternative.whyRecommended),
-          photoUrl: this.buildPhotoUrl(alternative.photos?.[0]),
-          photoUrls: this.buildPhotoUrls(alternative.photos),
         }));
 
+        const venueIndex = venues.length;
         venues.push({
           placeId: venue.placeId,
           name: venue.name,
@@ -391,11 +391,18 @@ export class ItineraryPlanner {
           alternatives,
           activityDescription: this.cleanActivityDescription(venue.description)
             ?? this.cleanActivityDescription(venue.whyRecommended),
-          photoUrl: this.buildPhotoUrl(venue.photos?.[0]),
-          photoUrls: this.buildPhotoUrls(venue.photos),
           statusText: this.buildStatusText(venue, scheduledTime, planDate),
           isOpenNow: venue.isOpenNow,
           phoneNumber: venue.phoneNumber,
+        });
+        photoRefs.push({
+          venueIndex,
+          primary: venue.photos?.[0],
+          all: venue.photos,
+          altPhotos: venueResult.alternatives.map((alt) => ({
+            first: alt.photos?.[0],
+            all: alt.photos,
+          })),
         });
 
         if (venueKey) {
@@ -454,6 +461,31 @@ export class ItineraryPlanner {
       durationMinutes: estimate.durationMinutes,
       durationText: estimate.durationText,
       mode: estimate.mode,
+    }));
+
+    // Resolve all photo URLs in parallel (direct Google CDN links instead of proxy)
+    await Promise.all(photoRefs.map(async (ref) => {
+      const venue = venues[ref.venueIndex];
+
+      const [photoUrl, photoUrls, ...altResults] = await Promise.all([
+        this.resolvePhotoUrl(ref.primary),
+        this.resolvePhotoUrls(ref.all),
+        ...ref.altPhotos.map(async (altRef) => ({
+          photoUrl: await this.resolvePhotoUrl(altRef.first),
+          photoUrls: await this.resolvePhotoUrls(altRef.all),
+        })),
+      ]);
+
+      venue.photoUrl = photoUrl;
+      venue.photoUrls = photoUrls;
+      if (venue.alternatives && altResults.length > 0) {
+        venue.alternatives.forEach((alt, i) => {
+          if (altResults[i]) {
+            alt.photoUrl = altResults[i].photoUrl;
+            alt.photoUrls = altResults[i].photoUrls;
+          }
+        });
+      }
     }));
 
     return {
@@ -766,29 +798,50 @@ export class ItineraryPlanner {
     return `${normalizedName}::${normalizedAddress}`;
   }
 
-  private buildPhotoUrl(photo?: { name?: string }): string | undefined {
+  private async resolvePhotoUrl(photo?: { name?: string }, maxWidthPx = 520): Promise<string | undefined> {
     if (!photo?.name) {
       return undefined;
     }
 
-    const params = new URLSearchParams({
-      name: photo.name,
-      maxWidthPx: '1200',
-    });
+    try {
+      const encodedName = photo.name
+        .split('/')
+        .map((segment) => encodeURIComponent(segment))
+        .join('/');
 
+      const endpoint = new URL(`https://places.googleapis.com/v1/${encodedName}/media`);
+      endpoint.searchParams.set('maxWidthPx', String(maxWidthPx));
+      endpoint.searchParams.set('skipHttpRedirect', 'true');
+
+      const response = await fetch(endpoint, {
+        headers: { 'X-Goog-Api-Key': getConfig().placesApiKey },
+        signal: AbortSignal.timeout(5_000),
+      });
+
+      if (!response.ok) {
+        return this.buildProxyPhotoUrl(photo, maxWidthPx);
+      }
+
+      const data = (await response.json()) as { photoUri?: string };
+      return data.photoUri || this.buildProxyPhotoUrl(photo, maxWidthPx);
+    } catch {
+      return this.buildProxyPhotoUrl(photo, maxWidthPx);
+    }
+  }
+
+  private buildProxyPhotoUrl(photo: { name?: string }, maxWidthPx = 520): string | undefined {
+    if (!photo?.name) return undefined;
+    const params = new URLSearchParams({ name: photo.name, maxWidthPx: String(maxWidthPx) });
     return `/api/place-photo?${params.toString()}`;
   }
 
-  private buildPhotoUrls(photos?: Array<{ name?: string }>): string[] | undefined {
-    const urls = photos
-      ?.map((photo) => this.buildPhotoUrl(photo))
-      .filter((url): url is string => Boolean(url));
+  private async resolvePhotoUrls(photos?: Array<{ name?: string }>): Promise<string[] | undefined> {
+    if (!photos || photos.length === 0) return undefined;
 
-    if (!urls || urls.length === 0) {
-      return undefined;
-    }
-
-    return Array.from(new Set(urls));
+    const urls = await Promise.all(photos.map((photo) => this.resolvePhotoUrl(photo)));
+    const valid = urls.filter((url): url is string => Boolean(url));
+    if (valid.length === 0) return undefined;
+    return Array.from(new Set(valid));
   }
 
   private buildCategories(activity: ParsedActivity, venue: DiscoveryResult['primary']): string[] {

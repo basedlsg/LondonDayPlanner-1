@@ -1,18 +1,30 @@
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
 
-// Get the API base URL based on environment
+const VERCEL_API_BASE_URL = "https://london-day-planner-1.vercel.app";
+
+// In development, always hit the deployed Vercel backend instead of localhost.
+// In production, keep same-origin requests so deployed web auth/cookies continue to work.
 const getApiBaseUrl = () => {
   if (import.meta.env.DEV) {
-    // In development, use local server
-    return 'http://localhost:3000';
+    return VERCEL_API_BASE_URL;
   } else {
-    // In production, use same-origin so Firebase Hosting rewrites /api -> Cloud Run
-    // Using relative path avoids CORS issues on the custom domain
-    return '';
+    return "";
   }
 };
 
-const API_BASE_URL = getApiBaseUrl();
+export const API_BASE_URL = getApiBaseUrl();
+
+export function buildApiUrl(url: string): string {
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+    return url;
+  }
+
+  if (!url.startsWith("/")) {
+    return `${API_BASE_URL}/${url}`;
+  }
+
+  return `${API_BASE_URL}${url}`;
+}
 
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
@@ -26,8 +38,7 @@ export async function apiRequest(
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
-  // If the URL starts with /api, prepend the base URL
-  const fullUrl = url.startsWith('/api') ? `${API_BASE_URL}${url}` : url;
+  const fullUrl = buildApiUrl(url);
   
   console.log(`Making API request to: ${fullUrl}`);
   
@@ -48,7 +59,7 @@ export const getQueryFn: <T>(options: {
 }) => QueryFunction<T> =
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
-    const res = await fetch(queryKey[0] as string, {
+    const res = await fetch(buildApiUrl(queryKey[0] as string), {
       credentials: "include",
     });
 

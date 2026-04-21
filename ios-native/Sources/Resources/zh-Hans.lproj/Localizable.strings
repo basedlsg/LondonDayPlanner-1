@@ -33,6 +33,8 @@
 "itinerary.call" = "致电";
 "itinerary.alternatives.title" = "替代方案";
 "itinerary.minutes" = "%@ 分钟";
+"itinerary.similar.title" = "相似体验";
+"itinerary.placeholder.description" = "这是为你的行程精心挑选的一站。";
 
 /* Explore */
 "explore.title" = "探索";
@@ -62,9 +64,6 @@
 "settings.themes.light" = "浅色";
 "settings.themes.dark" = "深色";
 "settings.themes.system" = "跟随系统";
-"settings.subscription" = "订阅";
-"settings.manageSubscription" = "管理订阅";
-"settings.manage" = "升级";
 "settings.about" = "关于";
 "settings.version" = "版本 %@";
 "settings.account" = "账户";
@@ -79,37 +78,6 @@
 "settings.privacyPolicy" = "隐私政策";
 "settings.termsOfService" = "服务条款";
 "settings.rateApp" = "评价应用";
-
-
-/* Subscription */
-"subscription.active" = "已启用";
-"subscription.premium" = "高级版";
-"subscription.tagline" = "解锁个性化推荐功能";
-"subscription.free" = "免费版";
-"subscription.monthly" = "月费方案";
-"subscription.annual" = "年费方案";
-"subscription.perMonth" = "/月";
-"subscription.perYear" = "/年";
-"subscription.savings" = "省下 %d%%";
-"subscription.currentPlan" = "当前方案";
-"subscription.features.memory" = "个性化推荐";
-"subscription.features.memoryDescription" = "AI 会随着时间学习您的偏好";
-"subscription.features.betterModel" = "进阶 AI 模型";
-"subscription.features.betterModelDescription" = "使用最强大的 AI 模型";
-"subscription.features.priority" = "优先处理";
-"subscription.features.priorityDescription" = "更快速的响应时间";
-"subscription.subscribe" = "订阅";
-"subscription.restore" = "恢复购买";
-"subscription.cancel" = "取消订阅";
-"subscription.expiresOn" = "到期日 %@";
-"subscription.unableToLoad" = "无法加载订阅选项";
-"subscription.renewsOn" = "续订日 %@";
-"subscription.troubleshoot" = "如果问题持续，请确认你的 App Store 账户可用后重试。";
-"subscription.selectPlanHint" = "请先选择一个订阅方案。";
-"subscription.plansUnavailableNeutral" = "高级方案正在后台加载。";
-"subscription.loadingBackgroundHint" = "你可以随时继续使用免费版，我们会持续自动检查。";
-"subscription.refreshPlans" = "刷新方案";
-"subscription.continueFree" = "继续使用免费版";
 
 /* Weather */
 "weather.aware" = "气候感知";
@@ -149,12 +117,122 @@
 "trips.noTrips" = "暂无行程";
 "trips.getStarted" = "规划你的第一天行程开始";
 "trips.days" = "%@ 天";
+"trips.addButton" = "加入我的行程";
+"trips.addedButton" = "已保存到我的行程";
 
 /* Map */
 "map.title" = "地图";
 "map.done" = "完成";
+"maps.chooseApp" = "选择导航应用";
+"maps.apple" = "Apple 地图";
+"maps.google" = "Google 地图";
 
 /* Legal */
-"legal.autoRenew" = "订阅将自动续期，除非在当前订阅期结束前至少 24 小时取消。";
 "legal.terms" = "使用条款";
 "legal.privacy" = "隐私政策";
+
+/* Loading Screen Facts */
+"loading.didYouKnow" = "你知道吗？";
+"loading.fact.general.1" = "正在规划你的完美一天...";
+"loading.fact.general.2" = "正在寻找最适合你的地方...";
+"loading.fact.general.3" = "正在策划你的理想行程...";
+
+/* London */
+"loading.fact.london.1a" = "泰晤士河里有超过100种鱼类。";
+"loading.fact.london.1b" = "泰晤士河全长215英里，是英格兰境内最长的河流。";
+"loading.fact.london.1c" = "超过1500万人依赖泰晤士河作为饮用水来源。";
+"loading.fact.london.2a" = "茶叶于1657年首次在伦敦销售。";
+"loading.fact.london.2b" = "英国人每天大约喝1亿杯茶。";
+"loading.fact.london.2c" = "下午茶是由贝德福德公爵夫人安娜于1840年发明的。";
+"loading.fact.london.3a" = "伊丽莎白二世在位期间养了超过30只柯基犬。";
+"loading.fact.london.3b" = "女王的第一只柯基犬Dookie于1933年加入皇室。";
+"loading.fact.london.3c" = "柯基犬最初在威尔士被培育来牧牛。";
+"loading.fact.london.4a" = "伦敦出租车司机必须通过「知识测验」，记住25,000条街道和20,000个地标。";
+"loading.fact.london.4b" = "大本钟其实是钟的名字，不是塔的名字——塔叫伊丽莎白塔。";
+"loading.fact.london.4c" = "伊丽莎白塔的时钟自1859年开始运行以来，几乎从未停过。";
+"loading.fact.london.5a" = "伦敦塔桥每年大约打开800次，让船只通过。";
+"loading.fact.london.5b" = "伦敦塔桥历时8年、由432名工人建造，于1894年启用。";
+"loading.fact.london.5c" = "伦敦塔桥经常与伦敦桥混淆，但伦敦桥是上游一座简单得多的桥。";
+"loading.fact.london.6a" = "伦敦有超过170座博物馆，包括大英博物馆、泰特现代美术馆和V&A博物馆。";
+"loading.fact.london.6b" = "标志性的红色双层巴士自1956年起成为伦敦的象征。";
+"loading.fact.london.6c" = "英国仍有大约8,000个红色电话亭。";
+
+/* NYC */
+"loading.fact.nyc.1a" = "布鲁克林大桥是世界上第一座钢丝悬索桥。";
+"loading.fact.nyc.1b" = "布鲁克林大桥历时14年建造，于1883年启用。";
+"loading.fact.nyc.1c" = "每天约有12万车辆和行人通过布鲁克林大桥。";
+"loading.fact.nyc.2a" = "自由女神像是法国的礼物，于1885年以350个部件运抵美国。";
+"loading.fact.nyc.2b" = "自由女神像的全名是「照耀世界的自由」。";
+"loading.fact.nyc.2c" = "雕像的铜皮只有3/32英寸厚——大约两个硬币的厚度。";
+"loading.fact.nyc.3a" = "帝国大厦仅用了410天就建成了。";
+"loading.fact.nyc.3b" = "这座大厦每年大约被闪电击中25次。";
+"loading.fact.nyc.3c" = "帝国大厦有自己的邮编：10118。";
+"loading.fact.nyc.4a" = "中央公园比整个摩纳哥还要大。";
+"loading.fact.nyc.4b" = "公园里有超过25,000棵树和9,000张长椅。";
+"loading.fact.nyc.4c" = "中央公园是美国第一个经过规划的公共公园，于1858年开放。";
+"loading.fact.nyc.5a" = "纽约有超过800种语言，是世界上语言最多元化的城市。";
+"loading.fact.nyc.5b" = "纽约市约有13,500辆持照黄色出租车。";
+"loading.fact.nyc.5c" = "纽约人的人均咖啡消费量是美国其他地区的7倍。";
+"loading.fact.nyc.6a" = "纽约地铁有472个车站——全球最多。";
+"loading.fact.nyc.6b" = "地铁全年365天、每天24小时运行——是世界上少数如此的系统之一。";
+"loading.fact.nyc.6c" = "如果把纽约地铁轨道首尾相连，可以从纽约延伸到芝加哥。";
+
+/* Paris */
+"loading.fact.paris.1a" = "由于铁的热膨胀，埃菲尔铁塔在夏天可以高出15厘米。";
+"loading.fact.paris.1b" = "埃菲尔铁塔原本只打算矗立20年就拆除。";
+"loading.fact.paris.1c" = "铁塔每7年重新粉刷一次，需要60吨油漆。";
+"loading.fact.paris.2a" = "凯旋门位于12条放射状大道的中心。";
+"loading.fact.paris.2b" = "凯旋门花了30年才建成，从1806年到1836年。";
+"loading.fact.paris.2c" = "一位一战无名战士自1921年起长眠于拱门之下。";
+"loading.fact.paris.3a" = "巴黎圣母院花了近200年才建成，从1163年到1345年。";
+"loading.fact.paris.3b" = "大教堂最大的钟「Emmanuel」重达13吨以上。";
+"loading.fact.paris.3c" = "雨果的小说《巴黎圣母院》在1831年拯救了大教堂免于被拆除。";
+"loading.fact.paris.4a" = "牛角面包其实是奥地利发明的，不是法国——但法国人将其完美化了。";
+"loading.fact.paris.4b" = "巴黎有超过30,000家咖啡馆和餐厅。";
+"loading.fact.paris.4c" = "法国法律规定，每家面包店都必须在店内从头制作法棍，才能自称「boulangerie」。";
+"loading.fact.paris.5a" = "卢浮宫是世界上最大的美术馆，最初于1190年作为堡垒而建。";
+"loading.fact.paris.5b" = "如果每件艺术品花30秒观看，要100天才能看完卢浮宫的所有藏品。";
+"loading.fact.paris.5c" = "蒙娜丽莎在卢浮宫有自己的邮箱，因为收到太多情书了。";
+"loading.fact.paris.6a" = "圣心堂的钟La Savoyarde重达19吨，是世界上最重的钟之一。";
+"loading.fact.paris.6b" = "圣殿的白色石头随着年月会变得更白，因为下雨时会分泌方解石。";
+"loading.fact.paris.6c" = "整个巴黎市只有一个停车标志。";
+
+/* Austin */
+"loading.fact.austin.1a" = "奥斯汀被称为「世界现场音乐之都」，人均现场音乐场地比其他任何地方都多。";
+"loading.fact.austin.1b" = "奥斯汀每晚有超过250个现场音乐场地在演出。";
+"loading.fact.austin.1c" = "这座城市的非官方座右铭是「Keep Austin Weird（保持奥斯汀的怪异）」。";
+"loading.fact.austin.2a" = "得克萨斯州议会大厦比华盛顿特区的美国国会大厦还要高。";
+"loading.fact.austin.2b" = "议会大厦占地3英亩，拥有超过400个房间。";
+"loading.fact.austin.2c" = "奥斯汀在1837年首次定居时，原名为「Waterloo（滑铁卢）」。";
+"loading.fact.austin.3a" = "奥斯汀拥有北美最大的城市蝙蝠群——多达150万只蝙蝠住在国会大道桥下。";
+"loading.fact.austin.3b" = "这些蝙蝠每晚吃掉10,000到30,000磅昆虫。";
+"loading.fact.austin.3c" = "国会大道桥的观蝙蝠活动每年吸引约10万名游客。";
+"loading.fact.austin.4a" = "得州式BBQ牛胸肉需要12至18小时才能正确烟熏。";
+"loading.fact.austin.4b" = "奥斯汀的Franklin Barbecue开店前经常要排队2至3小时。";
+"loading.fact.austin.4c" = "得克萨斯州的牛只数量比美国任何其他州都多——约有1300万头。";
+"loading.fact.austin.5a" = "得州长角牛的角展可以超过7英尺。";
+"loading.fact.austin.5b" = "得克萨斯大学的吉祥物Bevo自1916年以来一直是一头真正的长角牛。";
+"loading.fact.austin.5c" = "长角牛是美洲建立的第一个牛品种。";
+"loading.fact.austin.6a" = "Lady Bird Lake是科罗拉多河上的水库，就在奥斯汀市中心。";
+"loading.fact.austin.6b" = "这个湖以前第一夫人及环保斗士Lady Bird Johnson命名。";
+"loading.fact.austin.6c" = "Lady Bird Lake禁止游泳，但全年提供皮划艇、划船和立桨冲浪。";
+
+/* Boston */
+"loading.fact.boston.1a" = "波士顿以其「神圣鳕鱼」闻名，也生产了美国第一块巧克力。";
+"loading.fact.boston.1b" = "马萨诸塞州每年收获约1500万磅龙虾。";
+"loading.fact.boston.1c" = "新英格兰蛤蜊浓汤于1751年首次记录在波士顿的食谱书中。";
+"loading.fact.boston.2a" = "芬威球场是目前仍在使用的最古老的大联盟棒球场，于1912年启用。";
+"loading.fact.boston.2b" = "绿色怪物墙高37英尺，最初是为了防止球迷免费观看比赛而建造的。";
+"loading.fact.boston.2c" = "芬威球场右外野的Pesky Pole距离本垒只有302英尺——棒球场中最短的之一。";
+"loading.fact.boston.3a" = "保罗·里维尔著名的午夜骑行在1775年从波士顿到列克星顿，全程约20英里。";
+"loading.fact.boston.3b" = "里维尔从未真正喊过「英国人来了！」——大多数殖民者仍自认为是英国人。";
+"loading.fact.boston.3c" = "波士顿的自由之路连接了16个具有历史意义的地点，全长2.5英里。";
+"loading.fact.boston.4a" = "波士顿茶叶事件于1773年在波士顿港发生，342箱茶叶被倒入水中。";
+"loading.fact.boston.4b" = "波士顿港曾经污染严重，成为全国失败的象征——现在却是美国最干净的城市港口之一。";
+"loading.fact.boston.4c" = "美国第一座灯塔于1716年建在波士顿港的Little Brewster Island上。";
+"loading.fact.boston.5a" = "波士顿公共花园的天鹅船自1877年以来一直是城市传统。";
+"loading.fact.boston.5b" = "波士顿公园毗邻公共花园，建于1634年，是美国最古老的公园。";
+"loading.fact.boston.5c" = "儿童书籍《让路给小鸭子》的故事就发生在波士顿公共花园。";
+"loading.fact.boston.6a" = "法尼尔厅自1743年以来一直是市场和会堂。";
+"loading.fact.boston.6b" = "法尼尔厅顶部的蚱蜢风向标在独立战争期间被用来测试疑似间谍。";
+"loading.fact.boston.6c" = "美国第一条地铁于1897年在波士顿建成。";

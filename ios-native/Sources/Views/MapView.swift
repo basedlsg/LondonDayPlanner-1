@@ -6,6 +6,7 @@ struct ItineraryMapViewFull: View {
     let places: [Itinerary.ScheduledPlace]
     @State private var region: MKCoordinateRegion
     @State private var selectedPlace: Itinerary.ScheduledPlace?
+    @State private var directionsPlace: Itinerary.ScheduledPlace?
     @Environment(\.dismiss) private var dismiss
     
     init(places: [Itinerary.ScheduledPlace]) {
@@ -61,6 +62,12 @@ struct ItineraryMapViewFull: View {
             }
             .navigationTitle(NSLocalizedString("map.title", comment: "Map"))
             .navigationBarTitleDisplayMode(.inline)
+            .sheet(item: $directionsPlace) { place in
+                MapsAppSheet(destination: place.directionsDestination)
+                    .presentationDetents([.height(238)])
+                    .presentationDragIndicator(.visible)
+                    .presentationCornerRadius(30)
+            }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(NSLocalizedString("map.done", comment: "Done")) { dismiss() }
@@ -89,23 +96,23 @@ struct ItineraryMapViewFull: View {
                     
                     Text(place.name)
                         .font(.headline)
-                        .foregroundStyle(.white)
+                        .foregroundStyle(DesignTokens.Colors.textPrimary)
                         .lineLimit(1)
                     
                     Text(place.address)
                         .font(.caption)
-                        .foregroundStyle(.white.opacity(0.6))
+                        .foregroundStyle(DesignTokens.Colors.textSecondary)
                         .lineLimit(1)
                 }
                 
                 Spacer()
                 
                 Button {
-                    openInMaps(place)
+                    directionsPlace = place
                 } label: {
                     Image(systemName: "arrow.triangle.turn.up.right.diamond.fill")
                         .font(.title2)
-                        .foregroundStyle(Color.accentBlue)
+                        .foregroundStyle(DesignTokens.Colors.textPrimary)
                 }
             }
             .padding(DesignTokens.Spacing.md)
@@ -143,10 +150,6 @@ struct ItineraryMapViewFull: View {
         }
     }
     
-    private func openInMaps(_ place: Itinerary.ScheduledPlace) {
-        let url = URL(string: "maps://?daddr=\(place.location.lat),\(place.location.lng)")!
-        UIApplication.shared.open(url)
-    }
 }
 
 // MARK: - Place Annotation

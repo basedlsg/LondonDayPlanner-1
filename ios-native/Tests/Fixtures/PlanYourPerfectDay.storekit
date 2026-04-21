@@ -1,0 +1,149 @@
+{
+  "appPolicies" : {
+    "eula" : "",
+    "policies" : [
+      {
+        "locale" : "en_US",
+        "policyText" : "",
+        "policyURL" : ""
+      }
+    ]
+  },
+  "identifier" : "3E12903C",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+    "_askToBuyEnabled" : true,
+    "_billingGracePeriodEnabled" : false,
+    "_billingIssuesEnabled" : false,
+    "_disableDialogs" : false,
+    "_failTransactionsEnabled" : false,
+    "_locale" : "en_US",
+    "_renewalBillingIssuesEnabled" : true,
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+      {
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "enabled" : false,
+        "name" : "App Store Sync"
+      },
+      {
+        "enabled" : false,
+        "name" : "Subscription Status"
+      },
+      {
+        "enabled" : false,
+        "name" : "App Transaction"
+      },
+      {
+        "enabled" : false,
+        "name" : "Manage Subscriptions Sheet"
+      },
+      {
+        "enabled" : false,
+        "name" : "Refund Request Sheet"
+      },
+      {
+        "enabled" : false,
+        "name" : "Offer Code Redeem Sheet"
+      }
+    ],
+    "_timeRate" : 0
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "28C3D345",
+      "localizations" : [
+
+      ],
+      "name" : "Premium",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "4.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "6EA1327A",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Access to all premium features",
+              "displayName" : "Monthly Premium",
+              "locale" : "en_US"
+            },
+            {
+              "description" : "解锁所有高级功能",
+              "displayName" : "月度会员",
+              "locale" : "zh_Hans"
+            }
+          ],
+          "productID" : "com.londonplanner.premium.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Monthly",
+          "subscriptionGroupID" : "28C3D345",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "49.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "D9C2E15B",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Access to all premium features",
+              "displayName" : "Annual Premium",
+              "locale" : "en_US"
+            },
+            {
+              "description" : "解锁所有高级功能",
+              "displayName" : "年度会员",
+              "locale" : "zh_Hans"
+            }
+          ],
+          "productID" : "com.londonplanner.premium.annual",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Annual",
+          "subscriptionGroupID" : "28C3D345",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}

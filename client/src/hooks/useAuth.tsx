@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { apiRequest } from '../lib/queryClient';
+import { apiRequest, buildApiUrl } from '../lib/queryClient';
 
 // Define the User interface
 export interface User {
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        const response = await fetch('/api/auth/status', {
+        const response = await fetch(buildApiUrl('/api/auth/status'), {
           credentials: 'include',
         });
         const data = await response.json();

@@ -6,14 +6,16 @@ struct PlanYourPerfectDayApp: App {
     @StateObject private var cityManager = CityManager()
     @StateObject private var networkMonitor = NetworkMonitor()
     @StateObject private var locationManager = LocationManager()
+    @StateObject private var tripStore = TripStore()
     
     var body: some Scene {
         WindowGroup {
-            SplashScreenView()
+            ContentView()
                 .environmentObject(cityManager)
                 .environmentObject(networkMonitor)
                 .environmentObject(locationManager)
-                .preferredColorScheme(.dark)
+                .environmentObject(tripStore)
+                .preferredColorScheme(.light)
                 .onOpenURL { url in
                     handleDeepLink(url)
                 }

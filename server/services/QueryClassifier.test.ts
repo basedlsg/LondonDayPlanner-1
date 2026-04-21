@@ -9,10 +9,18 @@ describe('QueryClassifier', () => {
 
     expect(result.tier).toBe('complex');
     expect(result.activityCount).toBeGreaterThanOrEqual(2);
+    expect(result.model).toBe('gemini-2.5-flash');
   });
 
   it('classifies sequential mixed-stop queries as complex', () => {
     const result = classifier.classify('coffee in Shoreditch then lunch in Soho');
+
+    expect(result.tier).toBe('complex');
+    expect(result.activityCount).toBeGreaterThanOrEqual(2);
+  });
+
+  it('classifies activity-led queries without explicit separators as complex', () => {
+    const result = classifier.classify('Lunch near the capitol building Dinner downtown');
 
     expect(result.tier).toBe('complex');
     expect(result.activityCount).toBeGreaterThanOrEqual(2);

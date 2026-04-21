@@ -3,6 +3,7 @@
 
 import { GroundedSearch, getGroundedSearch } from './GroundedSearch.js';
 import { PlacesValidator, getPlacesValidator } from './PlacesValidator.js';
+import { getCityConfig } from '../config/cities.js';
 import {
   SearchContext,
   ParsedActivity,
@@ -124,6 +125,7 @@ export class VenueDiscovery {
     activity: ParsedActivity,
     context: SearchContext
   ): Promise<DiscoveryResult> {
+    const cityConfig = getCityConfig(context.citySlug);
     const venues = this.rerankVenues(
       await this.placesValidator.searchVenues(
         `${searchQuery} in ${location}`,
@@ -133,7 +135,8 @@ export class VenueDiscovery {
           location: activity.location,
           venuePreference: activity.venuePreference,
           requirements: activity.requirements,
-        }
+        },
+        cityConfig.coordinates
       ),
       activity.location
     );

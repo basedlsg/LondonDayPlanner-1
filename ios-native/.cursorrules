@@ -1,0 +1,11 @@
+# Project Rules: London Day Planner (iOS)
+
+## StoreKit & App Store Testing
+**CRITICAL RULE: NEVER USE MOCK STOREKIT ENVIRONMENTS.**
+
+- Do **NOT** use `.storekit` files for testing or configuration.
+- Do **NOT** attach local StoreKit configuration files to Xcode schemes.
+- All testing, verification, and App Store submission preparation MUST be done using the real Apple App Store Sandbox or Production environments. 
+- The app must always communicate directly with Apple's actual servers.
+- The subscription UI must gracefully handle real-world failure states (like when a sandbox account is not signed in) without showing custom error dialogs to the user/reviewer. 
+- The iOS implementation relies on `SubscriptionStoreView` with explicit `productIDs` to guarantee this behavior.

@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
-import { apiRequest } from "@/lib/queryClient";
+import { apiRequest, buildApiUrl } from "@/lib/queryClient";
 import { generateICS } from "@/lib/ics";
 import type { Itinerary, Place, PlaceDetails } from "@shared/schema";
 import { format } from "date-fns";
@@ -151,7 +151,7 @@ export default function Home() {
   const [isFormSubmitting, setIsFormSubmitting] = useState(false);
 
   useState(() => {
-    fetch("/api/time")
+    fetch(buildApiUrl("/api/time"))
       .then(res => res.json())
       .then(data => {
         const localDate = new Date(data.currentTime);

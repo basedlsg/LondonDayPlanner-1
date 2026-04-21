@@ -491,8 +491,7 @@ class HomeViewModel: ObservableObject {
             createdItinerary = try await apiClient.createItinerary(
                 citySlug: city.slug,
                 query: query,
-                date: selectedDate,
-                isPremium: true
+                date: selectedDate
             )
             showItinerary = true
         } catch {

@@ -3,7 +3,22 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var cityManager: CityManager
     @EnvironmentObject var networkMonitor: NetworkMonitor
+    @EnvironmentObject var tripStore: TripStore
     @State private var selectedTab: Tab = .plan
+    private let showsDebugLoadingScreen: Bool = {
+        #if DEBUG
+        ProcessInfo.processInfo.arguments.contains("--debug-loading-screen")
+        #else
+        false
+        #endif
+    }()
+    private let showsDebugSampleItinerary: Bool = {
+        #if DEBUG
+        ProcessInfo.processInfo.arguments.contains("--debug-sample-itinerary")
+        #else
+        false
+        #endif
+    }()
     
     enum Tab: String, CaseIterable {
         case plan = "Plan"
@@ -40,47 +55,55 @@ struct ContentView: View {
     }
     
     var body: some View {
-        ZStack {
-            // Liquid background
-            LiquidBackground()
-                .ignoresSafeArea()
-            
-            TabView(selection: $selectedTab) {
-                NavigationStack {
-                    HomeView()
+        Group {
+            if showsDebugLoadingScreen {
+                GeneratingLoadingView(citySlug: "london", cityName: "London")
+            } else {
+                ZStack {
+                    // Liquid background
+                    LiquidBackground()
+                        .ignoresSafeArea()
+                    
+                    TabView(selection: $selectedTab) {
+                        NavigationStack {
+                            if showsDebugSampleItinerary {
+                                ItineraryView(itinerary: .preview)
+                            } else {
+                                HomeView()
+                            }
+                        }
+                        .tabItem {
+                            Label(Tab.plan.rawValue, systemImage: Tab.plan.icon)
+                        }
+                        .tag(Tab.plan)
+                        
+                        NavigationStack {
+                            TripsView()
+                        }
+                        .tabItem {
+                            Label(Tab.trips.rawValue, systemImage: Tab.trips.icon)
+                        }
+                        .tag(Tab.trips)
+                        
+                        NavigationStack {
+                            ExploreView()
+                        }
+                        .tabItem {
+                            Label(Tab.explore.rawValue, systemImage: Tab.explore.icon)
+                        }
+                        .tag(Tab.explore)
+                        
+                        NavigationStack {
+                            SettingsView()
+                        }
+                        .tabItem {
+                            Label(Tab.settings.rawValue, systemImage: Tab.settings.icon)
+                        }
+                        .tag(Tab.settings)
+                    }
+                    .tint(Color.accentPink)
                 }
-                .tabItem {
-                    Label(Tab.plan.rawValue, systemImage: Tab.plan.icon)
-                }
-                .tag(Tab.plan)
-                
-                NavigationStack {
-                    TripsView()
-                }
-                .tabItem {
-                    Label(Tab.trips.rawValue, systemImage: Tab.trips.icon)
-                }
-                .tag(Tab.trips)
-                
-                NavigationStack {
-                    ExploreView()
-                }
-                .tabItem {
-                    Label(Tab.explore.rawValue, systemImage: Tab.explore.icon)
-                }
-                .tag(Tab.explore)
-                
-                NavigationStack {
-                    SettingsView()
-                }
-                .tabItem {
-                    Label(Tab.settings.rawValue, systemImage: Tab.settings.icon)
-                }
-                .tag(Tab.settings)
             }
-            .tint(Color.accentPink)
-            
-
         }
         .preferredColorScheme(.light)
     }
@@ -90,4 +113,5 @@ struct ContentView: View {
     ContentView()
         .environmentObject(CityManager())
         .environmentObject(NetworkMonitor())
+        .environmentObject(TripStore())
 }

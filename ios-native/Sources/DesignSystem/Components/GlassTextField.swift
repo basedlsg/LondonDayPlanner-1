@@ -48,7 +48,7 @@ struct GlassTextField: View {
             GlassTextField(
                 placeholder: "Describe your perfect day...",
                 text: .constant(""),
-                icon: "sparkles"
+                icon: "text.bubble.fill"
             )
             
             GlassTextField(

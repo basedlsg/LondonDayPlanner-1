@@ -61,20 +61,9 @@ struct CityPickerSheet: View {
     
     var body: some View {
         ZStack {
-            // 1. BACKGROUND: Force Opaque White + Cyan Tint
-            // This prevents the "Dark Gray" sheet background from showing through
-            Color.white.ignoresSafeArea()
-            
-            // 2. THE ATMOSPHERE: Light Cyan Gradient (Top Only)
-            LinearGradient(
-                colors: [
-                    Color(hex: "D0F5FA"), // Ice Blue (Light)
-                    Color.white.opacity(0.0) // Fades to transparent
-                ],
-                startPoint: .top,
-                endPoint: .init(x: 0.5, y: 0.4) // Stops 40% down
-            )
-            .ignoresSafeArea()
+            // Unified brand background
+            DesignTokens.Gradients.brandBackground
+                .ignoresSafeArea()
             
             VStack(spacing: 0) { // Spacing 0 to control layout manually
                 // --- HEADER ---

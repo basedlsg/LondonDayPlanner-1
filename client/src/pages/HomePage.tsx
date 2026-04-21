@@ -106,6 +106,7 @@ export default function HomePage({ selectedCity }: HomePageProps) {
               onExport={() => {
                 exportToCalendar(itineraryData?.venues || []);
               }}
+              cityName={selectedCity.name}
             />
           </section>
         </div>

@@ -161,7 +161,7 @@ struct PressButtonStyle: SwiftUI.ButtonStyle {
         LiquidBackground()
         
         VStack(spacing: 20) {
-            GlassButton("Plan My Day", icon: "sparkles") {
+            GlassButton("Plan My Day", icon: "calendar.badge.plus") {
                 print("Primary tapped")
             }
             

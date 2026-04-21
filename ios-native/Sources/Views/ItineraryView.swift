@@ -55,6 +55,10 @@ struct DirectionsDestination {
 }
 
 extension Itinerary.ScheduledPlace {
+    var hasValidLocation: Bool {
+        !(location.lat == 0 && location.lng == 0)
+    }
+
     var directionsDestination: DirectionsDestination {
         DirectionsDestination(
             name: name,
@@ -75,6 +79,103 @@ extension Itinerary.ScheduledPlace {
         guard !sanitized.isEmpty else { return nil }
         return URL(string: "tel://\(sanitized)")
     }
+
+    var thumbnailPhotoURLs: [URL] {
+        buildPhotoURLCandidates(
+            primary: photoUrl,
+            additional: photoUrls,
+            fallbacks: (alternatives?.flatMap { alternative in
+                [alternative.photoUrl] + (alternative.photoUrls ?? [])
+            } ?? []).compactMap { $0 },
+            maxWidthPx: 520
+        )
+    }
+
+    var heroPhotoURLs: [URL] {
+        buildPhotoURLCandidates(
+            primary: photoUrl,
+            additional: photoUrls,
+            fallbacks: (alternatives?.flatMap { alternative in
+                [alternative.photoUrl] + (alternative.photoUrls ?? [])
+            } ?? []).compactMap { $0 },
+            maxWidthPx: 1200
+        )
+    }
+}
+
+extension Itinerary.AlternativePlace {
+    /// Convert an alternative place to a ScheduledPlace for viewing in the detail sheet
+    var asScheduledPlace: Itinerary.ScheduledPlace {
+        Itinerary.ScheduledPlace(
+            placeId: placeId,
+            name: name,
+            address: address,
+            location: Place.Location(lat: 0, lng: 0),
+            scheduledTime: "",
+            duration: nil,
+            types: nil,
+            rating: rating,
+            alternatives: nil,
+            activityDescription: whyRecommended,
+            photoUrl: photoUrl,
+            photoUrls: photoUrls,
+            statusText: nil,
+            isOpenNow: nil,
+            phoneNumber: nil
+        )
+    }
+
+    var thumbnailPhotoURLs: [URL] {
+        buildPhotoURLCandidates(primary: photoUrl, additional: photoUrls, maxWidthPx: 420)
+    }
+}
+
+private func buildPhotoURLCandidates(
+    primary: String?,
+    additional: [String]? = nil,
+    fallbacks: [String] = [],
+    maxWidthPx: Int
+) -> [URL] {
+    var seen = Set<String>()
+
+    return ([primary] + (additional ?? []) + fallbacks)
+        .compactMap { $0 }
+        .compactMap { sizedPhotoURL(from: $0, maxWidthPx: maxWidthPx) }
+        .filter { seen.insert($0.absoluteString).inserted }
+}
+
+private let photoBaseURL = "https://london-day-planner-1.vercel.app"
+
+private func sizedPhotoURL(from rawValue: String, maxWidthPx: Int) -> URL? {
+    // Resolve relative paths (e.g. "/api/place-photo?...") against the server base URL
+    let fullString = rawValue.hasPrefix("/") ? photoBaseURL + rawValue : rawValue
+
+    // Direct CDN URLs (Google Photos, etc.) — use as-is, size is baked in
+    guard fullString.contains("/api/place-photo") else {
+        return URL(string: fullString)
+    }
+
+    // Legacy proxy URLs — adjust maxWidthPx param
+    guard var components = URLComponents(string: fullString) else {
+        return nil
+    }
+
+    var queryItems = components.queryItems ?? []
+    if let index = queryItems.firstIndex(where: { $0.name == "maxWidthPx" }) {
+        queryItems[index].value = String(maxWidthPx)
+    } else {
+        queryItems.append(URLQueryItem(name: "maxWidthPx", value: String(maxWidthPx)))
+    }
+    components.queryItems = queryItems
+    return components.url
+}
+
+private enum PhotoRequestModifier {
+    static let acceptingImages = AnyModifier { request in
+        var request = request
+        request.setValue("image/*,*/*;q=0.8", forHTTPHeaderField: "Accept")
+        return request
+    }
 }
 
 // MARK: - Stitch Color Palette
@@ -82,8 +183,8 @@ extension Itinerary.ScheduledPlace {
 private enum StitchColors {
     static let primary = Color(hex: "006783")
     static let secondary = Color(hex: "97406d")
-    static let onSurface = Color(hex: "273440")
-    static let onSurfaceVariant = Color(hex: "54606e")
+    static let onSurface = Color.black.opacity(0.88)
+    static let onSurfaceVariant = Color.black.opacity(0.76)
     static let surface = Color(hex: "f7f9ff")
 }
 
@@ -91,10 +192,12 @@ private enum StitchColors {
 struct ItineraryView: View {
     let itinerary: Itinerary
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var tripStore: TripStore
     @State private var selectedPlace: Itinerary.ScheduledPlace?
     @State private var showShareSheet = false
     @State private var showMap = false
     @State private var didAutoOpenDebugPlace = false
+    @State private var imagePrefetcher: ImagePrefetcher?
     private let shouldAutoOpenDebugPlace: Bool = {
         #if DEBUG
         ProcessInfo.processInfo.arguments.contains("--debug-open-place-detail")
@@ -105,37 +208,31 @@ struct ItineraryView: View {
 
     var body: some View {
         ZStack {
-            // Light Gradient V1.3 background: pink top -> white middle -> light blue bottom
-            LinearGradient(
-                stops: [
-                    .init(color: Color(hex: "fbe4ee"), location: 0.0),
-                    .init(color: .white, location: 0.4),
-                    .init(color: .white, location: 0.6),
-                    .init(color: Color(hex: "d8f2f9"), location: 1.0)
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .ignoresSafeArea()
+            // Unified brand background
+            DesignTokens.Gradients.brandBackground
+                .ignoresSafeArea()
 
             ScrollView {
                 VStack(spacing: 0) {
-                    // Header section
+                    // Pinned Rozha One title at top
                     headerSection
-                        .padding(.bottom, 32)
+                        .padding(.bottom, 24)
 
                     // Timeline
                     timelineSection
 
+                    saveToTripsSection
+                        .padding(.top, 28)
+
                     Spacer(minLength: 100)
                 }
                 .padding(.horizontal, DesignTokens.Spacing.md)
-                .padding(.top, DesignTokens.Spacing.md)
             }
         }
-        .navigationTitle(itinerary.title ?? NSLocalizedString("itinerary.title", comment: "Your Itinerary"))
+        .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
+        .toolbarBackground(.hidden, for: .navigationBar)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
@@ -175,6 +272,8 @@ struct ItineraryView: View {
             PlaceDetailSheet(place: place)
         }
         .onAppear {
+            startImagePrefetchingIfNeeded()
+
             guard !didAutoOpenDebugPlace else { return }
             guard shouldAutoOpenDebugPlace else { return }
             guard let debugPlace =
@@ -186,38 +285,22 @@ struct ItineraryView: View {
             didAutoOpenDebugPlace = true
             selectedPlace = debugPlace
         }
+        .onDisappear {
+            imagePrefetcher?.stop()
+            imagePrefetcher = nil
+        }
     }
 
     // MARK: - Header Section
 
     private var headerSection: some View {
-        VStack(spacing: 12) {
-            // "Featured Itinerary" pill badge
-            Text("FEATURED ITINERARY")
-                .font(.custom("Poppins", size: 9))
-                .fontWeight(.bold)
-                .tracking(2.0)
-                .foregroundStyle(StitchColors.secondary)
-                .padding(.horizontal, 14)
-                .padding(.vertical, 6)
-                .background(Color.white.opacity(0.60))
-                .clipShape(Capsule())
-
-            // Large serif headline
-            Text(itinerary.title ?? (itinerary.city?.capitalized ?? "London"))
-                .font(.custom("RozhaOne-Regular", size: 34))
-                .foregroundStyle(StitchColors.onSurface)
-                .multilineTextAlignment(.center)
-                .lineLimit(3)
-
-            // Subtitle
-            Text("A refined journey curated for the modern wanderer.")
-                .font(.custom("Poppins", size: 14))
-                .foregroundStyle(StitchColors.onSurfaceVariant)
-                .multilineTextAlignment(.center)
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.top, 8)
+        Text(itinerary.title ?? (itinerary.city?.capitalized ?? "London"))
+            .font(.custom("RozhaOne-Regular", size: 34))
+            .foregroundStyle(StitchColors.onSurface)
+            .multilineTextAlignment(.center)
+            .lineLimit(3)
+            .frame(maxWidth: .infinity)
+            .padding(.top, 8)
     }
 
     // MARK: - Timeline Section
@@ -297,6 +380,73 @@ struct ItineraryView: View {
         default: return "cloud.fill"
         }
     }
+
+    private func startImagePrefetchingIfNeeded() {
+        guard imagePrefetcher == nil else { return }
+
+        let urls = Array(
+            Set(
+                itinerary.places.flatMap { place in
+                    place.thumbnailPhotoURLs
+                    + place.heroPhotoURLs
+                    + (place.alternatives?.flatMap(\.thumbnailPhotoURLs) ?? [])
+                }
+            )
+        )
+
+        guard !urls.isEmpty else { return }
+
+        let prefetcher = ImagePrefetcher(
+            urls: urls,
+            options: [
+                .cacheOriginalImage,
+                .requestModifier(PhotoRequestModifier.acceptingImages),
+            ]
+        )
+        imagePrefetcher = prefetcher
+        prefetcher.start()
+    }
+
+    private var isSavedToTrips: Bool {
+        tripStore.contains(itinerary: itinerary)
+    }
+
+    private var saveToTripsSection: some View {
+        Button {
+            _ = tripStore.save(itinerary: itinerary)
+        } label: {
+            HStack(spacing: 10) {
+                Image(systemName: isSavedToTrips ? "checkmark.circle.fill" : "bookmark.fill")
+                    .font(.system(size: 15, weight: .semibold))
+
+                Text(
+                    NSLocalizedString(
+                        isSavedToTrips ? "trips.addedButton" : "trips.addButton",
+                        value: isSavedToTrips ? "Saved to My Trips" : "Add to My Trips",
+                        comment: "Save itinerary button"
+                    )
+                )
+                .font(.custom("Manrope", size: 14))
+                .fontWeight(.bold)
+                .tracking(0.6)
+            }
+            .foregroundStyle(Color.black.opacity(0.84))
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 18)
+            .background(
+                RoundedRectangle(cornerRadius: 24, style: .continuous)
+                    .fill(Color.white.opacity(0.84))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 24, style: .continuous)
+                    .stroke(Color.white.opacity(0.78), lineWidth: 1)
+            )
+            .shadow(color: Color.black.opacity(0.06), radius: 18, x: 0, y: 10)
+        }
+        .buttonStyle(.plain)
+        .disabled(isSavedToTrips)
+        .accessibilityIdentifier("add-to-my-trips-button")
+    }
 }
 
 // MARK: - Venue Card
@@ -307,32 +457,35 @@ struct VenueCard: View {
 
     var body: some View {
         Button(action: onTap) {
-            HStack(alignment: .top, spacing: 14) {
-                // Thumbnail image 80x80 rounded-xl with shadow
-                VenueCardThumbnail(place: place)
-                    .frame(width: 80, height: 80)
+            VStack(alignment: .leading, spacing: 12) {
+                // Top row: thumbnail + name/time/rating
+                HStack(alignment: .top, spacing: 14) {
+                    // Thumbnail image — fixed square aspect ratio
+                    VenueCardThumbnail(place: place)
+                        .frame(width: 80, height: 80)
 
-                VStack(alignment: .leading, spacing: 6) {
-                    // Top row: venue name + time badge + rating
-                    HStack(alignment: .top, spacing: 8) {
-                        // Venue name - serif headline
+                    VStack(alignment: .leading, spacing: 6) {
+                        // Venue name
                         Text(place.name)
-                            .font(.custom("RozhaOne-Regular", size: 18))
-                            .foregroundStyle(StitchColors.primary)
+                            .font(.custom("RozhaOne-Regular", size: 17))
+                            .foregroundStyle(StitchColors.onSurface)
                             .multilineTextAlignment(.leading)
                             .lineLimit(2)
+                            .fixedSize(horizontal: false, vertical: true)
 
-                        Spacer(minLength: 0)
+                        Text(place.address)
+                            .font(.custom("Poppins", size: 11))
+                            .foregroundStyle(StitchColors.onSurfaceVariant.opacity(0.88))
+                            .lineLimit(1)
 
-                        VStack(alignment: .trailing, spacing: 4) {
-                            // Time badge
+                        // Time + rating row
+                        HStack(spacing: 8) {
                             Text(place.scheduledTime.uppercased())
                                 .font(.custom("Poppins", size: 10))
                                 .fontWeight(.bold)
                                 .tracking(1.2)
                                 .foregroundStyle(StitchColors.secondary)
 
-                            // Star rating
                             if let rating = place.rating {
                                 HStack(spacing: 2) {
                                     Image(systemName: "star.fill")
@@ -347,41 +500,24 @@ struct VenueCard: View {
                         }
                     }
 
-                    // Description text
-                    if let description = place.activityDescription {
-                        Text(description)
-                            .font(.custom("Poppins", size: 11))
-                            .foregroundStyle(StitchColors.onSurfaceVariant)
-                            .lineSpacing(2)
-                            .lineLimit(2)
-                    }
-
-                    // Category tag
-                    if let category = place.types?.first, !category.isEmpty {
-                        HStack(spacing: 4) {
-                            Image(systemName: categoryIcon(for: category))
-                                .font(.system(size: 9))
-                            Text(category.uppercased())
-                                .font(.custom("Poppins", size: 9))
-                                .fontWeight(.bold)
-                                .tracking(1.2)
-                        }
-                        .foregroundStyle(StitchColors.primary)
-                        .padding(.top, 2)
-                    }
-
-                    // Metadata row (duration, alternatives)
-                    metadataRow
+                    Spacer(minLength: 0)
                 }
-                .layoutPriority(1)
+
+                // Description text
+                if let description = cardSummary {
+                    Text(description)
+                        .font(.custom("Poppins", size: 11))
+                        .foregroundStyle(StitchColors.onSurfaceVariant)
+                        .lineSpacing(2)
+                        .lineLimit(2)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+
+                footerRow
             }
             .padding(16)
         }
         .buttonStyle(.plain)
-        .background(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(.ultraThinMaterial)
-        )
         .background(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .fill(Color.white.opacity(0.75))
@@ -391,6 +527,46 @@ struct VenueCard: View {
                 .stroke(Color.white.opacity(0.60), lineWidth: 1)
         )
         .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 8)
+    }
+
+    private var cardSummary: String? {
+        guard let description = place.activityDescription else { return nil }
+        return summarizeForCard(description)
+    }
+
+    private func summarizeForCard(_ text: String) -> String {
+        let normalized = text
+            .components(separatedBy: .whitespacesAndNewlines)
+            .filter { !$0.isEmpty }
+            .joined(separator: " ")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+
+        guard !normalized.isEmpty else { return text }
+
+        for punctuation in [". ", "! ", "? "] {
+            if let range = normalized.range(of: punctuation) {
+                let sentenceEnd = normalized.index(before: range.upperBound)
+                let sentence = String(normalized[...sentenceEnd])
+                let trimmed = sentence.trimmingCharacters(in: .whitespacesAndNewlines)
+                if !trimmed.isEmpty {
+                    return trimmed
+                }
+            }
+        }
+
+        if let punctuationIndex = normalized.firstIndex(where: { [".", "!", "?"].contains($0) }) {
+            let sentence = String(normalized[...punctuationIndex])
+            let trimmed = sentence.trimmingCharacters(in: .whitespacesAndNewlines)
+            if !trimmed.isEmpty {
+                return trimmed
+            }
+        }
+
+        let maxLength = 120
+        guard normalized.count > maxLength else { return normalized }
+        let endIndex = normalized.index(normalized.startIndex, offsetBy: maxLength)
+        let truncated = String(normalized[..<endIndex]).trimmingCharacters(in: .whitespacesAndNewlines)
+        return truncated + "…"
     }
 
     private func categoryIcon(for category: String) -> String {
@@ -413,35 +589,88 @@ struct VenueCard: View {
     }
 
     @ViewBuilder
-    private var metadataRow: some View {
-        if place.duration != nil || !(place.alternatives?.isEmpty ?? true) {
-            HStack(spacing: 6) {
-                if let duration = place.duration {
-                    metadataItem(
-                        icon: "clock",
-                        text: String(
-                            format: NSLocalizedString("itinerary.minutes", comment: "%@ min"),
-                            "\(duration)"
-                        )
-                    )
+    private var footerRow: some View {
+        HStack(alignment: .center, spacing: 10) {
+            if let category = place.types?.first, !category.isEmpty {
+                HStack(spacing: 4) {
+                    Image(systemName: categoryIcon(for: category))
+                        .font(.system(size: 9))
+
+                    Text(displayCategory(for: category))
+                        .font(.custom("Poppins", size: 9))
+                        .fontWeight(.bold)
+                        .tracking(1.0)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.75)
                 }
-
-                if let alternatives = place.alternatives, !alternatives.isEmpty {
-                    if place.duration != nil {
-                        metadataSeparator
-                    }
-
-                    metadataItem(
-                        icon: "arrow.left.arrow.right",
-                        text: "+\(alternatives.count)"
-                    )
-                }
-
-                Spacer(minLength: 0)
+                .foregroundStyle(StitchColors.primary)
+                .layoutPriority(1)
             }
-            .font(.caption)
-            .lineLimit(1)
+
+            Spacer(minLength: 6)
+            metadataRow
         }
+    }
+
+    private func displayCategory(for category: String) -> String {
+        let normalized = category.lowercased()
+
+        if normalized.contains("fine dining") { return "FINE DINING" }
+        if normalized.contains("chicken wing") { return "WINGS" }
+        if normalized.contains("cocktail") { return "COCKTAILS" }
+        if normalized.contains("coffee") || normalized.contains("cafe") { return "COFFEE" }
+        if normalized.contains("museum") { return "MUSEUM" }
+        if normalized.contains("gallery") { return "GALLERY" }
+        if normalized.contains("park") || normalized.contains("garden") { return "NATURE" }
+        if normalized.contains("bar") || normalized.contains("pub") { return "BAR" }
+
+        if normalized.contains("restaurant") {
+            let trimmed = category
+                .replacingOccurrences(of: " Restaurant", with: "")
+                .replacingOccurrences(of: " restaurant", with: "")
+
+            if trimmed.count <= 16 {
+                return trimmed.uppercased()
+            }
+
+            if normalized.contains("asian") { return "ASIAN" }
+            if normalized.contains("mexican") { return "MEXICAN" }
+            if normalized.contains("american") { return "AMERICAN" }
+            if normalized.contains("french") { return "FRENCH" }
+            if normalized.contains("italian") { return "ITALIAN" }
+        }
+
+        return category
+            .replacingOccurrences(of: "_", with: " ")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .uppercased()
+    }
+
+    private var metadataRow: some View {
+        HStack(spacing: 6) {
+            if let duration = place.duration {
+                metadataItem(
+                    icon: "clock",
+                    text: String(
+                        format: NSLocalizedString("itinerary.minutes", comment: "%@ min"),
+                        "\(duration)"
+                    )
+                )
+            }
+
+            if let alternatives = place.alternatives, !alternatives.isEmpty {
+                if place.duration != nil {
+                    metadataSeparator
+                }
+
+                metadataItem(
+                    icon: "arrow.left.arrow.right",
+                    text: "+\(alternatives.count)"
+                )
+            }
+        }
+        .font(.caption)
+        .lineLimit(1)
     }
 
     private var metadataSeparator: some View {
@@ -459,6 +688,7 @@ struct VenueCard: View {
             Text(text)
                 .foregroundStyle(StitchColors.onSurfaceVariant)
                 .lineLimit(1)
+                .minimumScaleFactor(0.85)
         }
         .fixedSize()
     }
@@ -468,20 +698,19 @@ private struct VenueCardThumbnail: View {
     let place: Itinerary.ScheduledPlace
 
     var body: some View {
-        Group {
-            if let photoUrl = place.photoUrl, let url = URL(string: photoUrl) {
-                KFImage(url)
-                    .placeholder { placeholder }
-                    .resizable()
-                    .scaledToFill()
-            } else {
-                placeholder
+        Color.clear
+            .aspectRatio(1, contentMode: .fit)
+            .overlay {
+                if !place.thumbnailPhotoURLs.isEmpty {
+                    ResilientRemoteImage(urls: place.thumbnailPhotoURLs) {
+                        placeholder
+                    }
+                } else {
+                    placeholder
+                }
             }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .clipped()
-        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-        .shadow(color: Color.black.opacity(0.10), radius: 8, x: 0, y: 4)
+            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .shadow(color: Color.black.opacity(0.10), radius: 8, x: 0, y: 4)
     }
 
     private var placeholder: some View {
@@ -538,74 +767,76 @@ struct PlaceDetailSheet: View {
     let place: Itinerary.ScheduledPlace
     @Environment(\.dismiss) private var dismiss
     @State private var showDirectionsSheet = false
+    @State private var selectedAlternative: Itinerary.ScheduledPlace?
 
     var body: some View {
         NavigationStack {
-            GeometryReader { geometry in
-                let topInset = geometry.safeAreaInsets.top
-                let bottomInset = max(geometry.safeAreaInsets.bottom, 24)
+            ZStack(alignment: .top) {
+                CrystalAuroraBackground()
+                    .ignoresSafeArea()
 
-                ZStack(alignment: .top) {
-                    CrystalAuroraBackground()
-                        .ignoresSafeArea()
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 40) {
+                        StitchVenueHeroCard(place: place)
 
-                    ScrollView(showsIndicators: false) {
-                        VStack(spacing: 60) {
-                            StitchVenueHeroCard(place: place)
+                        if let alternatives = place.alternatives, !alternatives.isEmpty {
+                            VStack(alignment: .leading, spacing: 20) {
+                                Text(NSLocalizedString("itinerary.similar.title", comment: "Similar experiences"))
+                                    .font(.custom("Manrope", size: 11))
+                                    .fontWeight(.bold)
+                                    .tracking(2.2)
+                                    .foregroundStyle(Color.black.opacity(0.78))
+                                    .padding(.horizontal, 2)
 
-                            if let alternatives = place.alternatives, !alternatives.isEmpty {
-                                VStack(alignment: .leading, spacing: 28) {
-                                    Text(NSLocalizedString("itinerary.similar.title", comment: "Similar experiences"))
-                                        .font(.custom("Manrope", size: 11))
-                                        .fontWeight(.bold)
-                                        .tracking(2.2)
-                                        .foregroundStyle(Color.black.opacity(0.42))
-                                        .padding(.horizontal, 2)
-
-                                    VStack(spacing: 20) {
-                                        ForEach(alternatives, id: \.id) { alternative in
+                                VStack(spacing: 16) {
+                                    ForEach(alternatives, id: \.id) { alternative in
+                                        Button {
+                                            selectedAlternative = alternative.asScheduledPlace
+                                        } label: {
                                             StitchAlternativeRow(alternative: alternative)
                                         }
+                                        .buttonStyle(.plain)
                                     }
                                 }
-                                .frame(maxWidth: .infinity, alignment: .leading)
                             }
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         }
-                        .frame(maxWidth: .infinity)
-                        .padding(.horizontal, 24)
-                        .padding(.top, topInset + 64)
-                        .padding(.bottom, bottomInset + 128)
                     }
-
-                    StitchDetailTopBar(
-                        title: place.name,
-                        topInset: topInset,
-                        dismissAction: { dismiss() },
-                        shareText: shareText
-                    )
+                    .frame(maxWidth: .infinity)
                     .padding(.horizontal, 24)
-
-                    VStack {
-                        Spacer()
-
-                        StitchBottomActionBar(
-                            canCall: place.dialURL != nil,
-                            directionsAction: { showDirectionsSheet = true },
-                            callAction: { callVenue() }
-                        )
-                        .frame(maxWidth: 400)
-                        .padding(.horizontal, 20)
-                        .padding(.bottom, bottomInset)
-                    }
+                    .padding(.top, 72)
+                    .padding(.bottom, 120)
                 }
-                .sheet(isPresented: $showDirectionsSheet) {
-                    MapsAppSheet(destination: place.directionsDestination)
-                        .presentationDetents([.height(238)])
-                        .presentationDragIndicator(.visible)
-                        .presentationCornerRadius(30)
-                }
-                .toolbar(.hidden, for: .navigationBar)
+
+                // Top bar overlay
+                StitchDetailTopBar(
+                    title: place.name,
+                    dismissAction: { dismiss() },
+                    shareText: shareText
+                )
+                .padding(.horizontal, 24)
             }
+            .safeAreaInset(edge: .bottom) {
+                StitchBottomActionBar(
+                    canGetDirections: place.hasValidLocation,
+                    canCall: place.dialURL != nil,
+                    directionsAction: { showDirectionsSheet = true },
+                    callAction: { callVenue() }
+                )
+                .frame(maxWidth: 400)
+                .padding(.horizontal, 20)
+                .padding(.bottom, 8)
+            }
+            .sheet(isPresented: $showDirectionsSheet) {
+                MapsAppSheet(destination: place.directionsDestination)
+                    .presentationDetents([.height(238)])
+                    .presentationDragIndicator(.visible)
+                    .presentationCornerRadius(30)
+            }
+            .fullScreenCover(item: $selectedAlternative) { altPlace in
+                PlaceDetailSheet(place: altPlace)
+            }
+            .toolbar(.hidden, for: .navigationBar)
         }
     }
 
@@ -623,7 +854,6 @@ struct PlaceDetailSheet: View {
 
 private struct StitchDetailTopBar: View {
     let title: String
-    let topInset: CGFloat
     let dismissAction: () -> Void
     let shareText: String
 
@@ -649,17 +879,16 @@ private struct StitchDetailTopBar: View {
             Spacer(minLength: 12)
 
             ShareLink(item: shareText) {
-                Image(systemName: "ellipsis")
-                    .rotationEffect(.degrees(90))
+                Image(systemName: "square.and.arrow.up")
                     .font(.system(size: 17, weight: .semibold))
                     .foregroundStyle(Color(hex: "58BFE0"))
                     .frame(width: 28, height: 28)
                     .contentShape(Rectangle())
             }
+            .accessibilityLabel("Share venue")
         }
         .padding(.horizontal, 16)
         .frame(height: 54)
-        .background(.ultraThinMaterial)
         .background(Color.white.opacity(0.74))
         .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
         .overlay(
@@ -667,7 +896,7 @@ private struct StitchDetailTopBar: View {
                 .stroke(Color.white.opacity(0.72), lineWidth: 1)
         )
         .shadow(color: Color.black.opacity(0.06), radius: 22, x: 0, y: 12)
-        .padding(.top, topInset + 8)
+        .padding(.top, 8)
     }
 }
 
@@ -676,17 +905,20 @@ private struct StitchVenueHeroCard: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            StitchHeroImage(photoUrl: place.photoUrl)
-                .frame(maxWidth: .infinity)
-                .aspectRatio(4 / 3, contentMode: .fit)
+            Color.clear
+                .aspectRatio(4.0 / 3.0, contentMode: .fit)
+                .overlay {
+                    StitchHeroImage(photoURLs: place.heroPhotoURLs)
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 40, style: .continuous))
                 .overlay(alignment: .bottom) {
                     LinearGradient(
                         colors: [.clear, Color.white.opacity(0.28)],
                         startPoint: .top,
                         endPoint: .bottom
                     )
+                    .clipShape(RoundedRectangle(cornerRadius: 40, style: .continuous))
                 }
-                .clipShape(RoundedRectangle(cornerRadius: 40, style: .continuous))
 
             VStack(alignment: .leading, spacing: 18) {
                 HStack(alignment: .top, spacing: 12) {
@@ -735,17 +967,13 @@ private struct StitchVenueHeroCard: View {
                 Text(place.activityDescription ?? NSLocalizedString("itinerary.placeholder.description", comment: "Selected venue for your itinerary."))
                     .font(.custom("Manrope", size: 12))
                     .fontWeight(.medium)
-                    .foregroundStyle(Color.black.opacity(0.48))
+                    .foregroundStyle(Color.black.opacity(0.80))
                     .lineSpacing(3)
                     .lineLimit(4)
                     .fixedSize(horizontal: false, vertical: true)
             }
             .padding(24)
         }
-        .background(
-            RoundedRectangle(cornerRadius: 40, style: .continuous)
-                .fill(.ultraThinMaterial)
-        )
         .background(
             RoundedRectangle(cornerRadius: 40, style: .continuous)
                 .fill(Color.white.opacity(0.70))
@@ -766,15 +994,14 @@ private struct StitchVenueHeroCard: View {
 }
 
 private struct StitchHeroImage: View {
-    let photoUrl: String?
+    let photoURLs: [URL]
 
     var body: some View {
-        if let photoUrl, let url = URL(string: photoUrl) {
-            KFImage(url)
-                .placeholder { placeholder }
-                .resizable()
-                .scaledToFill()
-                .clipped()
+        if !photoURLs.isEmpty {
+            ResilientRemoteImage(urls: photoURLs) {
+                placeholder
+            }
+            .clipped()
         } else {
             placeholder
         }
@@ -819,13 +1046,13 @@ private struct StitchInfoRow: View {
         HStack(alignment: .center, spacing: 12) {
             Image(systemName: icon)
                 .font(.system(size: 14, weight: .medium))
-                .foregroundStyle(Color.black.opacity(0.60))
+                .foregroundStyle(Color.black.opacity(0.80))
                 .frame(width: 20)
 
             Text(text)
                 .font(.custom("Manrope", size: 12))
                 .fontWeight(.medium)
-                .foregroundStyle(Color.black.opacity(0.54))
+                .foregroundStyle(Color.black.opacity(0.82))
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)
         }
@@ -836,13 +1063,13 @@ private struct StitchAlternativeRow: View {
     let alternative: Itinerary.AlternativePlace
 
     var body: some View {
-        HStack(spacing: 20) {
-            StitchAlternativeThumbnail(photoUrl: alternative.photoUrl)
-                .frame(width: 80, height: 80)
+        HStack(spacing: 14) {
+            StitchAlternativeThumbnail(photoURLs: alternative.thumbnailPhotoURLs)
+                .frame(width: 72, height: 72)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(alternative.name)
-                    .font(.custom("Manrope", size: 15))
+                    .font(.custom("Manrope", size: 14))
                     .fontWeight(.bold)
                     .foregroundStyle(Color.black.opacity(0.80))
                     .lineLimit(1)
@@ -850,25 +1077,17 @@ private struct StitchAlternativeRow: View {
                 Text(alternative.whyRecommended ?? alternative.address)
                     .font(.custom("Manrope", size: 11))
                     .fontWeight(.medium)
-                    .foregroundStyle(Color.black.opacity(0.48))
+                    .foregroundStyle(Color.black.opacity(0.76))
                     .lineLimit(2)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .layoutPriority(1)
 
             Spacer(minLength: 0)
 
             Image(systemName: "chevron.right")
                 .font(.system(size: 13, weight: .semibold))
-                .foregroundStyle(Color.black.opacity(0.24))
-                .padding(.trailing, 6)
+                .foregroundStyle(Color.black.opacity(0.52))
         }
-        .frame(maxWidth: .infinity, minHeight: 112, alignment: .leading)
-        .padding(16)
-        .background(
-            .ultraThinMaterial,
-            in: RoundedRectangle(cornerRadius: 24, style: .continuous)
-        )
+        .padding(14)
         .background(
             RoundedRectangle(cornerRadius: 24, style: .continuous)
                 .fill(Color.white.opacity(0.42))
@@ -888,20 +1107,21 @@ private struct StitchAlternativeRow: View {
 }
 
 private struct StitchAlternativeThumbnail: View {
-    let photoUrl: String?
+    let photoURLs: [URL]
 
     var body: some View {
-        Group {
-            if let photoUrl, let url = URL(string: photoUrl) {
-                KFImage(url)
-                    .placeholder { thumbnailPlaceholder }
-                    .resizable()
-                    .scaledToFill()
-            } else {
-                thumbnailPlaceholder
+        Color.clear
+            .aspectRatio(1, contentMode: .fit)
+            .overlay {
+                if !photoURLs.isEmpty {
+                    ResilientRemoteImage(urls: photoURLs) {
+                        thumbnailPlaceholder
+                    }
+                } else {
+                    thumbnailPlaceholder
+                }
             }
-        }
-        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
 
     private var thumbnailPlaceholder: some View {
@@ -918,7 +1138,57 @@ private struct StitchAlternativeThumbnail: View {
     }
 }
 
+private struct ResilientRemoteImage<Placeholder: View>: View {
+    let urls: [URL]
+    @ViewBuilder let placeholder: () -> Placeholder
+
+    @State private var didFail = false
+    @State private var activeIndex = 0
+
+    private var currentURL: URL? {
+        guard urls.indices.contains(activeIndex) else {
+            return nil
+        }
+        return urls[activeIndex]
+    }
+
+    private var urlSignature: String {
+        urls.map(\.absoluteString).joined(separator: "|")
+    }
+
+    var body: some View {
+        Group {
+            if didFail || currentURL == nil {
+                placeholder()
+            } else {
+                KFImage(currentURL)
+                    .placeholder { placeholder() }
+                    .retry(maxCount: 2, interval: .seconds(2))
+                    .onFailure { error in
+                        if error.isTaskCancelled {
+                            return
+                        }
+
+                        if activeIndex < urls.count - 1 {
+                            activeIndex += 1
+                        } else {
+                            didFail = true
+                        }
+                    }
+                    .resizable()
+                    .scaledToFill()
+                    .clipped()
+            }
+        }
+        .onChange(of: urlSignature) { _, _ in
+            activeIndex = 0
+            didFail = false
+        }
+    }
+}
+
 private struct StitchBottomActionBar: View {
+    var canGetDirections: Bool = true
     let canCall: Bool
     let directionsAction: () -> Void
     let callAction: () -> Void
@@ -946,6 +1216,8 @@ private struct StitchBottomActionBar: View {
                 )
                 .clipShape(Capsule())
             }
+            .disabled(!canGetDirections)
+            .opacity(canGetDirections ? 1 : 0.5)
 
             Button(action: callAction) {
                 HStack(spacing: 8) {
@@ -956,10 +1228,10 @@ private struct StitchBottomActionBar: View {
                         .fontWeight(.bold)
                         .tracking(1.6)
                 }
-                .foregroundStyle(Color.black.opacity(canCall ? 0.58 : 0.28))
+                .foregroundStyle(Color.black.opacity(canCall ? 0.84 : 0.42))
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
-                .background(Color.white.opacity(canCall ? 0.74 : 0.38))
+                .background(Color.white.opacity(canCall ? 0.90 : 0.55))
                 .clipShape(Capsule())
             }
             .disabled(!canCall)
@@ -1242,6 +1514,7 @@ struct ShareOption: View {
     NavigationStack {
         ItineraryView(itinerary: .preview)
     }
+    .environmentObject(TripStore())
 }
 
 // MARK: - Preview Data
@@ -1271,6 +1544,7 @@ extension Itinerary {
                 alternatives: nil,
                 activityDescription: "Enjoy artisanal coffee and pastries",
                 photoUrl: previewAlt1ImageURL,
+                photoUrls: nil,
                 statusText: "Open until 5:00 PM",
                 isOpenNow: true,
                 phoneNumber: "+44 20 0000 0000"
@@ -1287,6 +1561,7 @@ extension Itinerary {
                 alternatives: nil,
                 activityDescription: "Explore world history and artifacts",
                 photoUrl: previewAlt2ImageURL,
+                photoUrls: nil,
                 statusText: "Open until 5:30 PM",
                 isOpenNow: true,
                 phoneNumber: nil
@@ -1328,6 +1603,7 @@ extension Itinerary {
                 ],
                 activityDescription: "An iconic London institution set in a grand, Grade II listed building, known for its Art Deco interiors, polished service, and classic European dining from morning through late evening.",
                 photoUrl: previewHeroImageURL,
+                photoUrls: nil,
                 statusText: "Open until 11:00 PM",
                 isOpenNow: true,
                 phoneNumber: "+44 20 7499 6996"

@@ -6,25 +6,52 @@ enum DesignTokens {
     enum Colors {
         static let accentPink = Color(hex: "FFC0CB") // Keep existing pastel pink
         static let accentBlue = Color(hex: "ADD8E6") // Keep existing pastel blue
-        
+
         // Text
         static let textPrimary = Color.black.opacity(0.85)
         static let textSecondary = Color.black.opacity(0.60)
         static let textVibrantCyan = Color(hex: "3ACCE1") // Vibrant Cyan for Subtitle
-        
+
         // Glass (Light Mode)
         static let glassLight = Color.white.opacity(0.60)
         static let glassMedium = Color.white.opacity(0.80)
         static let glassHeavy = Color.white.opacity(0.95)
-        
+
         // Borders
         static let borderLight = Color.white.opacity(0.40)
         static let borderMedium = Color.white.opacity(0.60)
-        
+
         // Shadows
         static let shadowLight = Color.black.opacity(0.05)
         static let shadowMedium = Color.black.opacity(0.10)
         static let shadowCyan = Color(hex: "3ACCE1").opacity(0.15) // User requested colored shadow
+
+        // Stitch Design Tokens (used in some card accents)
+        static let stitchPrimary = Color(hex: "006783")       // teal/sky
+        static let stitchSecondary = Color(hex: "97406d")      // pink
+        static let stitchSurface = Color(hex: "f7f9ff")
+        static let stitchBgStart = Color(hex: "E3F5FB")
+        static let stitchBgEnd = Color(hex: "C9EEFA")
+
+        // Unified Brand Gradient Colors
+        static let brandPinkTop = Color(hex: "fbe4ee")       // Soft pink (top)
+        static let brandBlueBottom = Color(hex: "d8f2f9")     // Soft blue (bottom)
+    }
+
+    // MARK: - Gradients
+    enum Gradients {
+        /// The unified brand background: pink top → white middle → blue bottom.
+        /// Use on all content screens (Explore, Trips, Itinerary, Collection Detail, etc.)
+        static let brandBackground = LinearGradient(
+            stops: [
+                .init(color: Colors.brandPinkTop, location: 0.0),
+                .init(color: .white, location: 0.4),
+                .init(color: .white, location: 0.6),
+                .init(color: Colors.brandBlueBottom, location: 1.0)
+            ],
+            startPoint: .top,
+            endPoint: .bottom
+        )
     }
     
     // MARK: - Blur
@@ -67,9 +94,21 @@ enum DesignTokens {
         static func rozhaOne(size: CGFloat) -> Font {
             return Font.custom("RozhaOne-Regular", size: size)
         }
-        
+
         static func body(size: CGFloat = 16) -> Font {
             return Font.system(size: size, weight: .regular, design: .default)
+        }
+
+        static func inter(size: CGFloat, weight: Font.Weight = .regular) -> Font {
+            return Font.system(size: size, weight: weight, design: .default)
+        }
+
+        static func jakartaSans(size: CGFloat, weight: Font.Weight = .semibold) -> Font {
+            return Font.system(size: size, weight: weight, design: .rounded)
+        }
+
+        static func poppins(size: CGFloat, weight: Font.Weight = .semibold) -> Font {
+            return Font.system(size: size, weight: weight, design: .default)
         }
     }
 }

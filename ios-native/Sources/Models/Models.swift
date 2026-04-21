@@ -96,7 +96,7 @@ struct Itinerary: Codable, Identifiable, Sendable {
     
     /// A place with its scheduled time slot
     struct ScheduledPlace: Codable, Identifiable, Hashable, Sendable {
-        var id: String { placeId ?? UUID().uuidString }
+        let id: String
         let placeId: String?
         let name: String
         let address: String
@@ -107,6 +107,11 @@ struct Itinerary: Codable, Identifiable, Sendable {
         let rating: Double?
         let alternatives: [AlternativePlace]?
         let activityDescription: String?
+        let photoUrl: String?
+        let photoUrls: [String]?
+        let statusText: String?
+        let isOpenNow: Bool?
+        let phoneNumber: String?
 
         enum CodingKeys: String, CodingKey {
             case placeId, name, address, location
@@ -114,6 +119,81 @@ struct Itinerary: Codable, Identifiable, Sendable {
             case duration
             case types = "categories"
             case rating, alternatives, activityDescription
+            case photoUrl, photoUrls, statusText, isOpenNow, phoneNumber
+        }
+
+        init(from decoder: Decoder) throws {
+            let c = try decoder.container(keyedBy: CodingKeys.self)
+            placeId = try c.decodeIfPresent(String.self, forKey: .placeId)
+            id = placeId ?? UUID().uuidString
+            name = try c.decode(String.self, forKey: .name)
+            address = try c.decode(String.self, forKey: .address)
+            location = try c.decode(Place.Location.self, forKey: .location)
+            scheduledTime = try c.decode(String.self, forKey: .scheduledTime)
+            duration = try c.decodeIfPresent(Int.self, forKey: .duration)
+            types = try c.decodeIfPresent([String].self, forKey: .types)
+            rating = try c.decodeIfPresent(Double.self, forKey: .rating)
+            alternatives = try c.decodeIfPresent([AlternativePlace].self, forKey: .alternatives)
+            activityDescription = try c.decodeIfPresent(String.self, forKey: .activityDescription)
+            photoUrl = try c.decodeIfPresent(String.self, forKey: .photoUrl)
+            photoUrls = try c.decodeIfPresent([String].self, forKey: .photoUrls)
+            statusText = try c.decodeIfPresent(String.self, forKey: .statusText)
+            isOpenNow = try c.decodeIfPresent(Bool.self, forKey: .isOpenNow)
+            phoneNumber = try c.decodeIfPresent(String.self, forKey: .phoneNumber)
+        }
+
+        init(
+            placeId: String?,
+            name: String,
+            address: String,
+            location: Place.Location,
+            scheduledTime: String,
+            duration: Int? = nil,
+            types: [String]? = nil,
+            rating: Double? = nil,
+            alternatives: [AlternativePlace]? = nil,
+            activityDescription: String? = nil,
+            photoUrl: String? = nil,
+            photoUrls: [String]? = nil,
+            statusText: String? = nil,
+            isOpenNow: Bool? = nil,
+            phoneNumber: String? = nil
+        ) {
+            self.id = placeId ?? UUID().uuidString
+            self.placeId = placeId
+            self.name = name
+            self.address = address
+            self.location = location
+            self.scheduledTime = scheduledTime
+            self.duration = duration
+            self.types = types
+            self.rating = rating
+            self.alternatives = alternatives
+            self.activityDescription = activityDescription
+            self.photoUrl = photoUrl
+            self.photoUrls = photoUrls
+            self.statusText = statusText
+            self.isOpenNow = isOpenNow
+            self.phoneNumber = phoneNumber
+        }
+
+        func encode(to encoder: Encoder) throws {
+            var c = encoder.container(keyedBy: CodingKeys.self)
+            try c.encodeIfPresent(placeId, forKey: .placeId)
+            try c.encode(name, forKey: .name)
+            try c.encode(address, forKey: .address)
+            try c.encode(location, forKey: .location)
+            try c.encode(scheduledTime, forKey: .scheduledTime)
+            try c.encodeIfPresent(duration, forKey: .duration)
+            try c.encodeIfPresent(types, forKey: .types)
+            try c.encodeIfPresent(rating, forKey: .rating)
+            try c.encodeIfPresent(alternatives, forKey: .alternatives)
+            try c.encodeIfPresent(activityDescription, forKey: .activityDescription)
+            try c.encodeIfPresent(photoUrl, forKey: .photoUrl)
+            try c.encodeIfPresent(photoUrls, forKey: .photoUrls)
+            try c.encodeIfPresent(statusText, forKey: .statusText)
+            try c.encodeIfPresent(isOpenNow, forKey: .isOpenNow)
+            try c.encodeIfPresent(phoneNumber, forKey: .phoneNumber)
         }
     }
 
@@ -125,9 +205,29 @@ struct Itinerary: Codable, Identifiable, Sendable {
         let address: String
         let rating: Double?
         let whyRecommended: String?
+        let photoUrl: String?
+        let photoUrls: [String]?
 
         private enum CodingKeys: String, CodingKey {
-            case placeId, name, address, formattedAddress, rating, whyRecommended
+            case placeId, name, address, formattedAddress, rating, whyRecommended, photoUrl, photoUrls
+        }
+
+        init(
+            placeId: String?,
+            name: String,
+            address: String,
+            rating: Double?,
+            whyRecommended: String?,
+            photoUrl: String?,
+            photoUrls: [String]? = nil
+        ) {
+            self.placeId = placeId
+            self.name = name
+            self.address = address
+            self.rating = rating
+            self.whyRecommended = whyRecommended
+            self.photoUrl = photoUrl
+            self.photoUrls = photoUrls
         }
 
         init(from decoder: Decoder) throws {
@@ -139,6 +239,8 @@ struct Itinerary: Codable, Identifiable, Sendable {
                 ?? ""
             rating = try c.decodeIfPresent(Double.self, forKey: .rating)
             whyRecommended = try c.decodeIfPresent(String.self, forKey: .whyRecommended)
+            photoUrl = try c.decodeIfPresent(String.self, forKey: .photoUrl)
+            photoUrls = try c.decodeIfPresent([String].self, forKey: .photoUrls)
         }
 
         func encode(to encoder: Encoder) throws {
@@ -148,6 +250,8 @@ struct Itinerary: Codable, Identifiable, Sendable {
             try c.encode(address, forKey: .address)
             try c.encodeIfPresent(rating, forKey: .rating)
             try c.encodeIfPresent(whyRecommended, forKey: .whyRecommended)
+            try c.encodeIfPresent(photoUrl, forKey: .photoUrl)
+            try c.encodeIfPresent(photoUrls, forKey: .photoUrls)
         }
     }
     
@@ -206,6 +310,7 @@ struct Trip: Codable, Identifiable, Sendable {
     let totalDays: Int
     let accommodations: [Accommodation]?
     let created: Date
+    let itinerarySnapshot: Itinerary?
     
     struct Accommodation: Codable, Sendable {
         let name: String
@@ -300,11 +405,28 @@ struct CreateItineraryRequest: Codable, Sendable {
     let date: String
     let startTime: String?
     let preferences: [String: String]?
-    let isPremium: Bool?
 }
 
 /// Itinerary creation response
 struct CreateItineraryResponse: Codable, Sendable {
     let itinerary: Itinerary
     let processingTimeMs: Int?
+}
+
+// MARK: - Collection Models
+
+/// Metadata for a curated collection route
+struct CollectionMeta: Codable, Identifiable, Sendable {
+    var id: String { slug }
+    let slug: String
+    let title: String
+    let description: String
+    let icon: String        // SF Symbol name
+    let tags: [String]
+    let stops: Int
+}
+
+/// API response wrapper for collections list
+struct CollectionsResponse: Codable, Sendable {
+    let collections: [CollectionMeta]
 }

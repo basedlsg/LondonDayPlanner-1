@@ -1,0 +1,1501 @@
+{
+  "london/pub-history-walk": {
+    "id": 90001,
+    "title": "Pub History Walk",
+    "description": "Start early to beat the crowds — Ye Olde Cheshire Cheese is best savoured before the after-work rush. Wear comfortable shoes; the cobblestones between Southwark and Wapping can be uneven.",
+    "query": "Historic pub crawl in London",
+    "city": "london",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJgUbEo8cfqEcR2yHxDxaHvHM",
+        "name": "Ye Olde Cheshire Cheese",
+        "address": "145 Fleet St, London EC4A 2BU",
+        "location": { "lat": 51.5141, "lng": -0.1082 },
+        "time": "12:00 PM",
+        "duration": 60,
+        "categories": ["Pub", "Historic"],
+        "rating": 4.3,
+        "activityDescription": "A literary icon rebuilt after the Great Fire of 1666. Dickens, Twain, and Dr. Johnson all drank here. Order a pint of real ale and explore the labyrinthine cellar bars."
+      },
+      {
+        "placeId": "ChIJr3m6x8cEdkARj14grCNyAAQ",
+        "name": "The Lamb and Flag",
+        "address": "33 Rose St, London WC2E 9EB",
+        "location": { "lat": 51.5118, "lng": -0.1263 },
+        "time": "1:30 PM",
+        "duration": 60,
+        "categories": ["Pub", "Historic"],
+        "rating": 4.4,
+        "activityDescription": "Tucked down an alley in Covent Garden, this 17th-century pub was once nicknamed the 'Bucket of Blood' for its bare-knuckle fights. Try the guest cask ales."
+      },
+      {
+        "placeId": "ChIJi8gDtC0DdkAR5oKcXUPg8Rg",
+        "name": "The George Inn",
+        "address": "75-77 Borough High St, London SE1 1NH",
+        "location": { "lat": 51.5044, "lng": -0.0887 },
+        "time": "3:00 PM",
+        "duration": 60,
+        "categories": ["Pub", "Historic"],
+        "rating": 4.4,
+        "activityDescription": "London's last surviving galleried coaching inn, now owned by the National Trust. Shakespeare may have performed in the cobbled courtyard. Sit in the oak-panelled rooms."
+      },
+      {
+        "placeId": "ChIJgcnxUVUDdkARcGW7BFF9JqA",
+        "name": "The Prospect of Whitby",
+        "address": "57 Wapping Wall, London E1W 3SH",
+        "location": { "lat": 51.5068, "lng": -0.0553 },
+        "time": "5:00 PM",
+        "duration": 75,
+        "categories": ["Pub", "Riverside"],
+        "rating": 4.3,
+        "activityDescription": "London's oldest riverside pub, dating to 1520. Smugglers and pirates once drank here. Grab a window seat overlooking the Thames for golden hour views."
+      }
+    ],
+    "travelTimes": [
+      { "from": "Ye Olde Cheshire Cheese", "to": "The Lamb and Flag", "durationMinutes": 15, "durationText": "15 min walk", "mode": "walking" },
+      { "from": "The Lamb and Flag", "to": "The George Inn", "durationMinutes": 20, "durationText": "20 min walk", "mode": "walking" },
+      { "from": "The George Inn", "to": "The Prospect of Whitby", "durationMinutes": 25, "durationText": "25 min via tube", "mode": "transit" }
+    ]
+  },
+  "london/hidden-shoreditch": {
+    "id": 90002,
+    "title": "Hidden Gems of Shoreditch",
+    "description": "Shoreditch is best on weekdays when the crowds thin out. The street art changes constantly, so keep your eyes peeled for fresh pieces on every visit.",
+    "query": "Hidden gems of Shoreditch East London",
+    "city": "london",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJ2dGBvMYcdkARqMGGUhGlxks",
+        "name": "Brick Lane Street Art Tour",
+        "address": "Brick Lane, London E1 6PU",
+        "location": { "lat": 51.5218, "lng": -0.0716 },
+        "time": "10:00 AM",
+        "duration": 60,
+        "categories": ["Street Art", "Culture"],
+        "rating": 4.6,
+        "activityDescription": "Wander the backstreets around Brick Lane and Hanbury Street for world-class street art — Banksy, Stik, and ROA all have pieces here. Don't miss the murals in Shoreditch Yard."
+      },
+      {
+        "placeId": "ChIJ8eeZJN0cdkARnJI7fRoSJEs",
+        "name": "Rough Trade East",
+        "address": "Old Truman Brewery, 91 Brick Ln, London E1 6QL",
+        "location": { "lat": 51.5213, "lng": -0.0717 },
+        "time": "11:15 AM",
+        "duration": 45,
+        "categories": ["Music", "Shopping"],
+        "rating": 4.6,
+        "activityDescription": "London's legendary independent record shop inside the Old Truman Brewery. Browse vinyl across every genre, catch an in-store gig, and grab a flat white from their in-house café."
+      },
+      {
+        "placeId": "ChIJn0hd9YkcdkARkYn7LRkhHWw",
+        "name": "Dishoom Shoreditch",
+        "address": "7 Boundary St, London E2 7JE",
+        "location": { "lat": 51.5256, "lng": -0.0780 },
+        "time": "12:30 PM",
+        "duration": 75,
+        "categories": ["Restaurant", "Indian"],
+        "rating": 4.5,
+        "activityDescription": "Bombay-inspired café famous for its black daal and bacon naan roll. The Shoreditch location in a converted warehouse has the best atmosphere of any branch."
+      },
+      {
+        "placeId": "ChIJVVVVVYkcdkAR_EXAMPLE1",
+        "name": "Columbia Road Flower Market Area",
+        "address": "Columbia Rd, London E2 7RG",
+        "location": { "lat": 51.5293, "lng": -0.0735 },
+        "time": "2:15 PM",
+        "duration": 60,
+        "categories": ["Market", "Shopping"],
+        "rating": 4.7,
+        "activityDescription": "Even on non-market days, Columbia Road is lined with quirky independent shops — vintage furniture, artisan ceramics, and specialty delis tucked behind colourful shopfronts."
+      }
+    ],
+    "travelTimes": [
+      { "from": "Brick Lane Street Art Tour", "to": "Rough Trade East", "durationMinutes": 3, "durationText": "3 min walk", "mode": "walking" },
+      { "from": "Rough Trade East", "to": "Dishoom Shoreditch", "durationMinutes": 8, "durationText": "8 min walk", "mode": "walking" },
+      { "from": "Dishoom Shoreditch", "to": "Columbia Road Flower Market Area", "durationMinutes": 7, "durationText": "7 min walk", "mode": "walking" }
+    ]
+  },
+  "london/royal-parks": {
+    "id": 90003,
+    "title": "Royal Parks & Gardens",
+    "description": "Pack a light picnic from a nearby deli — the parks have wonderful benches and lawns. In spring the rose gardens are stunning; in autumn the colours along the Serpentine are magical.",
+    "query": "Royal Parks walking tour London",
+    "city": "london",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJhRoYKUYFdkARmfSNnjk-WDY",
+        "name": "The Serpentine & Italian Gardens",
+        "address": "Hyde Park, London W2 2UH",
+        "location": { "lat": 51.5073, "lng": -0.1657 },
+        "time": "10:00 AM",
+        "duration": 75,
+        "categories": ["Park", "Nature"],
+        "rating": 4.7,
+        "activityDescription": "Start at the ornamental Italian Gardens at the head of the Serpentine. Walk along the lake past the Peter Pan statue and the Serpentine Gallery pavilion."
+      },
+      {
+        "placeId": "ChIJVSZzVEYFdkAR3FQmLSAL-Ro",
+        "name": "Kensington Palace & Orangery",
+        "address": "Kensington Gardens, London W8 4PX",
+        "location": { "lat": 51.5050, "lng": -0.1877 },
+        "time": "11:30 AM",
+        "duration": 60,
+        "categories": ["Historic", "Café"],
+        "rating": 4.5,
+        "activityDescription": "Stroll through Kensington Gardens to the palace grounds. Stop at The Orangery for an elegant morning tea with scones, surrounded by 18th-century architecture."
+      },
+      {
+        "placeId": "ChIJV_QPe0UDdkARXAv-DzCNjPY",
+        "name": "Queen Mary's Rose Garden",
+        "address": "Regent's Park, Chester Rd, London NW1 4NR",
+        "location": { "lat": 51.5274, "lng": -0.1530 },
+        "time": "1:30 PM",
+        "duration": 60,
+        "categories": ["Garden", "Nature"],
+        "rating": 4.8,
+        "activityDescription": "London's largest collection of roses with over 12,000 plants. Walk the circular paths, enjoy the fragrance, and find a bench by the lake for a quiet moment."
+      },
+      {
+        "placeId": "ChIJkyBms0ADdkAR1feMM75Gkms",
+        "name": "Primrose Hill",
+        "address": "Primrose Hill, London NW1 8QN",
+        "location": { "lat": 51.5394, "lng": -0.1615 },
+        "time": "3:00 PM",
+        "duration": 45,
+        "categories": ["Viewpoint", "Park"],
+        "rating": 4.7,
+        "activityDescription": "Climb to the top for one of London's best panoramic views — the entire skyline from the Shard to the BT Tower stretches before you. Perfect for photos."
+      }
+    ],
+    "travelTimes": [
+      { "from": "The Serpentine & Italian Gardens", "to": "Kensington Palace & Orangery", "durationMinutes": 15, "durationText": "15 min walk", "mode": "walking" },
+      { "from": "Kensington Palace & Orangery", "to": "Queen Mary's Rose Garden", "durationMinutes": 20, "durationText": "20 min via tube", "mode": "transit" },
+      { "from": "Queen Mary's Rose Garden", "to": "Primrose Hill", "durationMinutes": 12, "durationText": "12 min walk", "mode": "walking" }
+    ]
+  },
+  "london/best-coffee-zone1": {
+    "id": 90004,
+    "title": "Best Coffee in Zone 1",
+    "description": "Most specialty shops here are busiest 8-10 AM on weekdays. Go mid-morning for the best experience and freshest pour-overs.",
+    "query": "Specialty coffee tour Zone 1 London",
+    "city": "london",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJ-YInmSMFdkAR-IzSgSvfzOM",
+        "name": "Monmouth Coffee",
+        "address": "2 Park St, London SE1 9AB",
+        "location": { "lat": 51.5054, "lng": -0.0912 },
+        "time": "9:30 AM",
+        "duration": 45,
+        "categories": ["Coffee", "Specialty"],
+        "rating": 4.5,
+        "activityDescription": "Borough Market's beloved roaster since 1978. Queue for their single-origin filter coffee and a fresh pastry. The beans are roasted just around the corner."
+      },
+      {
+        "placeId": "ChIJ7_nj3i4DdkAR_example02",
+        "name": "Prufrock Coffee",
+        "address": "23-25 Leather Ln, London EC1N 7TE",
+        "location": { "lat": 51.5194, "lng": -0.1094 },
+        "time": "10:45 AM",
+        "duration": 45,
+        "categories": ["Coffee", "Roaster"],
+        "rating": 4.5,
+        "activityDescription": "Founded by World Barista Champion Gwilym Davies. A temple of specialty coffee with a training lab upstairs. Try their espresso tasting flight."
+      },
+      {
+        "placeId": "ChIJB4oLAGwbdkARfAZ9ex1_example",
+        "name": "Kaffeine",
+        "address": "66 Great Titchfield St, London W1W 7QJ",
+        "location": { "lat": 51.5189, "lng": -0.1412 },
+        "time": "12:15 PM",
+        "duration": 50,
+        "categories": ["Coffee", "Brunch"],
+        "rating": 4.5,
+        "activityDescription": "An Aussie-run café that consistently ranks among London's best. Their flat whites are textbook-perfect, and the avocado toast is worth the hype. Great brunch spot."
+      },
+      {
+        "placeId": "ChIJ5_EXAMPLE_Rosslyn",
+        "name": "Rosslyn Coffee",
+        "address": "78 Queen Victoria St, London EC4N 4SJ",
+        "location": { "lat": 51.5120, "lng": -0.0950 },
+        "time": "2:00 PM",
+        "duration": 40,
+        "categories": ["Coffee", "Specialty"],
+        "rating": 4.6,
+        "activityDescription": "A sleek specialty café near the Royal Exchange. Known for their precision-pulled espressos and rotating single-origin beans from top micro-roasters."
+      }
+    ],
+    "travelTimes": [
+      { "from": "Monmouth Coffee", "to": "Prufrock Coffee", "durationMinutes": 15, "durationText": "15 min walk", "mode": "walking" },
+      { "from": "Prufrock Coffee", "to": "Kaffeine", "durationMinutes": 18, "durationText": "18 min walk", "mode": "walking" },
+      { "from": "Kaffeine", "to": "Rosslyn Coffee", "durationMinutes": 20, "durationText": "20 min via tube", "mode": "transit" }
+    ]
+  },
+  "london/thames-sunset": {
+    "id": 90005,
+    "title": "Thames Sunset Walk",
+    "description": "Check sunset time before heading out and plan to be at the Millennium Bridge area during golden hour. The South Bank is best walked east to west so the light is always in front of you.",
+    "query": "Thames sunset walk South Bank London",
+    "city": "london",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJJcJi7RUDdkAR0yQLt4XA-gQ",
+        "name": "Tower Bridge Viewpoint",
+        "address": "Tower Bridge Rd, London SE1 2UP",
+        "location": { "lat": 51.5055, "lng": -0.0754 },
+        "time": "4:00 PM",
+        "duration": 30,
+        "categories": ["Landmark", "Scenic"],
+        "rating": 4.7,
+        "activityDescription": "Start at the south side of Tower Bridge for iconic views. Walk along the Queen's Walk past City Hall and the Scoop amphitheatre."
+      },
+      {
+        "placeId": "ChIJa_EXAMPLE_TateModern",
+        "name": "Tate Modern Terrace",
+        "address": "Bankside, London SE1 9TG",
+        "location": { "lat": 51.5076, "lng": -0.0994 },
+        "time": "5:00 PM",
+        "duration": 45,
+        "categories": ["Art", "Viewpoint"],
+        "rating": 4.6,
+        "activityDescription": "Head to the free viewing terrace on Level 10 for sweeping views across the Thames to St Paul's Cathedral. The light here during golden hour is extraordinary."
+      },
+      {
+        "placeId": "ChIJ_EXAMPLE_SouthBank",
+        "name": "Southbank Centre Food Market",
+        "address": "Belvedere Rd, London SE1 8XX",
+        "location": { "lat": 51.5064, "lng": -0.1163 },
+        "time": "6:15 PM",
+        "duration": 50,
+        "categories": ["Food", "Market"],
+        "rating": 4.4,
+        "activityDescription": "Street food from around the world right on the riverbank. Grab a bite, find a bench facing the river, and watch the sunset paint the sky over Westminster."
+      },
+      {
+        "placeId": "ChIJ_EXAMPLE_Westminster",
+        "name": "Westminster Bridge Sunset",
+        "address": "Westminster Bridge, London SE1 7GP",
+        "location": { "lat": 51.5007, "lng": -0.1218 },
+        "time": "7:30 PM",
+        "duration": 30,
+        "categories": ["Scenic", "Landmark"],
+        "rating": 4.8,
+        "activityDescription": "End at Westminster Bridge for the postcard view — Big Ben and the Houses of Parliament lit up against the fading sky. One of London's most romantic moments."
+      }
+    ],
+    "travelTimes": [
+      { "from": "Tower Bridge Viewpoint", "to": "Tate Modern Terrace", "durationMinutes": 20, "durationText": "20 min walk", "mode": "walking" },
+      { "from": "Tate Modern Terrace", "to": "Southbank Centre Food Market", "durationMinutes": 15, "durationText": "15 min walk", "mode": "walking" },
+      { "from": "Southbank Centre Food Market", "to": "Westminster Bridge Sunset", "durationMinutes": 12, "durationText": "12 min walk", "mode": "walking" }
+    ]
+  },
+  "nyc/brooklyn-brunch": {
+    "id": 90006,
+    "title": "Brooklyn Brunch",
+    "description": "Go early on a Saturday — the best brunch spots in Williamsburg hit peak wait times by 11 AM. Take the L train to Bedford Ave to start.",
+    "query": "Brooklyn brunch crawl Williamsburg to DUMBO",
+    "city": "nyc",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJ_NYC_Devocion",
+        "name": "Devoción",
+        "address": "69 Grand St, Brooklyn, NY 11249",
+        "location": { "lat": 40.7117, "lng": -73.9627 },
+        "time": "9:00 AM",
+        "duration": 40,
+        "categories": ["Coffee", "Roaster"],
+        "rating": 4.6,
+        "activityDescription": "Colombian-sourced beans roasted on-site in a stunning greenhouse-style space. Their cold brew is legendary. The atrium fills with natural light in the morning."
+      },
+      {
+        "placeId": "ChIJ_NYC_FiveLeaves",
+        "name": "Five Leaves",
+        "address": "18 Bedford Ave, Brooklyn, NY 11222",
+        "location": { "lat": 40.7233, "lng": -73.9543 },
+        "time": "10:00 AM",
+        "duration": 75,
+        "categories": ["Brunch", "Restaurant"],
+        "rating": 4.4,
+        "activityDescription": "The late Heath Ledger's passion project. Famous for their ricotta pancakes with honeycomb butter and the Moroccan scramble. Sidewalk seating is prime people-watching."
+      },
+      {
+        "placeId": "ChIJ_NYC_McCarren",
+        "name": "McCarren Park",
+        "address": "776 Lorimer St, Brooklyn, NY 11222",
+        "location": { "lat": 40.7200, "lng": -73.9510 },
+        "time": "11:30 AM",
+        "duration": 30,
+        "categories": ["Park", "Walking"],
+        "rating": 4.5,
+        "activityDescription": "Walk through Williamsburg's favourite park. On weekends there's often a farmers market or pickup soccer. A perfect digestive stroll between courses."
+      },
+      {
+        "placeId": "ChIJ_NYC_Julianas",
+        "name": "Juliana's Pizza",
+        "address": "19 Old Fulton St, Brooklyn, NY 11201",
+        "location": { "lat": 40.7025, "lng": -73.9934 },
+        "time": "12:30 PM",
+        "duration": 60,
+        "categories": ["Pizza", "Classic"],
+        "rating": 4.7,
+        "activityDescription": "Patsy Grimaldi's triumphant return — coal-fired thin-crust perfection under the Brooklyn Bridge. Get the classic margherita and a seat with bridge views in DUMBO."
+      }
+    ],
+    "travelTimes": [
+      { "from": "Devoción", "to": "Five Leaves", "durationMinutes": 12, "durationText": "12 min walk", "mode": "walking" },
+      { "from": "Five Leaves", "to": "McCarren Park", "durationMinutes": 5, "durationText": "5 min walk", "mode": "walking" },
+      { "from": "McCarren Park", "to": "Juliana's Pizza", "durationMinutes": 25, "durationText": "25 min via subway", "mode": "transit" }
+    ]
+  },
+  "nyc/speakeasy-circuit": {
+    "id": 90007,
+    "title": "Speakeasy Circuit",
+    "description": "Reservations are essential for PDT and Angel's Share. Most speakeasies have a 'no standing' policy, so arrive ready to wait for a seat. Dress smart-casual.",
+    "query": "Hidden speakeasy bar tour Manhattan",
+    "city": "nyc",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJ_NYC_PDT",
+        "name": "Please Don't Tell (PDT)",
+        "address": "113 St Marks Pl, New York, NY 10009",
+        "location": { "lat": 40.7273, "lng": -73.9840 },
+        "time": "7:00 PM",
+        "duration": 75,
+        "categories": ["Speakeasy", "Cocktails"],
+        "rating": 4.5,
+        "activityDescription": "Enter through the phone booth inside Crif Dogs hot dog shop. The original NYC speakeasy revival spot. Order the Mezcal Mule and soak in the wood-panelled intimacy."
+      },
+      {
+        "placeId": "ChIJ_NYC_AngelsShare",
+        "name": "Angel's Share",
+        "address": "8 Stuyvesant St, New York, NY 10003",
+        "location": { "lat": 40.7299, "lng": -73.9889 },
+        "time": "8:45 PM",
+        "duration": 60,
+        "categories": ["Speakeasy", "Japanese"],
+        "rating": 4.5,
+        "activityDescription": "Hidden behind an unmarked door inside a Japanese restaurant. Intimate Japanese-influenced cocktail bar with exquisite presentation. No parties larger than four."
+      },
+      {
+        "placeId": "ChIJ_NYC_Attaboy",
+        "name": "Attaboy",
+        "address": "134 Eldridge St, New York, NY 10002",
+        "location": { "lat": 40.7185, "lng": -73.9925 },
+        "time": "10:15 PM",
+        "duration": 60,
+        "categories": ["Speakeasy", "Cocktails"],
+        "rating": 4.6,
+        "activityDescription": "No menu, no sign outside — just a buzzer on an unmarked door. Tell the bartender what flavours you like and they'll create something bespoke. The spiritual successor to Milk & Honey."
+      },
+      {
+        "placeId": "ChIJ_NYC_EmployeesOnly",
+        "name": "Employees Only",
+        "address": "510 Hudson St, New York, NY 10014",
+        "location": { "lat": 40.7328, "lng": -74.0061 },
+        "time": "11:45 PM",
+        "duration": 60,
+        "categories": ["Speakeasy", "Late Night"],
+        "rating": 4.5,
+        "activityDescription": "Behind a psychic's neon sign in the West Village. Award-winning cocktails served by bartenders in white coats. The late-night kitchen serves excellent bone marrow."
+      }
+    ],
+    "travelTimes": [
+      { "from": "Please Don't Tell (PDT)", "to": "Angel's Share", "durationMinutes": 5, "durationText": "5 min walk", "mode": "walking" },
+      { "from": "Angel's Share", "to": "Attaboy", "durationMinutes": 10, "durationText": "10 min walk", "mode": "walking" },
+      { "from": "Attaboy", "to": "Employees Only", "durationMinutes": 15, "durationText": "15 min via cab", "mode": "transit" }
+    ]
+  },
+  "nyc/rooftop-sunset": {
+    "id": 90008,
+    "title": "Rooftop Sunset Tour",
+    "description": "Check sunset time and plan to reach your second stop 30 minutes before. Most rooftop bars have cover charges after dark — arrive before sunset to skip them.",
+    "query": "Rooftop bar sunset tour Manhattan",
+    "city": "nyc",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJ_NYC_Westlight",
+        "name": "Westlight",
+        "address": "111 N 12th St, Brooklyn, NY 11249",
+        "location": { "lat": 40.7224, "lng": -73.9575 },
+        "time": "4:00 PM",
+        "duration": 60,
+        "categories": ["Rooftop Bar", "Views"],
+        "rating": 4.5,
+        "activityDescription": "Perched atop The William Vale hotel in Williamsburg with 360-degree views of the Manhattan skyline. The craft cocktails match the vistas. Start here for afternoon light."
+      },
+      {
+        "placeId": "ChIJ_NYC_230Fifth",
+        "name": "230 Fifth Rooftop Bar",
+        "address": "230 5th Ave, New York, NY 10001",
+        "location": { "lat": 40.7438, "lng": -73.9877 },
+        "time": "5:30 PM",
+        "duration": 75,
+        "categories": ["Rooftop Bar", "Iconic"],
+        "rating": 4.3,
+        "activityDescription": "Directly facing the Empire State Building from its massive rooftop. The golden hour light hitting the ESB from here is unbeatable. In winter they provide robes and igloos."
+      },
+      {
+        "placeId": "ChIJ_NYC_BarSixtyFive",
+        "name": "Bar SixtyFive at Rainbow Room",
+        "address": "30 Rockefeller Plaza, New York, NY 10112",
+        "location": { "lat": 40.7587, "lng": -73.9787 },
+        "time": "7:15 PM",
+        "duration": 60,
+        "categories": ["Cocktail Bar", "Luxury"],
+        "rating": 4.4,
+        "activityDescription": "65 floors above Rockefeller Center with floor-to-ceiling windows overlooking Central Park and the skyline. Art Deco elegance meets jaw-dropping views. Dress code enforced."
+      },
+      {
+        "placeId": "ChIJ_NYC_MrPurple",
+        "name": "Mr. Purple",
+        "address": "180 Orchard St, New York, NY 10002",
+        "location": { "lat": 40.7213, "lng": -73.9887 },
+        "time": "9:00 PM",
+        "duration": 60,
+        "categories": ["Rooftop Bar", "Nightlife"],
+        "rating": 4.3,
+        "activityDescription": "End the night on the Lower East Side with a pool-deck rooftop overlooking downtown Manhattan. The energy shifts from chill to party as the night goes on."
+      }
+    ],
+    "travelTimes": [
+      { "from": "Westlight", "to": "230 Fifth Rooftop Bar", "durationMinutes": 25, "durationText": "25 min via subway", "mode": "transit" },
+      { "from": "230 Fifth Rooftop Bar", "to": "Bar SixtyFive at Rainbow Room", "durationMinutes": 12, "durationText": "12 min walk", "mode": "walking" },
+      { "from": "Bar SixtyFive at Rainbow Room", "to": "Mr. Purple", "durationMinutes": 20, "durationText": "20 min via subway", "mode": "transit" }
+    ]
+  },
+  "nyc/chinatown-little-italy": {
+    "id": 90009,
+    "title": "Chinatown to Little Italy",
+    "description": "Come hungry — this is a serious food walk. Chinatown is better for authentic food; Little Italy is more about atmosphere. The transition between the two happens in just one block.",
+    "query": "Chinatown Little Italy food walk Manhattan",
+    "city": "nyc",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJ_NYC_NomWah",
+        "name": "Nom Wah Tea Parlor",
+        "address": "13 Doyers St, New York, NY 10013",
+        "location": { "lat": 40.7139, "lng": -73.9981 },
+        "time": "11:00 AM",
+        "duration": 60,
+        "categories": ["Dim Sum", "Historic"],
+        "rating": 4.4,
+        "activityDescription": "NYC's oldest dim sum parlor, open since 1920 on the Bloody Angle of Doyers Street. Order the original egg roll and the shrimp and snow pea leaf dumplings."
+      },
+      {
+        "placeId": "ChIJ_NYC_MottStreet",
+        "name": "Mott Street Markets",
+        "address": "Mott St, New York, NY 10013",
+        "location": { "lat": 40.7152, "lng": -73.9996 },
+        "time": "12:15 PM",
+        "duration": 45,
+        "categories": ["Street Food", "Culture"],
+        "rating": 4.3,
+        "activityDescription": "Walk Mott Street and Canal Street for Chinese bakery stops — egg tarts, pineapple buns, and boba tea. Duck into the herbal shops and fish markets for the full sensory experience."
+      },
+      {
+        "placeId": "ChIJ_NYC_Rubirosa",
+        "name": "Rubirosa",
+        "address": "235 Mulberry St, New York, NY 10012",
+        "location": { "lat": 40.7225, "lng": -73.9958 },
+        "time": "1:30 PM",
+        "duration": 60,
+        "categories": ["Italian", "Pizza"],
+        "rating": 4.5,
+        "activityDescription": "Cross into Little Italy for vodka-sauce pizza at Rubirosa — thin, crispy, and widely considered one of the best slices in the city. The tie-dye vodka pie is the move."
+      },
+      {
+        "placeId": "ChIJ_NYC_Ferrara",
+        "name": "Ferrara Bakery & Café",
+        "address": "195 Grand St, New York, NY 10013",
+        "location": { "lat": 40.7188, "lng": -73.9970 },
+        "time": "3:00 PM",
+        "duration": 45,
+        "categories": ["Bakery", "Italian"],
+        "rating": 4.4,
+        "activityDescription": "The grand dame of Little Italy since 1892. End with a cannoli and an espresso in the ornate café. Their pistachio cannoli and tiramisu are the perfect sweet finish."
+      }
+    ],
+    "travelTimes": [
+      { "from": "Nom Wah Tea Parlor", "to": "Mott Street Markets", "durationMinutes": 3, "durationText": "3 min walk", "mode": "walking" },
+      { "from": "Mott Street Markets", "to": "Rubirosa", "durationMinutes": 8, "durationText": "8 min walk", "mode": "walking" },
+      { "from": "Rubirosa", "to": "Ferrara Bakery & Café", "durationMinutes": 4, "durationText": "4 min walk", "mode": "walking" }
+    ]
+  },
+  "nyc/museum-marathon": {
+    "id": 90010,
+    "title": "Museum Marathon",
+    "description": "The Met alone could take days — set a time limit or pick one wing before going. Friday evenings the Met stays open late and is wonderfully empty.",
+    "query": "Museum gallery tour Manhattan NYC",
+    "city": "nyc",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJ_NYC_MoMA",
+        "name": "MoMA",
+        "address": "11 W 53rd St, New York, NY 10019",
+        "location": { "lat": 40.7614, "lng": -73.9776 },
+        "time": "10:00 AM",
+        "duration": 120,
+        "categories": ["Museum", "Modern Art"],
+        "rating": 4.6,
+        "activityDescription": "Start with the heavy hitters — Starry Night, Campbell's Soup Cans, Les Demoiselles d'Avignon. Don't miss the sculpture garden. Two hours is tight, so pick 2-3 floors max."
+      },
+      {
+        "placeId": "ChIJ_NYC_NeueGalerie",
+        "name": "Neue Galerie",
+        "address": "1048 5th Ave, New York, NY 10028",
+        "location": { "lat": 40.7813, "lng": -73.9607 },
+        "time": "12:45 PM",
+        "duration": 60,
+        "categories": ["Gallery", "Austrian Art"],
+        "rating": 4.6,
+        "activityDescription": "A gem of Austrian and German art in a stunning Beaux-Arts mansion. Klimt's gold 'Portrait of Adele' is worth the visit alone. The café downstairs serves excellent Viennese pastries."
+      },
+      {
+        "placeId": "ChIJ_NYC_TheMet",
+        "name": "The Metropolitan Museum of Art",
+        "address": "1000 5th Ave, New York, NY 10028",
+        "location": { "lat": 40.7794, "lng": -73.9632 },
+        "time": "2:15 PM",
+        "duration": 120,
+        "categories": ["Museum", "World Art"],
+        "rating": 4.8,
+        "activityDescription": "The crown jewel. Head straight to the Egyptian Temple of Dendur, the European paintings, or the rooftop garden (seasonal). The rooftop bar has Central Park views."
+      },
+      {
+        "placeId": "ChIJ_NYC_Whitney",
+        "name": "Whitney Museum of American Art",
+        "address": "99 Gansevoort St, New York, NY 10014",
+        "location": { "lat": 40.7396, "lng": -74.0089 },
+        "time": "5:00 PM",
+        "duration": 75,
+        "categories": ["Museum", "American Art"],
+        "rating": 4.5,
+        "activityDescription": "Renzo Piano's striking building in the Meatpacking District. The outdoor terraces offer High Line and Hudson River views. End your day with contemporary American art and sunset."
+      }
+    ],
+    "travelTimes": [
+      { "from": "MoMA", "to": "Neue Galerie", "durationMinutes": 15, "durationText": "15 min via bus", "mode": "transit" },
+      { "from": "Neue Galerie", "to": "The Metropolitan Museum of Art", "durationMinutes": 3, "durationText": "3 min walk", "mode": "walking" },
+      { "from": "The Metropolitan Museum of Art", "to": "Whitney Museum of American Art", "durationMinutes": 25, "durationText": "25 min via subway", "mode": "transit" }
+    ]
+  },
+  "boston/harbor-seafood": {
+    "id": 90011,
+    "title": "Harbor Seafood Trail",
+    "description": "The best lobster is in season from June through December. Order your chowder 'New England style' (cream-based) — never Manhattan style in this town.",
+    "query": "Seafood trail Boston harbor waterfront",
+    "city": "boston",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJ_BOS_YankeeLobster",
+        "name": "Yankee Lobster Co.",
+        "address": "300 Northern Ave, Boston, MA 02210",
+        "location": { "lat": 42.3441, "lng": -71.0390 },
+        "time": "11:30 AM",
+        "duration": 60,
+        "categories": ["Seafood", "Casual"],
+        "rating": 4.5,
+        "activityDescription": "A family-run fish market turned restaurant right on the Seaport waterfront. Their lobster roll is piled high with fresh claw meat, lightly dressed with butter. No frills, just perfection."
+      },
+      {
+        "placeId": "ChIJ_BOS_Row34",
+        "name": "Row 34",
+        "address": "383 Congress St, Boston, MA 02210",
+        "location": { "lat": 42.3498, "lng": -71.0494 },
+        "time": "1:00 PM",
+        "duration": 60,
+        "categories": ["Oysters", "Craft Beer"],
+        "rating": 4.5,
+        "activityDescription": "An industrial-chic oyster bar in the Innovation District. Try a dozen East Coast oysters with a rotating selection from Island Creek and other New England farms. Pair with a local IPA."
+      },
+      {
+        "placeId": "ChIJ_BOS_NeptuneOyster",
+        "name": "Neptune Oyster",
+        "address": "63 Salem St, Boston, MA 02113",
+        "location": { "lat": 42.3638, "lng": -71.0553 },
+        "time": "3:00 PM",
+        "duration": 60,
+        "categories": ["Seafood", "Fine Dining"],
+        "rating": 4.6,
+        "activityDescription": "Tiny, legendary North End seafood spot. The hot butter lobster roll here is considered the best in Boston. No reservations, so time your visit strategically."
+      },
+      {
+        "placeId": "ChIJ_BOS_LegalHarborside",
+        "name": "Legal Harborside",
+        "address": "270 Northern Ave, Boston, MA 02210",
+        "location": { "lat": 42.3440, "lng": -71.0373 },
+        "time": "5:00 PM",
+        "duration": 75,
+        "categories": ["Seafood", "Waterfront"],
+        "rating": 4.3,
+        "activityDescription": "Three floors of seafood on the harbor. Hit the rooftop (Floor 3) for sunset cocktails and fried clam strips overlooking Boston Harbor and the skyline."
+      }
+    ],
+    "travelTimes": [
+      { "from": "Yankee Lobster Co.", "to": "Row 34", "durationMinutes": 10, "durationText": "10 min walk", "mode": "walking" },
+      { "from": "Row 34", "to": "Neptune Oyster", "durationMinutes": 18, "durationText": "18 min via subway", "mode": "transit" },
+      { "from": "Neptune Oyster", "to": "Legal Harborside", "durationMinutes": 20, "durationText": "20 min via subway", "mode": "transit" }
+    ]
+  },
+  "boston/academic-roast": {
+    "id": 90012,
+    "title": "Academic Roast",
+    "description": "Cambridge cafés fill up when classes let out around 3 PM. Morning visits are quieter and better for finding a study nook. Walk through Harvard Yard between stops.",
+    "query": "Specialty coffee tour Cambridge MA Harvard MIT",
+    "city": "boston",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJ_BOS_Broadsheet",
+        "name": "Broadsheet Coffee Roasters",
+        "address": "100 Kirkland St, Cambridge, MA 02138",
+        "location": { "lat": 42.3802, "lng": -71.1184 },
+        "time": "9:00 AM",
+        "duration": 50,
+        "categories": ["Coffee", "Roaster"],
+        "rating": 4.6,
+        "activityDescription": "A serious micro-roaster near Harvard with beans sourced directly from farms. The light, airy space is perfect for a quiet morning pour-over. Try their rotating single-origin."
+      },
+      {
+        "placeId": "ChIJ_BOS_1369",
+        "name": "1369 Coffee House",
+        "address": "1369 Cambridge St, Cambridge, MA 02139",
+        "location": { "lat": 42.3732, "lng": -71.0998 },
+        "time": "10:15 AM",
+        "duration": 45,
+        "categories": ["Coffee", "Cozy"],
+        "rating": 4.5,
+        "activityDescription": "A neighbourhood institution since 1993. Mismatched furniture, local art on the walls, and the kind of place where someone is always writing a thesis. Their chai latte is beloved."
+      },
+      {
+        "placeId": "ChIJ_BOS_Tatte",
+        "name": "Tatte Bakery & Café",
+        "address": "318 Third St, Cambridge, MA 02142",
+        "location": { "lat": 42.3627, "lng": -71.0835 },
+        "time": "11:30 AM",
+        "duration": 50,
+        "categories": ["Bakery", "Coffee"],
+        "rating": 4.5,
+        "activityDescription": "Israeli-inspired bakery near Kendall Square/MIT. The shakshuka and halva croissant are destination-worthy. Beautiful, bright interior with communal tables."
+      },
+      {
+        "placeId": "ChIJ_BOS_DadoTea",
+        "name": "Dado Tea",
+        "address": "955 Massachusetts Ave, Cambridge, MA 02139",
+        "location": { "lat": 42.3720, "lng": -71.1156 },
+        "time": "1:00 PM",
+        "duration": 45,
+        "categories": ["Tea", "Café"],
+        "rating": 4.4,
+        "activityDescription": "A tranquil tea house steps from Harvard Square. Over 100 loose-leaf teas from around the world. The matcha latte and tea-infused pastries are a gentle counterpoint to all the coffee."
+      }
+    ],
+    "travelTimes": [
+      { "from": "Broadsheet Coffee Roasters", "to": "1369 Coffee House", "durationMinutes": 10, "durationText": "10 min walk", "mode": "walking" },
+      { "from": "1369 Coffee House", "to": "Tatte Bakery & Café", "durationMinutes": 15, "durationText": "15 min walk", "mode": "walking" },
+      { "from": "Tatte Bakery & Café", "to": "Dado Tea", "durationMinutes": 15, "durationText": "15 min walk", "mode": "walking" }
+    ]
+  },
+  "boston/cobblestone-romance": {
+    "id": 90013,
+    "title": "Cobblestone Romance",
+    "description": "Beacon Hill is at its most atmospheric after dusk when the gas lamps flicker on. Wear heels at your own risk — the cobblestones are charming but treacherous.",
+    "query": "Romantic day Beacon Hill Boston",
+    "city": "boston",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJ_BOS_Toscano",
+        "name": "Toscano",
+        "address": "47 Charles St, Boston, MA 02114",
+        "location": { "lat": 42.3589, "lng": -71.0707 },
+        "time": "10:30 AM",
+        "duration": 75,
+        "categories": ["Brunch", "Italian"],
+        "rating": 4.4,
+        "activityDescription": "A charming Italian spot on Beacon Hill's main street. The weekend brunch with fresh pasta and mimosas is the perfect start. Sit in the window and watch Charles Street go by."
+      },
+      {
+        "placeId": "ChIJ_BOS_AcornSt",
+        "name": "Acorn Street",
+        "address": "Acorn St, Boston, MA 02108",
+        "location": { "lat": 42.3579, "lng": -71.0684 },
+        "time": "12:00 PM",
+        "duration": 30,
+        "categories": ["Historic", "Photo Spot"],
+        "rating": 4.7,
+        "activityDescription": "The most photographed street in America — tiny cobblestoned lane with gas lamps, flower boxes, and Federal-style brick homes. Step through the looking glass into 1820s Boston."
+      },
+      {
+        "placeId": "ChIJ_BOS_PublicGarden",
+        "name": "Boston Public Garden",
+        "address": "4 Charles St, Boston, MA 02116",
+        "location": { "lat": 42.3541, "lng": -71.0706 },
+        "time": "12:45 PM",
+        "duration": 45,
+        "categories": ["Park", "Scenic"],
+        "rating": 4.8,
+        "activityDescription": "America's first public botanical garden. Take a ride on the iconic Swan Boats, walk across the suspension bridge, and find the Make Way for Ducklings statues."
+      },
+      {
+        "placeId": "ChIJ_BOS_Yvonnes",
+        "name": "Yvonne's",
+        "address": "2 Winter Pl, Boston, MA 02108",
+        "location": { "lat": 42.3554, "lng": -71.0607 },
+        "time": "5:30 PM",
+        "duration": 75,
+        "categories": ["Speakeasy", "Cocktails"],
+        "rating": 4.3,
+        "activityDescription": "A glamorous speakeasy-style supper club in a former Locke-Ober space. Velvet booths, craft cocktails, and shareable plates in one of Boston's most atmospheric rooms."
+      }
+    ],
+    "travelTimes": [
+      { "from": "Toscano", "to": "Acorn Street", "durationMinutes": 5, "durationText": "5 min walk", "mode": "walking" },
+      { "from": "Acorn Street", "to": "Boston Public Garden", "durationMinutes": 8, "durationText": "8 min walk", "mode": "walking" },
+      { "from": "Boston Public Garden", "to": "Yvonne's", "durationMinutes": 10, "durationText": "10 min walk", "mode": "walking" }
+    ]
+  },
+  "boston/freedom-trail-remix": {
+    "id": 90014,
+    "title": "Freedom Trail Remix",
+    "description": "The red brick line on the sidewalk is your guide — just follow it. Mike's vs. Modern Pastry is the great Boston debate. Try both and pick a side.",
+    "query": "Freedom Trail with food stops Boston",
+    "city": "boston",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJ_BOS_BostonCommon",
+        "name": "Boston Common & State House",
+        "address": "Boston Common, Boston, MA 02108",
+        "location": { "lat": 42.3554, "lng": -71.0655 },
+        "time": "9:30 AM",
+        "duration": 45,
+        "categories": ["Historic", "Park"],
+        "rating": 4.6,
+        "activityDescription": "Start where the Freedom Trail begins. Walk past the golden dome of the Massachusetts State House. The Common is America's oldest public park, established in 1634."
+      },
+      {
+        "placeId": "ChIJ_BOS_MikesPastry",
+        "name": "Mike's Pastry",
+        "address": "300 Hanover St, Boston, MA 02113",
+        "location": { "lat": 42.3636, "lng": -71.0533 },
+        "time": "11:00 AM",
+        "duration": 30,
+        "categories": ["Bakery", "Italian"],
+        "rating": 4.4,
+        "activityDescription": "The legendary North End cannoli stop. Grab a lobster tail pastry or a pistachio cannoli from the blue box. The line is part of the experience."
+      },
+      {
+        "placeId": "ChIJ_BOS_OldNorthChurch",
+        "name": "Old North Church",
+        "address": "193 Salem St, Boston, MA 02113",
+        "location": { "lat": 42.3664, "lng": -71.0546 },
+        "time": "11:45 AM",
+        "duration": 30,
+        "categories": ["Historic", "Church"],
+        "rating": 4.6,
+        "activityDescription": "Where the 'one if by land, two if by sea' lanterns were hung in 1775. The oldest standing church in Boston. Step inside the white box pews."
+      },
+      {
+        "placeId": "ChIJ_BOS_BunkerHill",
+        "name": "Bunker Hill Monument & Craft Beer",
+        "address": "Monument Sq, Charlestown, MA 02129",
+        "location": { "lat": 42.3764, "lng": -71.0612 },
+        "time": "1:00 PM",
+        "duration": 75,
+        "categories": ["Historic", "Beer"],
+        "rating": 4.5,
+        "activityDescription": "Climb all 294 steps to the top of the obelisk for panoramic views. Then reward yourself at a nearby Charlestown brewery or craft beer bar."
+      }
+    ],
+    "travelTimes": [
+      { "from": "Boston Common & State House", "to": "Mike's Pastry", "durationMinutes": 18, "durationText": "18 min walk", "mode": "walking" },
+      { "from": "Mike's Pastry", "to": "Old North Church", "durationMinutes": 5, "durationText": "5 min walk", "mode": "walking" },
+      { "from": "Old North Church", "to": "Bunker Hill Monument & Craft Beer", "durationMinutes": 12, "durationText": "12 min walk", "mode": "walking" }
+    ]
+  },
+  "boston/fenway-day": {
+    "id": 90015,
+    "title": "Fenway Day Out",
+    "description": "Buy tickets early — Fenway is the smallest park in MLB and sells out often. Bleacher Bar opens at 11 AM and fills up fast on game days. Arrive early.",
+    "query": "Fenway Park game day experience Boston",
+    "city": "boston",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJ_BOS_EasternStandard",
+        "name": "Eastern Standard",
+        "address": "528 Commonwealth Ave, Boston, MA 02215",
+        "location": { "lat": 42.3489, "lng": -71.0955 },
+        "time": "11:00 AM",
+        "duration": 60,
+        "categories": ["Brunch", "Bar"],
+        "rating": 4.4,
+        "activityDescription": "A Kenmore Square institution for pre-game brunch. Classic American brasserie with a legendary cocktail program. The raw bar and steak frites are game-day fuel."
+      },
+      {
+        "placeId": "ChIJ_BOS_BleacherBar",
+        "name": "Bleacher Bar",
+        "address": "82A Lansdowne St, Boston, MA 02215",
+        "location": { "lat": 42.3467, "lng": -71.0975 },
+        "time": "12:30 PM",
+        "duration": 60,
+        "categories": ["Sports Bar", "Iconic"],
+        "rating": 4.5,
+        "activityDescription": "Built into the center field wall of Fenway Park itself. Grab a stool at the garage-door window and watch batting practice through the opening. Truly one-of-a-kind."
+      },
+      {
+        "placeId": "ChIJ_BOS_FenwayPark",
+        "name": "Fenway Park",
+        "address": "4 Jersey St, Boston, MA 02215",
+        "location": { "lat": 42.3467, "lng": -71.0972 },
+        "time": "2:00 PM",
+        "duration": 180,
+        "categories": ["Sports", "Landmark"],
+        "rating": 4.8,
+        "activityDescription": "America's Most Beloved Ballpark since 1912. Sit near the Green Monster, grab a Fenway Frank, and sing 'Sweet Caroline' in the 8th inning. Nothing else like it."
+      },
+      {
+        "placeId": "ChIJ_BOS_CasknFlagon",
+        "name": "Cask 'n Flagon",
+        "address": "62 Brookline Ave, Boston, MA 02215",
+        "location": { "lat": 42.3470, "lng": -71.0988 },
+        "time": "6:00 PM",
+        "duration": 75,
+        "categories": ["Sports Bar", "Nightlife"],
+        "rating": 4.2,
+        "activityDescription": "The original Red Sox post-game bar since 1969. Packed with fans reliving the game over craft beers and burgers. The energy after a Sox win is electric."
+      }
+    ],
+    "travelTimes": [
+      { "from": "Eastern Standard", "to": "Bleacher Bar", "durationMinutes": 5, "durationText": "5 min walk", "mode": "walking" },
+      { "from": "Bleacher Bar", "to": "Fenway Park", "durationMinutes": 3, "durationText": "3 min walk", "mode": "walking" },
+      { "from": "Fenway Park", "to": "Cask 'n Flagon", "durationMinutes": 3, "durationText": "3 min walk", "mode": "walking" }
+    ]
+  },
+  "austin/live-music-crawl": {
+    "id": 90016,
+    "title": "Live Music Crawl",
+    "description": "Most venues don't charge cover on weeknights. Check venue websites for set times — headliners usually go on around 10 PM. Bring earplugs for the smaller rooms.",
+    "query": "Live music crawl Austin venues",
+    "city": "austin",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJ_ATX_ContinentalClub",
+        "name": "The Continental Club",
+        "address": "1315 S Congress Ave, Austin, TX 78704",
+        "location": { "lat": 30.2498, "lng": -97.7493 },
+        "time": "7:00 PM",
+        "duration": 75,
+        "categories": ["Music Venue", "Blues"],
+        "rating": 4.7,
+        "activityDescription": "The crown jewel of Austin's live music scene since 1957. Blues, rockabilly, and country in an intimate room on South Congress. No cover most nights — just walk in and be amazed."
+      },
+      {
+        "placeId": "ChIJ_ATX_Mohawk",
+        "name": "Mohawk",
+        "address": "912 Red River St, Austin, TX 78701",
+        "location": { "lat": 30.2687, "lng": -97.7370 },
+        "time": "9:00 PM",
+        "duration": 75,
+        "categories": ["Music Venue", "Indie Rock"],
+        "rating": 4.5,
+        "activityDescription": "Three stages in the heart of the Red River Cultural District. The outdoor rooftop stage under the stars is quintessential Austin. Catch local and touring indie acts nightly."
+      },
+      {
+        "placeId": "ChIJ_ATX_FranklinBBQ",
+        "name": "la Barbecue",
+        "address": "2401 E Cesar Chavez St, Austin, TX 78702",
+        "location": { "lat": 30.2548, "lng": -97.7257 },
+        "time": "10:45 PM",
+        "duration": 45,
+        "categories": ["BBQ", "Food"],
+        "rating": 4.6,
+        "activityDescription": "Fuel up between sets with some of Austin's best brisket. The line is shorter than Franklin's but the quality rivals it. Get the beef rib if they haven't sold out."
+      },
+      {
+        "placeId": "ChIJ_ATX_RaineyStreet",
+        "name": "Rainey Street Bungalow Bars",
+        "address": "Rainey St, Austin, TX 78701",
+        "location": { "lat": 30.2568, "lng": -97.7387 },
+        "time": "11:45 PM",
+        "duration": 75,
+        "categories": ["Nightlife", "Bar"],
+        "rating": 4.4,
+        "activityDescription": "End the night hopping between converted house bars on Rainey Street. Each bungalow has its own vibe — craft cocktails at Lustre Pearl, frozen drinks at Bungalow, live DJs at Container Bar."
+      }
+    ],
+    "travelTimes": [
+      { "from": "The Continental Club", "to": "Mohawk", "durationMinutes": 10, "durationText": "10 min via rideshare", "mode": "transit" },
+      { "from": "Mohawk", "to": "la Barbecue", "durationMinutes": 8, "durationText": "8 min via rideshare", "mode": "transit" },
+      { "from": "la Barbecue", "to": "Rainey Street Bungalow Bars", "durationMinutes": 5, "durationText": "5 min via rideshare", "mode": "transit" }
+    ]
+  },
+  "austin/taco-trail": {
+    "id": 90017,
+    "title": "Taco Trail",
+    "description": "Breakfast tacos are a religion in Austin — locals have strong opinions. Veracruz and Tacodeli are the two camps. Try both and choose your allegiance wisely.",
+    "query": "Taco tour Austin breakfast to late night",
+    "city": "austin",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJ_ATX_Veracruz",
+        "name": "Veracruz All Natural",
+        "address": "1704 E Cesar Chavez St, Austin, TX 78702",
+        "location": { "lat": 30.2551, "lng": -97.7308 },
+        "time": "8:30 AM",
+        "duration": 45,
+        "categories": ["Tacos", "Breakfast"],
+        "rating": 4.7,
+        "activityDescription": "The migas taco here might be the single best breakfast item in Austin — crispy tortilla strips, eggs, cheese, and verde salsa in a fresh flour tortilla. Life-changing."
+      },
+      {
+        "placeId": "ChIJ_ATX_Tacodeli",
+        "name": "Tacodeli",
+        "address": "1500 Spyglass Dr, Austin, TX 78746",
+        "location": { "lat": 30.2639, "lng": -97.7826 },
+        "time": "10:15 AM",
+        "duration": 40,
+        "categories": ["Tacos", "Breakfast"],
+        "rating": 4.5,
+        "activityDescription": "The Otto (refried black beans, bacon, avocado) is legendary. Their Doña salsa is so popular they sell it by the jar. A slightly more refined breakfast taco experience."
+      },
+      {
+        "placeId": "ChIJ_ATX_Valentinas",
+        "name": "Valentina's Tex Mex BBQ",
+        "address": "11500 Menchaca Rd, Austin, TX 78748",
+        "location": { "lat": 30.1753, "lng": -97.8035 },
+        "time": "12:00 PM",
+        "duration": 60,
+        "categories": ["BBQ", "Tex-Mex"],
+        "rating": 4.8,
+        "activityDescription": "The genius collision of Texas BBQ and Tex-Mex. The Real Deal Holyfield taco — smoked brisket, eggs, cheese, and salsa in a homemade tortilla — is a must. Worth every minute in line."
+      },
+      {
+        "placeId": "ChIJ_ATX_SouthCongress",
+        "name": "Torchy's Tacos (South Congress)",
+        "address": "1822 S Congress Ave, Austin, TX 78704",
+        "location": { "lat": 30.2418, "lng": -97.7533 },
+        "time": "3:00 PM",
+        "duration": 45,
+        "categories": ["Tacos", "Casual"],
+        "rating": 4.4,
+        "activityDescription": "The OG location that started the Torchy's empire. Ask for the secret menu — 'The Matador' with jamaican jerk chicken and mango is incredible. Browse South Congress shops after."
+      }
+    ],
+    "travelTimes": [
+      { "from": "Veracruz All Natural", "to": "Tacodeli", "durationMinutes": 12, "durationText": "12 min drive", "mode": "transit" },
+      { "from": "Tacodeli", "to": "Valentina's Tex Mex BBQ", "durationMinutes": 18, "durationText": "18 min drive", "mode": "transit" },
+      { "from": "Valentina's Tex Mex BBQ", "to": "Torchy's Tacos (South Congress)", "durationMinutes": 15, "durationText": "15 min drive", "mode": "transit" }
+    ]
+  },
+  "austin/keep-austin-weird": {
+    "id": 90018,
+    "title": "Keep Austin Weird",
+    "description": "The Congress Avenue bats emerge at dusk from March to October — check the bat hotline for emergence times. The Cathedral of Junk requires an appointment.",
+    "query": "Keep Austin Weird quirky spots tour",
+    "city": "austin",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJ_ATX_GreetingsMural",
+        "name": "Greetings from Austin Mural",
+        "address": "1720 S 1st St, Austin, TX 78704",
+        "location": { "lat": 30.2483, "lng": -97.7559 },
+        "time": "10:00 AM",
+        "duration": 30,
+        "categories": ["Street Art", "Photo Spot"],
+        "rating": 4.6,
+        "activityDescription": "The iconic vintage postcard-style mural on South First. The morning light is best for photos without harsh shadows. Austin's most Instagrammed wall."
+      },
+      {
+        "placeId": "ChIJ_ATX_UncommonObjects",
+        "name": "Uncommon Objects",
+        "address": "1512 S Congress Ave, Austin, TX 78704",
+        "location": { "lat": 30.2458, "lng": -97.7508 },
+        "time": "10:45 AM",
+        "duration": 45,
+        "categories": ["Vintage", "Shopping"],
+        "rating": 4.6,
+        "activityDescription": "A sprawling vintage bazaar with 24 dealer booths full of taxidermy, neon signs, antique medical equipment, and curiosities you never knew you needed. Gloriously weird."
+      },
+      {
+        "placeId": "ChIJ_ATX_HopeGallery",
+        "name": "Castle Hill Graffiti Wall",
+        "address": "1100 Baylor St, Austin, TX 78703",
+        "location": { "lat": 30.2756, "lng": -97.7528 },
+        "time": "12:00 PM",
+        "duration": 30,
+        "categories": ["Street Art", "Culture"],
+        "rating": 4.5,
+        "activityDescription": "The legal graffiti park where the art changes daily. Layer upon layer of spray paint creates a constantly evolving outdoor gallery. Bring a can and add your own mark."
+      },
+      {
+        "placeId": "ChIJ_ATX_CongressBats",
+        "name": "Congress Avenue Bridge Bat Colony",
+        "address": "100 Congress Ave, Austin, TX 78701",
+        "location": { "lat": 30.2615, "lng": -97.7450 },
+        "time": "7:30 PM",
+        "duration": 45,
+        "categories": ["Nature", "Unique"],
+        "rating": 4.6,
+        "activityDescription": "1.5 million Mexican free-tailed bats emerge at dusk in one of nature's most spectacular urban phenomena. Watch from the bridge or the kayaks below. Arrive 30 min before sunset."
+      }
+    ],
+    "travelTimes": [
+      { "from": "Greetings from Austin Mural", "to": "Uncommon Objects", "durationMinutes": 5, "durationText": "5 min walk", "mode": "walking" },
+      { "from": "Uncommon Objects", "to": "Castle Hill Graffiti Wall", "durationMinutes": 10, "durationText": "10 min drive", "mode": "transit" },
+      { "from": "Castle Hill Graffiti Wall", "to": "Congress Avenue Bridge Bat Colony", "durationMinutes": 8, "durationText": "8 min drive", "mode": "transit" }
+    ]
+  },
+  "austin/east-side-coffee": {
+    "id": 90019,
+    "title": "East Side Coffee",
+    "description": "East Austin mornings are best before the heat kicks in. Most cafés here have generous patios — perfect for the cooler morning hours. Street art changes between visits.",
+    "query": "East Austin coffee shop tour",
+    "city": "austin",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJ_ATX_FlatTrack",
+        "name": "Flat Track Coffee",
+        "address": "1619 E Cesar Chavez St, Austin, TX 78702",
+        "location": { "lat": 30.2551, "lng": -97.7318 },
+        "time": "8:30 AM",
+        "duration": 45,
+        "categories": ["Coffee", "Roaster"],
+        "rating": 4.6,
+        "activityDescription": "A motorcycle-themed micro-roaster in a converted garage. Their espresso is punchy and their cold brew is dangerously smooth. The tiny patio feels like a secret club."
+      },
+      {
+        "placeId": "ChIJ_ATX_Cenote",
+        "name": "Cenote",
+        "address": "1010 E Cesar Chavez St, Austin, TX 78702",
+        "location": { "lat": 30.2560, "lng": -97.7372 },
+        "time": "9:45 AM",
+        "duration": 50,
+        "categories": ["Coffee", "Brunch"],
+        "rating": 4.5,
+        "activityDescription": "A beautiful converted bungalow with a sprawling oak-shaded patio. Known for excellent pour-overs and a brunch menu featuring migas and avocado toast. East Austin's living room."
+      },
+      {
+        "placeId": "ChIJ_ATX_Figure8",
+        "name": "Figure 8 Coffee Purveyors",
+        "address": "1111 Chicon St, Austin, TX 78702",
+        "location": { "lat": 30.2614, "lng": -97.7286 },
+        "time": "11:00 AM",
+        "duration": 45,
+        "categories": ["Coffee", "Specialty"],
+        "rating": 4.5,
+        "activityDescription": "Clean, modern space with windows overlooking Chicon Street. Their rotating selection of guest roasters keeps things interesting. The cortado here is textbook."
+      },
+      {
+        "placeId": "ChIJ_ATX_MeritCoffee",
+        "name": "Merit Coffee",
+        "address": "1180 E 11th St, Austin, TX 78702",
+        "location": { "lat": 30.2669, "lng": -97.7281 },
+        "time": "12:15 PM",
+        "duration": 45,
+        "categories": ["Coffee", "Specialty"],
+        "rating": 4.5,
+        "activityDescription": "San Antonio's beloved roaster opened this East Austin outpost with a slick, modern bar. Their house blend is approachable; their single-origins are for the adventurous."
+      }
+    ],
+    "travelTimes": [
+      { "from": "Flat Track Coffee", "to": "Cenote", "durationMinutes": 5, "durationText": "5 min walk", "mode": "walking" },
+      { "from": "Cenote", "to": "Figure 8 Coffee Purveyors", "durationMinutes": 8, "durationText": "8 min walk", "mode": "walking" },
+      { "from": "Figure 8 Coffee Purveyors", "to": "Merit Coffee", "durationMinutes": 7, "durationText": "7 min walk", "mode": "walking" }
+    ]
+  },
+  "austin/lady-bird-lake": {
+    "id": 90020,
+    "title": "Lady Bird Lake Day",
+    "description": "Bring sunscreen — there's very little shade on the water. Weekday mornings are quietest for paddleboarding. Barton Springs is a refreshing 68°F year-round.",
+    "query": "Lady Bird Lake outdoor day Austin",
+    "city": "austin",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJ_ATX_PflugerBridge",
+        "name": "Pfluger Pedestrian Bridge",
+        "address": "Pfluger Bridge, Austin, TX 78704",
+        "location": { "lat": 30.2628, "lng": -97.7520 },
+        "time": "8:30 AM",
+        "duration": 30,
+        "categories": ["Scenic", "Walking"],
+        "rating": 4.6,
+        "activityDescription": "Start on this pedestrian bridge spanning Lady Bird Lake for sweeping views of the downtown skyline reflected in the water. The morning light here is gorgeous for photos."
+      },
+      {
+        "placeId": "ChIJ_ATX_Kayak",
+        "name": "Texas Rowing Center Kayak Rental",
+        "address": "1541 W Cesar Chavez St, Austin, TX 78703",
+        "location": { "lat": 30.2701, "lng": -97.7597 },
+        "time": "9:15 AM",
+        "duration": 90,
+        "categories": ["Kayaking", "Outdoors"],
+        "rating": 4.5,
+        "activityDescription": "Rent a kayak or paddleboard and glide across the calm, no-wake waters of Lady Bird Lake. Watch turtles sunbathe on logs and herons fish along the shore."
+      },
+      {
+        "placeId": "ChIJ_ATX_BartonSprings",
+        "name": "Barton Springs Pool",
+        "address": "2201 Barton Springs Rd, Austin, TX 78746",
+        "location": { "lat": 30.2641, "lng": -97.7713 },
+        "time": "11:30 AM",
+        "duration": 75,
+        "categories": ["Swimming", "Nature"],
+        "rating": 4.7,
+        "activityDescription": "A spring-fed pool that stays 68°F year-round. Three acres of crystal-clear water surrounded by pecan trees. Austin's most beloved natural swimming hole — a true local treasure."
+      },
+      {
+        "placeId": "ChIJ_ATX_HulaHut",
+        "name": "Hula Hut",
+        "address": "3825 Lake Austin Blvd, Austin, TX 78703",
+        "location": { "lat": 30.2931, "lng": -97.7880 },
+        "time": "1:30 PM",
+        "duration": 75,
+        "categories": ["Restaurant", "Waterfront"],
+        "rating": 4.3,
+        "activityDescription": "A Polynesian-Tex-Mex fusion spot built over the water on Lake Austin. Sit on the deck with your feet practically in the lake. The fish tacos and frozen margaritas hit different here."
+      }
+    ],
+    "travelTimes": [
+      { "from": "Pfluger Pedestrian Bridge", "to": "Texas Rowing Center Kayak Rental", "durationMinutes": 8, "durationText": "8 min walk", "mode": "walking" },
+      { "from": "Texas Rowing Center Kayak Rental", "to": "Barton Springs Pool", "durationMinutes": 10, "durationText": "10 min walk", "mode": "walking" },
+      { "from": "Barton Springs Pool", "to": "Hula Hut", "durationMinutes": 12, "durationText": "12 min drive", "mode": "transit" }
+    ]
+  },
+  "paris/cafe-culture": {
+    "id": 90021,
+    "title": "Café Culture",
+    "description": "Always sit facing the street — it's the Parisian way. A café crème is the morning drink; espresso is for after lunch. Tipping isn't required but rounding up is polite.",
+    "query": "Café culture tour Paris best cafés",
+    "city": "paris",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJ_PAR_CafeFlore",
+        "name": "Café de Flore",
+        "address": "172 Bd Saint-Germain, 75006 Paris",
+        "location": { "lat": 48.8540, "lng": 2.3326 },
+        "time": "9:00 AM",
+        "duration": 60,
+        "categories": ["Café", "Historic"],
+        "rating": 4.3,
+        "activityDescription": "Where Sartre and de Beauvoir held court for decades. Order a café crème and a croissant at the same terrace where existentialism was born. The Art Deco interior hasn't changed since the 1930s."
+      },
+      {
+        "placeId": "ChIJ_PAR_CoutumeCafe",
+        "name": "Coutume Café",
+        "address": "47 Rue de Babylone, 75007 Paris",
+        "location": { "lat": 48.8513, "lng": 2.3190 },
+        "time": "10:30 AM",
+        "duration": 45,
+        "categories": ["Café", "Specialty Coffee"],
+        "rating": 4.5,
+        "activityDescription": "Paris's third-wave coffee pioneer. A bright, Scandinavian-style space serving perfectly extracted single-origins. The contrast with the classic cafés makes you appreciate both traditions."
+      },
+      {
+        "placeId": "ChIJ_PAR_CafePalette",
+        "name": "Café La Palette",
+        "address": "43 Rue de Seine, 75006 Paris",
+        "location": { "lat": 48.8548, "lng": 2.3371 },
+        "time": "12:00 PM",
+        "duration": 50,
+        "categories": ["Café", "Artists"],
+        "rating": 4.3,
+        "activityDescription": "An artist hangout since 1902, tucked between the galleries of Rue de Seine. Cézanne and Picasso once drank here. The zinc bar and painted tile murals are magnificent."
+      },
+      {
+        "placeId": "ChIJ_PAR_BootCafe",
+        "name": "Boot Café",
+        "address": "19 Rue du Pont aux Choux, 75003 Paris",
+        "location": { "lat": 48.8622, "lng": 2.3630 },
+        "time": "2:00 PM",
+        "duration": 40,
+        "categories": ["Café", "Specialty"],
+        "rating": 4.4,
+        "activityDescription": "A former cobbler's shop turned tiny specialty coffee bar in the Marais. Barely fits 6 people inside — grab your flat white and sit on the steps outside. Perfectly Parisian."
+      }
+    ],
+    "travelTimes": [
+      { "from": "Café de Flore", "to": "Coutume Café", "durationMinutes": 12, "durationText": "12 min walk", "mode": "walking" },
+      { "from": "Coutume Café", "to": "Café La Palette", "durationMinutes": 15, "durationText": "15 min walk", "mode": "walking" },
+      { "from": "Café La Palette", "to": "Boot Café", "durationMinutes": 15, "durationText": "15 min walk", "mode": "walking" }
+    ]
+  },
+  "paris/hidden-marais": {
+    "id": 90022,
+    "title": "Hidden Marais",
+    "description": "The Marais is best explored slowly. Most shops close on Sundays except along Rue des Rosiers (the Jewish quarter). Push open any heavy door — there's often a courtyard behind it.",
+    "query": "Hidden gems Le Marais Paris walking tour",
+    "city": "paris",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJ_PAR_PlaceVosges",
+        "name": "Place des Vosges & Hôtel de Sully",
+        "address": "Place des Vosges, 75004 Paris",
+        "location": { "lat": 48.8556, "lng": 2.3654 },
+        "time": "10:00 AM",
+        "duration": 45,
+        "categories": ["Historic", "Architecture"],
+        "rating": 4.7,
+        "activityDescription": "Paris's oldest planned square, built by Henri IV in 1612. Walk through the secret passage of Hôtel de Sully — push through the heavy door at #62 and emerge into the Renaissance courtyard."
+      },
+      {
+        "placeId": "ChIJ_PAR_AsDuFallafel",
+        "name": "L'As du Fallafel",
+        "address": "34 Rue des Rosiers, 75004 Paris",
+        "location": { "lat": 48.8572, "lng": 2.3586 },
+        "time": "11:15 AM",
+        "duration": 30,
+        "categories": ["Falafel", "Street Food"],
+        "rating": 4.5,
+        "activityDescription": "The legendary falafel of Rue des Rosiers. Order the 'spécial' — a pita overflowing with crispy falafel, aubergine, hummus, and tahini. Eat it standing up like a local."
+      },
+      {
+        "placeId": "ChIJ_PAR_MuseeCarnavalet",
+        "name": "Musée Carnavalet",
+        "address": "23 Rue de Sévigné, 75003 Paris",
+        "location": { "lat": 48.8575, "lng": 2.3625 },
+        "time": "12:15 PM",
+        "duration": 75,
+        "categories": ["Museum", "Free"],
+        "rating": 4.6,
+        "activityDescription": "Paris's history museum, completely free, housed in two Renaissance mansions. Proust's reconstructed bedroom, Revolutionary artefacts, and Roman-era boats from the Seine."
+      },
+      {
+        "placeId": "ChIJ_PAR_MerciConcept",
+        "name": "Merci Concept Store",
+        "address": "111 Bd Beaumarchais, 75003 Paris",
+        "location": { "lat": 48.8613, "lng": 2.3670 },
+        "time": "2:00 PM",
+        "duration": 45,
+        "categories": ["Shopping", "Design"],
+        "rating": 4.4,
+        "activityDescription": "Paris's most stylish concept store in a converted fabric factory. Three floors of curated fashion, homewares, and books. Their café in the basement uses library reading room as its theme."
+      },
+      {
+        "placeId": "ChIJ_PAR_CaveAManger",
+        "name": "Le Mary Celeste",
+        "address": "1 Rue Commines, 75003 Paris",
+        "location": { "lat": 48.8621, "lng": 2.3637 },
+        "time": "5:00 PM",
+        "duration": 60,
+        "categories": ["Wine Bar", "Oysters"],
+        "rating": 4.4,
+        "activityDescription": "End with natural wines and fresh oysters at this buzzy Marais wine bar. The bartenders' cocktails are equally excellent. Sit at the marble bar and watch the neighbourhood wind down."
+      }
+    ],
+    "travelTimes": [
+      { "from": "Place des Vosges & Hôtel de Sully", "to": "L'As du Fallafel", "durationMinutes": 5, "durationText": "5 min walk", "mode": "walking" },
+      { "from": "L'As du Fallafel", "to": "Musée Carnavalet", "durationMinutes": 4, "durationText": "4 min walk", "mode": "walking" },
+      { "from": "Musée Carnavalet", "to": "Merci Concept Store", "durationMinutes": 5, "durationText": "5 min walk", "mode": "walking" },
+      { "from": "Merci Concept Store", "to": "Le Mary Celeste", "durationMinutes": 3, "durationText": "3 min walk", "mode": "walking" }
+    ]
+  },
+  "paris/seine-sunset": {
+    "id": 90023,
+    "title": "Seine at Sunset",
+    "description": "Buy a bottle of wine from a caviste on the Left Bank and join the locals sitting along the quais at dusk. Check sunset time and start 3 hours before.",
+    "query": "Seine sunset walk Paris Notre-Dame to Eiffel Tower",
+    "city": "paris",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJ_PAR_NotreDame",
+        "name": "Île de la Cité",
+        "address": "Île de la Cité, 75004 Paris",
+        "location": { "lat": 48.8534, "lng": 2.3488 },
+        "time": "4:30 PM",
+        "duration": 30,
+        "categories": ["Scenic", "Historic"],
+        "rating": 4.8,
+        "activityDescription": "Start at the tip of the island behind Notre-Dame at Square du Vert-Galant, where the Seine splits in two. The oldest willow tree in Paris shades this romantic triangle of parkland."
+      },
+      {
+        "placeId": "ChIJ_PAR_Bouquinistes",
+        "name": "Left Bank Bouquinistes",
+        "address": "Quai de la Tournelle, 75005 Paris",
+        "location": { "lat": 48.8502, "lng": 2.3501 },
+        "time": "5:15 PM",
+        "duration": 40,
+        "categories": ["Culture", "Shopping"],
+        "rating": 4.3,
+        "activityDescription": "Browse the iconic green riverside bookstalls that have lined the Seine since the 16th century. Hunt for vintage prints, old maps, and secondhand books while the golden light builds."
+      },
+      {
+        "placeId": "ChIJ_PAR_PontAlexandre",
+        "name": "Pont Alexandre III",
+        "address": "Pont Alexandre III, 75008 Paris",
+        "location": { "lat": 48.8637, "lng": 2.3137 },
+        "time": "6:30 PM",
+        "duration": 20,
+        "categories": ["Bridge", "Photo Spot"],
+        "rating": 4.8,
+        "activityDescription": "Paris's most ornate bridge, dripping with gilded cherubs and Art Nouveau lampposts. Time your crossing for golden hour — the light on the gold is otherworldly."
+      },
+      {
+        "placeId": "ChIJ_PAR_Trocadero",
+        "name": "Trocadéro Esplanade",
+        "address": "Place du Trocadéro, 75016 Paris",
+        "location": { "lat": 48.8622, "lng": 2.2885 },
+        "time": "7:15 PM",
+        "duration": 45,
+        "categories": ["Viewpoint", "Iconic"],
+        "rating": 4.7,
+        "activityDescription": "The definitive Eiffel Tower sunset view from across the Jardins du Trocadéro. Watch the tower catch the last light, then sparkle on the hour after dark. Pure cinematic Paris."
+      }
+    ],
+    "travelTimes": [
+      { "from": "Île de la Cité", "to": "Left Bank Bouquinistes", "durationMinutes": 5, "durationText": "5 min walk", "mode": "walking" },
+      { "from": "Left Bank Bouquinistes", "to": "Pont Alexandre III", "durationMinutes": 25, "durationText": "25 min walk", "mode": "walking" },
+      { "from": "Pont Alexandre III", "to": "Trocadéro Esplanade", "durationMinutes": 18, "durationText": "18 min walk", "mode": "walking" }
+    ]
+  },
+  "paris/patisserie-trail": {
+    "id": 90024,
+    "title": "Pâtisserie Trail",
+    "description": "French pâtisseries sell out of popular items by afternoon. Visit the artisan shops before noon for the best selection. Small portions — this is a marathon, not a sprint.",
+    "query": "Best pâtisseries Paris pastry tour",
+    "city": "paris",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJ_PAR_DuPain",
+        "name": "Du Pain et des Idées",
+        "address": "34 Rue Yves Toudic, 75010 Paris",
+        "location": { "lat": 48.8712, "lng": 2.3617 },
+        "time": "8:30 AM",
+        "duration": 30,
+        "categories": ["Bakery", "Croissants"],
+        "rating": 4.7,
+        "activityDescription": "Christophe Vasseur's legendary bakery near Canal Saint-Martin. The pain des amis and the escargot pistache-chocolat are transcendent. Arrive when they open — the croissants sell out."
+      },
+      {
+        "placeId": "ChIJ_PAR_CedricGrolet",
+        "name": "Cédric Grolet Opéra",
+        "address": "35 Av de l'Opéra, 75002 Paris",
+        "location": { "lat": 48.8680, "lng": 2.3345 },
+        "time": "10:00 AM",
+        "duration": 40,
+        "categories": ["Pâtisserie", "Luxury"],
+        "rating": 4.4,
+        "activityDescription": "Sculpted fruit-shaped pastries that are almost too beautiful to eat. Each one is a masterpiece of trompe-l'oeil. The lemon and the hazelnut are works of art — literally."
+      },
+      {
+        "placeId": "ChIJ_PAR_EclairGenie",
+        "name": "L'Éclair de Génie",
+        "address": "14 Rue Pavée, 75004 Paris",
+        "location": { "lat": 48.8553, "lng": 2.3596 },
+        "time": "11:30 AM",
+        "duration": 30,
+        "categories": ["Pâtisserie", "Éclairs"],
+        "rating": 4.4,
+        "activityDescription": "Christophe Adam reinvented the humble éclair into jewel-like confections. The yuzu-passion fruit and the salted caramel are standouts. Each one is a glossy, architectural wonder."
+      },
+      {
+        "placeId": "ChIJ_PAR_PierreHerme",
+        "name": "Pierre Hermé",
+        "address": "72 Rue Bonaparte, 75006 Paris",
+        "location": { "lat": 48.8510, "lng": 2.3339 },
+        "time": "1:00 PM",
+        "duration": 30,
+        "categories": ["Pâtisserie", "Macarons"],
+        "rating": 4.6,
+        "activityDescription": "The 'Picasso of Pastry.' His Ispahan macaron (rose, lychee, raspberry) changed French pastry forever. Buy a box of macarons for the train home."
+      },
+      {
+        "placeId": "ChIJ_PAR_Angelina",
+        "name": "Angelina",
+        "address": "226 Rue de Rivoli, 75001 Paris",
+        "location": { "lat": 48.8647, "lng": 2.3289 },
+        "time": "2:30 PM",
+        "duration": 60,
+        "categories": ["Salon de Thé", "Classic"],
+        "rating": 4.3,
+        "activityDescription": "End in this Belle Époque salon de thé that's been serving Paris since 1903. Their Mont-Blanc (chestnut cream vermicelli over meringue) and legendary thick hot chocolate are the perfect finale."
+      }
+    ],
+    "travelTimes": [
+      { "from": "Du Pain et des Idées", "to": "Cédric Grolet Opéra", "durationMinutes": 15, "durationText": "15 min via métro", "mode": "transit" },
+      { "from": "Cédric Grolet Opéra", "to": "L'Éclair de Génie", "durationMinutes": 15, "durationText": "15 min walk", "mode": "walking" },
+      { "from": "L'Éclair de Génie", "to": "Pierre Hermé", "durationMinutes": 15, "durationText": "15 min walk", "mode": "walking" },
+      { "from": "Pierre Hermé", "to": "Angelina", "durationMinutes": 12, "durationText": "12 min walk", "mode": "walking" }
+    ]
+  },
+  "paris/montmartre-bohemian": {
+    "id": 90025,
+    "title": "Bohemian Montmartre",
+    "description": "Take the funicular up to Sacré-Cœur to save your legs for the backstreets. Avoid the portrait artists at Place du Tertre — walk the quieter streets behind instead.",
+    "query": "Bohemian Montmartre artistic walking tour Paris",
+    "city": "paris",
+    "created": "2026-03-01T10:00:00Z",
+    "venues": [
+      {
+        "placeId": "ChIJ_PAR_SacreCoeur",
+        "name": "Sacré-Cœur Basilica",
+        "address": "35 Rue du Chevalier de la Barre, 75018 Paris",
+        "location": { "lat": 48.8867, "lng": 2.3431 },
+        "time": "9:30 AM",
+        "duration": 45,
+        "categories": ["Landmark", "Viewpoint"],
+        "rating": 4.7,
+        "activityDescription": "Start at the top of the butte for the best panorama in Paris — on clear days you can see 50 kilometres. The white Romano-Byzantine basilica glows in the morning light."
+      },
+      {
+        "placeId": "ChIJ_PAR_MuseeMontmartre",
+        "name": "Musée de Montmartre",
+        "address": "12 Rue Cortot, 75018 Paris",
+        "location": { "lat": 48.8877, "lng": 2.3400 },
+        "time": "10:30 AM",
+        "duration": 60,
+        "categories": ["Museum", "Art"],
+        "rating": 4.5,
+        "activityDescription": "Renoir's former studio, now a museum of Montmartre's artistic golden age. The gardens overlook the last vineyard in Paris. Utrillo, Suzanne Valadon, and the cancan come alive here."
+      },
+      {
+        "placeId": "ChIJ_PAR_MaisonRose",
+        "name": "La Maison Rose",
+        "address": "2 Rue de l'Abreuvoir, 75018 Paris",
+        "location": { "lat": 48.8877, "lng": 2.3389 },
+        "time": "12:00 PM",
+        "duration": 60,
+        "categories": ["Restaurant", "Iconic"],
+        "rating": 4.2,
+        "activityDescription": "The pastel-pink restaurant on the corner of Rue de l'Abreuvoir — one of the most photographed buildings in Paris. Have lunch on the terrace overlooking the cobbled lane."
+      },
+      {
+        "placeId": "ChIJ_PAR_RueAbbesses",
+        "name": "Place des Abbesses & Le Mur des Je t'aime",
+        "address": "Place des Abbesses, 75018 Paris",
+        "location": { "lat": 48.8843, "lng": 2.3385 },
+        "time": "1:30 PM",
+        "duration": 45,
+        "categories": ["Culture", "Romance"],
+        "rating": 4.5,
+        "activityDescription": "End at the charming village square. Visit the 'Wall of Love' — 311 tiles with 'I love you' written in 250 languages. Browse the independent boutiques and have a final glass of wine."
+      }
+    ],
+    "travelTimes": [
+      { "from": "Sacré-Cœur Basilica", "to": "Musée de Montmartre", "durationMinutes": 5, "durationText": "5 min walk", "mode": "walking" },
+      { "from": "Musée de Montmartre", "to": "La Maison Rose", "durationMinutes": 2, "durationText": "2 min walk", "mode": "walking" },
+      { "from": "La Maison Rose", "to": "Place des Abbesses & Le Mur des Je t'aime", "durationMinutes": 8, "durationText": "8 min walk", "mode": "walking" }
+    ]
+  }
+}

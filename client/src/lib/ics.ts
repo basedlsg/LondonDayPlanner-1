@@ -9,7 +9,9 @@ export function generateICS(itinerary: Itinerary): void {
     "CALSCALE:GREGORIAN",
   ];
 
-  itinerary.places.forEach((place) => {
+  const places = Array.isArray(itinerary.places) ? itinerary.places : [];
+
+  places.forEach((place: (typeof places)[number]) => {
     if (!place.scheduledTime) return;
 
     const startTime = new Date(place.scheduledTime);

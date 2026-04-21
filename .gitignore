@@ -31,4 +31,32 @@ debug_screen*.png
 
 # Xcode user state
 *.xcuserstate
+*.xcworkspace
+xcuserdata/
 .env*.local
+
+# Agent and tool configurations
+.agents/
+.claude/
+.aidesigner/
+.mcp.json
+.vercelignore
+
+# Local logs and backups
+app_store_reply.txt
+Plan-Fix-Plan
+VIDEO_OVERHAUL_LOG.md
+ios-native/build_debug.log
+
+# Build outputs and temporary folders
+ios-native/build/
+ios-native/.build_xcode/
+ios-native/artifacts/
+out/
+yc-demo-hyperframes/
+
+# Large media files
+public/*.mp4
+*.mp4
+*.mov
+AppStore_Screenshots_Final/
